@@ -3,8 +3,9 @@
     package="com.example.myapp2"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
@@ -25,18 +26,22 @@
         <activity
             android:name=".step1"
             android:label="@string/title_activity_step1"
-            android:parentActivityName="com.example.myapp2.MainActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-            <activity
+        <activity
             android:name=".minarSidur"
             android:label="@string/title_activity_minarSidur"
-            android:parentActivityName="com.example.myapp2.MainActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Step2"
+            android:label="@string/title_activity_step2" >
         </activity>
     </application>
 

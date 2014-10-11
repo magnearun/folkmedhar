@@ -41,10 +41,9 @@ public class minarSidur extends Activity {
     		try{
     			json = jsonArray.getJSONObject(i);
     			s= s+ 
-    					"Kennitala : "+json.getString("kennitala")+"\n"+"Starfsmaður: "+json.getString("starfsmadur")+"\n"+
-    					"Byrjar : "+json.getString("startTime")+"\n"+
-    					"Endar : "+json.getString("endTime")+"\n"+
-    					"Dagsetning : "+json.getString("dagsetning")+"\n\n";
+    					"Kennitala : "+json.getString("kt")+"\n"+"Starfsmaður: "+json.getString("staff_id")+"\n"+
+    					"Byrjar : "+json.getString("startDate")+"\n"+
+    					"Endar : "+json.getString("endDate")+"\n\n";
     			
     		}catch(JSONException e){
     			e.printStackTrace();
