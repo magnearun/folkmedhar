@@ -12,8 +12,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -26,7 +25,7 @@
         <activity
             android:name=".step1"
             android:label="@string/title_activity_step1"
-            android:parentActivityName="com.example.myfirstapp2.MainActivity" >
+            android:parentActivityName="com.example.myapp2.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -34,7 +33,7 @@
             <activity
             android:name=".minarSidur"
             android:label="@string/title_activity_minarSidur"
-            android:parentActivityName="com.example.myfirstapp2.MainActivity" >
+            android:parentActivityName="com.example.myapp2.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
