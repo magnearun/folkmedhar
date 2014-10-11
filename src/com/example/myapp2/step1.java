@@ -29,7 +29,7 @@ public class step1 extends Activity {
 	JSONParser jsonParser = new JSONParser();
 	
 	// url til ap panta tíma panta.php
-	private static String url_panta_tima = "http://prufa2.freeiz.com/panta.php";
+	private static String url_panta_tima = "http://prufa2.freeiz.com/pantatima.php";
 		
     @Override
     protected void onCreate(Bundle savedInstanceState) {
