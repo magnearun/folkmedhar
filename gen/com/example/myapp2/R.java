@@ -10,6 +10,7 @@ package com.example.myapp2;
 public final class R {
     public static final class array {
         public static final int adgerd_array=0x7f060001;
+        public static final int harlengd_array=0x7f060002;
         public static final int starfsmenn_array=0x7f060000;
     }
     public static final class attr {
@@ -75,39 +76,40 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
-        public static final int adgerd_prompt=0x7f050014;
+        public static final int adgerd_prompt=0x7f050009;
         /**  activity_mitt_svaedi.xml 
          */
-        public static final int allar_pantanir=0x7f050011;
+        public static final int allar_pantanir=0x7f050014;
         public static final int app_name=0x7f050000;
+        public static final int harlengd_prompt=0x7f05000a;
         public static final int hello_world=0x7f050002;
         public static final int kt_hint=0x7f050005;
         public static final int mittSvaedi=0x7f050007;
-        public static final int opnunartimi=0x7f05000e;
+        public static final int opnunartimi=0x7f050011;
         public static final int panta=0x7f050006;
-        public static final int sidasta_pontun=0x7f050012;
-        public static final int stadsetning=0x7f05000d;
-        public static final int staff=0x7f05000f;
-        public static final int starfsmenn_prompt=0x7f050013;
+        public static final int sidasta_pontun=0x7f050015;
+        public static final int stadsetning=0x7f050010;
+        public static final int staff=0x7f050012;
+        public static final int starfsmenn_prompt=0x7f050008;
         /**  activity_allar_pantanir.xml 
          */
-        public static final int title_activity_allar_pantanir=0x7f05000b;
+        public static final int title_activity_allar_pantanir=0x7f05000e;
         public static final int title_activity_base=0x7f050003;
         /**  activity_mitt_svaedi.xml 
          */
-        public static final int title_activity_mitt_svaedi=0x7f05000a;
+        public static final int title_activity_mitt_svaedi=0x7f05000d;
         /**  activity_sidasta_pontun.xml 
          */
-        public static final int title_activity_sidasta_pontun=0x7f050009;
-        public static final int title_activity_starfsfolk=0x7f050010;
+        public static final int title_activity_sidasta_pontun=0x7f05000c;
+        public static final int title_activity_starfsfolk=0x7f050013;
         /**  activity_skref1.xml 
          */
         public static final int title_activity_step1=0x7f050004;
         /**  activity_skref2.xml 
          */
-        public static final int title_activity_step2=0x7f050008;
+        public static final int title_activity_step2=0x7f05000b;
         /**  activity_um_stofuna.xml 
          */
-        public static final int title_activity_um_stofuna=0x7f05000c;
+        public static final int title_activity_um_stofuna=0x7f05000f;
     }
 }

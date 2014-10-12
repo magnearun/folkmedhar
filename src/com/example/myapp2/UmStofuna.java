@@ -14,7 +14,7 @@ import android.widget.Button;
 
 
 public class UmStofuna extends BaseActivity {
-
+	private int g;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
