@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.myapp2.Sidasta_pontun" >
+
+    <item
+        android:id="@+id/action_sidasta"
+        android:orderInCategory="100"
+        android:title="Síðasta pöntun"/>
+    
+    <item
+        android:id="@+id/action_allar"
+        android:orderInCategory="100"
+        android:title="Allar pantanir"/>
+
+</menu>

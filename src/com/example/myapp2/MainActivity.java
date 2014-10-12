@@ -1,58 +1,76 @@
+/**
+ * @author: Jón Jónsson
+ * @since: 30.09.2014
+ * Klasinn sem ......
+ */
+
 package com.example.myapp2;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.example.myapp2.ApiConnector;
-
-
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.PopupMenu;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
 
-	private Button panta;
-	private Button minarSidur;
+	private Button buttonPantaTima;
+	private Button buttonMittSvaedi;
+	
+	private Intent[] intents = new Intent[3];
+
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        
-        this.panta = (Button) this.findViewById(R.id.panta);
-        panta.setOnClickListener(new View.OnClickListener() {
+        this.buttonPantaTima = (Button) this.findViewById(R.id.panta);
+        buttonPantaTima.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                panta();
+            	startActivity(intents[2]);;
             }
         });
         
-        this.minarSidur = (Button) this.findViewById(R.id.minarSidur);
-       minarSidur.setOnClickListener(new View.OnClickListener() {
+        this.buttonMittSvaedi = (Button) this.findViewById(R.id.mittSvaedi);
+        buttonMittSvaedi.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                minarSidur();
+                mittSvaediPopup(v);
             }
         });
+        
+		intents[0] = new Intent(this, SidastaPontun.class);
+		intents[1] = new Intent(this, AllarPantanir.class);
+		intents[2] = new Intent(this, Skref1.class);
 
     }
-     
-    public void panta(){
-    	 Intent intent = new Intent(this, step1.class);
-         startActivity(intent);	
-    }
-    public void minarSidur(){
-   	 Intent intent = new Intent(this, minarSidur.class);
-        startActivity(intent);	
-   }
     
     
+    // Eva
+    public void mittSvaediPopup(View v){
+    	
+    	PopupMenu popupMenu = new PopupMenu(this, v);
+    	popupMenu.getMenuInflater().inflate(R.menu.sidasta_pontun, popupMenu.getMenu());
+    	popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+    		
+    		@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				switch (item.getItemId()) {
+		        case R.id.action_sidasta:
+		        	startActivity(intents[0]); //activity_sidasta_pontun
+		            return true;
+		        case R.id.action_allar:
+		        	startActivity(intents[1]); //activity_allar_pantanir
+		            return true;
+		        default:
+		            return false;
+				}
+			}
+		});
+    	popupMenu.show();
+   }   
 }

@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">myApp2</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Fólk með hár</string>
     <string name="action_settings">Settings</string>
-    <string name="new_text">New Text</string>
-    <string name="title_activity_step1">Skref 1</string>
-    <string name="title_activity_minarSidur">Mínar Síður</string>
-    <string name="panta">Panta</string>
-    <string name="title_activity_step2">Step2</string>
+    <string name="hello_world">Hello world</string>
+    <string name="title_activity_base">Base Activity</string>
+
+    <!-- activity_skref1.xml -->
+    <string name="title_activity_step1">Skref 1 af 3</string>
+    <string name="kt_hint">2212902169</string>
+    <string name="panta">Panta tíma</string>
+    <string name="mittSvaedi">Mitt svæði</string>
+
+    <!-- activity_skref2.xml -->
+    <string name="title_activity_step2">Skref 2 af 3</string>
+
+    <!-- activity_sidasta_pontun.xml -->
+    <string name="title_activity_sidasta_pontun">Síðasta pöntun</string>
+
+    <!-- activity_mitt_svaedi.xml -->
+    <string name="title_activity_mitt_svaedi">Mitt Svæði</string>
+
+    <!-- activity_allar_pantanir.xml -->
+    <string name="title_activity_allar_pantanir">Allar pantanir</string>
+
+    <!-- activity_um_stofuna.xml -->
+    <string name="title_activity_um_stofuna">Um Stofuna</string>
+    <string name="stadsetning">Fólk með hár er staðsettt á
+        Brávallagötu 14, 101 Reykjavík</string>
+    <string name="opnunartimi">Opið alla virka daga frá 9 til 18 </string>
+    <string name="staff">Starfsfólk</string>
+    <string name="title_activity_starfsfolk">Starfsfólk</string>
+    
+    <!-- activity_mitt_svaedi.xml -->
+    <string name="allar_pantanir">Allar pantanir</string>
+    <string name="sidasta_pontun">Síðasta pöntun</string>
 
 </resources>

@@ -8,26 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.myapp2.MainActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_text"
-        android:id="@+id/responseTextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="60dp"
-        android:textAlignment="center" />
-
-    <Button
-        android:id="@+id/minarSidur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/panta"
-        android:layout_alignRight="@+id/panta"
-        android:layout_marginBottom="36dp"
-        android:text="Mínar Síður" />
-
     <Button
         android:id="@+id/panta"
         android:layout_width="wrap_content"
@@ -35,15 +15,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="128dp"
-        android:text="Panta tíma" />
-    
+        android:text="@string/panta" />
+
     <Button
-        android:id="@+id/step2"
+        android:id="@+id/mittSvaedi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="yolo" />
+        android:layout_above="@+id/panta"
+        android:layout_alignRight="@+id/panta"
+        android:layout_marginBottom="36dp"
+        android:text="@string/mittSvaedi"/>
+
+
 
 </RelativeLayout>
