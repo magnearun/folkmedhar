@@ -41,7 +41,8 @@
     </string-array>
 
     <!-- activity_skref2.xml -->
-    <string name="title_activity_step2">Skref 2 af 3</string>
+    <string name="title_activity_skref2">Skref 2 af 3</string>
+    <string name="pick_date">Veldu dag</string>
 
     <!-- activity_sidasta_pontun.xml -->
     <string name="title_activity_sidasta_pontun">Síðasta pöntun</string>
@@ -63,9 +64,9 @@
     <!-- activity_mitt_svaedi.xml -->
     <string name="allar_pantanir">Allar pantanir</string>
     <string name="sidasta_pontun">Síðasta pöntun</string>
-    <string name="title_activity_skref3">Skref3</string>
-    
-     <!-- activity_skref3.xml -->
+
+    <!-- activity_skref3.xml -->
+    <string name="title_activity_skref3">Skref 3 af 3</string>
     <string name="textview_Skref3_nafn">Nafn:</string>
     <string name="textview_Skref3_simi">Símanúmer:</string>
     <string name="textview_Skref3_starfsmadur">Starfsmaður:</string>
