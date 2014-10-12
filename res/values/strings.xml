@@ -12,6 +12,7 @@
     <string name="panta">Panta tíma</string>
     <string name="mittSvaedi">Mitt svæði</string>
     <string name="starfsmenn_prompt">Veldu starfsmann</string>
+
     <string-array name="starfsmenn_array">
         <item>Bambi</item>
         <item>Perla</item>
@@ -21,14 +22,18 @@
         <item>Birkir</item>
         <item>Dagný</item>
     </string-array>
-	<string name="adgerd_prompt">Veldu aðgerð</string>
+
+    <string name="adgerd_prompt">Veldu aðgerð</string>
+
     <string-array name="adgerd_array">
         <item>Herraklipping</item>
         <item>Dömuklipping</item>
         <item>Litun</item>
         <item>Litun og strípur</item>
     </string-array>
+
     <string name="harlengd_prompt">Veldu hárlengd</string>
+
     <string-array name="harlengd_array">
         <item>Stutt</item>
         <item>Millisítt</item>
@@ -54,9 +59,21 @@
     <string name="opnunartimi">Opið alla virka daga frá 9 til 18 </string>
     <string name="staff">Starfsfólk</string>
     <string name="title_activity_starfsfolk">Starfsfólk</string>
-    
+
     <!-- activity_mitt_svaedi.xml -->
     <string name="allar_pantanir">Allar pantanir</string>
     <string name="sidasta_pontun">Síðasta pöntun</string>
+    <string name="title_activity_skref3">Skref3</string>
     
+     <!-- activity_skref3.xml -->
+    <string name="textview_Skref3_nafn">Nafn:</string>
+    <string name="textview_Skref3_simi">Símanúmer:</string>
+    <string name="textview_Skref3_starfsmadur">Starfsmaður:</string>
+    <string name="textview_Skref3_adgerd">Aðgerð:</string>
+    <string name="textview_Skref3_harlengd">Hárlengd:</string>
+    <string name="textview_Skref3_dagsetning">Dagsetning:</string>
+    <string name="textview_Skref3_timi">Tími:</string>
+    <string name="button_Skref3_tilBaka">Til Baka</string>
+    <string name="button_Skref3_stadfesta">Staðfesta</string>
+
 </resources>

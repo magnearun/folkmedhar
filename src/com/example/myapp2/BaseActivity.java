@@ -13,8 +13,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class BaseActivity extends Activity {
-	
-	public Intent[] intents = new Intent[5];
+	public static String nafn;
+	public static String simi;
+	public static String staff_id;
+	public static String adgerd;
+	public static String harlengd;
+	public static String date;
+	public static String time;
+	public Intent[] intents = new Intent[6];
 	
 
 	@Override
@@ -22,11 +28,19 @@ public class BaseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_base);
 		
+		nafn= "Jón Jónsson"; 
+		simi= "846-1392";
+		staff_id = "";
+		adgerd = "";
+		harlengd = "";
+    	date= "19.09.14";
+    	time = "19:00";
 		intents[0] = new Intent(this, Skref1.class);
         intents[1] = new Intent(this, MittSvaedi.class);
 		intents[2] = new Intent(this, UmStofuna.class);
 		intents[3] = new Intent(this, SidastaPontun.class);
 		intents[4] = new Intent(this, AllarPantanir.class);
+		intents[5] = new Intent(this, Skref3.class);
 	}
 
 	 // Eftir: Búið er að bæta viðeigandi aðgerðum á aðgerðaskrá

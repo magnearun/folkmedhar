@@ -139,6 +139,10 @@ public class Skref1 extends BaseActivity {
 				@Override
 				public void onClick(View view) {
 					// creating new product in background thread
+					BaseActivity.staff_id = velja_starfsmann.getSelectedItem().toString();;
+					BaseActivity.adgerd = velja_adgerd.getSelectedItem().toString();;
+					BaseActivity.harlengd = velja_harlengd.getSelectedItem().toString();;
+					startActivity(intents[5]);;
 					new afram().execute();
 				}
 			});
