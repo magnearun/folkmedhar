@@ -11,6 +11,29 @@
     <string name="kt_hint">2212902169</string>
     <string name="panta">Panta tíma</string>
     <string name="mittSvaedi">Mitt svæði</string>
+    <string name="starfsmenn_prompt">Veldu starfsmann</string>
+    <string-array name="starfsmenn_array">
+        <item>Bambi</item>
+        <item>Perla</item>
+        <item>Oddur</item>
+        <item>Magnea</item>
+        <item>Eva</item>
+        <item>Birkir</item>
+        <item>Dagný</item>
+    </string-array>
+	<string name="adgerd_prompt">Veldu aðgerð</string>
+    <string-array name="adgerd_array">
+        <item>Herraklipping</item>
+        <item>Dömuklipping</item>
+        <item>Litun</item>
+        <item>Litun og strípur</item>
+    </string-array>
+    <string name="harlengd_prompt">Veldu hárlengd</string>
+    <string-array name="harlengd_array">
+        <item>Stutt</item>
+        <item>Millisítt</item>
+        <item>Sítt</item>
+    </string-array>
 
     <!-- activity_skref2.xml -->
     <string name="title_activity_step2">Skref 2 af 3</string>
@@ -35,23 +58,5 @@
     <!-- activity_mitt_svaedi.xml -->
     <string name="allar_pantanir">Allar pantanir</string>
     <string name="sidasta_pontun">Síðasta pöntun</string>
-	
-     <string name="starfsmenn_prompt">Veldu starfsmann</string>
-    <string-array name="starfsmenn_array">
-        <item>Bambi</item>
-        <item>Perla</item>
-        <item>Oddur</item>
-        <item>Magnea</item>
-        <item>Eva</item>
-        <item>Birkir</item>
-        <item>Dagný</item>
-    </string-array>
-	<string name="adgerd_prompt">Veldu aðgerð</string>
-    <string-array name="adgerd_array">
-        <item>Herraklipping</item>
-        <item>Dömuklipping</item>
-        <item>Litun</item>
-        <item>Litun og strípur</item>
-    </string-array>
     
 </resources>

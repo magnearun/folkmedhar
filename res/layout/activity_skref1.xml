@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="77dp"
         android:ems="10"
-        android:hint="221290-2169" >
+        android:hint="@string/kt_hint" >
 
         <requestFocus />
     </EditText>
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/kennitala"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="165dp"
         android:text="@string/panta" />
 	
     <!-- Velja starfsmann -->
@@ -45,5 +45,16 @@
          android:layout_below="@+id/starfsmenn"
          android:entries="@array/adgerd_array"
          android:prompt="@string/adgerd_prompt" />
+     
+      <!-- Velja hárlengd -->
+
+     <Spinner
+         android:id="@+id/harlengd"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/adgerd"
+         android:entries="@array/harlengd_array"
+         android:prompt="@string/harlengd_prompt" />
 
 </RelativeLayout>

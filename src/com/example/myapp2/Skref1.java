@@ -15,13 +15,13 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Skref1 extends BaseActivity {
@@ -34,6 +34,7 @@ public class Skref1 extends BaseActivity {
 		EditText kennitala;
 		Spinner velja_starfsmann;
 		Spinner velja_adgerd;
+		Spinner velja_harlengd;
 		
 		// Progress Dialog
 		private ProgressDialog pDialog;
@@ -50,6 +51,7 @@ public class Skref1 extends BaseActivity {
 	        kennitala = (EditText) findViewById(R.id.kennitala);
 	        velja_starfsmann = (Spinner) findViewById(R.id.starfsmenn);
 	        velja_adgerd = (Spinner) findViewById(R.id.adgerd);
+	        velja_harlengd = (Spinner) findViewById(R.id.harlengd);
 	        
 	        // Starfsmenn Item Selected Listener
 	        velja_starfsmann.setOnItemSelectedListener(new OnItemSelectedListener() {
