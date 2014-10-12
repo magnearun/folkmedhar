@@ -30,15 +30,16 @@ public class AllarPantanir extends BaseActivity {
 	String kt = "2212902169";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_PRODUCT = "product";
+	
 	// Progress Dialog
 	private ProgressDialog pDialog;
-	String s;
+	String s = "";
 	
 	// JSON parser class
 	JSONParser jsonParser = new JSONParser();
 	
 	// single product url
-		private static final String url_minar_sidur = "http://prufa2.freeiz.com/minarSidur2.php";
+	private static final String url_minar_sidur = "http://prufa2.freeiz.com/minarSidur2.php";
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class AllarPantanir extends BaseActivity {
         this.responseTextView.setMovementMethod(new ScrollingMovementMethod());
      
         
-        new afram().execute();
+        new BirtaPantanir().execute();
     }
      
   
@@ -58,7 +59,7 @@ public class AllarPantanir extends BaseActivity {
     /**
 	 * Background Async Task
 	 * */
-	class afram extends AsyncTask<String, String, String> {
+	class BirtaPantanir extends AsyncTask<String, String, String> {
 
 		private  String TAG_SUCCESS = null;
 
@@ -69,7 +70,7 @@ public class AllarPantanir extends BaseActivity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(AllarPantanir.this);
-			pDialog.setMessage("Creating Product..");
+			pDialog.setMessage("Sæki pantanir..");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
 			pDialog.show();
@@ -96,11 +97,18 @@ public class AllarPantanir extends BaseActivity {
 				
 					JSONArray p = json.getJSONArray("pantanir");
 					JSONArray pantanir = p.getJSONArray(0);
-					JSONObject pontun = pantanir.getJSONObject(0);
-					JSONObject pontun2 = pantanir.getJSONObject(1);
-					s = pontun.getString("kt");
+					for(int i = 0; i < pantanir.length(); i++){
+						JSONObject pontun = pantanir.getJSONObject(i);
+						s = s + pontun.getString("nafn") + "\n"
+							+ pontun.getString("kt") + "\n"
+							+ pontun.getString("adgerd") + "\n"
+							+ pontun.getString("startDate") + "\n"
+							+ pontun.getString("endDate") + "\n\n"
+							;
 					}
-				} catch (JSONException e) {
+					
+				}
+			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -119,7 +127,7 @@ public class AllarPantanir extends BaseActivity {
 	}
 	
 		 public void setText(){
-			responseTextView.setText(s);	
+			responseTextView.setText("Þínar pantanir: \n\n" + s);	
 	     }
 
     

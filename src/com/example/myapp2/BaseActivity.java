@@ -29,7 +29,7 @@ public class BaseActivity extends Activity {
 		intents[4] = new Intent(this, AllarPantanir.class);
 	}
 
-	// Eftir: Búið er að bæta viðeigandi aðgerðum á aðgerðaskrá
+	 // Eftir: Búið er að bæta viðeigandi aðgerðum á aðgerðaskrá
 	 @Override
 	 public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
