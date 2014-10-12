@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="17"
         android:targetSdkVersion="21" />
 
     <application
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".step1"
+            android:name=".Skref1"
             android:label="@string/title_activity_step1"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -32,16 +32,32 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".minarSidur"
-            android:label="@string/title_activity_minarSidur"
+            android:name=".AllarPantanir"
+            android:label="@string/title_activity_allar_pantanir"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".Step2"
-            android:label="@string/title_activity_step2" >
+            android:name=".SidastaPontun"
+            android:label="@string/title_activity_sidasta_pontun" >
+        </activity>
+        <activity
+            android:name=".MittSvaedi"
+            android:label="@string/title_activity_mitt_svaedi" >
+        </activity>
+        <activity
+            android:name=".UmStofuna"
+            android:label="@string/title_activity_um_stofuna" >
+        </activity>
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base" >
+        </activity>
+        <activity
+            android:name=".Starfsfolk"
+            android:label="@string/title_activity_starfsfolk" >
         </activity>
     </application>
 

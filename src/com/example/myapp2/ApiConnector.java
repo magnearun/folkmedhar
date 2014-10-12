@@ -1,4 +1,10 @@
- package com.example.myapp2;
+/**
+ * @author: J—n J—nsson
+ * @since: 30.09.2014
+ * Klasinn sem ......
+ */
+
+package com.example.myapp2;
 
 import java.io.IOException;
 
@@ -15,9 +21,10 @@ import android.util.Log;
 
 public class ApiConnector {
 
-	public JSONArray GetAllCustomers()
+	// Magnea
+	public JSONArray getAllCustomers()
 	{
-		String url = "http://prufa2.freeiz.com/getAllCostomers.php";
+		String url = "http://prufa2.freeiz.com/minarSidur.php";
 		
 		HttpEntity httpEntity = null;
 		

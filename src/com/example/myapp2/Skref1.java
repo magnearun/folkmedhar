@@ -1,3 +1,9 @@
+/**
+ * @author: Jón Jónsson
+ * @since: 30.09.2014
+ * Klasinn sem ......
+ */
+
 package com.example.myapp2;
 
 import java.util.ArrayList;
@@ -6,41 +12,34 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 
-// Skref 1 
-public class step1 extends Activity {
+public class Skref1 extends BaseActivity {
 
 	EditText kennitala;
 	
-	// Progress Dialog
 	private ProgressDialog pDialog;
 	JSONParser jsonParser = new JSONParser();
 	
-	// url til ap panta tíma panta.php
 	private static String url_panta_tima = "http://prufa2.freeiz.com/pantatima.php";
 		
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.step1);
+        setContentView(R.layout.activity_skref1);
         
         kennitala = (EditText) findViewById(R.id.kennitala);
         
-       // Áfram takki kallar á activity "step 2"
-        Button afram = (Button) findViewById(R.id.afram);
-        afram.setOnClickListener(new View.OnClickListener() {
+       // Áfram takki kallar á activity "skref 2"
+        Button buttonAfram = (Button) findViewById(R.id.afram);
+        buttonAfram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
@@ -64,7 +63,7 @@ public class step1 extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(step1.this);
+			pDialog = new ProgressDialog(Skref1.this);
 			pDialog.setMessage("Creating Product..");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);

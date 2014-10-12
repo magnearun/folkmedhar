@@ -1,3 +1,9 @@
+/**
+ * @author: J—n J—nsson
+ * @since: 30.09.2014
+ * Klasinn sem ......
+ */
+
 package com.example.myapp2;
 
 import java.io.BufferedReader;
@@ -21,6 +27,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+
 public class JSONParser {
 
 	static InputStream is = null;
@@ -34,6 +41,8 @@ public class JSONParser {
 
 	// function get json from url
 	// by making HTTP POST or GET mehtod
+	
+	// Magnea
 	public JSONObject makeHttpRequest(String url, String method,
 			List<NameValuePair> params) {
 
