@@ -38,12 +38,15 @@
         android:text="Panta tíma" />
     
     <Button
-        android:id="@+id/step2"
+        android:id="@+id/step3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:text="yolo" />
+        android:text="Yolo"
+        android:onClick="step3" />
+    
+   
 
 </RelativeLayout>

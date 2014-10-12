@@ -20,13 +20,22 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-
+	public static String nameOfClient;
+	public static String telephoneClient;
+	public static String employeeName;
+	public static String type;
+	public static String height;
+	public static String date;
+	public static String time;
 	private Button panta;
 	private Button minarSidur;
+	private Button step3;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         
         
         this.panta = (Button) this.findViewById(R.id.panta);
@@ -42,6 +51,7 @@ public class MainActivity extends Activity {
                 minarSidur();
             }
         });
+      
 
     }
      
@@ -54,5 +64,16 @@ public class MainActivity extends Activity {
         startActivity(intent);	
    }
     
+    public void step3(View view){
+      	 Intent intent = new Intent(this, Step3.class);
+      	 nameOfClient= "Jón Jónsson";
+      	 telephoneClient= "846-1392";
+      	 employeeName= "Bambi";
+      	 type= "Herraklipping";
+     	 height= "Sítt";
+     	 date= "19.09.14";
+     	 time = "19:00";
+           startActivity(intent);	
+      }
     
 }

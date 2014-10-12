@@ -8,6 +8,15 @@
     <string name="title_activity_step1">Skref 1</string>
     <string name="title_activity_minarSidur">Mínar Síður</string>
     <string name="panta">Panta</string>
-    <string name="title_activity_step2">Step2</string>
+    <string name="title_activity_step3">step3</string>
+    <string name="name">Nafn:</string>
+    <string name="telephone">Símanúmer:</string>
+    <string name="employee">Starfsmaður:</string>
+    <string name="type">Aðgerð:</string>
+    <string name="height">Hárlengd:</string>
+    <string name="date">Dagsetning:</string>
+    <string name="time">Tími:</string>
+    <string name="tilBaka">Til Baka</string>
+    <string name="confirm">Staðfesta</string>
 
 </resources>
