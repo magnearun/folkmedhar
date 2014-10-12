@@ -59,6 +59,10 @@
             android:name=".Starfsfolk"
             android:label="@string/title_activity_starfsfolk" >
         </activity>
+        <activity
+            android:name=".Skref3"
+            android:label="@string/title_activity_skref3" >
+        </activity>
     </application>
 
 </manifest>
