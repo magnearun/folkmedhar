@@ -8,6 +8,10 @@
 package com.example.myapp2;
 
 public final class R {
+    public static final class array {
+        public static final int adgerd_array=0x7f060001;
+        public static final int starfsmenn_array=0x7f060000;
+    }
     public static final class attr {
     }
     public static final class dimen {
@@ -28,23 +32,25 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f070005;
-        public static final int about=0x7f07000d;
-        public static final int action_allar=0x7f070010;
-        public static final int action_settings=0x7f07000b;
-        public static final int action_sidasta=0x7f07000f;
-        public static final int afram=0x7f070007;
-        public static final int allar_pantanir=0x7f070004;
-        public static final int kennitala=0x7f070006;
-        public static final int logout=0x7f07000e;
-        public static final int mittSvaedi=0x7f070002;
-        public static final int mitt_svaedi=0x7f07000c;
-        public static final int opnunartimi=0x7f070009;
-        public static final int panta=0x7f070001;
-        public static final int responseTextView=0x7f070000;
-        public static final int sidasta_pontun=0x7f070003;
-        public static final int stadsetning=0x7f070008;
-        public static final int staff=0x7f07000a;
+        public static final int RelativeLayout1=0x7f080005;
+        public static final int about=0x7f08000f;
+        public static final int action_allar=0x7f080012;
+        public static final int action_settings=0x7f08000d;
+        public static final int action_sidasta=0x7f080011;
+        public static final int adgerd=0x7f080009;
+        public static final int afram=0x7f080007;
+        public static final int allar_pantanir=0x7f080004;
+        public static final int kennitala=0x7f080006;
+        public static final int logout=0x7f080010;
+        public static final int mittSvaedi=0x7f080002;
+        public static final int mitt_svaedi=0x7f08000e;
+        public static final int opnunartimi=0x7f08000b;
+        public static final int panta=0x7f080001;
+        public static final int responseTextView=0x7f080000;
+        public static final int sidasta_pontun=0x7f080003;
+        public static final int stadsetning=0x7f08000a;
+        public static final int staff=0x7f08000c;
+        public static final int starfsmenn=0x7f080008;
     }
     public static final class layout {
         public static final int activity_allar_pantanir=0x7f030000;
@@ -58,16 +64,17 @@ public final class R {
         public static final int activity_um_stofuna=0x7f030008;
     }
     public static final class menu {
-        public static final int base=0x7f060000;
-        public static final int main=0x7f060001;
-        public static final int mitt_svaedi=0x7f060002;
-        public static final int sidasta_pontun=0x7f060003;
-        public static final int starfsfolk=0x7f060004;
-        public static final int step2=0x7f060005;
-        public static final int um_stofuna=0x7f060006;
+        public static final int base=0x7f070000;
+        public static final int main=0x7f070001;
+        public static final int mitt_svaedi=0x7f070002;
+        public static final int sidasta_pontun=0x7f070003;
+        public static final int starfsfolk=0x7f070004;
+        public static final int step2=0x7f070005;
+        public static final int um_stofuna=0x7f070006;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
+        public static final int adgerd_prompt=0x7f050014;
         /**  activity_mitt_svaedi.xml 
          */
         public static final int allar_pantanir=0x7f050011;
@@ -80,6 +87,7 @@ public final class R {
         public static final int sidasta_pontun=0x7f050012;
         public static final int stadsetning=0x7f05000d;
         public static final int staff=0x7f05000f;
+        public static final int starfsmenn_prompt=0x7f050013;
         /**  activity_allar_pantanir.xml 
          */
         public static final int title_activity_allar_pantanir=0x7f05000b;
