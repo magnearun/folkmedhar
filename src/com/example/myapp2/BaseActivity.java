@@ -14,7 +14,8 @@ import android.view.MenuItem;
 
 public class BaseActivity extends Activity {
 	
-	private Intent[] intents = new Intent[5];
+	public Intent[] intents = new Intent[5];
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -19,8 +19,6 @@ public class MainActivity extends BaseActivity {
 
 	private Button buttonPantaTima;
 	private Button buttonMittSvaedi;
-	
-	private Intent[] intents = new Intent[3];
 
 	
 	
@@ -32,7 +30,7 @@ public class MainActivity extends BaseActivity {
         this.buttonPantaTima = (Button) this.findViewById(R.id.panta);
         buttonPantaTima.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	startActivity(intents[2]);;
+            	startActivity(intents[0]);;
             }
         });
         
@@ -42,12 +40,9 @@ public class MainActivity extends BaseActivity {
                 mittSvaediPopup(v);
             }
         });
-        
-		intents[0] = new Intent(this, SidastaPontun.class);
-		intents[1] = new Intent(this, AllarPantanir.class);
-		intents[2] = new Intent(this, Skref1.class);
 
     }
+   
     
     
     // Eva
@@ -61,10 +56,10 @@ public class MainActivity extends BaseActivity {
 			public boolean onMenuItemClick(MenuItem item) {
 				switch (item.getItemId()) {
 		        case R.id.action_sidasta:
-		        	startActivity(intents[0]); //activity_sidasta_pontun
+		        	startActivity(intents[3]); //activity_sidasta_pontun
 		            return true;
 		        case R.id.action_allar:
-		        	startActivity(intents[1]); //activity_allar_pantanir
+		        	startActivity(intents[4]); //activity_allar_pantanir
 		            return true;
 		        default:
 		            return false;
@@ -72,5 +67,6 @@ public class MainActivity extends BaseActivity {
 			}
 		});
     	popupMenu.show();
+   
    }   
 }

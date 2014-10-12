@@ -13,8 +13,7 @@ import android.widget.Button;
 
 
 public class MittSvaedi extends BaseActivity {
-	
-	private Intent[] intents = new Intent[2];
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,19 +24,16 @@ public class MittSvaedi extends BaseActivity {
 		Button buttonSidastaPontun = (Button) this.findViewById(R.id.sidasta_pontun);
 		buttonSidastaPontun.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startActivity(intents[0]);;
+				startActivity(intents[3]);;
 				}
 			});
 		
 		Button buttonAllarPantanir = (Button) this.findViewById(R.id.allar_pantanir);
 		buttonAllarPantanir.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startActivity(intents[1]);;
+				startActivity(intents[4]);;
 				}
 			});
-		
-		intents[0] = new Intent(this, SidastaPontun.class);
-		intents[1] = new Intent(this, AllarPantanir.class);
 		}
 
 }
