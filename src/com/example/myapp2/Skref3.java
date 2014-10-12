@@ -1,3 +1,9 @@
+/**
+ * @author: J—n J—nsson
+ * @since: 30.09.2014
+ * Klasinn sem ......
+ */
+
 package com.example.myapp2;
 
 import java.util.ArrayList;
@@ -30,6 +36,7 @@ public class Skref3 extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_skref3);
 		settingText();
+		
 	}
 
 	@Override

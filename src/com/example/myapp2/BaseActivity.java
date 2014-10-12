@@ -20,7 +20,8 @@ public class BaseActivity extends Activity {
 	public static String harlengd;
 	public static String date;
 	public static String time;
-	public Intent[] intents = new Intent[6];
+	public static String dateTime;
+	public Intent[] intents = new Intent[7];
 	
 
 	@Override
@@ -40,7 +41,8 @@ public class BaseActivity extends Activity {
 		intents[2] = new Intent(this, UmStofuna.class);
 		intents[3] = new Intent(this, SidastaPontun.class);
 		intents[4] = new Intent(this, AllarPantanir.class);
-		intents[5] = new Intent(this, Skref3.class);
+		intents[5] = new Intent(this, Skref2.class);
+		intents[6] = new Intent(this, Skref3.class);
 	}
 
 	 // Eftir: Búið er að bæta viðeigandi aðgerðum á aðgerðaskrá
