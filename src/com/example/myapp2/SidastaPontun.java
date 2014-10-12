@@ -1,5 +1,5 @@
 /**
- * @author: J—n J—nsson
+ * @author: Jï¿½n Jï¿½nsson
  * @since: 30.09.2014
  * Klasinn sem ......
  */
