@@ -67,6 +67,14 @@
             android:name=".Skref2"
             android:label="@string/title_activity_skref2" >
         </activity>
+        <activity
+            android:name=".Bokun"
+            android:label="@string/title_activity_bokun" >
+        </activity>
+        <activity
+            android:name=".Tilbod"
+            android:label="@string/title_activity_tilbod" >
+        </activity>
     </application>
 
 </manifest>

@@ -19,9 +19,13 @@ public class BaseActivity extends Activity {
 	public static String adgerd;
 	public static String harlengd;
 	public static String date;
+	
+	
+	
 	public static String time;
 	public static String dateTime;
-	public Intent[] intents = new Intent[7];
+	public static String kt;
+	public Intent[] intents = new Intent[9];
 	
 
 	@Override
@@ -31,9 +35,6 @@ public class BaseActivity extends Activity {
 		
 		nafn= "Jón Jónsson"; 
 		simi= "846-1392";
-		staff_id = "";
-		adgerd = "";
-		harlengd = "";
     	date= "19.09.14";
     	time = "19:00";
 		intents[0] = new Intent(this, Skref1.class);
@@ -43,6 +44,8 @@ public class BaseActivity extends Activity {
 		intents[4] = new Intent(this, AllarPantanir.class);
 		intents[5] = new Intent(this, Skref2.class);
 		intents[6] = new Intent(this, Skref3.class);
+		intents[7] = new Intent(this, Bokun.class);
+		intents[8] = new Intent(this, Tilbod.class);
 	}
 
 	 // Eftir: Búið er að bæta viðeigandi aðgerðum á aðgerðaskrá
@@ -69,6 +72,9 @@ public class BaseActivity extends Activity {
 	            return true;
 	        case R.id.about:
 	        	startActivity(intents[2]); // activity_um_stofuna
+	            return true;
+	        case R.id.tilbod:
+	        	startActivity(intents[8]); // activity_tilbod
 	            return true;
 	        case R.id.logout:
 	            logout();

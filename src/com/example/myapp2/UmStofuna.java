@@ -19,7 +19,7 @@ public class UmStofuna extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_um_stofuna);
 		
-		Button buttonStarfsfolk = (Button) this.findViewById(R.id.staff);
+		Button buttonStarfsfolk = (Button) this.findViewById(R.id.staff_text);
 		buttonStarfsfolk.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				getStarfsfolk();

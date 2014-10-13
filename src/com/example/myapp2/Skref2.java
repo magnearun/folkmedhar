@@ -27,23 +27,34 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-public class Skref2 extends Activity {
+public class Skref2 extends BaseActivity {
 	
-	public Timar[] lausirTimar = new Timar[18];
-	public Tvennd[] bokadirTimar = new Tvennd[18];
+	public Tvennd[] bokadirTimar; 
+	public Timar[] lausirTimar;
+	
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_PRODUCT = "product";
 	private static String url_saekja_lausa_tima = "http://prufa2.freeiz.com/saekja_bokada_tima.php";
 	// Progress Dialog
 	private ProgressDialog pDialog;
+	
+	Button buttonDagur;
+	Button buttonTilbaka;
+	Button buttonAfram;
 
 	
 	// JSON parser class
 	JSONParser jsonParser = new JSONParser();
 	public static TextView date;
+	
+	Spinner timi;
+	ArrayAdapter<String> dataAdapter;
 	
 	/**
 	 * @author: Jón Jónsson
@@ -88,26 +99,36 @@ public class Skref2 extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_skref2);
 		
-		lausirTimar[0] = new Timar("09:00", true);
-		lausirTimar[1] = new Timar("09:30", true);
-		lausirTimar[2] = new Timar("10:00", true);
-		lausirTimar[3] = new Timar("10:30", true);
-		lausirTimar[4] = new Timar("11:00", true);
-		lausirTimar[5] = new Timar("11:30", true);
-		lausirTimar[6] = new Timar("12:00", true);
-		lausirTimar[7] = new Timar("12:30", true);
-		lausirTimar[8] = new Timar("13:00", true);
-		lausirTimar[9] = new Timar("13:30", true);
-		lausirTimar[10] = new Timar("14:00", true);
-		lausirTimar[11] = new Timar("14:30", true);
-		lausirTimar[12] = new Timar("15:00", true);
-		lausirTimar[13] = new Timar("15:30", true);
-		lausirTimar[14] = new Timar("16:00", true);
-		lausirTimar[15] = new Timar("16:30", true);
-		lausirTimar[16] = new Timar("17:00", true);
-		lausirTimar[17] = new Timar("17:30", true);
+		//bokadirTimar[0] = new Tvennd("10:00",2);
+		//bokadirTimar[1] = new Tvennd("12:00",3);
+		//bokadirTimar[2] = new Tvennd("14:00",1);
+		
+		
 		
 		date = (TextView) findViewById(R.id.date);
+		
+		
+		timi = (Spinner) findViewById(R.id.timi);
+		
+		buttonDagur = (Button) findViewById(R.id.buttonDagur);
+		
+		buttonTilbaka = (Button) findViewById(R.id.tilbaka);
+        buttonTilbaka.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	startActivity(intents[0]);
+            }
+        });
+        
+        buttonAfram = (Button) findViewById(R.id.afram2);
+        buttonAfram.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	startActivity(intents[6]);
+            }
+        });
+		
+		
+		
+	
 	}
 
 	@Override
@@ -133,7 +154,6 @@ public class Skref2 extends Activity {
 	public void showDatePickerDialog(View v) {
 	    DialogFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getFragmentManager(), "datePicker");
-	    new BokadirTimar().execute();
 	}
 	
 
@@ -151,95 +171,161 @@ public class Skref2 extends Activity {
 			return new DatePickerDialog(getActivity(), this, year, month, day);
 		}
 
+		
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-			BaseActivity.date = year + "-" + (month+1) + "-" + day + " ";
-			date.setText(day + "-" + (month+1) + "-" + year);
-			new BokadirTimar().execute();
-			lausirTimar(bokadirTimar, lausirTimar);
-		}
-	}
-	
-
-	
-	/**
-	 * Background Async Task
-	 * */
-	class BokadirTimar extends AsyncTask<String, String, String> {
-
-		private  String TAG_SUCCESS = null;
-
-		/**
-		 * Before starting background thread Show Progress Dialog - "skilaboð á meðan verið er að bíða"
-		 * */
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			pDialog = new ProgressDialog(Skref2.this);
-			pDialog.setMessage("Leita að lausum tímum...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
+			BaseActivity.date = year + "-" + (month+1) + "-" + day;
+			Log.d("HHHHHHNNNJJKK", BaseActivity.date);
+			buttonDagur.setText(day + "-" + (month+1) + "-" + year);
+			if(view.isShown()){
+				
+				new BokadirTimar().execute();
+			}
+			
 		}
 		
-		@Override
-		protected String doInBackground(String... args) {
-			// TODO Auto-generated method stub
-			// Building Parameters
-			
-			int success;
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("date", BaseActivity.date));
-			//Log.d("staff_id er : ", staff_id);
+		/**
+		 * Background Async Task
+		 * */
+		class BokadirTimar extends AsyncTask<String, String, String> {
 
+			private  String TAG_SUCCESS = null;
+			String dagur = BaseActivity.date;
+
+			/**
+			 * Before starting background thread Show Progress Dialog - "skilaboð á meðan verið er að bíða"
+			 * */
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				
+				bokadirTimar = new Tvennd[18];
+				lausirTimar = new Timar[18];
+				lausirTimar[0] = new Timar("09:00", true);
+				lausirTimar[1] = new Timar("09:30", true);
+				lausirTimar[2] = new Timar("10:00", true);
+				lausirTimar[3] = new Timar("10:30", true);
+				lausirTimar[4] = new Timar("11:00", true);
+				lausirTimar[5] = new Timar("11:30", true);
+				lausirTimar[6] = new Timar("12:00", true);
+				lausirTimar[7] = new Timar("12:30", true);
+				lausirTimar[8] = new Timar("13:00", true);
+				lausirTimar[9] = new Timar("13:30", true);
+				lausirTimar[10] = new Timar("14:00", true);
+				lausirTimar[11] = new Timar("14:30", true);
+				lausirTimar[12] = new Timar("15:00", true);
+				lausirTimar[13] = new Timar("15:30", true);
+				lausirTimar[14] = new Timar("16:00", true);
+				lausirTimar[15] = new Timar("16:30", true);
+				lausirTimar[16] = new Timar("17:00", true);
+				lausirTimar[17] = new Timar("17:30", true);
+				pDialog = new ProgressDialog(Skref2.this);
+				pDialog.setMessage("Sæki lausa tíma..");
+				pDialog.setIndeterminate(false);
+				pDialog.setCancelable(true);
+				pDialog.show();
+			}
 			
+			@Override
+			protected String doInBackground(String... args) {
+				// TODO Auto-generated method stub
+				// updating UI from Background Thread
+				
+				// Check for success tag
+				int success;
+				// Building Parameters
+				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair("dagur", dagur));
+				
+				JSONObject json = jsonParser.makeHttpRequest(
+						url_saekja_lausa_tima, "GET", params);
+				Log.d("SVAAARRR", json.toString());
 			
-			JSONObject json = jsonParser.makeHttpRequest(url_saekja_lausa_tima,
-					"GET", params);
-			
-			// check log cat for response
-			Log.d("Create Response", json.toString());
 			try {
 				success = json.getInt("success");
 				if(success == 1){
+
 			
-				JSONArray t = json.getJSONArray("lausirTimar");
-				JSONArray lausirTimar = t.getJSONArray(0);
-				for(int i = 0; i < lausirTimar.length(); i++){
-					JSONObject timi = lausirTimar.getJSONObject(i);
+				JSONArray t = json.getJSONArray("pantanir");
+				JSONArray bokadir = t.getJSONArray(0);
+
+				for(int i = 0; i < bokadir.length(); i++){
+					JSONObject timi = bokadir.getJSONObject(i);
+
 					bokadirTimar[i] = new Tvennd(timi.getString("time"), timi.getInt("lengd"));	
+					
 				}
+		
 				
 			}
 			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			return null;
-		}
-		/**
-		 * After completing background task Dismiss the progress dialog
-		 * **/
-		protected void onPostExecute(String file_url) {
-			// dismiss the dialog once done
-			pDialog.dismiss();
-
+			}
+			/**
+			 * After completing background task Dismiss the progress dialog
+			 * **/
+			protected void onPostExecute(String file_url) {
+				// dismiss the dialog once done
+			
+				lausirTimar(bokadirTimar, lausirTimar);
+				setLausirTimar();
+				pDialog.dismiss();
+			}
 		}
 	}
 	
-	private static void lausirTimar(Tvennd[] a, Timar[] b) {
+
+
+	
+	private  void lausirTimar(Tvennd[] a, Timar[] b) {
+		
 
 		for(int i = 0; i<a.length; i++) {
 
 			for(int j = 0; j<b.length; j++) {
+				if(a[i]!=null){
 				if(a[i].timi.equals(b[j].timi)) {
 
-					for(int k = 0; k<a[i].lengd; k++) {
-						b[j+k].laus = false;
+
+						
+						for(int k = 0; k<a[i].lengd; k++) {
+							b[j+k].laus = false;
+
+						
 					}
+				}
 				}
 			}
 		}
-		//Log.d("Prufffffffa", a[0].timi);
+	}
+	
+	public void setLausirTimar() {
+		
+		String[] s = new String[18];
+		int num = 0;
+		
+		for(int i = 0; i<lausirTimar.length; i++) {
+			if(lausirTimar[i].laus==true) {
+				s[num] =  lausirTimar[i].timi;
+				num++;
+			}
+			
+		}
+		
+		
+		
+		String [] spinnerTimar = new String[num];
+		for (int i = 0; i<spinnerTimar.length; i++) {
+			spinnerTimar[i] = s[i];
+		}
+		
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerTimar); //selected item will look like a spinner set from XML
+		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		timi.setAdapter(spinnerArrayAdapter);
+		//time.setText(s);
 	}
 	
 	
