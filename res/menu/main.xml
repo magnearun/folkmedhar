@@ -19,6 +19,11 @@
         android:title="Um stofuna"/>
      
      <item
+        android:id="@+id/tilbod"
+        android:orderInCategory="100"
+        android:title="Tilboð"/>
+     
+     <item
         android:id="@+id/logout"
         android:orderInCategory="100"
         android:title="Skrá mig út"/>

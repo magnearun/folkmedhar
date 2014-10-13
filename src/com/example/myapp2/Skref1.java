@@ -26,9 +26,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Skref1 extends BaseActivity {
 	// Breytur fyrir gagnagrunn
-		String kt;
-		String staff_id;
-		String adgerd;
 		
 		// Viðmótshlutir
 		EditText kennitala;
@@ -36,12 +33,6 @@ public class Skref1 extends BaseActivity {
 		Spinner velja_adgerd;
 		Spinner velja_harlengd;
 		
-		// Progress Dialog
-		private ProgressDialog pDialog;
-		JSONParser jsonParser = new JSONParser();
-		
-		// url til ap panta tíma panta.php
-		private static String url_panta_tima = "http://prufa2.freeiz.com/pantatima.php";
 			
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +40,9 @@ public class Skref1 extends BaseActivity {
 	        setContentView(R.layout.activity_skref1);
 	        
 	        kennitala = (EditText) findViewById(R.id.kennitala);
-	        velja_starfsmann = (Spinner) findViewById(R.id.starfsmenn);
-	        velja_adgerd = (Spinner) findViewById(R.id.adgerd);
-	        velja_harlengd = (Spinner) findViewById(R.id.harlengd);
+	        velja_starfsmann = (Spinner) findViewById(R.id.starfsmennSpinner);
+	        velja_adgerd = (Spinner) findViewById(R.id.adgerdSpinner);
+	        velja_harlengd = (Spinner) findViewById(R.id.harlengdSpinner);
 	        
 	        // Starfsmenn Item Selected Listener
 	        velja_starfsmann.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -92,7 +83,7 @@ public class Skref1 extends BaseActivity {
 	            		default: staff_id = "ERR";
 	            	}
 	            	
-	            	Log.d("staff_id er", staff_id);
+	            
 	 
 	                // Showing selected spinner item
 	                
@@ -133,83 +124,21 @@ public class Skref1 extends BaseActivity {
 	        
 	        
 	       // Áfram takki kallar á activity "step 2"
-	        Button afram = (Button) findViewById(R.id.afram);
+	        Button afram = (Button) findViewById(R.id.next);
 	        afram.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view) {
 					// creating new product in background thread
-					BaseActivity.staff_id = velja_starfsmann.getSelectedItem().toString();;
-					BaseActivity.adgerd = velja_adgerd.getSelectedItem().toString();;
-					BaseActivity.harlengd = velja_harlengd.getSelectedItem().toString();;
-					startActivity(intents[5]);;
-					new afram().execute();
+					harlengd = velja_harlengd.getSelectedItem().toString();
+					kt = kennitala.getText().toString();
+					startActivity(intents[5]);
+					
 				}
 			});
 	    }
 	    
-	    /* Þetta Skref færist svo yfir í activity Skref 3  */
-	    /**
-		 * Background Async Task
-		 * */
-		class afram extends AsyncTask<String, String, String> {
-
-			private  String TAG_SUCCESS = null;
-
-			/**
-			 * Before starting background thread Show Progress Dialog - "skilaboð á meðan verið er að bíða"
-			 * */
-			@Override
-			protected void onPreExecute() {
-				super.onPreExecute();
-				pDialog = new ProgressDialog(Skref1.this);
-				pDialog.setMessage("Creating Product..");
-				pDialog.setIndeterminate(false);
-				pDialog.setCancelable(true);
-				pDialog.show();
-			}
-			
-			@Override
-			protected String doInBackground(String... args) {
-				// TODO Auto-generated method stub
-				kt = kennitala.getText().toString();
-				// Building Parameters
-				List<NameValuePair> params = new ArrayList<NameValuePair>();
-				params.add(new BasicNameValuePair("kt", kt));
-				Log.d("staff_id er : ", staff_id);
-				params.add(new BasicNameValuePair("staff_id", staff_id));
-				
-				JSONObject json = jsonParser.makeHttpRequest(url_panta_tima,
-						"POST", params);
-				
-				// check log cat for response
-				Log.d("Create Response", json.toString());
-				try {
-					int success = json.getInt(TAG_SUCCESS);
-
-					if (success == 1) {
-						// successfully created product
-						
-						
-						// closing this screen
-						finish();
-					} else {
-						// failed to create product
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
-				return null;
-			}
-			/**
-			 * After completing background task Dismiss the progress dialog
-			 * **/
-			protected void onPostExecute(String file_url) {
-				// dismiss the dialog once done
-				pDialog.dismiss();
-			}
-		}
-		}
+	    
+}
 
 	     

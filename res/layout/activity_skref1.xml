@@ -1,60 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-  <EditText
+    android:layout_height="match_parent"
+    tools:context=".Skref1" >
+
+    <!-- Velja starfsmann -->
+
+    <!-- Velja aðgerð -->
+
+    <!-- Velja hárlengd -->
+
+
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="26dp"
+        android:text="@string/afram" />
+
+    <Spinner
+        android:id="@+id/harlengdSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/next"
+        android:layout_alignLeft="@+id/adgerdSpinner"
+        android:layout_alignRight="@+id/next"
+        android:layout_marginBottom="50dp"
+        android:entries="@array/harlengd_array"
+        android:prompt="@string/harlengd_prompt" />
+
+    <Spinner
+        android:id="@+id/starfsmennSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/next"
+        android:layout_below="@+id/kennitala"
+        android:layout_marginTop="38dp"
+        android:layout_toRightOf="@+id/staff_text"
+        android:entries="@array/starfsmenn_array"
+        android:prompt="@string/starfsmenn_prompt" />
+
+    <TextView
+        android:id="@+id/harlengd_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/harlengdSpinner"
+        android:layout_toLeftOf="@+id/kennitala"
+        android:text="@string/textview_Skref3_harlengd"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/skref1_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/staff_text"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/starfsmennSpinner"
+        android:layout_marginTop="28dp"
+        android:height="50dp"
+        android:text="@string/skref1_info" />
+
+    <EditText
         android:id="@+id/kennitala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/skref1_info"
         android:ems="10"
-        android:hint="@string/kt_hint" >
+        android:hint="@string/kt_hint" />
 
-        <requestFocus />
-    </EditText>
-	
-    <Button
-        android:id="@+id/afram"
+    <TextView
+        android:id="@+id/staff_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/kennitala"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp"
-        android:text="@string/panta" />
-	
-    <!-- Velja starfsmann -->
+        android:layout_alignLeft="@+id/adgerd_text"
+        android:layout_alignTop="@+id/starfsmennSpinner"
+        android:text="@string/textview_Skref3_starfsmadur"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:width="120dp" />
+
+    <TextView
+        android:id="@+id/adgerd_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/adgerdSpinner"
+        android:layout_alignLeft="@+id/harlengd_text"
+        android:layout_marginBottom="19dp"
+        android:text="@string/textview_Skref3_adgerd"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Spinner
-        android:id="@+id/starfsmenn"
+        android:id="@+id/adgerdSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/kennitala"
-        android:layout_marginTop="44dp"
-        android:entries="@array/starfsmenn_array"
-        android:prompt="@string/starfsmenn_prompt" />
-    
-      <!-- Velja aðgerð -->
-
-     <Spinner
-         android:id="@+id/adgerd"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/starfsmenn"
-         android:entries="@array/adgerd_array"
-         android:prompt="@string/adgerd_prompt" />
-     
-      <!-- Velja hárlengd -->
-
-     <Spinner
-         android:id="@+id/harlengd"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/adgerd"
-         android:entries="@array/harlengd_array"
-         android:prompt="@string/harlengd_prompt" />
+        android:layout_above="@+id/harlengdSpinner"
+        android:layout_alignLeft="@+id/starfsmennSpinner"
+        android:entries="@array/adgerd_array"
+        android:layout_marginBottom="10dp"
+        android:prompt="@string/adgerd_prompt" />
 
 </RelativeLayout>

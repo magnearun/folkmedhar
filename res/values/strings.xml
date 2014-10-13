@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world</string>
     <string name="title_activity_base">Base Activity</string>
+    <string name="tilbaka">Tilbaka</string>
+    <string name="afram">Áfram</string>
 
     <!-- activity_skref1.xml -->
     <string name="title_activity_step1">Skref 1 af 3</string>
@@ -12,6 +14,8 @@
     <string name="panta">Panta tíma</string>
     <string name="mittSvaedi">Mitt svæði</string>
     <string name="starfsmenn_prompt">Veldu starfsmann</string>
+    <string name="skref1_info">Veldu starfsmann og hvað þú vilt að hann
+        geri við hárið á þér</string>
 
     <string-array name="starfsmenn_array">
         <item>Bambi</item>
@@ -43,6 +47,14 @@
     <!-- activity_skref2.xml -->
     <string name="title_activity_skref2">Skref 2 af 3</string>
     <string name="pick_date">Veldu dag</string>
+    <string name="timi_prompt">Veldu tíma</string>
+    <string name="dagur">Dagur:</string>
+    <string name="timi_text">Tími:</string>
+    <string name="skref2_info">Veldu úr lausum tíma starfsmanns</string>
+
+    <string-array name="timi_array">
+        <item>Alveg sama</item>
+    </string-array>
 
     <!-- activity_sidasta_pontun.xml -->
     <string name="title_activity_sidasta_pontun">Síðasta pöntun</string>
@@ -76,5 +88,15 @@
     <string name="textview_Skref3_timi">Tími:</string>
     <string name="button_Skref3_tilBaka">Til Baka</string>
     <string name="button_Skref3_stadfesta">Staðfesta</string>
+
+    <!-- activity_bokun.xml -->
+    <string name="title_activity_bokun">Pöntun móttekin</string>
+    <string name="mottekid">Pöntun þín hefur verið móttekin. Til að sjá eða
+        afpanta tímann má fara á Mitt svæði. Takk fyrir viðskiptin</string>
+        
+    <!-- activity_tilbod.xml -->
+    <string name="title_activity_tilbod">Tilboð</string>
+    <string name="tilbod1">Tilboð 1: 2 fyrir 1 í klippingu</string>
+    <string name="tilbod2">Tilboð 2: Ókeypis rakstur með klippingu</string>
 
 </resources>
