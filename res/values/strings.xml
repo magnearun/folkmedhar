@@ -53,7 +53,7 @@
     <string name="skref2_info">Veldu úr lausum tíma starfsmanns</string>
 
     <string-array name="timi_array">
-        <item>Alveg sama</item>
+        <item>Engin dagsetning valin</item>
     </string-array>
 
     <!-- activity_sidasta_pontun.xml -->
