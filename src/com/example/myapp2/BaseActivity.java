@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import com.example.myapp2.*;
 
 public class BaseActivity extends Activity {
 	public static String nafn;
@@ -26,6 +29,8 @@ public class BaseActivity extends Activity {
 	public static String dateTime;
 	public static String kt;
 	public Intent[] intents = new Intent[9];
+	UserFunctions userFunctions;
+
 	
 
 	@Override
@@ -77,14 +82,20 @@ public class BaseActivity extends Activity {
 	        	startActivity(intents[8]); // activity_tilbod
 	            return true;
 	        case R.id.logout:
-	            logout();
+	        	logout();
 	            return true;
 	        default:
 	            return false;
 		}
 	 }
 	 	
-	 // Notandinn hefur verið skráður út úr kerfinu
-	 public void logout(){
+	 // Notandinn hefur verið skráður út úr kerfinu og login skjár birtur
+	 public void logout(){	
+		 userFunctions.logoutUser(getApplicationContext());
+         Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+         startActivity(login);
+         // Closing activity screen
+         finish();
 	 }
 }

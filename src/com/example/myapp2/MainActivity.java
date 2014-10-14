@@ -6,6 +6,8 @@
 
 package com.example.myapp2;
 
+import com.example.myapp2.UserFunctions;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,7 +18,7 @@ import android.widget.PopupMenu;
 
 public class MainActivity extends BaseActivity {
 
-
+	UserFunctions userFunctions;
 	private Button buttonPantaTima;
 	private Button buttonMittSvaedi;
 
@@ -25,7 +27,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        
+     // Athuga login status í gagnagrunni
+        userFunctions = new UserFunctions();
+        if(userFunctions.isUserLoggedIn(getApplicationContext())) {
+        	setContentView(R.layout.activity_main);   
+        
         
         this.buttonPantaTima = (Button) this.findViewById(R.id.panta);
         buttonPantaTima.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +48,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        }else {
+        	Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+        	 login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+             startActivity(login);
+             // Loka MainActivity skjánum
+             finish();
+             }
     }
    
     

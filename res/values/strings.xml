@@ -7,6 +7,8 @@
     <string name="title_activity_base">Base Activity</string>
     <string name="tilbaka">Tilbaka</string>
     <string name="afram">Áfram</string>
+    <string name="title_activity_login">Innskráning</string>
+    <string name="title_activity_register">Nýskráning</string>
 
     <!-- activity_skref1.xml -->
     <string name="title_activity_step1">Skref 1 af 3</string>

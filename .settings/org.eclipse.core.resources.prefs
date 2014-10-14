@@ -1,7 +1,11 @@
 eclipse.preferences.version=1
 encoding//src/com/example/myapp2/AllarPantanir.java=UTF-8
 encoding//src/com/example/myapp2/BaseActivity.java=UTF-8
+encoding//src/com/example/myapp2/DatabaseHandler.java=UTF-8
+encoding//src/com/example/myapp2/JSONParser.java=UTF-8
+encoding//src/com/example/myapp2/LoginActivity.java=UTF-8
 encoding//src/com/example/myapp2/MainActivity.java=UTF-8
+encoding//src/com/example/myapp2/RegisterActivity.java=UTF-8
 encoding//src/com/example/myapp2/Skref1.java=UTF-8
 encoding//src/com/example/myapp2/Skref2.java=UTF-8
 encoding//src/com/example/myapp2/Skref3.java=UTF-8
