@@ -61,13 +61,13 @@ public final class R {
         public static final int loginPassword=0x7f080002;
         public static final int login_error=0x7f080003;
         public static final int logout=0x7f080037;
-        public static final int mittSvaedi=0x7f080007;
+        public static final int mittSvaedi=0x7f080006;
         public static final int mitt_svaedi=0x7f080034;
         public static final int name=0x7f080022;
         public static final int nameOfClient=0x7f080023;
         public static final int next=0x7f080011;
         public static final int opnunartimi=0x7f080032;
-        public static final int panta=0x7f080006;
+        public static final int panta=0x7f080007;
         public static final int registerEmail=0x7f08000b;
         public static final int registerName=0x7f08000a;
         public static final int registerPassword=0x7f08000d;

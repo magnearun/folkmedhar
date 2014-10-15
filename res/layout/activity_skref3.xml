@@ -9,156 +9,166 @@
         android:id="@+id/name"
         android:layout_width="150dp"
         android:layout_alignParentLeft="true"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:text="@string/textview_Skref3_nafn"
-        android:textSize= "20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp" />
-    	
-    <TextView
+        android:textSize= "20sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:labelFor="@+id/nameOfClient" />
+    
+    <EditText
         android:id="@+id/nameOfClient"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/name" 
-        android:textSize= "20dp"
-        android:layout_marginTop="30dp"/>
+        android:layout_height="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/name"
+        android:inputType="textPersonName"
+        android:textSize="20sp" >
+
+        <requestFocus />
+    </EditText>
+    	
     <TextView
         android:id="@+id/telephone"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/name"
         android:text="@string/textview_Skref3_simi" 
-        android:textSize= "20dp"
+        android:textSize= "20sp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:labelFor="@+id/telephoneClient"/>
     
-    <TextView
+     <EditText
         android:id="@+id/telephoneClient"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
-         android:layout_below="@id/nameOfClient"
+        android:layout_height="38dp"
+        android:layout_below="@id/nameOfClient"
         android:layout_toRightOf="@+id/telephone" 
-        android:textSize= "20dp"
-        android:layout_marginTop="10dp"/>
+        android:textSize= "20sp"
+        android:layout_marginTop="10dp"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+    
     <TextView
         android:id="@+id/employee"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/telephone"
         android:text="@string/textview_Skref3_starfsmadur" 
-        android:textSize= "20dp"
+        android:textSize= "20sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
 
     <TextView
         android:id="@+id/employeeName"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_below="@id/telephoneClient"
         android:layout_toRightOf="@+id/employee"
-        android:textSize= "20dp" 
+        android:textSize= "20sp" 
         android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/type"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/employee"
         android:text="@string/textview_Skref3_adgerd"
-        android:textSize= "20dp" 
+        android:textSize= "20sp" 
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
 
     <TextView
         android:id="@+id/typeName"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_below="@id/employeeName"
         android:layout_toRightOf="@+id/type"
-        android:textSize= "20dp" 
+        android:textSize= "20sp" 
         android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/height"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/type"
         android:text="@string/textview_Skref3_harlengd"
-        android:textSize= "20dp"
+        android:textSize= "20sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp" />
 
     <TextView
         android:id="@+id/heightClient"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_below="@id/typeName"
         android:layout_toRightOf="@+id/height"
-        android:textSize= "20dp" 
+        android:textSize= "20sp" 
         android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/date"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/height"
         android:text="@string/textview_Skref3_dagsetning"
-        android:textSize= "20dp" 
+        android:textSize= "20sp" 
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
 
     <TextView
         android:id="@+id/dateOfHaircut"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_below="@id/heightClient"
         android:layout_toRightOf="@+id/date"
-        android:textSize= "20dp" 
+        android:textSize= "20sp" 
         android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/time"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/date"
         android:text="@string/textview_Skref3_timi" 
-        android:textSize= "20dp"
+        android:textSize= "20sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
 
     <TextView
         android:id="@+id/timeOfHaircut"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_below="@id/dateOfHaircut"
         android:layout_toRightOf="@+id/time"
-        android:textSize= "20dp" 
+        android:textSize= "20sp" 
         android:layout_marginTop="10dp"/>
-    
+
     <Button
         android:id="@+id/til_Baka"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/time"
-        android:text="@string/button_Skref3_tilBaka" 
-        android:textSize= "20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"/>
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/time"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="21dp"
+        android:text="@string/button_Skref3_tilBaka"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/panta"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/timeOfHaircut"
-        android:layout_toRightOf="@+id/time"
+        android:layout_height="45dp"
+        android:layout_alignBaseline="@+id/til_Baka"
+        android:layout_alignBottom="@+id/til_Baka"
         android:layout_alignParentRight="true"
-        android:textSize= "20dp" 
-        android:text="@string/button_Skref3_stadfesta" 
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="10dp"
-        android:onClick="stadfesta"/>
+        android:layout_marginRight="15dp"
+        android:onClick="stadfesta"
+        android:text="@string/button_Skref3_stadfesta"
+        android:textSize="20sp" />
 
 </RelativeLayout>

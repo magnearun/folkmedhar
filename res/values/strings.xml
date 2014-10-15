@@ -14,12 +14,13 @@
     <string name="title_activity_step1">Skref 1 af 3</string>
     <string name="kt_hint">2212902169</string>
     <string name="panta">Panta tíma</string>
-    <string name="mittSvaedi">Mitt svæði</string>
+    <string name="mittSvaedi">Mínar pantanir</string>
     <string name="starfsmenn_prompt">Veldu starfsmann</string>
     <string name="skref1_info">Veldu starfsmann og hvað þú vilt að hann
         geri við hárið á þér</string>
 
     <string-array name="starfsmenn_array">
+        <item>Hver sem er</item>
         <item>Bambi</item>
         <item>Perla</item>
         <item>Oddur</item>
@@ -62,7 +63,7 @@
     <string name="title_activity_sidasta_pontun">Síðasta pöntun</string>
 
     <!-- activity_mitt_svaedi.xml -->
-    <string name="title_activity_mitt_svaedi">Mitt Svæði</string>
+    <string name="title_activity_mitt_svaedi">Mínar pantanir</string>
 
     <!-- activity_allar_pantanir.xml -->
     <string name="title_activity_allar_pantanir">Allar pantanir</string>
@@ -94,7 +95,7 @@
     <!-- activity_bokun.xml -->
     <string name="title_activity_bokun">Pöntun móttekin</string>
     <string name="mottekid">Pöntun þín hefur verið móttekin. Til að sjá eða
-        afpanta tímann má fara á Mitt svæði. Takk fyrir viðskiptin</string>
+        afpanta tímann má fara í Mínar pantanir. Takk fyrir viðskiptin</string>
         
     <!-- activity_tilbod.xml -->
     <string name="title_activity_tilbod">Tilboð</string>
