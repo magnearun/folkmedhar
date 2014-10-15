@@ -51,8 +51,7 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
-                UserFunctions userFunction = new UserFunctions();
-                JSONObject json = userFunction.loginUser(email, password);
+                JSONObject json = UserFunctions.loginUser(email, password);
  
                 // check for login response
                 try {
@@ -66,7 +65,7 @@ public class LoginActivity extends BaseActivity {
                             JSONObject json_user = json.getJSONObject("Notendur");
                              
                             // Clear all previous data in database
-                            userFunction.logoutUser(getApplicationContext());
+                            UserFunctions.logoutUser(getApplicationContext());
                             db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), 
                             		json_user.getString(KEY_PHONE), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));                        
                              

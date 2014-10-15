@@ -14,10 +14,8 @@ import android.util.Log;
  
 public class UserFunctions {
      
-    private JSONParser jsonParser;
+    private static JSONParser jsonParser = new JSONParser();
      
-    // Testing in localhost using wamp or xampp 
-    // use http://10.0.2.2/ to connect to your localhost ie http://localhost/
     private static String loginURL = "http://prufa2.freeiz.com/login/";
     private static String registerURL = "http://prufa2.freeiz.com/login/";
      
@@ -25,16 +23,16 @@ public class UserFunctions {
     private static String register_tag = "register";
      
     // constructor
-    public UserFunctions(){
-        jsonParser = new JSONParser();
-    }
+    //public UserFunctions(){
+      //  jsonParser = new JSONParser();
+    //}
      
     /**
      * function make Login Request
      * @param email
      * @param password
      * */
-    public JSONObject loginUser(String email, String password){
+    public static JSONObject loginUser(String email, String password){
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", login_tag));
@@ -52,7 +50,7 @@ public class UserFunctions {
      * @param email
      * @param password
      * */
-    public JSONObject registerUser(String name, String email, String phone, String password){
+    public static JSONObject registerUser(String name, String email, String phone, String password){
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", register_tag));
@@ -72,7 +70,7 @@ public class UserFunctions {
     /**
      * Function get Login status
      * */
-    public boolean isUserLoggedIn(Context context){
+    public static boolean isUserLoggedIn(Context context){
         DatabaseHandler db = new DatabaseHandler(context);
         int count = db.getRowCount();
         if(count > 0){
@@ -86,7 +84,7 @@ public class UserFunctions {
      * Function to logout user
      * Reset Database
      * */
-    public boolean logoutUser(Context context){
+    public static boolean logoutUser(Context context){
         DatabaseHandler db = new DatabaseHandler(context);
         db.resetTables();
         return true;

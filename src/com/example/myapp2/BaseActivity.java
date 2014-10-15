@@ -29,7 +29,7 @@ public class BaseActivity extends Activity {
 	public static String dateTime;
 	public static String kt;
 	public Intent[] intents = new Intent[9];
-	UserFunctions userFunctions;
+	//UserFunctions userFunctions;
 
 	
 
@@ -82,20 +82,16 @@ public class BaseActivity extends Activity {
 	        	startActivity(intents[8]); // activity_tilbod
 	            return true;
 	        case R.id.logout:
-	        	logout();
+	        	// Notandi hefur verið skráður út og login síða birt 
+	        	UserFunctions.logoutUser(getApplicationContext());
+	             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+	             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	             startActivity(login);
+	             //Closing activity screen
+	            finish();
 	            return true;
 	        default:
 	            return false;
 		}
-	 }
-	 	
-	 // Notandinn hefur verið skráður út úr kerfinu og login skjár birtur
-	 public void logout(){	
-		 userFunctions.logoutUser(getApplicationContext());
-         Intent login = new Intent(getApplicationContext(), LoginActivity.class);
-         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-         startActivity(login);
-         // Closing activity screen
-         finish();
 	 }
 }
