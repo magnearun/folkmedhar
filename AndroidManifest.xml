@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Skref1"
+            android:name="com.example.myapp2.pantanir.bokun.Skref1"
             android:label="@string/title_activity_step1"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -33,7 +33,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".AllarPantanir"
+            android:name="com.example.myapp2.pantanir.AllarPantanir"
             android:label="@string/title_activity_allar_pantanir"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -41,48 +41,56 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".SidastaPontun"
-            android:label="@string/title_activity_sidasta_pontun" >
+            android:name="com.example.myapp2.pantanir.SidastaPontun"
+            android:label="@string/title_activity_sidasta_pontun"
+            android:parentActivityName=".MainActivity"  >
         </activity>
         <activity
-            android:name=".MittSvaedi"
-            android:label="@string/title_activity_mitt_svaedi" >
+            android:name="com.example.myapp2.MittSvaedi"
+            android:label="@string/title_activity_mitt_svaedi"
+            android:parentActivityName=".MainActivity"  >
         </activity>
         <activity
-            android:name=".UmStofuna"
-            android:label="@string/title_activity_um_stofuna" >
+            android:name="com.example.myapp2.UmStofuna"
+            android:label="@string/title_activity_um_stofuna"
+            android:parentActivityName=".MainActivity"  >
         </activity>
         <activity
             android:name=".BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
         <activity
-            android:name=".Starfsfolk"
-            android:label="@string/title_activity_starfsfolk" >
+            android:name="com.example.myapp2.Starfsfolk"
+            android:label="@string/title_activity_starfsfolk"
+            android:parentActivityName=".MainActivity"  >
         </activity>
         <activity
-            android:name=".Skref3"
-            android:label="@string/title_activity_skref3" >
+            android:name="com.example.myapp2.pantanir.bokun.Skref3"
+            android:label="@string/title_activity_skref3"
+            android:parentActivityName=".MainActivity"  >
         </activity>
         <activity
-            android:name=".Skref2"
-            android:label="@string/title_activity_skref2" >
+            android:name="com.example.myapp2.pantanir.bokun.Skref2"
+            android:label="@string/title_activity_skref2"
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name=".Bokun"
-            android:label="@string/title_activity_bokun" >
+            android:name="com.example.myapp2.StadfestingBokunar"
+            android:label="@string/title_activity_bokun"
+            android:parentActivityName=".MainActivity"  >
         </activity>
         <activity
-            android:name=".Tilbod"
-            android:label="@string/title_activity_tilbod" >
+            android:name="com.example.myapp2.Tilbod"
+            android:label="@string/title_activity_tilbod"
+            android:parentActivityName=".MainActivity"  >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.myapp2.notendur.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:name="com.example.myapp2.notendur.RegisterActivity"
+            android:label="@string/title_activity_register"  >
         </activity>
         
         

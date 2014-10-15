@@ -6,25 +6,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.myapp2.MainActivity" >
-
-    <Button
-        android:id="@+id/panta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="128dp"
-        android:text="@string/panta" />
+    tools:context="com.example.myapp2.MainActivity"
+    android:background="#87bb9c" >
 
     <Button
         android:id="@+id/mittSvaedi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/panta"
-        android:layout_alignRight="@+id/panta"
-        android:layout_marginBottom="36dp"
-        android:text="@string/mittSvaedi"/>
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/panta"
+        android:layout_below="@+id/panta"
+        android:layout_marginTop="38dp"
+        android:text="@string/mittSvaedi"
+        android:textSize="20sp"
+        android:textColor="#000" />
 
+    <Button
+        android:id="@+id/panta"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:text="@string/panta"
+        android:textSize="20sp"
+        android:textColor="#000" />
 
 </RelativeLayout>
