@@ -59,8 +59,7 @@ public class BaseActivity extends Activity {
 		intents[9] = new Intent(this, Tilbod.class);
 		intents[10] = new Intent(this, LoginActivity.class);
 		
-   	 	ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f90")));
+   	 	
 
 	}
 
