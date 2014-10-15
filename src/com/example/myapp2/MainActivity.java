@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
         // Athuga login status í gagnagrunni
         userFunctions = new UserFunctions();
         if(userFunctions.isUserLoggedIn(getApplicationContext())) {
-        	setContentView(R.layout.activity_main); 
+        	setContentView(R.layout.activity_main);
         	
         	this.buttonPantaTima = (Button) this.findViewById(R.id.panta);
         	buttonPantaTima.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xefeade));

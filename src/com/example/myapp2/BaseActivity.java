@@ -10,8 +10,11 @@
 
 package com.example.myapp2;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,8 +61,7 @@ public class BaseActivity extends Activity {
 		intents[8] = new Intent(this, UmStofuna.class);
 		intents[9] = new Intent(this, Tilbod.class);
 		intents[10] = new Intent(this, LoginActivity.class);
-		
-   	 	
+	
 
 	}
 
