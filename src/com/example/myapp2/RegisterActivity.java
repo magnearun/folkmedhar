@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
  
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends BaseActivity {
     Button btnRegister;
     Button btnLinkToLogin;
     EditText inputFullName;
@@ -55,7 +55,7 @@ public class RegisterActivity extends Activity {
                 String phone = inputPhone.getText().toString();
                 String password = inputPassword.getText().toString();
                 UserFunctions userFunction = new UserFunctions();
-                JSONObject json = userFunction.registerUser(name, email, phone, password);
+                JSONObject json = UserFunctions.registerUser(name, email, phone, password);
 
                 // check for login response
                 //Log.d("key success json : ", KEY_SUCCESS);
@@ -74,7 +74,7 @@ public class RegisterActivity extends Activity {
                             //Log.d("json user : ", json_user.toString());
                             
                             // Clear all previous data in database
-                            userFunction.logoutUser(getApplicationContext());
+                            UserFunctions.logoutUser(getApplicationContext());
                             db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), 
                             		json_user.getString(KEY_PHONE), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));                        
                             // Launch Main Activity Screen
