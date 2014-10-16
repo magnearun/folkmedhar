@@ -16,13 +16,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
 
 public class MainActivity extends BaseActivity {
 
-	UserFunctions userFunctions;
 	private Button buttonPantaTima;
 	private Button buttonMittSvaedi;
 
@@ -38,12 +38,13 @@ public class MainActivity extends BaseActivity {
         
        
         // Athuga login status í gagnagrunni
-        userFunctions = new UserFunctions();
-        if(userFunctions.isUserLoggedIn(getApplicationContext())) {
+        UserFunctions userFunction = new UserFunctions();
+        userFunction = new UserFunctions();
+        if(userFunction.isUserLoggedIn(getApplicationContext())) {
         	setContentView(R.layout.activity_main);
+        
         	
         	this.buttonPantaTima = (Button) this.findViewById(R.id.panta);
-        	buttonPantaTima.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xefeade));
         	buttonPantaTima.setOnClickListener(new View.OnClickListener() {
         		/**
         		 * Birtir fyrsta skjáinn í pöntunarferlinu
@@ -54,7 +55,6 @@ public class MainActivity extends BaseActivity {
         		});
         	
         	this.buttonMittSvaedi = (Button) this.findViewById(R.id.mittSvaedi);
-        	buttonMittSvaedi.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xefeade));
         	buttonMittSvaedi.setOnClickListener(new View.OnClickListener() {
         		/**
         		 * Kallar á aðferð sem að birtir aðgerðslá fyrir „Mitt svæði"
@@ -65,7 +65,6 @@ public class MainActivity extends BaseActivity {
         		});
         	
         }else {
-        	 intents[10].addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         	 startActivity(intents[10]);
         	 // Loka MainActivity skjánum
              finish();

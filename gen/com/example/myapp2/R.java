@@ -9,12 +9,20 @@ package com.example.myapp2;
 
 public final class R {
     public static final class array {
-        public static final int adgerd_array=0x7f060001;
-        public static final int harlengd_array=0x7f060002;
-        public static final int starfsmenn_array=0x7f060000;
-        public static final int timi_array=0x7f060003;
+        public static final int adgerd_array=0x7f070001;
+        public static final int harlengd_array=0x7f070002;
+        public static final int starfsmenn_array=0x7f070000;
+        public static final int timi_array=0x7f070003;
     }
     public static final class attr {
+    }
+    public static final class color {
+        public static final int background=0x7f040002;
+        public static final int buttonFontColor=0x7f040004;
+        public static final int buttoncolor=0x7f040003;
+        public static final int infobackground=0x7f040005;
+        public static final int titlebackgroundcolor=0x7f040000;
+        public static final int titletextcolor=0x7f040001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -24,74 +32,86 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
-        public static final int navigation_drawer_width=0x7f040002;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
+        public static final int navigation_drawer_width=0x7f050002;
     }
     public static final class drawable {
         public static final int drawer_shadow=0x7f020000;
-        public static final int ic_drawer=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
+        public static final int folk=0x7f020001;
+        public static final int folkmedhar=0x7f020002;
+        public static final int ic_action_folk=0x7f020003;
+        public static final int ic_drawer=0x7f020004;
+        public static final int ic_greida=0x7f020005;
+        public static final int ic_greida2=0x7f020006;
+        public static final int ic_greida3=0x7f020007;
+        public static final int ic_greida4=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int ic_launcher_folk=0x7f02000a;
+        public static final int ic_launcher_greida=0x7f02000b;
+        public static final int ic_lgrei=0x7f02000c;
     }
     public static final class id {
-        public static final int about=0x7f080035;
-        public static final int action_allar=0x7f080039;
-        public static final int action_settings=0x7f080033;
-        public static final int action_sidasta=0x7f080038;
-        public static final int adgerdSpinner=0x7f080013;
-        public static final int adgerd_text=0x7f080019;
-        public static final int afram2=0x7f080021;
-        public static final int allar_pantanir=0x7f080009;
-        public static final int btnLinkToLoginScreen=0x7f080010;
-        public static final int btnLinkToRegisterScreen=0x7f080005;
-        public static final int btnLogin=0x7f080004;
-        public static final int btnRegister=0x7f08000f;
-        public static final int buttonDagur=0x7f08001e;
-        public static final int dagur=0x7f08001a;
-        public static final int date=0x7f08001b;
-        public static final int dateOfHaircut=0x7f08002c;
-        public static final int employee=0x7f080026;
-        public static final int employeeName=0x7f080027;
-        public static final int harlengdSpinner=0x7f080012;
-        public static final int harlengd_text=0x7f080017;
-        public static final int height=0x7f08002a;
-        public static final int heightClient=0x7f08002b;
-        public static final int kennitala=0x7f080015;
-        public static final int loginEmail=0x7f080001;
-        public static final int loginPassword=0x7f080002;
-        public static final int login_error=0x7f080003;
-        public static final int logout=0x7f080037;
-        public static final int mittSvaedi=0x7f080006;
-        public static final int mitt_svaedi=0x7f080034;
-        public static final int name=0x7f080022;
-        public static final int nameOfClient=0x7f080023;
-        public static final int next=0x7f080011;
-        public static final int opnunartimi=0x7f080032;
-        public static final int panta=0x7f080007;
-        public static final int registerEmail=0x7f08000b;
-        public static final int registerName=0x7f08000a;
-        public static final int registerPassword=0x7f08000d;
-        public static final int registerPhone=0x7f08000c;
-        public static final int register_error=0x7f08000e;
-        public static final int responseTextView=0x7f080000;
-        public static final int sidasta_pontun=0x7f080008;
-        public static final int skref1_info=0x7f080018;
-        public static final int skref2_info=0x7f08001f;
-        public static final int stadsetning=0x7f080031;
-        public static final int staff_text=0x7f080016;
-        public static final int starfsmennSpinner=0x7f080014;
-        public static final int telephone=0x7f080024;
-        public static final int telephoneClient=0x7f080025;
-        public static final int til_Baka=0x7f08002f;
-        public static final int tilbaka=0x7f080020;
-        public static final int tilbod=0x7f080036;
-        public static final int tilbod1=0x7f080030;
-        public static final int time=0x7f08002d;
-        public static final int timeOfHaircut=0x7f08002e;
-        public static final int timi=0x7f08001d;
-        public static final int timi_text=0x7f08001c;
-        public static final int type=0x7f080028;
-        public static final int typeName=0x7f080029;
+        public static final int about=0x7f0a0037;
+        public static final int action_allar=0x7f0a003b;
+        public static final int action_settings=0x7f0a0035;
+        public static final int action_sidasta=0x7f0a003a;
+        public static final int adgerd=0x7f0a0028;
+        public static final int adgerdSpinner=0x7f0a0012;
+        public static final int adgerd_text=0x7f0a0018;
+        public static final int afram2=0x7f0a0020;
+        public static final int allar_pantanir=0x7f0a0009;
+        public static final int buttonDagur=0x7f0a001d;
+        public static final int buttonLogin=0x7f0a0004;
+        public static final int buttonLoginScreen=0x7f0a0010;
+        public static final int buttonRegister=0x7f0a000f;
+        public static final int buttonRegisterScreen=0x7f0a0005;
+        public static final int dagur=0x7f0a0019;
+        public static final int date=0x7f0a002b;
+        public static final int date_label=0x7f0a001a;
+        public static final int employee=0x7f0a0025;
+        public static final int harlengd=0x7f0a002a;
+        public static final int harlengdSpinner=0x7f0a0016;
+        public static final int harlengd_text=0x7f0a0017;
+        public static final int height=0x7f0a0029;
+        public static final int imageView1=0x7f0a0034;
+        public static final int left_text=0x7f0a0033;
+        public static final int loginEmail=0x7f0a0001;
+        public static final int loginError=0x7f0a0003;
+        public static final int loginPassword=0x7f0a0002;
+        public static final int logout=0x7f0a0039;
+        public static final int mittSvaedi=0x7f0a0006;
+        public static final int mitt_svaedi=0x7f0a0036;
+        public static final int mytitle=0x7f0a0032;
+        public static final int nafn=0x7f0a0022;
+        public static final int name=0x7f0a0021;
+        public static final int next=0x7f0a0011;
+        public static final int opnunartimi=0x7f0a0031;
+        public static final int panta=0x7f0a0007;
+        public static final int registerEmail=0x7f0a000b;
+        public static final int registerError=0x7f0a000e;
+        public static final int registerName=0x7f0a000a;
+        public static final int registerPassword=0x7f0a000d;
+        public static final int registerPhone=0x7f0a000c;
+        public static final int responseTextView=0x7f0a0000;
+        public static final int sidasta_pontun=0x7f0a0008;
+        public static final int simi=0x7f0a0024;
+        public static final int skref1_info=0x7f0a0015;
+        public static final int skref2_info=0x7f0a001e;
+        public static final int stadsetning=0x7f0a0030;
+        public static final int staff_text=0x7f0a0014;
+        public static final int starfsmadur=0x7f0a0026;
+        public static final int starfsmennSpinner=0x7f0a0013;
+        public static final int telephone=0x7f0a0023;
+        public static final int til_Baka=0x7f0a002d;
+        public static final int tilbaka=0x7f0a001f;
+        public static final int tilbod=0x7f0a0038;
+        public static final int tilbod1=0x7f0a002f;
+        public static final int time=0x7f0a002e;
+        public static final int time_label=0x7f0a002c;
+        public static final int timi=0x7f0a001c;
+        public static final int timi_text=0x7f0a001b;
+        public static final int type=0x7f0a0027;
     }
     public static final class layout {
         public static final int activity_allar_pantanir=0x7f030000;
@@ -108,87 +128,94 @@ public final class R {
         public static final int activity_starfsfolk=0x7f03000b;
         public static final int activity_tilbod=0x7f03000c;
         public static final int activity_um_stofuna=0x7f03000d;
+        public static final int mytitle=0x7f03000e;
     }
     public static final class menu {
-        public static final int base=0x7f070000;
-        public static final int bokun=0x7f070001;
-        public static final int main=0x7f070002;
-        public static final int mitt_svaedi=0x7f070003;
-        public static final int sidasta_pontun=0x7f070004;
-        public static final int skref2=0x7f070005;
-        public static final int skref3=0x7f070006;
-        public static final int starfsfolk=0x7f070007;
-        public static final int step2=0x7f070008;
-        public static final int tilbod=0x7f070009;
-        public static final int um_stofuna=0x7f07000a;
+        public static final int base=0x7f090000;
+        public static final int bokun=0x7f090001;
+        public static final int main=0x7f090002;
+        public static final int mitt_svaedi=0x7f090003;
+        public static final int sidasta_pontun=0x7f090004;
+        public static final int skref2=0x7f090005;
+        public static final int skref3=0x7f090006;
+        public static final int starfsfolk=0x7f090007;
+        public static final int step2=0x7f090008;
+        public static final int tilbod=0x7f090009;
+        public static final int um_stofuna=0x7f09000a;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int adgerd_prompt=0x7f05000e;
-        public static final int afram=0x7f050005;
+        public static final int action_settings=0x7f060001;
+        public static final int adgerd_prompt=0x7f06000e;
+        public static final int afram=0x7f060005;
         /**  activity_mitt_svaedi.xml 
          */
-        public static final int allar_pantanir=0x7f05001e;
-        public static final int app_name=0x7f050000;
-        public static final int button_Skref3_stadfesta=0x7f050029;
-        public static final int button_Skref3_tilBaka=0x7f050028;
-        public static final int dagur=0x7f050013;
-        public static final int harlengd_prompt=0x7f05000f;
-        public static final int hello_world=0x7f050002;
-        public static final int kt_hint=0x7f050009;
-        public static final int mittSvaedi=0x7f05000b;
-        public static final int mottekid=0x7f05002b;
-        public static final int opnunartimi=0x7f05001b;
-        public static final int panta=0x7f05000a;
-        public static final int pick_date=0x7f050011;
-        public static final int sidasta_pontun=0x7f05001f;
-        public static final int skref1_info=0x7f05000d;
-        public static final int skref2_info=0x7f050015;
-        public static final int stadsetning=0x7f05001a;
-        public static final int staff=0x7f05001c;
-        public static final int starfsmenn_prompt=0x7f05000c;
-        public static final int textview_Skref3_adgerd=0x7f050024;
-        public static final int textview_Skref3_dagsetning=0x7f050026;
-        public static final int textview_Skref3_harlengd=0x7f050025;
-        public static final int textview_Skref3_nafn=0x7f050021;
-        public static final int textview_Skref3_simi=0x7f050022;
-        public static final int textview_Skref3_starfsmadur=0x7f050023;
-        public static final int textview_Skref3_timi=0x7f050027;
-        public static final int tilbaka=0x7f050004;
-        public static final int tilbod1=0x7f05002d;
-        public static final int tilbod2=0x7f05002e;
-        public static final int timi_prompt=0x7f050012;
-        public static final int timi_text=0x7f050014;
+        public static final int allar_pantanir=0x7f06001e;
+        public static final int app_name=0x7f060000;
+        public static final int button_Skref3_stadfesta=0x7f060029;
+        public static final int button_Skref3_tilBaka=0x7f060028;
+        public static final int dagur=0x7f060013;
+        public static final int harlengd_prompt=0x7f06000f;
+        public static final int hello_world=0x7f060002;
+        public static final int kt_hint=0x7f060009;
+        public static final int mittSvaedi=0x7f06000b;
+        public static final int mottekid=0x7f06002b;
+        public static final int opnunartimi=0x7f06001b;
+        public static final int panta=0x7f06000a;
+        public static final int pick_date=0x7f060011;
+        public static final int sidasta_pontun=0x7f06001f;
+        public static final int skref1_info=0x7f06000d;
+        public static final int skref2_info=0x7f060015;
+        public static final int stadsetning=0x7f06001a;
+        public static final int staff=0x7f06001c;
+        public static final int starfsmenn_prompt=0x7f06000c;
+        public static final int textview_Skref3_adgerd=0x7f060024;
+        public static final int textview_Skref3_dagsetning=0x7f060026;
+        public static final int textview_Skref3_harlengd=0x7f060025;
+        public static final int textview_Skref3_nafn=0x7f060021;
+        public static final int textview_Skref3_simi=0x7f060022;
+        public static final int textview_Skref3_starfsmadur=0x7f060023;
+        public static final int textview_Skref3_timi=0x7f060027;
+        public static final int tilbaka=0x7f060004;
+        public static final int tilbod1=0x7f06002d;
+        public static final int tilbod2=0x7f06002e;
+        public static final int timi_prompt=0x7f060012;
+        public static final int timi_text=0x7f060014;
         /**  activity_allar_pantanir.xml 
          */
-        public static final int title_activity_allar_pantanir=0x7f050018;
-        public static final int title_activity_base=0x7f050003;
+        public static final int title_activity_allar_pantanir=0x7f060018;
+        public static final int title_activity_base=0x7f060003;
         /**  activity_bokun.xml 
          */
-        public static final int title_activity_bokun=0x7f05002a;
-        public static final int title_activity_login=0x7f050006;
+        public static final int title_activity_bokun=0x7f06002a;
+        public static final int title_activity_login=0x7f060006;
         /**  activity_mitt_svaedi.xml 
          */
-        public static final int title_activity_mitt_svaedi=0x7f050017;
-        public static final int title_activity_register=0x7f050007;
+        public static final int title_activity_mitt_svaedi=0x7f060017;
+        public static final int title_activity_register=0x7f060007;
         /**  activity_sidasta_pontun.xml 
          */
-        public static final int title_activity_sidasta_pontun=0x7f050016;
+        public static final int title_activity_sidasta_pontun=0x7f060016;
         /**  activity_skref2.xml 
          */
-        public static final int title_activity_skref2=0x7f050010;
+        public static final int title_activity_skref2=0x7f060010;
         /**  activity_skref3.xml 
          */
-        public static final int title_activity_skref3=0x7f050020;
-        public static final int title_activity_starfsfolk=0x7f05001d;
+        public static final int title_activity_skref3=0x7f060020;
+        public static final int title_activity_starfsfolk=0x7f06001d;
         /**  activity_skref1.xml 
          */
-        public static final int title_activity_step1=0x7f050008;
+        public static final int title_activity_step1=0x7f060008;
         /**  activity_tilbod.xml 
          */
-        public static final int title_activity_tilbod=0x7f05002c;
+        public static final int title_activity_tilbod=0x7f06002c;
         /**  activity_um_stofuna.xml 
          */
-        public static final int title_activity_um_stofuna=0x7f050019;
+        public static final int title_activity_um_stofuna=0x7f060019;
+    }
+    public static final class style {
+        public static final int CustomTheme=0x7f080001;
+        public static final int button=0x7f080002;
+        public static final int customTheme=0x7f080003;
+        public static final int titlebackgroundcolor=0x7f080000;
     }
 }

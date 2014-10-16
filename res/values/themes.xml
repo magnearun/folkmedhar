@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="customTheme" parent="android:Theme.Holo.Light"> 
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowTitleBackgroundStyle">@style/titlebackgroundcolor</item>
+        <item name="android:windowTitleSize">50dip</item>
+    </style>
+</resources>

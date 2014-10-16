@@ -16,8 +16,8 @@
     <string name="panta">Panta tíma</string>
     <string name="mittSvaedi">Mínar pantanir</string>
     <string name="starfsmenn_prompt">Veldu starfsmann</string>
-    <string name="skref1_info">Veldu starfsmann og hvað þú vilt að hann
-        geri við hárið á þér</string>
+    <string name="skref1_info">Veldu starfsmann og hvað þú láta
+        gera við hárið á þér</string>
 
     <string-array name="starfsmenn_array">
         <item>Hver sem er</item>
