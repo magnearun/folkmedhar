@@ -2,7 +2,8 @@
  * @author: Magnea Rún Vignisdóttir
  * @since: 15.10.2014
  * Klasinn sem JSON parser klasi sem sækir JSON hlut frá vefslóð. Klasinn styður tvær 
- * “http requeste” aðferðir, POST og GET json frá vefslóð
+ * “http requeste” aðferðir, POST og GET json frá vefslóð. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
+ * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
  */
 
 package com.example.folkmedhar.pantanir;

@@ -44,10 +44,10 @@ public class LoginActivity extends BaseActivity {
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-            	/**
-            	 * Athugar hvort að innslegið lykilorð og netfang passar við
-            	 * notanda sem nú þegar er skráður í gagnagrunninum
-            	 */
+            /**
+             * Athugar hvort að tekist hafi að skrá notanda inn og
+             * birtir MainActivity skjá ef svo er
+             */
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
                 UserFunctions userFunction = new UserFunctions();
@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
                 if (isUser) {
                     Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(mainActivity);
-                    // Loka skjánum fyrir nýskráningar
+                    // Loka skjánum fyrir innskráningu
                     finish();
                 } else {
                     loginErrorMsg.setText("Rangt notendanafn eða lykilorð");

@@ -43,10 +43,10 @@ public class RegisterActivity extends BaseActivity {
         registerErrorMsg = (TextView) findViewById(R.id.registerError);
          
         buttonRegister.setOnClickListener(new View.OnClickListener() {   
-        	/**
-        	 * Nýr notandi er skráður í gagnagrunninn ef það var ekki nú þegar notandi
-        	 * í honum með sama netfang
-        	 */
+           /**
+            * Athugar hvort tekist hafi að nýskrá notanda og skrá hann inn
+            * og birtir MainActivity skjá ef svo er
+            */
             public void onClick(View view) {
                 String name = inputName.getText().toString();
                 String email = inputEmail.getText().toString();
@@ -57,6 +57,7 @@ public class RegisterActivity extends BaseActivity {
                 if (isUser && userFunction.loginUser(getApplicationContext(), email, password)) {
                     Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(mainActivity);
+                    // loka skjánum fyrir nýskráningu
                     finish();
                 }
                 else 
@@ -78,7 +79,3 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 }
-
-
-
-

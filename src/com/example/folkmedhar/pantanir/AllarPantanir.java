@@ -58,7 +58,8 @@ public class AllarPantanir extends BaseActivity {
      * @author: Magnea Rún Vignisdóttir
      * @since: 15.10.2014
      * Klasinn sem sér um að sækja allar pantanir notandans úr gagnagrunni
-     * og birta þær í textasvæði
+     * og birta þær í textasvæði. Klasinn hefur ekki verið útfærður að fullu. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
+     * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
 	class BirtaPantanir extends AsyncTask<String, String, String> {
 		

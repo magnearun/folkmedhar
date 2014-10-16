@@ -102,7 +102,8 @@ public class Skref3 extends BaseActivity {
 	}
 	
 	/**
-	 * Færir bókun notandans yfir í gagnagrunn
+	 * Færir bókun notandans yfir í gagnagrunn. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
+     * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
 	 */
 	class Stadfesta extends AsyncTask<String, String, String> {
 

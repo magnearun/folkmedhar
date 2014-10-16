@@ -3,6 +3,8 @@
  * @since: 15.10.2014
  * Klasinn inniheldur aðferðir til þess að skrá notanda inn og nýskrá notanda. Einnig eru 
  * aðferðir til þess að skrá út notanda og athuga hvort að notandi sé nú þegar innskráður.
+ * Klasinn byggir að hluta til á eftirfarandi tutorial:
+ * http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/
  */
 
 package com.example.folkmedhar.notendur;
@@ -31,12 +33,12 @@ public class UserFunctions extends BaseActivity{
     private static String login_tag = "login";
     private static String register_tag = "register";
     
-    private static String KEY_SUCCESS = "success";
-    private static String KEY_UID = "uid";
-    private static String KEY_NAME = "name";
-    private static String KEY_EMAIL = "email";
-    private static String KEY_PHONE = "phone";    
-    private static String KEY_CREATED_AT = "created_at";
+    private static String kSuccess = "success";
+    private static String kUID = "uid";
+    private static String kName = "name";
+    private static String kEmail = "email";
+    private static String kPhone = "phone";    
+    private static String kCreatedAt = "created_at";
     
     public static String userName;
     public static String userPhone;
@@ -48,10 +50,8 @@ public class UserFunctions extends BaseActivity{
      
      
     /**
-     * Nýr notandi skráður hefur verið skráður í gagnagrunninn
-     * @param name
-     * @param email
-     * @param password
+     * Sendir POST skipun með innslegnum upplýsingum frá notanda
+     * og skráir í gagnagrunn. Skilar true ef tekist hefur að nýskrá notanda.
      * */
     public boolean registerUser(Context context, String name, String email, String phone, String password){
 
@@ -66,8 +66,8 @@ public class UserFunctions extends BaseActivity{
 
            try {
            	// Athuga hvort notandi sé nú þegar til í gagnagrunni
-               if (json.getString(KEY_SUCCESS) != null) {
-                   String result = json.getString(KEY_SUCCESS); 
+               if (json.getString(kSuccess) != null) {
+                   String result = json.getString(kSuccess); 
                    return (Integer.parseInt(result) == 1);
                }
            } catch (JSONException e) {
@@ -79,8 +79,11 @@ public class UserFunctions extends BaseActivity{
     
     
     /**
-     * Skilar true ef notandi hefur verið skráður inn
-     */
+     * Sendir POST skipun með innslegnum upplýsingum frá notanda
+     * og athugar hvort notandi sé skráður í gagnagrunn. 
+     * Vistar upplýsingar um notanda á símann og skilar true ef 
+     * það hefur tekist og notandi verið skráður inn.
+     * */
     public boolean loginUser(Context context, String email, String password) {
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -90,24 +93,26 @@ public class UserFunctions extends BaseActivity{
         JSONObject json = jsonParser.makeHttpRequest(loginURL, "POST", params);
         
         try {
-        	// Athuga hvort notandi sé nú þegar til í gagnagrunni
-            if (json.getString(KEY_SUCCESS) != null) {
-                String result = json.getString(KEY_SUCCESS); 
+        	// Athuga hvort notandi fannst í gagnagrunni
+            if (json.getString(kSuccess) != null) {
+                String result = json.getString(kSuccess); 
                 if(Integer.parseInt(result) == 1){
                 	
+                	// User upplýsingar úr gagnagrunni
                 	JSONObject json_user = json.getJSONObject("user");
                 	
                 	// Vista upplýsingar úr gagnagrunni á símann
 					SharedPreferences prefs = context.getSharedPreferences("Login", 0);
-					boolean user = prefs.edit().putString(KEY_NAME, json_user.getString(KEY_NAME))
-					.putString(KEY_EMAIL, json_user.getString(KEY_EMAIL))
-					.putString(KEY_PHONE, json_user.getString(KEY_PHONE))
-					.putString(KEY_UID, json_user.getString(KEY_UID))
-					.putString(KEY_CREATED_AT, json_user.getString(KEY_CREATED_AT))		
+					boolean user = prefs.edit().putString(kName, json_user.getString(kName))
+					.putString(kEmail, json_user.getString(kEmail))
+					.putString(kPhone, json_user.getString(kPhone))
+					.putString(kUID, json_user.getString(kUID))
+					.putString(kCreatedAt, json_user.getString(kCreatedAt))		
 					.commit();
-					userName = json_user.getString(KEY_NAME);
-					userPhone = json_user.getString(KEY_PHONE);
-					userEmail = json_user.getString(KEY_EMAIL);
+					
+					userName = json_user.getString(kName);
+					userPhone = json_user.getString(kPhone);
+					userEmail = json_user.getString(kEmail);
 					return user;
                 }
             }
@@ -123,7 +128,7 @@ public class UserFunctions extends BaseActivity{
      * */
     public boolean isUserLoggedIn(Context context){
         SharedPreferences prefs = context.getSharedPreferences("Login", 0);
-    	if (prefs.getString(KEY_EMAIL, null) != null) {
+    	if (prefs.getString(kEmail, null) != null) {
     		return true;
     	}
     	return false;
@@ -131,7 +136,7 @@ public class UserFunctions extends BaseActivity{
     	
      
     /**
-     * Notandinn hefur verið skráður úr kerfinu
+     * Skilar true ef notandinn hefur verið skráður úr kerfinu
      * */
     public boolean logoutUser(Context context){
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
@@ -139,4 +144,3 @@ public class UserFunctions extends BaseActivity{
     }
      
 }
-
