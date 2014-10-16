@@ -106,7 +106,7 @@
     <!-- activity_login -->
     <string name="email">Netfang</string>
     <string name="password">Lykilorð</string>
-    <string name="login">Skrá inn</string>
+    <string name="login">Innskráning</string>
     <string name="register">Ný/r á Fólk með hár? Smelltu hér til að nýskrá þig!</string>
     
     <!-- activity_register -->
