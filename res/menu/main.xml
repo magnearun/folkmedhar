@@ -5,28 +5,28 @@
 
     <item
         android:id="@+id/panta"
-        android:orderInCategory="100"
-        android:title="Panta tíma"/>
+        android:orderInCategory="1"
+        android:title="@string/panta"/>
     
     <item
         android:id="@+id/mitt_svaedi"
-        android:orderInCategory="100"
-        android:title="Mitt svæði"/>
+        android:orderInCategory="2"
+        android:title="@string/title_activity_mitt_svaedi"/>
     
      <item
         android:id="@+id/about"
-        android:orderInCategory="100"
-        android:title="Um stofuna"/>
+        android:orderInCategory="3"
+        android:title="@string/title_activity_um_stofuna"/>
      
      <item
         android:id="@+id/tilbod"
-        android:orderInCategory="100"
-        android:title="Tilboð"/>
+        android:orderInCategory="4"
+        android:title="@string/title_activity_tilbod"/>
      
      <item
         android:id="@+id/logout"
-        android:orderInCategory="100"
-        android:title="Skrá mig út"/>
+        android:orderInCategory="5"
+        android:title="@string/logout"/>
      
 
 </menu>

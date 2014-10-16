@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.myapp2.MittSvaedi" >
+    tools:context="com.example.folkmedhar.MittSvaedi" >
 
     <Button
         android:id="@+id/sidasta_pontun"
@@ -16,7 +16,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="119dp"
         android:minWidth="150dp"
-        android:text="@string/sidasta_pontun" />
+        android:text="@string/sidasta_pontun"
+        style="@style/buttonStyle" />
 
     <Button
         android:id="@+id/allar_pantanir"
@@ -28,6 +29,7 @@
         android:gravity="center"
         android:minWidth="100dip"
         android:text="@string/allar_pantanir"
-        android:width="150dp" />
+        android:width="150dp"
+        style="@style/buttonStyle" />
 
 </RelativeLayout>

@@ -14,10 +14,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginRight="18dp"
         android:text="@string/afram"
-        android:textSize="20sp"
-        android:background="@color/buttoncolor"
-        android:textColor="@color/buttonFontColor"
-        android:padding="10dp" />
+        style="@style/buttonStyle" />
 
     <Spinner
         android:id="@+id/adgerdSpinner"

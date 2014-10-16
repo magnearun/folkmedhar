@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.myapp2.pantanir.bokun.Skref2" >
+    tools:context="com.example.folkmedhar.pantanir.bokun.Skref2" >
 
 
     <TextView
@@ -16,8 +16,7 @@
         android:layout_alignLeft="@+id/date_label"
         android:layout_alignParentTop="true"
         android:layout_marginTop="120dp"
-        android:text="@string/dagur"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/dagur" />
 
     <TextView
         android:id="@+id/date_label"
@@ -33,8 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="@string/timi_text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/timi_text" />
 
     <Spinner
         android:id="@+id/timi"
@@ -83,10 +81,7 @@
         android:layout_alignLeft="@+id/date_label"
         android:layout_below="@+id/date_label"
         android:text="@string/tilbaka"
-        android:textSize="20sp"
-        android:background="@color/buttoncolor"
-        android:textColor="@color/buttonFontColor"
-        android:padding="10dp" />
+       	style="@style/buttonStyle" />
 
     <Button
         android:id="@+id/afram2"
@@ -96,9 +91,6 @@
         android:layout_alignBottom="@+id/tilbaka"
         android:layout_alignRight="@+id/timi"
         android:text="@string/afram"
-        android:textSize="20sp"
-        android:background="@color/buttoncolor"
-        android:textColor="@color/buttonFontColor"
-        android:padding="10dp" />
+        style="@style/buttonStyle" />
 
 </RelativeLayout>

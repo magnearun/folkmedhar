@@ -6,11 +6,11 @@
     <item
         android:id="@+id/action_sidasta"
         android:orderInCategory="100"
-        android:title="Síðasta pöntun"/>
+        android:title="@string/title_activity_sidasta_pontun"/>
     
     <item
         android:id="@+id/action_allar"
         android:orderInCategory="100"
-        android:title="Allar pantanir"/>
+        android:title="@string/title_activity_allar_pantanir"/>
 
 </menu>

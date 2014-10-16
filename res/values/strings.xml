@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Fólk með hár</string>
+    <string name="folkmedhar">FÓLK MEÐ HÁR</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world</string>
     <string name="title_activity_base">Base Activity</string>
@@ -101,5 +102,19 @@
     <string name="title_activity_tilbod">Tilboð</string>
     <string name="tilbod1">Tilboð 1: 2 fyrir 1 í klippingu</string>
     <string name="tilbod2">Tilboð 2: Ókeypis rakstur með klippingu</string>
+    
+    <!-- activity_login -->
+    <string name="email">Netfang</string>
+    <string name="password">Lykilorð</string>
+    <string name="login">Skrá inn</string>
+    <string name="register">Ný/r á Fólk með hár? Smelltu hér til að nýskrá þig!</string>
+    
+    <!-- activity_register -->
+    <string name="nyskraning">Nýskráning</string>
+    <string name="fullname">Fullt nafn</string>
+    <string name="phone">Símanúmer</string>
+    
+    <!-- main.xml menu -->
+    <string name="logout">Skrá mig út</string>
 
 </resources>
