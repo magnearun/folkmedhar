@@ -20,6 +20,7 @@ import com.example.myapp2.pantanir.JSONParser;
 
 
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,20 @@ public class Skref3 extends BaseActivity {
 	private Button buttonPanta;
 	private TextView clientInformation;
 	
+	private String[] heiti = { "nafn", "simi", "starfsmadur", "adgerd", 
+			"harlengd","date","time"};
+	private String[] heitistreng = { BaseActivity.nafn,BaseActivity.simi,
+			BaseActivity.starfsmadur,BaseActivity.adgerd,BaseActivity.harlengd,
+			BaseActivity.date,BaseActivity.time};
+	private String[] heiti1 = { "nafn", "simi", "starfsmadur", 
+			"adgerd", "harlengd","time","staff_id","email","lengd", "dagur"};
+	private String[] heitistreng1 = { BaseActivity.nafn,BaseActivity.simi,
+			BaseActivity.starfsmadur,BaseActivity.adgerd,BaseActivity.harlengd,
+			BaseActivity.time,BaseActivity.staff_id,BaseActivity.email,BaseActivity.lengd,
+			BaseActivity.dagur};
+	
+	
+	
 	
 	@Override
 	/**
@@ -50,7 +65,6 @@ public class Skref3 extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_skref3);
 		settingText();
-		
 		buttonTilbaka = (Button) findViewById(R.id.til_Baka);
         buttonTilbaka.setOnClickListener(new View.OnClickListener() {
             /**
@@ -79,23 +93,13 @@ public class Skref3 extends BaseActivity {
 	 * Birtir upplýsingar um bókun í TextView
 	 */
 	public void settingText(){
-		//Log.d("HUNDUUUUUUUUUUUUr",harlengd);
 		clientInformation = new TextView(this);
-		clientInformation=(TextView)findViewById(R.id.nameOfClient);
-		clientInformation.setText(nafn);
-		clientInformation=(TextView)findViewById(R.id.telephoneClient);
-		clientInformation.setText(simi);
-		clientInformation=(TextView)findViewById(R.id.employeeName);
-		clientInformation.setText(starfsmadur);
-		clientInformation=(TextView)findViewById(R.id.typeName);
-		clientInformation.setText(adgerd);
-		clientInformation=(TextView)findViewById(R.id.heightClient);
-		clientInformation.setText(harlengd);
-		clientInformation=(TextView)findViewById(R.id.dateOfHaircut);
-		clientInformation.setText(date);
-		clientInformation=(TextView)findViewById(R.id.timeOfHaircut);
-		clientInformation.setText(time);
-		
+		Resources res = getResources();
+		for(int i=0;i<heiti.length;i++){
+			int id = res.getIdentifier(heiti[i], "id", getBaseContext().getPackageName());
+			clientInformation=(TextView)findViewById(id);
+			clientInformation.setText(heitistreng[i]);
+		}
 	}
 	
 	/**
@@ -127,8 +131,9 @@ public class Skref3 extends BaseActivity {
 		protected String doInBackground(String... args) {
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("kt", "23"));
-			params.add(new BasicNameValuePair("staff_id", staff_id));
+			for(int i=0;i<heiti1.length;i++){
+				params.add(new BasicNameValuePair(heiti1[i], heitistreng1[i]));
+			}
 			
 			JSONObject json = jsonParser.makeHttpRequest(url_panta_tima,
 					"POST", params);

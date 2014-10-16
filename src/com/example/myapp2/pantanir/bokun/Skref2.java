@@ -27,8 +27,10 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,7 +42,7 @@ public class Skref2 extends BaseActivity {
 	
 	public Tvennd[] bokadirTimar; 
 	public Timar[] lausirTimar;
-	String databaseDagur;
+	String dagur;
 	
 	private String url_saekja_lausa_tima = "http://prufa2.freeiz.com/saekja_bokada_tima.php";
 	private ProgressDialog pDialog;
@@ -109,9 +111,8 @@ public class Skref2 extends BaseActivity {
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_skref2);
-		
-		dateTextView = (TextView) findViewById(R.id.date);
+		setContentView(R.layout.activity_skref2);		
+		dateTextView = (TextView) findViewById(R.id.date_label);
 		timi = (Spinner) findViewById(R.id.timi);
 		buttonDagur = (Button) findViewById(R.id.buttonDagur);
 		buttonTilbaka = (Button) findViewById(R.id.tilbaka);
@@ -173,10 +174,10 @@ public class Skref2 extends BaseActivity {
 		 * fyrir valinn dag
 		 */
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-			databaseDagur = year + "-" + (month+1) + "-" + day;
+			BaseActivity.dagur = year + "-" + (month+1) + "-" + day;
 			BaseActivity.date = day + "-" + (month+1) + "-" + year;
 			
-			buttonDagur.setText(day + "-" + (month+1) + "-" + year);
+			buttonDagur.setText(BaseActivity.date);
 			if(view.isShown()){
 				new BokadirTimar().execute();
 			}
@@ -190,8 +191,6 @@ public class Skref2 extends BaseActivity {
 	     * gagnagrunni
 	     */
 		class BokadirTimar extends AsyncTask<String, String, String> {
-
-			String dagur = databaseDagur;
 
 			@Override
 			/**
@@ -230,9 +229,10 @@ public class Skref2 extends BaseActivity {
 			 */
 			protected String doInBackground(String... args) {
 
+				String newDagur = BaseActivity.dagur;
 				int success;
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
-				params.add(new BasicNameValuePair("dagur", dagur));
+				params.add(new BasicNameValuePair("dagur", newDagur));
 				
 				JSONObject json = jsonParser.makeHttpRequest(
 						url_saekja_lausa_tima, "GET", params);

@@ -10,11 +10,8 @@
 
 package com.example.myapp2;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,10 +27,10 @@ import com.example.myapp2.pantanir.bokun.Skref3;
 public class BaseActivity extends Activity {
 	
 	// Upplýsingar um notandann
-	public static String nafn, simi, adgerd, harlengd;
+	public static String nafn, simi, adgerd, harlengd, email;
 	
 	// Tímasetning pöntunar
-	public static  String time, dateTime, date;
+	public static  String time, dateTime, date, lengd, dagur;
 	
 	// Upplýsingar um starfsmann
 	public static String staff_id, starfsmadur;
@@ -49,6 +46,9 @@ public class BaseActivity extends Activity {
      */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		nafn = UserFunctions.userName;
+		simi = UserFunctions.userPhone;
 
     	intents[0] = new Intent(this, MainActivity.class);
     	intents[1] = new Intent(this, Skref1.class);
@@ -61,6 +61,7 @@ public class BaseActivity extends Activity {
 		intents[8] = new Intent(this, UmStofuna.class);
 		intents[9] = new Intent(this, Tilbod.class);
 		intents[10] = new Intent(this, LoginActivity.class);
+		
 	
 
 	}
@@ -104,9 +105,10 @@ public class BaseActivity extends Activity {
 	  * Notandi hefur verið skráður út og login síða birt 
 	  */
 	 public void logout() {
-		 UserFunctions.logoutUser(getApplicationContext());
-		 intents[10].addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 UserFunctions userFunction = new UserFunctions();
+		 userFunction.logoutUser(getApplicationContext());
 		 startActivity(intents[10]);
+         // Closing activity screen
          finish();
 	 }
 }

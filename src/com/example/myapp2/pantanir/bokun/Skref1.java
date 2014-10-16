@@ -20,7 +20,7 @@ import android.widget.Spinner;;
 public class Skref1 extends BaseActivity {
 		
 		// Viðmótshlutir
-		EditText kennitala;
+
 		Spinner velja_starfsmann;
 		Spinner velja_adgerd;
 		Spinner velja_harlengd;
@@ -35,7 +35,6 @@ public class Skref1 extends BaseActivity {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_skref1);
 	        
-	        kennitala = (EditText) findViewById(R.id.kennitala);
 	        velja_starfsmann = (Spinner) findViewById(R.id.starfsmennSpinner);
 	        velja_adgerd = (Spinner) findViewById(R.id.adgerdSpinner);
 	        velja_harlengd = (Spinner) findViewById(R.id.harlengdSpinner);
