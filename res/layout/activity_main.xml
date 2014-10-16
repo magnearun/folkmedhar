@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.myapp2.MainActivity" >
+    tools:context="com.example.folkmedhar.MainActivity" >
 
     <Button
         android:id="@+id/mittSvaedi"
@@ -16,10 +16,7 @@
         android:layout_below="@+id/panta"
         android:layout_marginTop="38dp"
         android:text="@string/mittSvaedi"
-        android:textSize="25sp"
-        android:background="@color/buttoncolor"
-        android:textColor="@color/buttonFontColor"
-        android:padding="10sp" />
+        style="@style/buttonStyle" />
 
     <Button
         android:id="@+id/panta"
@@ -29,9 +26,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="68dp"
         android:text="@string/panta"
-        android:textSize="25sp"
-        android:background="@color/buttoncolor"
-        android:textColor="@color/buttonFontColor"
-        android:padding="10sp"/>
+        style="@style/buttonStyle"/>
 
 </RelativeLayout>

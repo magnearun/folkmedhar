@@ -4,28 +4,26 @@
     android:layout_height="match_parent" >
     
     
-    
     <TextView
         android:id="@+id/name"
         android:layout_width="150dp"
         android:layout_alignParentLeft="true"
         android:layout_height="38dp"
         android:text="@string/textview_Skref3_nafn"
-        android:textSize= "20sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:labelFor="@+id/nafn" />
+        android:labelFor="@+id/nafn"
+        style="@style/textviewStyle" />
     
-    <EditText
+   <EditText
         android:id="@+id/nafn"
         android:layout_width="200dp"
         android:layout_height="38dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/name"
         android:inputType="textPersonName"
-        android:textSize="20sp" >
+        style="@style/textviewStyle" >
 
-        <requestFocus />
     </EditText>
     	
     <TextView
@@ -35,12 +33,12 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/name"
         android:text="@string/textview_Skref3_simi" 
-        android:textSize= "20sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:labelFor="@+id/simi"/>
+        android:labelFor="@+id/simi"
+        style="@style/textviewStyle"/>
     
-     <EditText
+    <EditText
          android:id="@+id/simi"
          android:layout_width="200dp"
          android:layout_height="38dp"
@@ -48,9 +46,8 @@
          android:layout_marginTop="10dp"
          android:layout_toRightOf="@+id/telephone"
          android:inputType="textPersonName"
-         android:textSize="20sp" >
+         style="@style/textviewStyle" >
 
-        <requestFocus />
     </EditText>
     
     <TextView
@@ -60,9 +57,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/telephone"
         android:text="@string/textview_Skref3_starfsmadur" 
-        android:textSize= "20sp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        style="@style/textviewStyle"/>
 
     <TextView
         android:id="@+id/starfsmadur"
@@ -71,7 +68,7 @@
         android:layout_below="@id/simi"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/employee"
-        android:textSize="20sp" />
+        style="@style/textviewStyle" />
 
     <TextView
         android:id="@+id/type"
@@ -80,9 +77,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/employee"
         android:text="@string/textview_Skref3_adgerd"
-        android:textSize= "20sp" 
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        style="@style/textviewStyle"/>
 
     <TextView
         android:id="@+id/adgerd"
@@ -91,7 +88,7 @@
         android:layout_below="@id/starfsmadur"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/type"
-        android:textSize="20sp" />
+        style="@style/textviewStyle" />
 
     <TextView
         android:id="@+id/height"
@@ -100,9 +97,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/type"
         android:text="@string/textview_Skref3_harlengd"
-        android:textSize= "20sp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        style="@style/textviewStyle" />
 
     <TextView
         android:id="@+id/harlengd"
@@ -111,7 +108,7 @@
         android:layout_below="@id/adgerd"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/height"
-        android:textSize="20sp" />
+        style="@style/textviewStyle"/>
 
     <TextView
         android:id="@+id/date_label"
@@ -122,7 +119,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/textview_Skref3_dagsetning"
-        android:textSize="20sp" />
+        style="@style/textviewStyle" />
 
     <TextView
         android:id="@+id/date"
@@ -131,7 +128,7 @@
         android:layout_below="@id/harlengd"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/date_label"
-        android:textSize="20sp" />
+        style="@style/textviewStyle" />
 
     <TextView
         android:id="@+id/time_label"
@@ -142,7 +139,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/textview_Skref3_timi"
-        android:textSize="20sp" />
+        style="@style/textviewStyle" />
 
     <Button
         android:id="@+id/til_Baka"
@@ -152,10 +149,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="21dp"
         android:text="@string/button_Skref3_tilBaka"
-        android:textSize="20sp"
-        android:background="@color/buttoncolor"
-        android:textColor="@color/buttonFontColor"
-        android:padding="10dp" />
+        style="@style/buttonStyle" />
 
     <Button
         android:id="@+id/panta"
@@ -167,10 +161,7 @@
         android:layout_marginRight="15dp"
         android:onClick="stadfesta"
         android:text="@string/button_Skref3_stadfesta"
-        android:textSize="20sp"
-        android:background="@color/buttoncolor"
-        android:textColor="@color/buttonFontColor"
-        android:padding="10dp" />
+        style="@style/buttonStyle" />
 
     <TextView
         android:id="@+id/time"
@@ -180,6 +171,6 @@
         android:layout_alignBottom="@+id/time_label"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/time_label"
-        android:textSize="20sp" />
+        style="@style/textviewStyle" />
 
 </RelativeLayout>

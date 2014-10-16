@@ -5,72 +5,73 @@
  
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dip" >
-        <!--  View Title Label -->
+
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dip"
-            android:text="FÓLK MEÐ HÁR"
-            android:textSize="25dip"
+            android:text="@string/folkmedhar"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
-        <!--  Email Label -->
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Netfang" />
-        <!--  Email TextField -->
+            android:text="@string/email"
+            android:labelFor="@+id/loginEmail" />
+
+
         <EditText
             android:id="@+id/loginEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
          
-        <!--  Password Label -->
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
-            android:text="Lykilorð" />
-        <!--  Password TextField -->
+            android:text="@string/password"
+            android:labelFor="@+id/loginPassword" />
+
         <EditText
             android:id="@+id/loginPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:password="true" />
+            android:inputType="textPassword" />
          
-        <!--  Error message -->
-        <TextView android:id="@+id/loginError"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#e30000"
-                    android:padding="10dip"
-                    android:textStyle="bold"/>
+
+        <TextView 
+            android:id="@+id/loginError"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#e30000"
+            android:padding="10dip"
+            android:textStyle="bold"/>
  
-        <!--  Login Button -->       
+     
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:text="Skrá inn"
-            android:textSize="20sp"
-        	android:background="@color/buttoncolor"
-        	android:textColor="@color/buttonFontColor"
-        	android:padding="10dp"  />
+            android:text="@string/login"
+            style="@style/buttonStyle" />
  
-        <!--  Link to Registration Screen -->
+
         <Button
             android:id="@+id/buttonRegisterScreen"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@null"
-            android:text="Ný/r á Fólk með hár? Smelltu hér til að nýskrá þig!"
+            android:text="@string/register"
             android:textStyle="bold" />
     </LinearLayout>
  
