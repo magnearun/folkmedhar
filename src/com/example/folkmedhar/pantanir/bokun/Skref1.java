@@ -36,6 +36,7 @@ import com.example.folkmedhar.R;
 		 * Nýtt fragment er búið til fyrir Skref 1
 		 */
 		public Skref1() {
+			
 		}
 
 		@Override
@@ -116,6 +117,7 @@ import com.example.folkmedhar.R;
 		   
 		    fragmentManager.beginTransaction()
 	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
 	        .commit();
 		}
 	    

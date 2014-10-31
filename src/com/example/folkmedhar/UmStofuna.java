@@ -60,6 +60,7 @@ import android.widget.Spinner;
 		   
 		    fragmentManager.beginTransaction()
 	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
 	        .commit();
 		}
 		

@@ -64,6 +64,7 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 	    }
 	    fragmentManager.beginTransaction()
         .replace(R.id.content_frame, fragment)
+        .addToBackStack("fragment")
         .commit();
 	}
 }

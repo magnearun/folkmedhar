@@ -28,10 +28,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
-import com.example.folkmedhar.Upphafsskjar;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 
@@ -105,7 +103,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 */
 		@Override
 		public void onClick(View view) {
-			Fragment fragment = new Upphafsskjar();
+			Fragment fragment = null;
     	    FragmentManager fragmentManager = getFragmentManager();
 		    switch (view.getId()) {
 		        case R.id.til_Baka:
@@ -120,6 +118,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		    }
 		    fragmentManager.beginTransaction()
 	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
 	        .commit();
 		}
 		

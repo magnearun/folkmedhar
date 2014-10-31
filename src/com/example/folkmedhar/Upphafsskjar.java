@@ -55,7 +55,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		 */
 		@Override
 		public void onClick(View view) {
-			Fragment fragment = new Upphafsskjar();
+			Fragment fragment = null;
     	    FragmentManager fragmentManager = getFragmentManager();
 		    switch (view.getId()) {
 		        case R.id.mittSvaedi:
@@ -69,6 +69,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		    }
 		    fragmentManager.beginTransaction()
 	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
 	        .commit();
 		}
 	}

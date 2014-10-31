@@ -35,7 +35,6 @@ import android.widget.TextView;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
-import com.example.folkmedhar.Upphafsskjar;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 
@@ -95,7 +94,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 	 */
 		@Override
 		public void onClick(View view) {
-			Fragment fragment = new Upphafsskjar();
+			Fragment fragment = null;
     	    FragmentManager fragmentManager = getFragmentManager();
 		    switch (view.getId()) {
 		        case R.id.tilbaka:
@@ -110,6 +109,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		    }
 		    fragmentManager.beginTransaction()
 	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
 	        .commit();
 		}
 		

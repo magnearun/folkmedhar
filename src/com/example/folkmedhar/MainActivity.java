@@ -14,7 +14,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -30,7 +29,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UserFunctions;
@@ -98,7 +96,6 @@ public class MainActivity extends Activity {
         if(userFunction.isUserLoggedIn(getApplicationContext())) {
         	setContentView(R.layout.activity_main);
         	
-        	//mTitle = mDrawerTitle = getTitle();
             menuTitles = getResources().getStringArray(R.array.menu_titles);
             mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -115,9 +112,9 @@ public class MainActivity extends Activity {
             mDrawerToggle = new ActionBarDrawerToggle(
                     this,                 
                     mDrawerLayout,       
-                    R.drawable.ic_drawer,  
-                    R.string.adgerd_prompt,  
-                    R.string.allar_pantanir  
+                    R.drawable.ic_burger,  
+                    R.string.adgerd_prompt,  //Veit ekki hvað þetta er
+                    R.string.allar_pantanir  // Veit ekki hvað þetta er
                     ) {
             	/**
             	 * Eva
@@ -138,7 +135,12 @@ public class MainActivity extends Activity {
             mDrawerLayout.setDrawerListener(mDrawerToggle);
 
             if (savedInstanceState == null) {
-                selectItem(0);
+            	Fragment fragment = new Upphafsskjar();
+    		    FragmentManager fragmentManager = getFragmentManager();
+    		   
+    		    fragmentManager.beginTransaction()
+    	        .replace(R.id.content_frame, fragment)
+    	        .commit();
             }
         
         	
@@ -179,7 +181,7 @@ public class MainActivity extends Activity {
 	    public boolean onPrepareOptionsMenu(Menu menu) {
 	        // If the nav drawer is open, hide action items related to the content view
 	        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-	        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+	        menu.findItem(R.id.settings).setVisible(!drawerOpen);
 	        return super.onPrepareOptionsMenu(menu);
 	    }
 
@@ -193,22 +195,14 @@ public class MainActivity extends Activity {
 	        if (mDrawerToggle.onOptionsItemSelected(item)) {
 	            return true;
 	        }
-	        // Handle action buttons
-	        switch(item.getItemId()) {
-	        case R.id.action_websearch:
-	            // create intent to perform web search for this planet
-	            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-	            intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
-	            // catch event that there's no activity to handle intent
-	            if (intent.resolveActivity(getPackageManager()) != null) {
-	                startActivity(intent);
-	            } else {
-	                Toast.makeText(this, R.string.action_settings, Toast.LENGTH_LONG).show();
-	            }
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	        }
+	        Fragment fragment = new Skref1();
+		    FragmentManager fragmentManager = getFragmentManager();
+		   
+		    fragmentManager.beginTransaction()
+	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
+	        .commit();
+	        return true;
 	    }
 
 	    /**
@@ -252,9 +246,10 @@ public class MainActivity extends Activity {
 	    	        	break;
 	    	        default: break;
 	    	    }
-	    	   
+	    	    
 	    	    fragmentManager.beginTransaction()
 	    	        .replace(R.id.content_frame, fragment)
+	    	        .addToBackStack("fragment")
 	    	        .commit();
 
 	        mDrawerList.setItemChecked(position, true);
@@ -330,6 +325,7 @@ public class MainActivity extends Activity {
 		
 		public void setActionBarTitle(int titleActivitySkref2) {
 		    getActionBar().setTitle(titleActivitySkref2);
-		}
-	    
-}
+		}	
+	}
+
+

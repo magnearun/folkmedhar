@@ -2,36 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapp2.MainActivity" >
-
-    <!--  
-    <item
-        android:id="@+id/panta"
-        android:orderInCategory="1"
-        android:title="@string/panta"/>
-    
-    <item
-        android:id="@+id/mitt_svaedi"
-        android:orderInCategory="2"
-        android:title="@string/title_activity_mitt_svaedi"/>
-    
-     <item
-        android:id="@+id/about"
-        android:orderInCategory="3"
-        android:title="@string/title_activity_um_stofuna"/>
      
-     <item
-        android:id="@+id/tilbod"
-        android:orderInCategory="4"
-        android:title="@string/title_activity_tilbod"/>
-     
-     <item
-        android:id="@+id/logout"
-        android:orderInCategory="5"
-        android:title="@string/logout"/>
-     -->
-     
-     <item android:id="@+id/action_websearch"
-          android:title="bla"
+     <item android:id="@+id/settings"
+          android:title="@string/stillingar"
           android:showAsAction="ifRoom|withText" />
      
 
