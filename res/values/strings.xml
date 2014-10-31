@@ -10,8 +10,17 @@
     <string name="afram">Áfram</string>
     <string name="title_activity_login">Innskráning</string>
     <string name="title_activity_register">Nýskráning</string>
+    
+    <string-array name="menu_titles">
+        <item>Heim</item>
+        <item>Panta tíma</item>
+        <item>Mitt svæði</item>
+        <item>Um stofuna</item>
+        <item>Tilboð</item>
+        <item>Skrá mig út</item>
+    </string-array>
 
-    <!-- activity_skref1.xml -->
+    <!-- fragment_skref1.xml -->
     <string name="title_activity_step1">Skref 1 af 3</string>
     <string name="kt_hint">2212902169</string>
     <string name="panta">Panta tíma</string>
@@ -48,7 +57,7 @@
         <item>Sítt</item>
     </string-array>
 
-    <!-- activity_skref2.xml -->
+    <!-- fragment_skref2.xml -->
     <string name="title_activity_skref2">Skref 2 af 3</string>
     <string name="pick_date">Veldu dag</string>
     <string name="timi_prompt">Veldu tíma</string>
@@ -60,16 +69,16 @@
         <item>Alveg sama</item>
     </string-array>
 
-    <!-- activity_sidasta_pontun.xml -->
+    <!-- fragment_sidasta_pontun.xml -->
     <string name="title_activity_sidasta_pontun">Síðasta pöntun</string>
 
-    <!-- activity_mitt_svaedi.xml -->
+    <!-- fragment_mitt_svaedi.xml -->
     <string name="title_activity_mitt_svaedi">Mínar pantanir</string>
 
-    <!-- activity_allar_pantanir.xml -->
+    <!-- fragment_allar_pantanir.xml -->
     <string name="title_activity_allar_pantanir">Allar pantanir</string>
 
-    <!-- activity_um_stofuna.xml -->
+    <!-- fragment_um_stofuna.xml -->
     <string name="title_activity_um_stofuna">Um Stofuna</string>
     <string name="stadsetning">Fólk með hár er staðsettt á
         Brávallagötu 14, 101 Reykjavík</string>
@@ -77,11 +86,11 @@
     <string name="staff">Starfsfólk</string>
     <string name="title_activity_starfsfolk">Starfsfólk</string>
 
-    <!-- activity_mitt_svaedi.xml -->
+    <!-- fragment_mitt_svaedi.xml -->
     <string name="allar_pantanir">Allar pantanir</string>
     <string name="sidasta_pontun">Síðasta pöntun</string>
 
-    <!-- activity_skref3.xml -->
+    <!-- fragment_skref3.xml -->
     <string name="title_activity_skref3">Skref 3 af 3</string>
     <string name="textview_Skref3_nafn">Nafn:</string>
     <string name="textview_Skref3_simi">Símanúmer:</string>
@@ -93,28 +102,31 @@
     <string name="button_Skref3_tilBaka">Til Baka</string>
     <string name="button_Skref3_stadfesta">Staðfesta</string>
 
-    <!-- activity_bokun.xml -->
+    <!-- fragment_bokun.xml -->
     <string name="title_activity_bokun">Pöntun móttekin</string>
     <string name="mottekid">Pöntun þín hefur verið móttekin. Til að sjá eða
         afpanta tímann má fara í Mínar pantanir. Takk fyrir viðskiptin</string>
-        
-    <!-- activity_tilbod.xml -->
+
+    <!-- fragment_tilbod.xml -->
     <string name="title_activity_tilbod">Tilboð</string>
     <string name="tilbod1">Tilboð 1: 2 fyrir 1 í klippingu</string>
     <string name="tilbod2">Tilboð 2: Ókeypis rakstur með klippingu</string>
-    
+
     <!-- activity_login -->
     <string name="email">Netfang</string>
     <string name="password">Lykilorð</string>
     <string name="login">Innskráning</string>
     <string name="register">Ný/r á Fólk með hár? Smelltu hér til að nýskrá þig!</string>
-    
+
     <!-- activity_register -->
     <string name="nyskraning">Nýskráning</string>
     <string name="fullname">Fullt nafn</string>
     <string name="phone">Símanúmer</string>
-    
+
     <!-- main.xml menu -->
     <string name="logout">Skrá mig út</string>
+    <string name="title_activity_drasl">Drasl</string>
+    <string name="title_activity_skref1">Skref1</string>
+    <string name="title_activity_upphafsskjar">Fólk með hár</string>
 
 </resources>

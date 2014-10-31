@@ -7,14 +7,14 @@
 
 package com.example.folkmedhar.pantanir;
 
-import com.example.folkmedhar.BaseActivity;
+import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import android.os.Bundle;
 
 /*
  * Það á eftir að útfæra þennan klasa
  */
-public class SidastaPontun extends BaseActivity {
+public class SidastaPontun extends MainActivity {
 
 	@Override
 	/**

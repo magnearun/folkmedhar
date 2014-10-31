@@ -16,7 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.folkmedhar.BaseActivity;
+import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
 import android.app.ProgressDialog;
@@ -28,7 +28,7 @@ import android.widget.TextView;
 /*
  * Það á eftir að klára þennan klasa
  */
-public class AllarPantanir extends BaseActivity {
+public class AllarPantanir extends MainActivity {
 
 	TextView responseTextView;
 	

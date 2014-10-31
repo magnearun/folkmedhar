@@ -6,20 +6,44 @@
 
 package com.example.folkmedhar;
 
-import com.example.folkmedhar.R;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
 
 /*
- * Það á eftir að útfæra þennan klasa
+ * Það á eftir að klára að útfæra þennan klasa
  */
-public class Tilbod extends BaseActivity {
+	public class Tilbod extends Fragment  {
 
-	@Override
-	/**
-	 * Birtir skjá sem sýnir þau tilboð sem stofan býður upp á
-	 */
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_tilbod);
+		// Viðmótshlutir
+		Spinner velja_starfsmann;
+		Spinner velja_adgerd;
+		Spinner velja_harlengd;
+		Button afram;
+		
+		/**
+		 * Nýtt fragment er búið til fyrir tilboð
+		 */
+		public Tilbod() {
+		}
+
+		@Override
+		/**
+		 * Birtir skjá sem sýnir upplýsingar um starfsfólk stofunnar
+		 */
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_tilbod,
+					container, false);
+			
+			((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_tilbod);
+			
+			return rootView;
+		}
+	
 	}
-}
+	

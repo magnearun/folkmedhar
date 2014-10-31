@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.folkmedhar"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.folkmedhar"
     android:versionCode="1"
-    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionName="1.0" >
 
-    
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
@@ -14,10 +14,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/customTheme"
-        android:logo="@drawable/ic_greida4">
+        android:logo="@drawable/ic_greida4"
+        android:theme="@style/customTheme" >
         <activity
-            android:name="com.example.folkmedhar.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,75 +26,89 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.folkmedhar.pantanir.bokun.Skref1"
+            android:name=".pantanir.bokun.Skref1"
             android:label="@string/title_activity_step1"
-            android:parentActivityName="com.example.folkmedhar.MainActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name="com.example.folkmedhar.pantanir.AllarPantanir"
+            android:name=".pantanir.AllarPantanir"
             android:label="@string/title_activity_allar_pantanir"
-            android:parentActivityName="com.example.folkmedhar.MainActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name="com.example.folkmedhar.pantanir.SidastaPontun"
+            android:name=".pantanir.SidastaPontun"
             android:label="@string/title_activity_sidasta_pontun"
-            android:parentActivityName="com.example.folkmedhar.MainActivity"  >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.MittSvaedi"
+            android:name=".MittSvaedi"
             android:label="@string/title_activity_mitt_svaedi"
-            android:parentActivityName="com.example.folkmedhar.MainActivity"  >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.UmStofuna"
+            android:name=".UmStofuna"
             android:label="@string/title_activity_um_stofuna"
-            android:parentActivityName="com.example.folkmedhar.MainActivity"  >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.BaseActivity"
+            android:name=".BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.Starfsfolk"
+            android:name=".Starfsfolk"
             android:label="@string/title_activity_starfsfolk"
-            android:parentActivityName="com.example.folkmedhar.MainActivity"  >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.pantanir.bokun.Skref3"
+            android:name=".pantanir.bokun.Skref3"
             android:label="@string/title_activity_skref3"
-            android:parentActivityName="com.example.folkmedhar.MainActivity"  >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.pantanir.bokun.Skref2"
+            android:name=".pantanir.bokun.Skref2"
             android:label="@string/title_activity_skref2"
-            android:parentActivityName="com.example.folkmedhar.MainActivity" >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.StadfestingBokunar"
+            android:name=".StadfestingBokunar"
             android:label="@string/title_activity_bokun"
-            android:parentActivityName="com.example.folkmedhar.MainActivity"  >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.Tilbod"
+            android:name=".Tilbod"
             android:label="@string/title_activity_tilbod"
-            android:parentActivityName="com.example.folkmedhar.MainActivity"  >
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.notendur.LoginActivity"
+            android:name=".notendur.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="com.example.folkmedhar.notendur.RegisterActivity"
-            android:label="@string/title_activity_register"  >
+            android:name=".notendur.RegisterActivity"
+            android:label="@string/title_activity_register" >
         </activity>
-        
-        
+        <activity
+            android:name=".Drasl"
+            android:label="@string/title_activity_drasl" >
+        </activity>
+        <activity
+            android:name=".pantanir.bokun.Skref1"
+            android:label="@string/title_activity_skref1" >
+        </activity>
+        <activity
+            android:name=".Upphafsskjar"
+            android:label="@string/title_activity_upphafsskjar" >
+        </activity>
+        <activity
+            android:name="com.example.folkmedhar.pantanir.bokun.Skref1"
+            android:label="@string/title_activity_skref1" >
+        </activity>
     </application>
 
 </manifest>

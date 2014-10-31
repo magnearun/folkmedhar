@@ -11,19 +11,19 @@ package com.example.folkmedhar.notendur;
 
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.folkmedhar.BaseActivity;
-import com.example.folkmedhar.pantanir.JSONParser;
- 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.example.folkmedhar.pantanir.JSONParser;
  
-public class UserFunctions extends BaseActivity{
+public class UserFunctions extends Activity{
      
     private JSONParser jsonParser;
      

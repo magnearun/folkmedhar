@@ -7,15 +7,15 @@ package com.example.folkmedhar.pantanir.bokun;
  */
 public class Tvennd
 {
-	String timi;
-	int lengd;
+	public String timi;
+	public int lengd;
 	
 	/**
 	 * Býr til nýjan hlut af taginu Tvennd
 	 * @param t
 	 * @param l
 	 */
-	Tvennd( String t, int l )
+	public Tvennd( String t, int l )
 	{
 		timi = t;
 		lengd = l;

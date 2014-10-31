@@ -7,18 +7,18 @@
 
 package com.example.folkmedhar.notendur;
  
-import com.example.folkmedhar.BaseActivity;
-import com.example.folkmedhar.MainActivity;
-import com.example.folkmedhar.R;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.folkmedhar.MainActivity;
+import com.example.folkmedhar.R;
  
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends Activity {
     Button buttonRegister;
     Button buttonLoginScreen;
     EditText inputName;

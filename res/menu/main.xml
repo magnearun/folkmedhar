@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapp2.MainActivity" >
 
+    <!--  
     <item
         android:id="@+id/panta"
         android:orderInCategory="1"
@@ -27,6 +28,11 @@
         android:id="@+id/logout"
         android:orderInCategory="5"
         android:title="@string/logout"/>
+     -->
+     
+     <item android:id="@+id/action_websearch"
+          android:title="bla"
+          android:showAsAction="ifRoom|withText" />
      
 
 </menu>

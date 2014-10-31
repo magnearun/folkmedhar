@@ -7,14 +7,14 @@ package com.example.folkmedhar.pantanir.bokun;
  */
 public class Timar
 {
-	String timi;
-	boolean laus;
+	public String timi;
+	public boolean laus;
  /**
   * Býr til nýjan hlut af taginu Timar
   * @param t
   * @param b
   */
- Timar( String t, boolean b )
+ public Timar( String t, boolean b )
 	{
 		timi = t;
 		laus= b;

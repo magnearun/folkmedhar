@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.folkmedhar.Skref1" >
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="18dp"
+        android:text="@string/afram"
+        style="@style/buttonStyle" />
+
+    <Spinner
+        android:id="@+id/adgerdSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/starfsmennSpinner"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/staff_text"
+        android:entries="@array/adgerd_array"
+        android:prompt="@string/adgerd_prompt" />
+
+    <TextView
+        android:id="@+id/skref1_info"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="15sp"
+        android:height="50dp"
+        android:text="@string/skref1_info"
+        android:background="@color/infobackground"
+        android:padding="20sp" />
+
+    <TextView
+        android:id="@+id/staff_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/starfsmennSpinner"
+        android:text="@string/textview_Skref3_starfsmadur"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:width="120dp" 
+        android:layout_marginLeft="10dp"/>
+
+    <Spinner
+        android:id="@+id/starfsmennSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adgerdSpinner"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/skref1_info"
+        android:layout_marginTop="16dp"
+        android:entries="@array/starfsmenn_array"
+        android:prompt="@string/starfsmenn_prompt" />
+
+    <Spinner
+        android:id="@+id/harlengdSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adgerdSpinner"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/adgerdSpinner"
+        android:layout_marginTop="24dp"
+        android:entries="@array/harlengd_array"
+        android:prompt="@string/harlengd_prompt" />
+
+    <TextView
+        android:id="@+id/harlengd_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/harlengdSpinner"
+        android:text="@string/textview_Skref3_harlengd"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/adgerd_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/adgerdSpinner"
+        android:text="@string/textview_Skref3_adgerd"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:layout_marginLeft="10dp"/>
+
+</RelativeLayout>
