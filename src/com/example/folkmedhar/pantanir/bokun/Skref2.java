@@ -18,10 +18,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
@@ -92,6 +95,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
     /**
 	 * Birtir skjáinn fyrir skref 1 eða 3
 	 */
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View view) {
 			Fragment fragment = null;
@@ -101,9 +105,24 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		        	fragment = new Skref1();
 		            break;
 		        case R.id.afram2:
-		        	getDateInfo();
-		        	fragment = new Skref3();
-		            break;
+		        	if(MainActivity.date==null) {
+		        		AlertDialog alertDialog = new AlertDialog.Builder(c).create();
+		        		alertDialog.setMessage("Vinsamlegast veldu dag");
+		        		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		        		   public void onClick(final DialogInterface dialog, final int which) {
+		        		   }
+		        		});
+		        		// Set the Icon for the Dialog
+		        		//alertDialog.setIcon(R.drawable.icon);
+		        		alertDialog.show();
+		        		//Toast.makeText(getActivity(), "Vinsamlegast veldu dag", Toast.LENGTH_LONG).show();
+		        		return;
+		        	}
+		        	else {
+		        		getDateInfo();
+			        	fragment = new Skref3();
+			            break;
+		        	}
 		        default:
 		            break;
 		    }
