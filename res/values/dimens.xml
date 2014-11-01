@@ -7,4 +7,10 @@
 <dimen name="cell_margin_top">92px</dimen>
 <dimen name="cell_margin_left">39px</dimen>
 <dimen name="cell_text_size">26px</dimen>
+
+  <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="navigation_drawer_width">240dp</dimen>
+    
 </resources>

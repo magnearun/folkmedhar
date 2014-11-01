@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.folkmedhar.pantanir.AllarPantanir;
+import com.example.folkmedhar.pantanir.SidastaPontun;
+
 public class MittSvaedi extends Fragment implements  android.view.View.OnClickListener  {
 	/**
 	 * Nýtt fragment er búið til fyrir „Mínar pantanir"
@@ -53,11 +56,11 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 		Fragment fragment = new MittSvaedi();
 	    FragmentManager fragmentManager = getFragmentManager();
 	    switch (view.getId()) {
-	        case R.id.mittSvaedi:
-	        	startActivity(MainActivity.intents[6]); // SíðastaPontun
+	        case R.id.sidasta_pontun:
+	        	fragment = new SidastaPontun(); // SíðastaPontun
 	            break;
-	        case R.id.panta:
-	        	startActivity(MainActivity.intents[7]); // AllarPantanir
+	        case R.id.allar_pantanir:
+	        	fragment = new AllarPantanir();// AllarPantanir
 	            break;
 	        default:
 	            break;

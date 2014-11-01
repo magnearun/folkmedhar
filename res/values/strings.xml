@@ -11,7 +11,7 @@
     <string name="title_activity_login">Innskráning</string>
     <string name="title_activity_register">Nýskráning</string>
     <string name="stillingar">Stillingar</string>
-    
+
     <string-array name="menu_titles">
         <item>Heim</item>
         <item>Panta tíma</item>
@@ -72,6 +72,7 @@
 
     <!-- fragment_sidasta_pontun.xml -->
     <string name="title_activity_sidasta_pontun">Síðasta pöntun</string>
+    <string name="sidasta_pontun_fyrirsogn">Næsta pöntun</string>
 
     <!-- fragment_mitt_svaedi.xml -->
     <string name="title_activity_mitt_svaedi">Mínar pantanir</string>
@@ -129,5 +130,6 @@
     <string name="title_activity_drasl">Drasl</string>
     <string name="title_activity_skref1">Skref1</string>
     <string name="title_activity_upphafsskjar">Fólk með hár</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
 
 </resources>

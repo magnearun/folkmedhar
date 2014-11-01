@@ -24,6 +24,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.folkmedhar.CalendarActivity;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.JSONParser;
@@ -55,7 +57,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		ArrayAdapter<String> dataAdapter;
 		
 		// Viðmótshlutir
-		Button buttonTilbaka, buttonAfram;
+		Button buttonTilbaka, buttonAfram, buttonDagur;
 		TextView dateTextView;
 		static Spinner timi;
 
@@ -83,10 +85,14 @@ import com.example.folkmedhar.pantanir.JSONParser;
 			timi = (Spinner) rootView.findViewById(R.id.timi);
 			buttonTilbaka = (Button) rootView.findViewById(R.id.tilbaka);
 			buttonAfram = (Button) rootView.findViewById(R.id.afram2);
+			buttonAfram = (Button) rootView.findViewById(R.id.afram2);
+			buttonDagur = (Button) rootView.findViewById(R.id.buttonDagur);
+			
 			c = getActivity();
 	        
 			buttonTilbaka.setOnClickListener(this);
 			buttonAfram.setOnClickListener(this);
+			buttonDagur.setOnClickListener(this);
 	        
 			return rootView;
 		}
@@ -101,7 +107,12 @@ import com.example.folkmedhar.pantanir.JSONParser;
 			Fragment fragment = null;
     	    FragmentManager fragmentManager = getFragmentManager();
 		    switch (view.getId()) {
+		    	case R.id.buttonDagur:
+		    		Intent i = new Intent(getActivity(), CalendarActivity.class);
+			        startActivityForResult(i, 1);
+			        return;
 		        case R.id.tilbaka:
+		        	update();
 		        	fragment = new Skref1();
 		            break;
 		        case R.id.afram2:
@@ -126,10 +137,12 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		        default:
 		            break;
 		    }
+		    
 		    fragmentManager.beginTransaction()
 	        .replace(R.id.content_frame, fragment)
 	        .addToBackStack("fragment")
 	        .commit();
+	        
 		}
 		
 		/**
@@ -285,5 +298,18 @@ import com.example.folkmedhar.pantanir.JSONParser;
 			spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			timi.setAdapter(spinnerArrayAdapter);
 		}
+		
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+			buttonDagur.setText(MainActivity.dagur);
+				new BokadirTimar().execute();
+			
+		}
+		
+		public void update() {
+			/*
+			if(MainActivity.starfsmadur!=)
+			*/
+		}
+		
 	}
 

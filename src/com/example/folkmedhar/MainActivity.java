@@ -6,13 +6,7 @@
 
 package com.example.folkmedhar;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -27,10 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UserFunctions;
@@ -38,11 +29,10 @@ import com.example.folkmedhar.pantanir.AllarPantanir;
 import com.example.folkmedhar.pantanir.SidastaPontun;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 import com.example.folkmedhar.pantanir.bokun.Skref2;
-import com.example.folkmedhar.pantanir.bokun.Skref2.BokadirTimar;
 import com.example.folkmedhar.pantanir.bokun.Skref3;
 import com.example.folkmedhar.pantanir.bokun.StadfestingBokunar;
 
-
+//kljlkjlkjlkj
 public class MainActivity extends Activity {
 	
 	// Upplýsingar um notandann
@@ -79,7 +69,7 @@ public class MainActivity extends Activity {
      	simi = UserFunctions.userPhone;
      	email = UserFunctions.userEmail;
 
-        intents[0] = new Intent(this, MainActivity.class);
+        intents[0] = new Intent(this, CalendarActivity.class);
         intents[1] = new Intent(this, Skref1.class);
         intents[2] = new Intent(this, Skref2.class);
         intents[3] = new Intent(this, Skref3.class);
@@ -197,7 +187,15 @@ public class MainActivity extends Activity {
 	        if (mDrawerToggle.onOptionsItemSelected(item)) {
 	            return true;
 	        }
-	        startActivityForResult(new Intent(Intent.ACTION_PICK).setDataAndType(null, CalendarActivity.MIME_TYPE), 100);
+	     
+	        Fragment fragment = new Skref1();
+		    FragmentManager fragmentManager = getFragmentManager();
+		   
+		    fragmentManager.beginTransaction()
+	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
+	        .commit();
+	    
 	        return true;
 	    }
 
@@ -239,7 +237,7 @@ public class MainActivity extends Activity {
 	    	        	fragment = new Tilbod();
 	    	        	break;
 	    	        case 5: logout();
-	    	        	break;
+	    	        	return;
 	    	        default: break;
 	    	    }
 	    	    
@@ -273,86 +271,14 @@ public class MainActivity extends Activity {
 	        // Pass any configuration change to the drawer toggls
 	        mDrawerToggle.onConfigurationChanged(newConfig);
 	    }
-	    
-	    /**
-		 * Birtir viðmótshlut þar sem notandinn getur valið dagsetningu
-		 * @param v
-		 */
-		public void showDatePickerDialog(View v) {
-		    DialogFragment newFragment = new DatePickerFragment();
-		    newFragment.show(getFragmentManager(), "datePicker");
-		}
-		
-		/**
-		 * @author: Eva Dögg Steingrímsdóttir
-		 * @since: 15.10.2014
-		 * Klasinn sem sem sér um að búa til viðmótshlut þar sem notandinn getur
-		 * valið dagsetningu
-		 */
-		public class DatePickerFragment extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
-			@Override
-			public Dialog onCreateDialog(Bundle savedInstanceState) {
-		
-				final Calendar c = Calendar.getInstance();
-				int year = c.get(Calendar.YEAR);
-				int month = c.get(Calendar.MONTH);
-				int day = c.get(Calendar.DAY_OF_MONTH);
 
-				DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
-				dialog.getDatePicker().setMinDate(c.getTimeInMillis());
-				c.set(year+1, month, day);
-				dialog.getDatePicker().setMaxDate(c.getTimeInMillis());
-				//dialog.getDatePicker().setCalendarViewShown(true);
-				//dialog.getDatePicker().setSpinnersShown(false);
-				return dialog;
-				}
-			/**
-			 * Breytan sem heldur utan um hvaða dagur var valinn fær gildi og það gildi
-			 * er birt á takka. Kallað er á aðferð sem sér um að sækja lausa tíma
-			 * fyrir valinn dag
-			 */
-			public void onDateSet(DatePicker view, int year, int month, int day) {
-				MainActivity.dagur = year + "-" + (month+1) + "-" + day;
-				MainActivity.date = day + "-" + (month+1) + "-" + year;
-				
-				
-				Button buttonDagur = (Button) findViewById(R.id.buttonDagur);
-				buttonDagur.setText(MainActivity.date);
-				if(view.isShown()){
-					new BokadirTimar().execute();
-				}
-				
-			}
-		}
+		
 		
 		public void setActionBarTitle(int titleActivitySkref2) {
 		    getActionBar().setTitle(titleActivitySkref2);
-		}
+		}	
 		
-		// 2) implement your own onActivityResult method to handle returned date
-		@Override
-		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		    if(resultCode==RESULT_OK) {
-		        int year = data.getIntExtra("year", 0);   // get number of year
-		        int month = data.getIntExtra("month", 0); // get number of month 0..11
-		        int day = data.getIntExtra("day", 0);     // get number of day 0..31
-
-		        // format date and display on screen
-		        final Calendar dat = Calendar.getInstance();
-		        dat.set(Calendar.YEAR, year);
-		        dat.set(Calendar.MONTH, month);
-		        dat.set(Calendar.DAY_OF_MONTH, day);
-		        
-		        MainActivity.date = day + "-" + (month+1) + "-" + year;
-				Button buttonDagur = (Button) findViewById(R.id.buttonDagur);
-				buttonDagur.setText(MainActivity.date);
-		        // show result
-		        SimpleDateFormat format = new SimpleDateFormat("yyyy MMM dd");
-		        Toast.makeText(MainActivity.this, format.format(dat.getTime()), Toast.LENGTH_LONG).show();
-		                
-		    }
-		}
+		
 	}
 
 

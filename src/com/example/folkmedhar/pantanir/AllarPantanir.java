@@ -16,52 +16,66 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.folkmedhar.MainActivity;
-import com.example.folkmedhar.R;
-
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-/*
- * Það á eftir að klára þennan klasa
- */
-public class AllarPantanir extends MainActivity {
+import com.example.folkmedhar.MainActivity;
+import com.example.folkmedhar.R;
 
-	TextView responseTextView;
+public class AllarPantanir extends Fragment  {
 	
 	private ProgressDialog pDialog;
 	String allarPantanir;
 	
 	JSONParser jsonParser = new JSONParser();
 	
-	private final String url_allar_pantanir = "http://prufa2.freeiz.com/minarSidur2.php";
+	private ListView mainListView ;  
+	private ArrayAdapter<String> listAdapter ; 
 	
-    @Override
-    /**
-     * Birtir layout-ið fyrir yfirlit allra pantana og upphafsstillir
-     * tilviksbreytur
-     */
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_allar_pantanir);
+	private final String url_pantanir = "http://prufa2.freeiz.com/allarPantanir.php";
+	
+	/**
+	 * Nýtt fragment er búið til fyrir allar pantanir notandans
+	 */
+	public AllarPantanir() {
+	}
+
+	@Override
+	/**
+	 * Birtir skjá sem sýnir upplýsingar um starfsfólk stofunnar
+	 */
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_allar_pantanir,
+				container, false);
+		
+		((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_allar_pantanir);
+		
+		mainListView = (ListView) rootView.findViewById( R.id.mainListView ); 
+        ArrayList<String> pantanir = new ArrayList<String>();  
+        listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, pantanir);  
         
-        responseTextView = (TextView) findViewById(R.id.responseTextView);
-        responseTextView.setMovementMethod(new ScrollingMovementMethod());
-        
-        new BirtaPantanir().execute();
-    }
-     
-    /**
+        new SaekjaAllarPantanir().execute();
+		
+		return rootView;
+	}
+	
+	/**
      * @author: Magnea Rún Vignisdóttir
      * @since: 15.10.2014
      * Klasinn sem sér um að sækja allar pantanir notandans úr gagnagrunni
-     * og birta þær í textasvæði. Klasinn hefur ekki verið útfærður að fullu. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
+     * og birta þær í lista. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
      * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
-	class BirtaPantanir extends AsyncTask<String, String, String> {
+	class SaekjaAllarPantanir extends AsyncTask<String, String, String> {
 		
 		@Override
 		/**
@@ -70,7 +84,7 @@ public class AllarPantanir extends MainActivity {
 		 * */
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(AllarPantanir.this);
+			pDialog = new ProgressDialog(getActivity());
 			pDialog.setMessage("Sæki pantanir..");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
@@ -79,38 +93,40 @@ public class AllarPantanir extends MainActivity {
 		
 		@Override
 		/**
-		 * Sækir allar pantanir notanda úr gagnagrunni og býr til streng
-		 * með upplýsingunum
+		 * Sækir allar pantanir notanda úr gagnagrunni og setur í lista
 		 */
 		protected String doInBackground(String... args) {
 
 			int success;
+			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("kt", "33"));
+			params.add(new BasicNameValuePair("email", MainActivity.email));
 			
 			JSONObject json = jsonParser.makeHttpRequest(
-					url_allar_pantanir, "GET", params);
-			
-			try {
+					url_pantanir, "GET", params);
+			Log.e("SUCCESS1",json.toString());
+			try{
 				success = json.getInt("success");
 				if(success == 1){
+					Log.e("SUCCESS","YOLO");
+					JSONArray pantanir = json.getJSONArray("pantanir");
 					
-					JSONArray p = json.getJSONArray("pantanir");
-					JSONArray pantanir = p.getJSONArray(0);
 					for(int i = 0; i < pantanir.length(); i++){
 						JSONObject pontun = pantanir.getJSONObject(i);
-						allarPantanir = allarPantanir + pontun.getString("nafn") + "\n"
-						+ pontun.getString("kt") + "\n"
-								+ pontun.getString("adgerd") + "\n"
-						+ pontun.getString("startDate") + "\n"
-								+ pontun.getString("endDate") + "\n\n";
-						}
+						String staff_id = pontun.getString("staff_id");
+						String a = starfsmadurPontunar(staff_id);
+						Log.e("HHHHHH", a);
+						listAdapter.add(pontun.getString("adgerd") + "\n" + "Starfsmadur: "+a + "\n" + pontun.getString("dagur")+ "   Klukkan: "+ pontun.getString("time")); 
+						
 					}
-				} 
-			
-			catch (JSONException e) {
+				}else{
+					listAdapter.add("Engar pantanir fundust");
+				}
+			}
+			catch(JSONException e){
 				e.printStackTrace();
 			}
+          
 			return null;
 		}
 		
@@ -120,14 +136,51 @@ public class AllarPantanir extends MainActivity {
 		 * **/
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
-			setText();
+			mainListView.setAdapter( listAdapter ); 
+
 			}
 		}
 	
 	/**
-	 * Birtir yfirlit allra pantana í TextView
+	 * Sækir nafn á starfsmanni pöntunar eftir staffanúmeri
 	 */
-	public void setText(){
-		responseTextView.setText("Þínar pantanir: \n\n" + allarPantanir);	
+	public static String starfsmadurPontunar(String s){
+		String starfsmadur;
+		switch(s) {
+    	
+			case "BOB": 
+				starfsmadur = "Bambi";
+				break;
+			
+			case "PIP" : 
+				starfsmadur = "Perla";
+				break;
+			
+			case "ODO" : 
+				starfsmadur = "Oddur";
+				break;
+			
+			case "MRV" : 
+				starfsmadur= "Magnea";
+				break;
+			
+			case "EDK" :
+				starfsmadur = "Eva";
+				break;
+			
+			case "BIP" : 
+				starfsmadur = "Birkir";
+				break;
+			
+			case "DOR" : 
+				starfsmadur = "Dagný";
+				break;
+			
+			default: starfsmadur = "Error";
+			
 		}
+		return starfsmadur;
+		
 	}
+
+}
