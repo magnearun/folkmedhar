@@ -7,6 +7,8 @@
 
 package com.example.folkmedhar;
 
+import android.view.View;
+
 public final class R {
     public static final class array {
         public static final int adgerd_array=0x7f070002;
@@ -36,6 +38,13 @@ public final class R {
         public static final int activity_horizontal_margin=0x7f050000;
         public static final int activity_vertical_margin=0x7f050001;
         public static final int navigation_drawer_width=0x7f050002;
+		public static int week_top_margin;
+		public static int week_left_margin;
+		public static int cell_width;
+		public static int cell_heigh;
+		public static int cell_margin_top;
+		public static int cell_margin_left;
+		public static int cell_text_size;
     }
     public static final class drawable {
         public static final int drawer_shadow=0x7f020000;
@@ -43,6 +52,9 @@ public final class R {
         public static final int ic_drawer=0x7f020002;
         public static final int ic_greida4=0x7f020003;
         public static final int ic_launcher=0x7f020004;
+		public static int typeb_calendar_today;
+		public static int background;
+		public static int calendar_week;
     }
     public static final class id {
         public static final int action_allar=0x7f0a003b;
@@ -105,6 +117,8 @@ public final class R {
         public static final int timi=0x7f0a001d;
         public static final int timi_text=0x7f0a001c;
         public static final int type=0x7f0a0028;
+		public static int calendar;
+		public static int hint;
     }
     public static final class layout {
         public static final int activity_allar_pantanir=0x7f030000;
@@ -123,6 +137,7 @@ public final class R {
         public static final int fragment_um_stofuna=0x7f03000d;
         public static final int fragment_upphafsskjar=0x7f03000e;
         public static final int mytitle=0x7f03000f;
+		public static View main;
     }
     public static final class menu {
         public static final int drasl=0x7f090000;

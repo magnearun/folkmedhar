@@ -6,6 +6,7 @@
 
 package com.example.folkmedhar;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.app.Activity;
@@ -29,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UserFunctions;
@@ -195,13 +197,7 @@ public class MainActivity extends Activity {
 	        if (mDrawerToggle.onOptionsItemSelected(item)) {
 	            return true;
 	        }
-	        Fragment fragment = new Skref1();
-		    FragmentManager fragmentManager = getFragmentManager();
-		   
-		    fragmentManager.beginTransaction()
-	        .replace(R.id.content_frame, fragment)
-	        .addToBackStack("fragment")
-	        .commit();
+	        startActivityForResult(new Intent(Intent.ACTION_PICK).setDataAndType(null, CalendarActivity.MIME_TYPE), 100);
 	        return true;
 	    }
 
@@ -302,9 +298,15 @@ public class MainActivity extends Activity {
 				int year = c.get(Calendar.YEAR);
 				int month = c.get(Calendar.MONTH);
 				int day = c.get(Calendar.DAY_OF_MONTH);
-				return new DatePickerDialog(getActivity(), this, year, month, day);
-				}
 
+				DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+				dialog.getDatePicker().setMinDate(c.getTimeInMillis());
+				c.set(year+1, month, day);
+				dialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+				//dialog.getDatePicker().setCalendarViewShown(true);
+				//dialog.getDatePicker().setSpinnersShown(false);
+				return dialog;
+				}
 			/**
 			 * Breytan sem heldur utan um hvaða dagur var valinn fær gildi og það gildi
 			 * er birt á takka. Kallað er á aðferð sem sér um að sækja lausa tíma
@@ -313,6 +315,7 @@ public class MainActivity extends Activity {
 			public void onDateSet(DatePicker view, int year, int month, int day) {
 				MainActivity.dagur = year + "-" + (month+1) + "-" + day;
 				MainActivity.date = day + "-" + (month+1) + "-" + year;
+				
 				
 				Button buttonDagur = (Button) findViewById(R.id.buttonDagur);
 				buttonDagur.setText(MainActivity.date);
@@ -325,7 +328,31 @@ public class MainActivity extends Activity {
 		
 		public void setActionBarTitle(int titleActivitySkref2) {
 		    getActionBar().setTitle(titleActivitySkref2);
-		}	
+		}
+		
+		// 2) implement your own onActivityResult method to handle returned date
+		@Override
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		    if(resultCode==RESULT_OK) {
+		        int year = data.getIntExtra("year", 0);   // get number of year
+		        int month = data.getIntExtra("month", 0); // get number of month 0..11
+		        int day = data.getIntExtra("day", 0);     // get number of day 0..31
+
+		        // format date and display on screen
+		        final Calendar dat = Calendar.getInstance();
+		        dat.set(Calendar.YEAR, year);
+		        dat.set(Calendar.MONTH, month);
+		        dat.set(Calendar.DAY_OF_MONTH, day);
+		        
+		        MainActivity.date = day + "-" + (month+1) + "-" + year;
+				Button buttonDagur = (Button) findViewById(R.id.buttonDagur);
+				buttonDagur.setText(MainActivity.date);
+		        // show result
+		        SimpleDateFormat format = new SimpleDateFormat("yyyy MMM dd");
+		        Toast.makeText(MainActivity.this, format.format(dat.getTime()), Toast.LENGTH_LONG).show();
+		                
+		    }
+		}
 	}
 
 

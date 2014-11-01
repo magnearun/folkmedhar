@@ -97,18 +97,15 @@
             android:name=".Drasl"
             android:label="@string/title_activity_drasl" >
         </activity>
-        <activity
-            android:name=".pantanir.bokun.Skref1"
-            android:label="@string/title_activity_skref1" >
-        </activity>
+        
         <activity
             android:name=".Upphafsskjar"
             android:label="@string/title_activity_upphafsskjar" >
         </activity>
-        <activity
-            android:name="com.example.folkmedhar.pantanir.bokun.Skref1"
-            android:label="@string/title_activity_skref1" >
-        </activity>
+        
+        <activity android:name="com.example.folkmedhar.CalendarActivity">
+    
+</activity>
     </application>
 
 </manifest>
