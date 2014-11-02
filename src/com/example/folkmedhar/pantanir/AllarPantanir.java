@@ -104,18 +104,17 @@ public class AllarPantanir extends Fragment  {
 			
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_pantanir, "GET", params);
-			Log.e("SUCCESS1",json.toString());
+			
 			try{
 				success = json.getInt("success");
 				if(success == 1){
-					Log.e("SUCCESS","YOLO");
+					
 					JSONArray pantanir = json.getJSONArray("pantanir");
 					
 					for(int i = 0; i < pantanir.length(); i++){
 						JSONObject pontun = pantanir.getJSONObject(i);
 						String staff_id = pontun.getString("staff_id");
 						String a = starfsmadurPontunar(staff_id);
-						Log.e("HHHHHH", a);
 						listAdapter.add(pontun.getString("adgerd") + "\n" + "Starfsmadur: "+a + "\n" + pontun.getString("dagur")+ "   Klukkan: "+ pontun.getString("time")); 
 						
 					}

@@ -335,11 +335,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			if (day_color[1].equals("GREY")) {
 				gridcell.setTextColor(getResources()
-						.getColor(R.color.lightgray));
+						.getColor(R.color.lightgray02));
 			}
 			if (day_color[1].equals("WHITE")) {
 				gridcell.setTextColor(getResources().getColor(
-						R.color.lightgray02));
+						R.color.darkgray));
 			}
 			if (day_color[1].equals("BLUE")) {
 				gridcell.setTextColor(getResources().getColor(R.color.orrange));
@@ -373,7 +373,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			seinni = c.getTimeInMillis();
 		
 			if(fyrri-seinni<0) {
-				gridcell.setBackgroundColor(getResources().getColor(R.color.orrange));
+				gridcell.setTextColor(getResources().getColor(R.color.lightgray));
 				
 			}
 			return row;

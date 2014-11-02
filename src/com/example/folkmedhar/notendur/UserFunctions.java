@@ -207,13 +207,13 @@ public class UserFunctions extends Activity{
     }
   
     
-    public String userEmail(Context context) {
+    public static String userEmail(Context context) {
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
     	String oldEmail = prefs.getString(kEmail, "");
     	return oldEmail;
     }
     
-    public String userName(Context context) {
+    public static String userName(Context context) {
     	Log.d("userName", "entered username" + context);
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
     	Log.d("userName", "prefs: " + prefs);
@@ -222,7 +222,7 @@ public class UserFunctions extends Activity{
     	return oldName;
     }
    
-    public String userPhone(Context context) {
+    public static String userPhone(Context context) {
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
     	String oldPhone = prefs.getString(kPhone, "");
     	return oldPhone;

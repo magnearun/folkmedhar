@@ -24,6 +24,7 @@ public final class R {
         public static final int buttonFontColor=0x7f040004;
         public static final int buttoncolor=0x7f040003;
         public static final int dark=0x7f040013;
+        public static final int darkgray=0x7f040017;
         public static final int darkorrange=0x7f040016;
         public static final int gray=0x7f040010;
         public static final int infobackground=0x7f040005;
@@ -207,6 +208,7 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f060002;
         public static final int adgerd_prompt=0x7f060010;
+        public static final int afpanta=0x7f060046;
         public static final int afram=0x7f060006;
         /**  fragment_mitt_svaedi.xml 
          */

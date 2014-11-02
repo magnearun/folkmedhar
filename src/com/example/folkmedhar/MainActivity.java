@@ -78,9 +78,9 @@ public class MainActivity extends Activity {
         getActionBar().setCustomView(R.layout.actionbar);
         
         // Notanda upplýsingar
-     	//nafn = UserFunctions.userName;
-     	//simi = UserFunctions.userPhone;
-     	//email = UserFunctions.userEmail;
+     	nafn = UserFunctions.userName(this.getBaseContext());
+     	simi = UserFunctions.userPhone(this.getBaseContext());
+     	email = UserFunctions.userEmail(this.getBaseContext());
 
         intents[0] = new Intent(this, CalendarActivity.class);
         intents[1] = new Intent(this, Skref1.class);

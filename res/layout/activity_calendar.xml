@@ -10,7 +10,7 @@
         android:id="@+id/buttonlayout"
         android:layout_width="fill_parent"
         android:layout_height="40sp"
-        android:background="@drawable/topbar"
+        
         android:gravity="center"
         android:height="60sp"
         android:orientation="horizontal" >
@@ -31,7 +31,7 @@
             android:layout_weight="0.6"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFFFFF" >
+            android:textColor="@color/black" >
         </TextView>
 
         <ImageView

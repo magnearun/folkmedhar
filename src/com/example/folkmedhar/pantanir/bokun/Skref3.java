@@ -140,9 +140,11 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		 * Sækir upplýsingar um nafn og síma notanda sem eru 
 		 */
 		public void settingText(){
-			UserFunctions userFunction = new UserFunctions();
+			//UserFunctions userFunction = new UserFunctions();
 			clientInformation = new TextView(getActivity());
 			Resources res = getResources();
+			
+			/*
 			int id = res.getIdentifier(heiti[0], "id", getActivity().getBaseContext().getPackageName());
 			clientInformation=(TextView)rootView.findViewById(id);
 			clientInformation.setText(userFunction.userName(getActivity().getBaseContext()), TextView.BufferType.EDITABLE);
@@ -150,9 +152,9 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			id = res.getIdentifier(heiti[1], "id", getActivity().getBaseContext().getPackageName());
 			clientInformation=(TextView)rootView.findViewById(id);
 			clientInformation.setText(userFunction.userPhone(getActivity().getBaseContext()), TextView.BufferType.EDITABLE);
-			
-			for(int i=2;i<heiti.length;i++){
-				id = res.getIdentifier(heiti[i], "id", getActivity().getBaseContext().getPackageName());
+			*/
+			for(int i=0;i<heiti.length;i++){
+				int id = res.getIdentifier(heiti[i], "id", getActivity().getBaseContext().getPackageName());
 				clientInformation=(TextView)rootView.findViewById(id);
 				clientInformation.setText(heitistreng[i]);
 				Log.d("meiri kúkur", (heitistreng[i] == null) + "");
