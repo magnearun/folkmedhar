@@ -5,9 +5,9 @@ package com.example.folkmedhar.pantanir.bokun;
  * @since: 15.10.2014
  * Klasinn sem býr til hlut sem heldur utan um bókaða tíma
  */
-public class ÞrenndArray
+public class ThrenndArray
 {
-	public Þrennd[] bokad;
+	public Thrennd[] bokad;
 	public Timar[] laust;
 	
 	/**
@@ -15,7 +15,7 @@ public class ÞrenndArray
 	 * @param t
 	 * @param l
 	 */
-	public ÞrenndArray( Þrennd [] b, Timar[] l )
+	public ThrenndArray( Thrennd [] b, Timar[] l )
 	{
 		bokad = b;
 		laust = l;

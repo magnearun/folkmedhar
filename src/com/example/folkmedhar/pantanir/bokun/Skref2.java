@@ -47,7 +47,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		//public static Þrennd[] bokadirTimar; 
 		//public static Timar[] lausirTimar;
 		
-		public static ÞrenndArray[] bokadirFylki;
+		public static ThrenndArray[] bokadirFylki;
 		
 		public static Timar[] spinnerLausir;
 		public static int lausirNum;
@@ -206,9 +206,9 @@ import com.example.folkmedhar.pantanir.JSONParser;
 				protected void onPreExecute() {
 					super.onPreExecute();
 					
-					bokadirFylki = new ÞrenndArray[7];
+					bokadirFylki = new ThrenndArray[7];
 					for (int i = 0; i<7; i++) {
-						bokadirFylki[i] = new ÞrenndArray(new Þrennd[18],new Timar[18]);
+						bokadirFylki[i] = new ThrenndArray(new Thrennd[18],new Timar[18]);
 					}
 					String[] starfsmenn = {"BOB","PIP","ODO","MRV","EDK","BIP","DOR"};
 					for (int j = 0; j<7; j++) {
@@ -302,7 +302,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 					for(int i = 0; i < bokadir.length(); i++){
 						JSONObject timi = bokadir.getJSONObject(i);
 						//Log.d("KKKKKKKKKKKKKKKKKKKK", timi.toString());
-						bokadirFylki[0].bokad[i] = new Þrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));	
+						bokadirFylki[0].bokad[i] = new Thrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));	
 						
 						}
 					
@@ -314,7 +314,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 							JSONObject timi = bokadir.getJSONObject(i);
 							if (timi.getString("staff_id").equals(id)){
 								
-							bokadirFylki[num].bokad[i] = new Þrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));
+							bokadirFylki[num].bokad[i] = new Thrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));
 					
 								Log.d("ÞEtta",id + "   "+ num);
 							
@@ -359,7 +359,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		 * @param a
 		 * @param b
 		 */
-		private static  void lausirTimar(Þrennd[] a, Timar[] b) {
+		private static  void lausirTimar(Thrennd[] a, Timar[] b) {
 
 			for(int i = 0; i<a.length; i++) {
 				for(int j = 0; j<b.length; j++) {
@@ -384,7 +384,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		 * @param a
 		 * @param b
 		 */
-		private static  void allirLausirTimar(Þrennd[] a, Timar[] b) {
+		private static  void allirLausirTimar(Thrennd[] a, Timar[] b) {
 			for(int i = 0; i<a.length; i++) {
 				for(int j = 0; j<b.length; j++) {
 					if(a[i]!=null){

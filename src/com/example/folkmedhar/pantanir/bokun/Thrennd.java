@@ -5,7 +5,7 @@ package com.example.folkmedhar.pantanir.bokun;
  * @since: 15.10.2014
  * Klasinn sem býr til hlut sem heldur utan um bókaða tíma
  */
-public class Þrennd
+public class Thrennd
 {
 	public String timi;
 	public int lengd;
@@ -16,7 +16,7 @@ public class Þrennd
 	 * @param t
 	 * @param l
 	 */
-	public Þrennd( String t, int l, String i )
+	public Thrennd( String t, int l, String i )
 	{
 		timi = t;
 		lengd = l;
