@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.folkmedhar.pantanir.JSONParser;
  
@@ -27,11 +28,15 @@ public class UserFunctions extends Activity{
      
     private JSONParser jsonParser;
      
-    private static String loginURL = "http://prufa2.freeiz.com/login/";
-    private static String registerURL = "http://prufa2.freeiz.com/login/";
+    //private static String loginURL = "http://prufa2.freeiz.com/login/";
+    //private static String registerURL = "http://prufa2.freeiz.com/login/";
+    
+    private static String loginURL = "http://peoplewithhair.freevar.com/login/";
+    private static String registerURL = "http://peoplewithhair.freevar.com/login/"; 
      
     private static String login_tag = "login";
     private static String register_tag = "register";
+    private static String update_tag = "update";
     
     private static String kSuccess = "success";
     private static String kUID = "uid";
@@ -39,10 +44,12 @@ public class UserFunctions extends Activity{
     private static String kEmail = "email";
     private static String kPhone = "phone";    
     private static String kCreatedAt = "created_at";
+    private static String kUpdatedAt = "updated_at";
     
-    public static String userName;
-    public static String userPhone;
-    public static String userEmail;
+    //*****************************
+    //public static String userName;
+    //public static String userPhone;
+    //public static String userEmail;
     
     public UserFunctions(){
         jsonParser = new JSONParser();
@@ -110,9 +117,11 @@ public class UserFunctions extends Activity{
 					.putString(kCreatedAt, json_user.getString(kCreatedAt))		
 					.commit();
 					
-					userName = json_user.getString(kName);
-					userPhone = json_user.getString(kPhone);
-					userEmail = json_user.getString(kEmail);
+					
+					//*************************************
+					//userName = json_user.getString(kName);
+					//userPhone = json_user.getString(kPhone);
+					//userEmail = json_user.getString(kEmail);
 					return user;
                 }
             }
@@ -122,6 +131,69 @@ public class UserFunctions extends Activity{
         }
         return false;
     }
+    
+    
+    /**
+     * Sendir POST skipun með núverandi emaili og lykilorði auk
+     * uppfærðra notendaupplýsinga og uppfærir upplýsingar í gagnagrunni. 
+     * Skilar true ef tekist hefur að uppfæra notanda.
+     * */
+    public boolean updateUser(Context context, String oldEmail, String oldPassword, String name, String email, String phone, String password) {
+    	 List<NameValuePair> params = new ArrayList<NameValuePair>();
+         params.add(new BasicNameValuePair("tag", update_tag));
+         params.add(new BasicNameValuePair("oldEmail", oldEmail));
+         params.add(new BasicNameValuePair("oldPassword", oldPassword));
+         params.add(new BasicNameValuePair("name", name));
+         params.add(new BasicNameValuePair("email", email));
+         params.add(new BasicNameValuePair("phone", phone));
+         params.add(new BasicNameValuePair("password", password));
+         
+         
+         Log.d("oldEmail: ", oldEmail);
+         Log.d("oldPassword: ", oldPassword);
+         Log.d("name: ", name);
+         Log.d("email: ", email);
+         Log.d("phone: ", phone);
+         Log.d("password: ", password);
+         
+         
+         JSONObject json = jsonParser.makeHttpRequest(loginURL, "POST", params);
+         
+         Log.d("POST skipunin um update, json: ", json.toString());
+         
+         try {
+         	// Athuga hvort notandi fannst í gagnagrunni
+             if (json.getString(kSuccess) != null) {
+                 String result = json.getString(kSuccess); 
+                 if(Integer.parseInt(result) == 1){
+                 	
+                 	// User upplýsingar úr gagnagrunni
+                 	JSONObject json_user = json.getJSONObject("user");
+                 	
+                 	 Log.d("Upplýsingar úr gagnagrunni, json_user: ", json_user.toString());
+                 	
+                	// Vista nýjar upplýsingar úr gagnagrunni á símann
+					SharedPreferences prefs = context.getSharedPreferences("Login", 0);
+					boolean user = prefs.edit().putString(kName, json_user.getString(kName))
+					.putString(kEmail, json_user.getString(kEmail))
+					.putString(kPhone, json_user.getString(kPhone))
+					.putString(kUID, json_user.getString(kUID))
+					.putString(kCreatedAt, json_user.getString(kCreatedAt))	
+					.putString(kUpdatedAt, json_user.getString(kUpdatedAt))
+					.commit();
+
+                	 //Log.d("Boolean user: ", "user er: "+user);
+					
+					return user;
+                 }
+             }
+             
+         } catch (JSONException e) {
+         	e.printStackTrace();
+         }
+         return false;
+     }
+    
     
     /**
      * Skilar true ef notandinn er skráður inn í kerfið
@@ -133,8 +205,35 @@ public class UserFunctions extends Activity{
     	}
     	return false;
     }
-    	
+  
+    
+    public String userEmail(Context context) {
+    	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
+    	String oldEmail = prefs.getString(kEmail, "");
+    	return oldEmail;
+    }
+    
+    public String userName(Context context) {
+    	Log.d("userName", "entered username" + context);
+    	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
+    	Log.d("userName", "prefs: " + prefs);
+    	String oldName = prefs.getString(kName, "");
+    	Log.d("userName", oldName);
+    	return oldName;
+    }
+   
+    public String userPhone(Context context) {
+    	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
+    	String oldPhone = prefs.getString(kPhone, "");
+    	return oldPhone;
+    }
+    
      
+    //public String[] getUserInfo(Context context) {
+    	
+    //	return;
+    //}
+    
     /**
      * Skilar true ef notandinn hefur verið skráður úr kerfinu
      * */

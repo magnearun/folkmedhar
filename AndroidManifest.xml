@@ -97,16 +97,18 @@
             android:name=".Drasl"
             android:label="@string/title_activity_drasl" >
         </activity>
-        
         <activity
             android:name=".Upphafsskjar"
             android:label="@string/title_activity_upphafsskjar" >
         </activity>
-        
-        <activity android:name="com.example.folkmedhar.CalendarActivity"
-          android:theme="@android:style/Theme.Translucent.NoTitleBar">
-    
-</activity>
+        <activity
+            android:name=".CalendarActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.example.folkmedhar.notendur.UpdateUser"
+            android:label="@string/title_activity_update_user" >
+        </activity>
     </application>
 
 </manifest>

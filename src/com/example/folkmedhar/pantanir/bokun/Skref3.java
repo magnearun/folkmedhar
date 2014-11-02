@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import com.example.folkmedhar.Upphafsskjar;
+import com.example.folkmedhar.notendur.UserFunctions;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 
@@ -132,19 +133,31 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		    MainActivity.updateFragment(fragment);
 		}
 		
+		//** ath breytti
+		//****Dagny
 		/**
 		 * Birtir upplýsingar um bókun í TextView
+		 * Sækir upplýsingar um nafn og síma notanda sem eru 
 		 */
 		public void settingText(){
+			UserFunctions userFunction = new UserFunctions();
 			clientInformation = new TextView(getActivity());
 			Resources res = getResources();
-			for(int i=0;i<heiti.length;i++){
-				int id = res.getIdentifier(heiti[i], "id", getActivity().getBaseContext().getPackageName());
+			int id = res.getIdentifier(heiti[0], "id", getActivity().getBaseContext().getPackageName());
+			clientInformation=(TextView)rootView.findViewById(id);
+			clientInformation.setText(userFunction.userName(getActivity().getBaseContext()), TextView.BufferType.EDITABLE);
+			
+			id = res.getIdentifier(heiti[1], "id", getActivity().getBaseContext().getPackageName());
+			clientInformation=(TextView)rootView.findViewById(id);
+			clientInformation.setText(userFunction.userPhone(getActivity().getBaseContext()), TextView.BufferType.EDITABLE);
+			
+			for(int i=2;i<heiti.length;i++){
+				id = res.getIdentifier(heiti[i], "id", getActivity().getBaseContext().getPackageName());
 				clientInformation=(TextView)rootView.findViewById(id);
 				clientInformation.setText(heitistreng[i]);
 				Log.d("meiri kúkur", (heitistreng[i] == null) + "");
 			}
-		}
+		}	
 		
 		/**
 		 * Færir bókun notandans yfir í gagnagrunn. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 

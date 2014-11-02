@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+ 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        
+        <TextView
+        android:id="@+id/updateUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="15sp"
+        android:height="30dp"
+        android:text="@string/textUpdateInfo"
+        android:background="@color/infobackground"
+        android:padding="20sp" />
+        
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="@string/userName"
+            android:labelFor="@+id/userName" />
+        
+
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+         
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="@string/userEmail"
+            android:labelFor="@+id/userEmail" />
+   
+        
+        <EditText
+            android:id="@+id/userEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+        
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="@string/userPhone"
+            android:labelFor="@+id/userPhone" />
+        
+
+        <EditText
+            android:id="@+id/userPhone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone" />        
+         
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="@string/userOldPassword"
+            android:labelFor="@+id/userOldPassword" />
+        
+        
+
+        <EditText
+            android:id="@+id/userOldPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+         
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="@string/userPassword"
+            android:labelFor="@+id/userPassword" />
+        
+        
+
+        <EditText
+            android:id="@+id/userPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+        
+        
+        <TextView 
+            android:id="@+id/updateError"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#e30000"
+            android:padding="5dip"
+            android:textStyle="bold"/>
+
+       <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/buttonUpdateUser"
+                style="@style/buttonStyle"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/buttonUpdateUser" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+ 
+</ScrollView>

@@ -88,9 +88,9 @@ public final class R {
         public static final int topbar=0x7f020016;
     }
     public static final class id {
-        public static final int action_allar=0x7f0a004b;
-        public static final int action_settings=0x7f0a0048;
-        public static final int action_sidasta=0x7f0a004a;
+        public static final int action_allar=0x7f0a0053;
+        public static final int action_settings=0x7f0a0050;
+        public static final int action_sidasta=0x7f0a0052;
         public static final int actionbar=0x7f0a0000;
         public static final int adgerd=0x7f0a0036;
         public static final int adgerdSpinner=0x7f0a0021;
@@ -104,9 +104,10 @@ public final class R {
         public static final int buttonLoginScreen=0x7f0a0015;
         public static final int buttonRegister=0x7f0a0014;
         public static final int buttonRegisterScreen=0x7f0a000b;
+        public static final int buttonUpdateUser=0x7f0a0048;
         public static final int buttonlayout=0x7f0a0001;
         public static final int calendar=0x7f0a0006;
-        public static final int calendar_day_gridcell=0x7f0a0046;
+        public static final int calendar_day_gridcell=0x7f0a004e;
         public static final int calendarheader=0x7f0a0005;
         public static final int content_frame=0x7f0a000d;
         public static final int currentMonth=0x7f0a0003;
@@ -121,21 +122,21 @@ public final class R {
         public static final int harlengd_text=0x7f0a0026;
         public static final int headline=0x7f0a0019;
         public static final int height=0x7f0a0037;
-        public static final int imageView1=0x7f0a0045;
+        public static final int imageView1=0x7f0a004d;
         public static final int left_drawer=0x7f0a000e;
-        public static final int left_text=0x7f0a0044;
+        public static final int left_text=0x7f0a004c;
         public static final int loginEmail=0x7f0a0007;
         public static final int loginError=0x7f0a0009;
         public static final int loginPassword=0x7f0a0008;
         public static final int mainListView=0x7f0a0016;
         public static final int manudur=0x7f0a001c;
-        public static final int mittSvaedi=0x7f0a0041;
-        public static final int mytitle=0x7f0a0043;
+        public static final int mittSvaedi=0x7f0a0049;
+        public static final int mytitle=0x7f0a004b;
         public static final int nafn=0x7f0a0030;
         public static final int name=0x7f0a002f;
         public static final int next=0x7f0a0020;
         public static final int nextMonth=0x7f0a0004;
-        public static final int num_events_per_day=0x7f0a0047;
+        public static final int num_events_per_day=0x7f0a004f;
         public static final int opnunartimi=0x7f0a0040;
         public static final int panta=0x7f0a003c;
         public static final int prevMonth=0x7f0a0002;
@@ -144,8 +145,8 @@ public final class R {
         public static final int registerName=0x7f0a000f;
         public static final int registerPassword=0x7f0a0012;
         public static final int registerPhone=0x7f0a0011;
-        public static final int rowTextView=0x7f0a0042;
-        public static final int settings=0x7f0a0049;
+        public static final int rowTextView=0x7f0a004a;
+        public static final int settings=0x7f0a0051;
         public static final int sidasta_pontun=0x7f0a0017;
         public static final int simi=0x7f0a0032;
         public static final int skref1_info=0x7f0a0024;
@@ -164,6 +165,13 @@ public final class R {
         public static final int timi=0x7f0a002a;
         public static final int timi_text=0x7f0a0029;
         public static final int type=0x7f0a0035;
+        public static final int updateError=0x7f0a0047;
+        public static final int updateUserInfo=0x7f0a0041;
+        public static final int userEmail=0x7f0a0043;
+        public static final int userName=0x7f0a0042;
+        public static final int userOldPassword=0x7f0a0045;
+        public static final int userPassword=0x7f0a0046;
+        public static final int userPhone=0x7f0a0044;
     }
     public static final class layout {
         public static final int actionbar=0x7f030000;
@@ -182,17 +190,19 @@ public final class R {
         public static final int fragment_starfsfolk=0x7f03000d;
         public static final int fragment_tilbod=0x7f03000e;
         public static final int fragment_um_stofuna=0x7f03000f;
-        public static final int fragment_upphafsskjar=0x7f030010;
-        public static final int list_item=0x7f030011;
-        public static final int mytitle=0x7f030012;
-        public static final int screen_gridcell=0x7f030013;
+        public static final int fragment_update_user=0x7f030010;
+        public static final int fragment_upphafsskjar=0x7f030011;
+        public static final int list_item=0x7f030012;
+        public static final int mytitle=0x7f030013;
+        public static final int screen_gridcell=0x7f030014;
     }
     public static final class menu {
         public static final int drasl=0x7f090000;
         public static final int main=0x7f090001;
         public static final int sidasta_pontun=0x7f090002;
         public static final int skref1=0x7f090003;
-        public static final int upphafsskjar=0x7f090004;
+        public static final int update_user=0x7f090004;
+        public static final int upphafsskjar=0x7f090005;
     }
     public static final class string {
         public static final int action_settings=0x7f060002;
@@ -202,6 +212,7 @@ public final class R {
          */
         public static final int allar_pantanir=0x7f060021;
         public static final int app_name=0x7f060000;
+        public static final int buttonUpdateUser=0x7f060045;
         public static final int button_Skref3_stadfesta=0x7f06002c;
         public static final int button_Skref3_tilBaka=0x7f06002b;
         public static final int dagur=0x7f060015;
@@ -236,6 +247,9 @@ public final class R {
         public static final int staff=0x7f06001f;
         public static final int starfsmenn_prompt=0x7f06000e;
         public static final int stillingar=0x7f060009;
+        /**  fragment_update_user 
+         */
+        public static final int textUpdateInfo=0x7f06003f;
         public static final int textview_Skref3_adgerd=0x7f060027;
         public static final int textview_Skref3_dagsetning=0x7f060029;
         public static final int textview_Skref3_harlengd=0x7f060028;
@@ -282,7 +296,13 @@ public final class R {
         /**  fragment_um_stofuna.xml 
          */
         public static final int title_activity_um_stofuna=0x7f06001c;
+        public static final int title_activity_update_user=0x7f06003e;
         public static final int title_activity_upphafsskjar=0x7f06003c;
+        public static final int userEmail=0x7f060041;
+        public static final int userName=0x7f060040;
+        public static final int userOldPassword=0x7f060043;
+        public static final int userPassword=0x7f060044;
+        public static final int userPhone=0x7f060042;
     }
     public static final class style {
         public static final int CustomTheme=0x7f080001;

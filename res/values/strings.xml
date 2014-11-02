@@ -50,13 +50,12 @@
         <item>Heillitun</item>
         <item>Litur í rót</item>
         <item>Strípur</item>
-        <item>Litun og strípur</item> 
+        <item>Litun og strípur</item>
         <item>Dömuklipping og litun/strípur</item>
-        <item>Herraklipping og litun/strípur</item>       
+        <item>Herraklipping og litun/strípur</item>
         <item>Greiðsla</item>
         <item>Permanett</item>
         <item>Blástur</item>
-        
     </string-array>
 
     <string name="harlengd_prompt">Veldu hárlengd</string>
@@ -140,5 +139,17 @@
     <string name="title_activity_skref1">Skref1</string>
     <string name="title_activity_upphafsskjar">Fólk með hár</string>
     <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_update_user">UpdateUser</string>
+    
+    
+        <!-- fragment_update_user -->
+    <string name="textUpdateInfo">Hér að neðan geturðu uppfært notendaupplýsingar þínar.</string>
+    <string name="userName">Nafn: </string>
+    <string name="userEmail">Netfang: </string>
+    <string name="userPhone">Símanúmer: </string>
+    <string name="userOldPassword">Lykilorð: </string>
+    <string name="userPassword">Nýtt lykilorð: </string>
+    <string name="buttonUpdateUser">Vista</string>
+    
 
 </resources>

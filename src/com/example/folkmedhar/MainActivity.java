@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.folkmedhar.notendur.LoginActivity;
+import com.example.folkmedhar.notendur.UpdateUser;
 import com.example.folkmedhar.notendur.UserFunctions;
 import com.example.folkmedhar.pantanir.AllarPantanir;
 import com.example.folkmedhar.pantanir.SidastaPontun;
@@ -77,9 +78,9 @@ public class MainActivity extends Activity {
         getActionBar().setCustomView(R.layout.actionbar);
         
         // Notanda upplýsingar
-     	nafn = UserFunctions.userName;
-     	simi = UserFunctions.userPhone;
-     	email = UserFunctions.userEmail;
+     	//nafn = UserFunctions.userName;
+     	//simi = UserFunctions.userPhone;
+     	//email = UserFunctions.userEmail;
 
         intents[0] = new Intent(this, CalendarActivity.class);
         intents[1] = new Intent(this, Skref1.class);
@@ -124,21 +125,6 @@ public class MainActivity extends Activity {
                     R.string.adgerd_prompt,  //Veit ekki hvað þetta er
                     R.string.allar_pantanir  // Veit ekki hvað þetta er
                     ) {
-            	/**
-            	 * Eva
-            	 */
-                public void onDrawerClosed(View view) {
-                    //getActionBar().setTitle(mTitle);
-                    invalidateOptionsMenu(); 
-                }
-                
-                /**
-                 * Eva
-                 */
-                public void onDrawerOpened(View drawerView) {
-                    getActionBar().setTitle(mDrawerTitle);
-                    invalidateOptionsMenu(); 
-                }
             };
             mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -181,17 +167,6 @@ public class MainActivity extends Activity {
 	        return super.onCreateOptionsMenu(menu);
 	    }
 
-	 	/**
-	 	 * Eva
-	 	 */
-	    /* Called whenever we call invalidateOptionsMenu() */
-	    @Override
-	    public boolean onPrepareOptionsMenu(Menu menu) {
-	        // If the nav drawer is open, hide action items related to the content view
-	        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-	        menu.findItem(R.id.settings).setVisible(!drawerOpen);
-	        return super.onPrepareOptionsMenu(menu);
-	    }
 
 	    @Override
 	    /**
@@ -204,7 +179,7 @@ public class MainActivity extends Activity {
 	            return true;
 	        }
 	     
-	        Fragment fragment = new Skref1();
+	        Fragment fragment = new UpdateUser();
 		    FragmentManager fragmentManager = getFragmentManager();
 		   
 		    fragmentManager.beginTransaction()
