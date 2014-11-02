@@ -3,9 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapp2.MainActivity" >
      
-     <item android:id="@+id/settings"
-          android:title="@string/stillingar"
-          android:showAsAction="ifRoom|withText" />
+     <item 
+         android:id="@+id/settings"
+         android:title="@string/stillingar"
+         android:showAsAction="ifRoom|withText" 
+         android:icon="@drawable/settings2"
+         />
      
 
 </menu>

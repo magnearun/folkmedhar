@@ -14,10 +14,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
+import com.example.folkmedhar.Upphafsskjar;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 
@@ -77,7 +79,8 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			rootView = inflater.inflate(R.layout.fragment_skref3,
 					container, false);
 			
-			((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_skref3);
+			TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+			text.setText(R.string.title_activity_skref3);
 			
 			settingText();
 
@@ -101,25 +104,32 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 * Kallar á aðferð sem sér um að færa upplýsingar um bókun
      * yfir í gagnagrunn og birtir skjá með yfirliti bókunar
 	 */
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View view) {
 			Fragment fragment = null;
-    	    FragmentManager fragmentManager = getFragmentManager();
 		    switch (view.getId()) {
 		        case R.id.til_Baka:
 		        	fragment = new Skref2();
 		            break;
 		        case R.id.panta:
-		        	new Stadfesta().execute(); 
-		        	fragment = new StadfestingBokunar();
+		        	new Stadfesta().execute();
+		        	AlertDialog alertDialog = new AlertDialog.Builder(c).create();
+	        		alertDialog.setMessage("Pöntunin þín hefur verið bókuð");
+	        		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+	        		   public void onClick(final DialogInterface dialog, final int which) {
+	        		   }
+	        		});
+	        		// Set the Icon for the Dialog
+	        		//alertDialog.setIcon(R.drawable.icon);
+	        		alertDialog.show();
+	        		MainActivity.bokudPontun=true;
+		        	fragment = new Upphafsskjar();
 		            break;
 		        default:
 		            break;
 		    }
-		    fragmentManager.beginTransaction()
-	        .replace(R.id.content_frame, fragment)
-	        .addToBackStack("fragment")
-	        .commit();
+		    MainActivity.updateFragment(fragment);
 		}
 		
 		/**
@@ -168,6 +178,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				for(int i=0;i<heiti1.length;i++){
 					params.add(new BasicNameValuePair(heiti1[i], heitistreng1[i]));
+					Log.d("ælsfkædslfksæf",params+"");
 				}
 				
 				JSONObject json = jsonParser.makeHttpRequest(url_panta_tima,

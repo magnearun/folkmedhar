@@ -67,12 +67,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		calendarView = (GridView) this.findViewById(R.id.calendar);
 		backMonth = 0;
 		forwardMonth = 6;
+		
 
 		// Initialised
 		adapter = new GridCellAdapter(getApplicationContext(),
 				R.id.calendar_day_gridcell, month, year);
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
+		
 	}
 
 	/**
@@ -401,7 +403,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					year>cal.get(Calendar.YEAR)))
 			{
 			MainActivity.date = day + "-" + (month+1) + "-" + year;
-			MainActivity.dagur = date_month_year;
+			MainActivity.dagur = year + "-" + (month+1) + "-" + day;
 			
 			
 			finish();

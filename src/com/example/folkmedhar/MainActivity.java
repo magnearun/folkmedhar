@@ -6,6 +6,7 @@
 
 package com.example.folkmedhar;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -30,7 +31,6 @@ import com.example.folkmedhar.pantanir.SidastaPontun;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 import com.example.folkmedhar.pantanir.bokun.Skref2;
 import com.example.folkmedhar.pantanir.bokun.Skref3;
-import com.example.folkmedhar.pantanir.bokun.StadfestingBokunar;
 
 //kljlkjlkjlkj
 public class MainActivity extends Activity {
@@ -55,6 +55,15 @@ public class MainActivity extends Activity {
     //private CharSequence mTitle;
     private String[] menuTitles; 
     
+	public static int starfsmadurSelection;
+	public static int adgerdSelection;
+	public static int harlengdSelection;
+	public static int timiSelection;
+	
+	public static boolean bokudPontun;
+	
+	public static FragmentManager fragmentManager;
+    
 	
     @Override
     /**
@@ -63,6 +72,9 @@ public class MainActivity extends Activity {
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+        getActionBar().setCustomView(R.layout.actionbar);
         
         // Notanda upplýsingar
      	nafn = UserFunctions.userName;
@@ -73,7 +85,6 @@ public class MainActivity extends Activity {
         intents[1] = new Intent(this, Skref1.class);
         intents[2] = new Intent(this, Skref2.class);
         intents[3] = new Intent(this, Skref3.class);
-        intents[4] = new Intent(this, StadfestingBokunar.class);
         intents[5] = new Intent(this, MittSvaedi.class);
         intents[6] = new Intent(this, SidastaPontun.class);
         intents[7] = new Intent(this, AllarPantanir.class);
@@ -83,6 +94,11 @@ public class MainActivity extends Activity {
               
         UserFunctions userFunction = new UserFunctions();
         userFunction = new UserFunctions();
+        
+        fragmentManager = getFragmentManager();
+        
+        
+        bokudPontun = false;
         
         // Athuga hvort að notandi sé innskráður
         if(userFunction.isUserLoggedIn(getApplicationContext())) {
@@ -278,7 +294,13 @@ public class MainActivity extends Activity {
 		    getActionBar().setTitle(titleActivitySkref2);
 		}	
 		
-		
+		public static void updateFragment(Fragment fragment) {
+			MainActivity.fragmentManager.beginTransaction()
+	        .replace(R.id.content_frame, fragment)
+	        .addToBackStack("fragment")
+	        .commit();
+		}
+			
 	}
 
 

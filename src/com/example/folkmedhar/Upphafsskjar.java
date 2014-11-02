@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 
@@ -26,6 +27,9 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		 * Nýtt fragment er búið til fyrir upphafsskjá
 		 */
 		public Upphafsskjar() {
+			if(MainActivity.bokudPontun==true) {
+				clearBackStack();
+			}
 		}
 
 		@Override
@@ -38,13 +42,15 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 			View rootView = inflater.inflate(R.layout.fragment_upphafsskjar,
 					container, false);
 			
-			((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_upphafsskjar);
+			TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+			text.setText(R.string.title_activity_upphafsskjar);
 			
 			buttonMittSvaedi = (Button) rootView.findViewById(R.id.mittSvaedi);
 			buttonPantaTima = (Button) rootView.findViewById(R.id.panta);
 			
 			buttonPantaTima.setOnClickListener(this);
 			buttonMittSvaedi.setOnClickListener(this);
+			
 			
 			return rootView;
 		}
@@ -56,7 +62,6 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		@Override
 		public void onClick(View view) {
 			Fragment fragment = null;
-    	    FragmentManager fragmentManager = getFragmentManager();
 		    switch (view.getId()) {
 		        case R.id.mittSvaedi:
 		        	fragment = new MittSvaedi();
@@ -67,9 +72,13 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		        default:
 		            break;
 		    }
-		    fragmentManager.beginTransaction()
-	        .replace(R.id.content_frame, fragment)
-	        .addToBackStack("fragment")
-	        .commit();
+		    MainActivity.updateFragment(fragment);
+		}
+		
+		public void clearBackStack() {
+			
+			MainActivity.fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			MainActivity.bokudPontun = false;
+			
 		}
 	}

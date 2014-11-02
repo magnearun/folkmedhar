@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /*
  * Það á eftir að klára að útfæra þennan klasa
@@ -41,7 +42,9 @@ import android.widget.Spinner;
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_um_stofuna,
 					container, false);
-			((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_um_stofuna);
+			
+			TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+			text.setText(R.string.title_activity_um_stofuna);
 			
 			Button buttonStarfsfolk = (Button) rootView.findViewById(R.id.staff_text);
 			

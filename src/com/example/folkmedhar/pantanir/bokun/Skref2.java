@@ -10,6 +10,7 @@
 package com.example.folkmedhar.pantanir.bokun;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -18,16 +19,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +44,15 @@ import com.example.folkmedhar.pantanir.JSONParser;
 
 	public class Skref2 extends Fragment implements android.view.View.OnClickListener {
 		
-		public static Tvennd[] bokadirTimar; 
-		public static Timar[] lausirTimar;
+		//public static Þrennd[] bokadirTimar; 
+		//public static Timar[] lausirTimar;
+		
+		public static ÞrenndArray[] bokadirFylki;
+		
+		public static Timar[] spinnerLausir;
+		public static int lausirNum;
+		public static String[] lausirString;
+		
 		String dagur;
 		View rootView;
 		static Context c;
@@ -60,6 +66,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		Button buttonTilbaka, buttonAfram, buttonDagur;
 		TextView dateTextView;
 		static Spinner timi;
+		
 
 
 		/**
@@ -79,7 +86,8 @@ import com.example.folkmedhar.pantanir.JSONParser;
 			rootView = inflater.inflate(R.layout.fragment_skref2,
 					container, false);
 			
-			((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_skref2);
+			TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+			text.setText(R.string.title_activity_skref2);
 			
 			dateTextView = (TextView) rootView.findViewById(R.id.date_label);
 			timi = (Spinner) rootView.findViewById(R.id.timi);
@@ -93,6 +101,10 @@ import com.example.folkmedhar.pantanir.JSONParser;
 			buttonTilbaka.setOnClickListener(this);
 			buttonAfram.setOnClickListener(this);
 			buttonDagur.setOnClickListener(this);
+			
+			
+			
+			update();
 	        
 			return rootView;
 		}
@@ -101,36 +113,32 @@ import com.example.folkmedhar.pantanir.JSONParser;
     /**
 	 * Birtir skjáinn fyrir skref 1 eða 3
 	 */
-		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View view) {
 			Fragment fragment = null;
-    	    FragmentManager fragmentManager = getFragmentManager();
 		    switch (view.getId()) {
 		    	case R.id.buttonDagur:
 		    		Intent i = new Intent(getActivity(), CalendarActivity.class);
 			        startActivityForResult(i, 1);
 			        return;
 		        case R.id.tilbaka:
-		        	update();
 		        	fragment = new Skref1();
 		            break;
 		        case R.id.afram2:
 		        	if(MainActivity.date==null) {
-		        		AlertDialog alertDialog = new AlertDialog.Builder(c).create();
-		        		alertDialog.setMessage("Vinsamlegast veldu dag");
-		        		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-		        		   public void onClick(final DialogInterface dialog, final int which) {
-		        		   }
-		        		});
-		        		// Set the Icon for the Dialog
-		        		//alertDialog.setIcon(R.drawable.icon);
-		        		alertDialog.show();
-		        		//Toast.makeText(getActivity(), "Vinsamlegast veldu dag", Toast.LENGTH_LONG).show();
+		        		Toast toast = Toast.makeText(getActivity(), "Vinsamlegast veldu dag", Toast.LENGTH_LONG);
+		        		toast.setGravity(Gravity.CENTER, 0, 0);
+		        		toast.show();
+		        		
 		        		return;
 		        	}
 		        	else {
+		        		
 		        		getDateInfo();
+		        		if(MainActivity.staff_id.equals("000")) {
+		        			getStaffId();
+		        		}
+		        		MainActivity.timiSelection = timi.getSelectedItemPosition();
 			        	fragment = new Skref3();
 			            break;
 		        	}
@@ -138,10 +146,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		            break;
 		    }
 		    
-		    fragmentManager.beginTransaction()
-	        .replace(R.id.content_frame, fragment)
-	        .addToBackStack("fragment")
-	        .commit();
+		    MainActivity.updateFragment(fragment);
 	        
 		}
 		
@@ -151,18 +156,31 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		 */
 		public void getDateInfo() {
 			MainActivity.time = timi.getSelectedItem().toString();
-			Log.d("HALLÓÓÓÓÓÓ", timi.getSelectedItem().toString());
 			MainActivity.startDate = MainActivity.dagur + " " + MainActivity.time;
-			MainActivity.lengd = "2";
 			int x = Integer.parseInt(MainActivity.lengd);
 			String endTime ="";
-			for(int j = 0; j<lausirTimar.length; j++) {
-				if(lausirTimar[j].timi==MainActivity.time) {
-					endTime = lausirTimar[j+x].timi;
+			for(int j = 0; j<spinnerLausir.length; j++) {
+				if(spinnerLausir[j].timi==MainActivity.time) {
+					endTime = spinnerLausir[j+x].timi;
 				}
 			}
 			
 			MainActivity.endDate = MainActivity.dagur + " " + endTime;
+		}
+		
+		public void getStaffId() {
+			
+			for(int i = 0; i<spinnerLausir.length; i++) {
+				if(spinnerLausir[i].timi!=null){
+				if(spinnerLausir[i].timi.equals(MainActivity.time)) {
+					MainActivity.staff_id = spinnerLausir[i].id;
+					MainActivity.starfsmadur = getStarfsmadur(MainActivity.staff_id);
+				}
+
+					
+				}
+			}
+			
 		}
 		
 		
@@ -188,20 +206,44 @@ import com.example.folkmedhar.pantanir.JSONParser;
 				protected void onPreExecute() {
 					super.onPreExecute();
 					
-					bokadirTimar = new Tvennd[18];
-					lausirTimar = new Timar[18];
-
-					lausirTimar[0] = new Timar("09:00",true);
-					lausirTimar[1] = new Timar("09:30", true);
+					bokadirFylki = new ÞrenndArray[7];
+					for (int i = 0; i<7; i++) {
+						bokadirFylki[i] = new ÞrenndArray(new Þrennd[18],new Timar[18]);
+					}
+					String[] starfsmenn = {"BOB","PIP","ODO","MRV","EDK","BIP","DOR"};
+					for (int j = 0; j<7; j++) {
+						bokadirFylki[j].laust[0] = new Timar("09:00",true,starfsmenn[j]);
+						bokadirFylki[j].laust[1] = new Timar("09:30", true,starfsmenn[j]);
+						int b = 9;
+								
+						for(int i = 2; i<bokadirFylki[j].laust.length-1; i = i+2) {
+							b = b+1;
+							String s = b + ":00";
+							bokadirFylki[j].laust[i] = new Timar(s, true,starfsmenn[j]);
+							s = b + ":30";
+							bokadirFylki[j].laust[i+1]  = new Timar(s,true,starfsmenn[j]);
+						}
+						
+					}
+					lausirNum = 0;
+					
+					lausirString = new String[18];
+					spinnerLausir = new Timar[18];
 					int b = 9;
-							
-					for(int i = 2; i<lausirTimar.length-1; i = i+2) {
+					spinnerLausir[0] = new Timar(null,true,null);
+					spinnerLausir[1] = new Timar(null, true,null);
+					
+					
+					for (int i = 2; i<spinnerLausir.length-1; i++) {
+						
 						b = b+1;
 						String s = b + ":00";
-						lausirTimar[i] = new Timar(s, true);
+						spinnerLausir[i] = new Timar(null, true,null);
 						s = b + ":30";
-						lausirTimar[i+1] = new Timar(s,true);
+						spinnerLausir[i+1]  = new Timar(null,true,null);
 					}
+					
+					
 					
 					pDialog = new ProgressDialog(c);
 					pDialog.setMessage("Sæki lausa tíma..");
@@ -222,7 +264,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 					int success;
 					List<NameValuePair> params = new ArrayList<NameValuePair>();
 					params.add(new BasicNameValuePair("dagur", newDagur));
-					params.add(new BasicNameValuePair("staff_id", MainActivity.staff_id ));
+					params.add(new BasicNameValuePair("staff_id", MainActivity.staff_id));
 					
 					JSONObject json = jsonParser.makeHttpRequest(
 							url_saekja_lausa_tima, "GET", params);
@@ -233,26 +275,82 @@ import com.example.folkmedhar.pantanir.JSONParser;
 							JSONArray t = json.getJSONArray("pantanir");
 							JSONArray bokadir = t.getJSONArray(0);
 							
-							for(int i = 0; i < bokadir.length(); i++){
-								JSONObject timi = bokadir.getJSONObject(i);
-								bokadirTimar[i] = new Tvennd(timi.getString("time"), timi.getInt("lengd"));	
+							if(MainActivity.staff_id!="000"){
+								getBokadirTimar(MainActivity.staff_id,bokadir,-1);
+							}
+							
+							
+							else {
+								String[] starfsmenn = {"BOB","PIP","ODO","MRV","EDK","BIP","DOR"};
+								for(int i = 0; i<7; i++) {
+									
+									getBokadirTimar(starfsmenn[i],bokadir,i);
 								}
 							}
+						}
+						
 						} catch (JSONException e) {
 						e.printStackTrace();
 					}
 					return null;
 				}
 				
+				public void getBokadirTimar(String id, JSONArray bokadir, int num) throws JSONException {
+					
+					
+					if(num==-1){
+					for(int i = 0; i < bokadir.length(); i++){
+						JSONObject timi = bokadir.getJSONObject(i);
+						//Log.d("KKKKKKKKKKKKKKKKKKKK", timi.toString());
+						bokadirFylki[0].bokad[i] = new Þrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));	
+						
+						}
+					
+					}
+					
+					
+					else {
+						for(int i = 0; i < bokadir.length(); i++){
+							JSONObject timi = bokadir.getJSONObject(i);
+							if (timi.getString("staff_id").equals(id)){
+								
+							bokadirFylki[num].bokad[i] = new Þrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));
+					
+								Log.d("ÞEtta",id + "   "+ num);
+							
+							}
+							
+						}
+						}
+					
+
+					
+				}
+					
+				
+				
 				/**
 				 * After completing background task Dismiss the progress dialog
 				 * **/
-				protected void onPostExecute(String file_url) {			
-					lausirTimar(bokadirTimar, lausirTimar);
-					setLausirTimar();
+				protected void onPostExecute(String file_url) {
+					if(MainActivity.staff_id!="000"){
+						lausirTimar(bokadirFylki[0].bokad,bokadirFylki[0].laust);
+						setLausirTimar(bokadirFylki[0].laust);
+					}
+					
+					else {
+						for (int i = 0; i< 7; i++) {
+							lausirTimar(bokadirFylki[i].bokad,bokadirFylki[i].laust);
+							setLausirTimar(bokadirFylki[i].laust);
+							
+						}
+					}
+					getTimeSpinner();
 					pDialog.dismiss();
 				}
 			}
+			
+		
 		
 		
 		/**
@@ -261,12 +359,38 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		 * @param a
 		 * @param b
 		 */
-		private static  void lausirTimar(Tvennd[] a, Timar[] b) {
+		private static  void lausirTimar(Þrennd[] a, Timar[] b) {
+
+			for(int i = 0; i<a.length; i++) {
+				for(int j = 0; j<b.length; j++) {
+					if(a[i]!=null){
+						b[i].id = a[i].id;
+						if(a[i].timi.equals(b[j].timi)) {
+							for(int k = 0; k<a[i].lengd; k++) {
+								//Log.d("MAgneaaaaaaaa", "afjalsfjslkfjsaklfj");
+								b[j+k].laus = false;
+								}
+							}
+						}
+					}
+				
+				
+				}
+		}
+		
+		/**
+		 * Þeir tímar sem eru bókaðir fá gildið false í fylki lausra tíma sem merkir
+		 * að þeir séu ekki lausir
+		 * @param a
+		 * @param b
+		 */
+		private static  void allirLausirTimar(Þrennd[] a, Timar[] b) {
 			for(int i = 0; i<a.length; i++) {
 				for(int j = 0; j<b.length; j++) {
 					if(a[i]!=null){
 						if(a[i].timi.equals(b[j].timi)) {
 							for(int k = 0; k<a[i].lengd; k++) {
+								//Log.d("MAgneaaaaaaaa", "afjalsfjslkfjsaklfj");
 								b[j+k].laus = false;
 								}
 							}
@@ -278,38 +402,109 @@ import com.example.folkmedhar.pantanir.JSONParser;
 		/**
 		 * Setur lausa tíma sem valmöguleika í Spinner viðmótshlut
 		 */
-		public static void setLausirTimar() {
+		public static void setLausirTimar(Timar[] lausirTimar) {
 			
-			String[] s = new String[18];
-			int num = 0;
+		
+			int timaLengd = Integer.parseInt(MainActivity.lengd);
 			for(int i = 0; i<lausirTimar.length; i++) {
-				if(lausirTimar[i].laus==true) {
-					s[num] = lausirTimar[i].timi;
-					num++;
+				Log.d("null",(spinnerLausir[i].timi==null)+"");
+				if(lausirTimar[i].laus==true && spinnerLausir[i].timi==null) {
+					boolean laust = true;
+					int j = 0;
+					while(j<timaLengd && (j+i) < lausirTimar.length) {
+						if (lausirTimar[j+i].laus==false) {
+							laust = false;
+							break;
+						}
+						j++;
+					}
+					if (laust==true) {
+						
+					spinnerLausir[i].timi = lausirTimar[i].timi;
+					spinnerLausir[i].id=lausirTimar[i].id;
+					lausirString[lausirNum] =lausirTimar[i].timi;
+					
+					lausirNum++;
+					
+					Log.d("lausirNum",lausirNum+"");
+					}
 				}
 			}
 			
-			String [] spinnerTimar = new String[num];
-			for (int i = 0; i<spinnerTimar.length; i++) {
-				spinnerTimar[i] = s[i];
-			}
-			
-			ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, spinnerTimar); 
-			spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			timi.setAdapter(spinnerArrayAdapter);
 		}
 		
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-			buttonDagur.setText(MainActivity.dagur);
+			buttonDagur.setText(MainActivity.date);
 				new BokadirTimar().execute();
 			
 		}
 		
+		
+		
 		public void update() {
-			/*
-			if(MainActivity.starfsmadur!=)
-			*/
+			if(MainActivity.date!=null) {
+				buttonDagur.setText(MainActivity.date);
+				new BokadirTimar().execute();
+				//timi.setSelection(MainActivity.timiSelection);
+			}
 		}
+		
+		/**
+		 * Sækir nafn á starfsmanni pöntunar eftir staffanúmeri
+		 */
+		public static String getStarfsmadur(String s) {
+			String starfsmadur;
+			switch(s) {
+	    	
+				case "BOB": 
+					starfsmadur = "Bambi";
+					break;
+				
+				case "PIP" : 
+					starfsmadur = "Perla";
+					break;
+				
+				case "ODO" : 
+					starfsmadur = "Oddur";
+					break;
+				
+				case "MRV" : 
+					starfsmadur= "Magnea";
+					break;
+				
+				case "EDK" :
+					starfsmadur = "Eva";
+					break;
+				
+				case "BIP" : 
+					starfsmadur = "Birkir";
+					break;
+				
+				case "DOR" : 
+					starfsmadur = "Dagný";
+					break;
+				
+				default: starfsmadur = "Error";
+				
+			}
+			return starfsmadur;
+		}
+		
+		public static void getTimeSpinner() {
+			
+			String [] spinnerTimar = new String[lausirNum];
+			for (int i = 0; i<spinnerTimar.length; i++) {
+				spinnerTimar[i] = lausirString[i];
+			}
+			
+			java.util.Arrays.sort(spinnerTimar);
+			
+			ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, spinnerTimar); 
+			spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			timi.setAdapter(spinnerArrayAdapter);
+			
+			
+		}	
 		
 	}
 

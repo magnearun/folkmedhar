@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /*
  * Það á eftir að klára að útfæra þennan klasa
@@ -40,7 +41,9 @@ import android.widget.Spinner;
 			View rootView = inflater.inflate(R.layout.fragment_tilbod,
 					container, false);
 			
-			((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_tilbod);
+			TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+			text.setText(R.string.title_activity_tilbod);
+
 			
 			return rootView;
 		}

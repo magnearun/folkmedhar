@@ -44,10 +44,19 @@
     <string name="adgerd_prompt">Veldu aðgerð</string>
 
     <string-array name="adgerd_array">
-        <item>Herraklipping</item>
         <item>Dömuklipping</item>
-        <item>Litun</item>
-        <item>Litun og strípur</item>
+        <item>Herraklipping</item>
+        <item>Barnaklipping</item>
+        <item>Heillitun</item>
+        <item>Litur í rót</item>
+        <item>Strípur</item>
+        <item>Litun og strípur</item> 
+        <item>Dömuklipping og litun/strípur</item>
+        <item>Herraklipping og litun/strípur</item>       
+        <item>Greiðsla</item>
+        <item>Permanett</item>
+        <item>Blástur</item>
+        
     </string-array>
 
     <string name="harlengd_prompt">Veldu hárlengd</string>
