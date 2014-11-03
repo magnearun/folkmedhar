@@ -136,6 +136,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	        return;
         case R.id.tilbaka:
         	fragment = new Skref1();
+        	MainActivity.updateFragment(fragment);
             break;
         case R.id.afram2:
         	bokun();
@@ -143,8 +144,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
         default:
             break;
         }
-	    
-	    MainActivity.updateFragment(fragment);
 	 }
 
 	/**
