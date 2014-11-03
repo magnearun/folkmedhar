@@ -27,7 +27,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		 * Nýtt fragment er búið til fyrir upphafsskjá
 		 */
 		public Upphafsskjar() {
-			if(MainActivity.bokudPontun==true) {
+			if(MainActivity.getBokudPontun()==true) {
 				clearBackStack();
 			}
 		}
@@ -78,7 +78,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		public void clearBackStack() {
 			
 			MainActivity.fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-			MainActivity.bokudPontun = false;
+			MainActivity.setBokudPontun(false);
 			
 		}
 	}

@@ -20,7 +20,6 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,7 +99,7 @@ public class AllarPantanir extends Fragment  {
 			int success;
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", MainActivity.email));
+			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
 			
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_pantanir, "GET", params);
@@ -114,7 +113,7 @@ public class AllarPantanir extends Fragment  {
 					for(int i = 0; i < pantanir.length(); i++){
 						JSONObject pontun = pantanir.getJSONObject(i);
 						String staff_id = pontun.getString("staff_id");
-						String a = starfsmadurPontunar(staff_id);
+						String a = MainActivity.getStarfsmadur(staff_id);
 						listAdapter.add(pontun.getString("adgerd") + "\n" + "Starfsmadur: "+a + "\n" + pontun.getString("dagur")+ "   Klukkan: "+ pontun.getString("time")); 
 						
 					}
@@ -139,47 +138,5 @@ public class AllarPantanir extends Fragment  {
 
 			}
 		}
-	
-	/**
-	 * Sækir nafn á starfsmanni pöntunar eftir staffanúmeri
-	 */
-	public static String starfsmadurPontunar(String s){
-		String starfsmadur;
-		switch(s) {
-    	
-			case "BOB": 
-				starfsmadur = "Bambi";
-				break;
-			
-			case "PIP" : 
-				starfsmadur = "Perla";
-				break;
-			
-			case "ODO" : 
-				starfsmadur = "Oddur";
-				break;
-			
-			case "MRV" : 
-				starfsmadur= "Magnea";
-				break;
-			
-			case "EDK" :
-				starfsmadur = "Eva";
-				break;
-			
-			case "BIP" : 
-				starfsmadur = "Birkir";
-				break;
-			
-			case "DOR" : 
-				starfsmadur = "Dagný";
-				break;
-			
-			default: starfsmadur = "Error";
-			
-		}
-		return starfsmadur;
-		
-	}
 
 }

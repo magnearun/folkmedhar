@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +20,6 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +31,6 @@ import android.widget.Toast;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.MittSvaedi;
 import com.example.folkmedhar.R;
-import com.example.folkmedhar.pantanir.bokun.Skref2;
 
 public class SidastaPontun extends Fragment implements android.view.View.OnClickListener   {
 	

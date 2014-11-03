@@ -27,41 +27,41 @@ import android.widget.ListView;
 import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UpdateUser;
 import com.example.folkmedhar.notendur.UserFunctions;
-import com.example.folkmedhar.pantanir.AllarPantanir;
-import com.example.folkmedhar.pantanir.SidastaPontun;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
-import com.example.folkmedhar.pantanir.bokun.Skref2;
-import com.example.folkmedhar.pantanir.bokun.Skref3;
 
 //kljlkjlkjlkj
 public class MainActivity extends Activity {
 	
-	// Upplýsingar um notandann
-	public static String nafn, simi, adgerd, harlengd, email;
+	// Upplýsingar um bókun
+	private static String nafn, simi, adgerd, harlengd, email;
 		
 	// Tímasetning pöntunar
-	public static  String time, date, lengd, dagur, startDate, endDate;
-
-		
+	// dagur er á forminu "26-11-2014", date á forminu "2014-11-26" og
+	// startDate og endDate á forminu "2014-11-26 09:00"
+	private static  String time, dagur, lengd, date, startDate, endDate;
+	
 	// Upplýsingar um starfsmann
 	public static String staff_id, starfsmadur;
-		
-	public static Intent[] intents = new Intent[11];
 	
-	private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
-    private CharSequence mDrawerTitle;
-    //private CharSequence mTitle;
+	// Staðsetning vals í Spinner viðmótshlut
+	private static int starfsmadurPos, adgerdPos, harlengdPos;
+		
+	private Intent intent;
+	
+	// Navigation Drawer
+	private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
     private String[] menuTitles; 
     
-	public static int starfsmadurSelection;
-	public static int adgerdSelection;
-	public static int harlengdSelection;
-	public static int timiSelection;
-	
-	public static boolean bokudPontun;
+    /**
+     * Eyða þessu?
+     */
+    //private CharSequence mDrawerTitle;
+
+	// Breytan er notuð til að halda utan hvort pöntun hafi verið
+    // bókuð rétt áður en ýtt er á "back" takkann
+	private static boolean bokudPontun;
 	
 	public static FragmentManager fragmentManager;
     
@@ -77,21 +77,12 @@ public class MainActivity extends Activity {
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
         getActionBar().setCustomView(R.layout.actionbar);
         
-        // Notanda upplýsingar
+ 
      	nafn = UserFunctions.userName(this.getBaseContext());
      	simi = UserFunctions.userPhone(this.getBaseContext());
      	email = UserFunctions.userEmail(this.getBaseContext());
 
-        intents[0] = new Intent(this, CalendarActivity.class);
-        intents[1] = new Intent(this, Skref1.class);
-        intents[2] = new Intent(this, Skref2.class);
-        intents[3] = new Intent(this, Skref3.class);
-        intents[5] = new Intent(this, MittSvaedi.class);
-        intents[6] = new Intent(this, SidastaPontun.class);
-        intents[7] = new Intent(this, AllarPantanir.class);
-     	intents[8] = new Intent(this, UmStofuna.class);
-     	intents[9] = new Intent(this, Tilbod.class);
-     	intents[10] = new Intent(this, LoginActivity.class);
+        intent = new Intent(this, LoginActivity.class);
               
         UserFunctions userFunction = new UserFunctions();
         userFunction = new UserFunctions();
@@ -106,41 +97,37 @@ public class MainActivity extends Activity {
         	setContentView(R.layout.activity_main);
         	
             menuTitles = getResources().getStringArray(R.array.menu_titles);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            mDrawerList = (ListView) findViewById(R.id.left_drawer);
+            drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawerList = (ListView) findViewById(R.id.left_drawer);
             
-            mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-            mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+            drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+            drawerList.setAdapter(new ArrayAdapter<String>(this,
                     R.layout.drawer_list_item, menuTitles));
-            mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+            drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
             getActionBar().setDisplayHomeAsUpEnabled(true);
             getActionBar().setHomeButtonEnabled(true);
 
           
-            mDrawerToggle = new ActionBarDrawerToggle(
+            drawerToggle = new ActionBarDrawerToggle(
                     this,                 
-                    mDrawerLayout,       
+                    drawerLayout,       
                     R.drawable.ic_burger,  
                     R.string.adgerd_prompt,  //Veit ekki hvað þetta er
                     R.string.allar_pantanir  // Veit ekki hvað þetta er
                     ) {
             };
-            mDrawerLayout.setDrawerListener(mDrawerToggle);
+            drawerLayout.setDrawerListener(drawerToggle);
 
             if (savedInstanceState == null) {
             	Fragment fragment = new Upphafsskjar();
-    		    FragmentManager fragmentManager = getFragmentManager();
-    		   
-    		    fragmentManager.beginTransaction()
-    	        .replace(R.id.content_frame, fragment)
-    	        .commit();
+    		    updateFragment(fragment);
             }
         
         	
         	
         }else {
-        	 startActivity(intents[10]);
+        	 startActivity(intent);
         	 // Loka MainActivity skjánum
              finish();
              }
@@ -153,7 +140,7 @@ public class MainActivity extends Activity {
 	 public void logout() {
 		 UserFunctions userFunction = new UserFunctions();
 		 userFunction.logoutUser(getApplicationContext());
-		 startActivity(intents[10]);
+		 startActivity(intent);
 		 finish();
 	 }
 	 
@@ -175,17 +162,12 @@ public class MainActivity extends Activity {
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	         // The action bar home/up action should open or close the drawer.
 	         // ActionBarDrawerToggle will take care of this.
-	        if (mDrawerToggle.onOptionsItemSelected(item)) {
+	        if (drawerToggle.onOptionsItemSelected(item)) {
 	            return true;
 	        }
 	     
 	        Fragment fragment = new UpdateUser();
-		    FragmentManager fragmentManager = getFragmentManager();
-		   
-		    fragmentManager.beginTransaction()
-	        .replace(R.id.content_frame, fragment)
-	        .addToBackStack("fragment")
-	        .commit();
+		    updateFragment(fragment);
 	    
 	        return true;
 	    }
@@ -210,7 +192,6 @@ public class MainActivity extends Activity {
 	    private void selectItem(int position) {
 	        // update the main content by replacing fragments
 	    	 Fragment fragment = null;
-	    	    FragmentManager fragmentManager = getFragmentManager();
 	    	    switch(position) {
 	    	        case 0:
 	    	            fragment = new Upphafsskjar();
@@ -232,14 +213,11 @@ public class MainActivity extends Activity {
 	    	        default: break;
 	    	    }
 	    	    
-	    	    fragmentManager.beginTransaction()
-	    	        .replace(R.id.content_frame, fragment)
-	    	        .addToBackStack("fragment")
-	    	        .commit();
+	    	    updateFragment(fragment);
 
-	        mDrawerList.setItemChecked(position, true);
+	        drawerList.setItemChecked(position, true);
 	        setTitle(menuTitles[position]);
-	        mDrawerLayout.closeDrawer(mDrawerList);
+	        drawerLayout.closeDrawer(drawerList);
 	    }
 
 
@@ -250,7 +228,7 @@ public class MainActivity extends Activity {
 	    protected void onPostCreate(Bundle savedInstanceState) {
 	        super.onPostCreate(savedInstanceState);
 	        // Sync the toggle state after onRestoreInstanceState has occurred.
-	        mDrawerToggle.syncState();
+	        drawerToggle.syncState();
 	    }
 
 	    @Override
@@ -260,7 +238,7 @@ public class MainActivity extends Activity {
 	    public void onConfigurationChanged(Configuration newConfig) {
 	        super.onConfigurationChanged(newConfig);
 	        // Pass any configuration change to the drawer toggls
-	        mDrawerToggle.onConfigurationChanged(newConfig);
+	        drawerToggle.onConfigurationChanged(newConfig);
 	    }
 
 		
@@ -275,7 +253,311 @@ public class MainActivity extends Activity {
 	        .addToBackStack("fragment")
 	        .commit();
 		}
+		
+		/**
+		 * Skilar nafni notandans
+		 * @return String
+		 */
+		public static String getName() {
+			return nafn;
+		}
+		/**
+		 * Skilar síma notandans
+		 * @return String
+		 */
+		public static String getSimi() {
+			return simi;
+		}
+		/**
+		 * Skilar netfangi notandans
+		 * @return String
+		 */
+		public static String getEmail() {
+			return email;
+		}
+		
+		/**
+		 * Gefur breytunni sem heldur utan um tíma bókunar gildi
+		 * @param t
+		 */
+		public static void setTime(String t) {
+			time = t;
+		}
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um tíma bókunar gildi
+		 * @return String
+		 */
+		public static String getTime() {
+			return time;
+		}
+		
+		/**
+		 * Gefur breytunum sem halda utan um dagsetningu bókunar
+		 * gildi
+		 * @param b
+		 * @param e
+		 */
+		public static void setStartEndDate(String b, String e) {
+			startDate = b;
+			endDate = e;
+		}
+		
+		/**
+		 * Skilar dagsetningu bókunar á forminu "2014-11-17"
+		 * @return
+		 */
+		public static String getDate() {
+			return date;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um dagsetningu bókunar á
+		 * forminu "2014-11-17" gildi
+		 * @param d
+		 */
+		public static void setDate(String d) {
+			date = d;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um dagsetningu bókunar á
+		 * forminu "17-11-2014" gildi
+		 * @param d
+		 */
+		public static void setStringDate(String d) {
+			dagur = d;
+		}
+		
+		/**
+		 * Skilar dagsetningu bókunar á forminu "17-11-2014"
+		 * @return String
+		 */
+		public static String getStringDate() {
+			return dagur;
+		}
+		
+		/**
+		 * Skilar byrjunar dagsetningu bókunar á forminu "2014-11-17 09:00"
+		 * @return String
+		 */
+		public static String getStartDate() {
+			return startDate;
+		}
+		
+		/**
+		 * Skilar enda dagsetningu bókunar á forminu "2014-11-17 09:00"
+		 * @return String
+		 */
+		public static String getEndDate() {
+			return endDate;
+		}
+		
+		/**
+		 * Skilar tímalengd aðgerðarinnar sem var valin
+		 * @return String
+		 */
+		public static String getLengd() {
+			return lengd;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um tímalengd 
+		 * aðgerðar gildi
+		 * @param l
+		 */
+		public static void setLengd(String l) {
+			lengd = l;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um hvaða starfsmaður 
+		 * var valinn gildi
+		 * @param s
+		 */
+		public static void setStarfsmadur(String s) {
+			starfsmadur = s;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um auðkenni valins stafsmanns
+		 * @param id
+		 */
+		public static void setStaffId(String id) {
+			staff_id = id;
+		}
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um auðkenni valins stafsmanns
+		 * @return String
+		 */
+		public static String getStaffId() {
+			return staff_id;
+		}
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um hvaða starfsmaður 
+		 * var valinn gildi
+		 * @return String
+		 */
+		public static String getStarfsmadur() {
+			return starfsmadur;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um hvaða aðgerð 
+		 * var valinn gildi
+		 * @param a
+		 */
+		public static void setAdgerd(String a) {
+			adgerd = a;
+		}
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um hvaða aðgerð
+		 * var valinn gildi
+		 * @return String
+		 */
+		public static String getAdgerd() {
+			return adgerd;
+		}
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um hvaða hárlengd
+		 * var valinn gildi
+		 * @return String
+		 */
+		public static String getHarlengd() {
+			return harlengd;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um hvaða hárlengd 
+		 * var valinn gildi
+		 * @param l
+		 */
+		public static void setHarlengd(String l) {
+			harlengd = l;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um staðsetningu valins 
+		 * stafsmanns í Spinner viðmótshlut
+		 * @param i
+		 */
+		public static void setStarfsmadurPos(int i) {
+			starfsmadurPos = i;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um staðsetningu valinnar 
+		 * aðgerðar í Spinner viðmótshlut
+		 * @param i
+		 */
+		public static void setAdgerdPos(int i) {
+			adgerdPos = i;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um staðsetningu valinnar 
+		 * hárlengdar í Spinner viðmótshlut
+		 * @param i
+		 */
+		public static void setHarlengdPos(int i) {
+			harlengdPos = i;
+		}
+		
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um staðsetningu valins 
+		 * stafsmanns í Spinner viðmótshlut
+		 * @return int
+		 */
+		public static int getStarfsmadurPos() {
+			return starfsmadurPos;
+		}
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um staðsetningu valinnar 
+		 * aðgerðar í Spinner viðmótshlut
+		 * @return int
+		 */
+		public static int getAdgerdPos() {
+			return adgerdPos;
+		}
+		
+		/**
+		 * Skilar gildi breytu sem heldur utan um staðsetningu valinnar 
+		 * hárlengdar í Spinner viðmótshlut
+		 * @return int
+		 */
+		public static int getHarlengdPos() {
+			return harlengdPos;
+		}
+		
+		/**
+		 * Gefur breytu sem heldur utan um hvort nýlega hafi verið bókuð pöntun
+		 * gildi
+		 * @param b
+		 */
+		public static void setBokudPontun(boolean b) {
+			bokudPontun = b;
+		}
+		
+		/**
+		 * /**
+		 * Skilar gildi breytu sem heldur utan um hvort nýlega hafi verið bókuð pöntun
+		 * @return boolean
+		 */
+		public static boolean getBokudPontun() {
+			return bokudPontun;
+		}
+		
+		
+		/**
+		 * Skilar nafni þess starfsmanns sem á auðkennið s
+		 * @param s
+		 * @return String
+		 */
+		public static String getStarfsmadur(String s) {
 			
+			String starfsmadur;
+			
+			switch(s) {
+				case "BOB": 
+					starfsmadur = "Bambi";
+					break;
+				
+				case "PIP" : 
+					starfsmadur = "Perla";
+					break;
+				
+				case "ODO" : 
+					starfsmadur = "Oddur";
+					break;
+				
+				case "MRV" : 
+					starfsmadur= "Magnea";
+					break;
+				
+				case "EDK" :
+					starfsmadur = "Eva";
+					break;
+				
+				case "BIP" : 
+					starfsmadur = "Birkir";
+					break;
+				
+				case "DOR" : 
+					starfsmadur = "Dagný";
+					break;
+				
+				default: starfsmadur = "Error";
+				
+			}
+			return starfsmadur;
+		}
+		
 	}
 
 

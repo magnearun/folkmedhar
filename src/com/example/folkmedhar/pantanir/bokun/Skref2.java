@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,18 +34,31 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.folkmedhar.CalendarActivity;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 
+/**
+ * Byrjuð að refactor-a
+ */
 public class Skref2 extends Fragment implements android.view.View.OnClickListener {
 	
-	private static ThrenndArray[] bokadirStarfsmenn;
-	private static Timar[] lausirTimarHeild;
+	// Heldur utan um bókaða og lausa tíma fyrir alla
+	// starfsmenn
+	private static BokadirLausir[] bokadirStarfsmenn;
 	
+	// Auðkenni allra starfsmanna
+	// Sækja frá öðrum stað + randomize MISSING
+	private static String[] starfsmenn = {"BOB","PIP","ODO","MRV","EDK","BIP","DOR"};
+	
+	// Heldur utan um hvaða tímar eru lausir og hjá hvaða starfsmanni
+	private static Lausir[] lausirTimarHeild;
+	
+	// Fjöldi lausra tíma
 	private static int lausirNum;
+	
+	// Tímasetning lausra tíma
 	private static String[] lausirString;
 	
 	private View rootView;
@@ -55,7 +67,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private static String url_saekja_lausa_tima = "http://prufa2.freeiz.com/saekja_bokada_tima.php";
 	private static ProgressDialog pDialog;
 	private static JSONParser jsonParser = new JSONParser();
-	
+
 	// Viðmótshlutir
 	private Button buttonTilbaka, buttonAfram, buttonDagur;
 	private static Spinner timiSpinner;
@@ -81,11 +93,11 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
 		text.setText(R.string.title_activity_skref2);
 		
-		setHlutir();
+		setVidmotsHlutir();
 		
 		context = getActivity();
         			
-		update();
+		updateVidmotshlutir();
         
 		return rootView;
 	}
@@ -94,11 +106,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti og OnClickListener er
 	 * tengdur við takka sem notaðir eru til að fara aftur í skref 1 eða áfram í skref 3
 	 */
-	public void setHlutir() {
+	private void setVidmotsHlutir() {
 		
 		timiSpinner = (Spinner) rootView.findViewById(R.id.timi);
 		buttonTilbaka = (Button) rootView.findViewById(R.id.tilbaka);
-		buttonAfram = (Button) rootView.findViewById(R.id.afram2);
 		buttonAfram = (Button) rootView.findViewById(R.id.afram2);
 		buttonDagur = (Button) rootView.findViewById(R.id.buttonDagur);
 		
@@ -109,9 +120,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 
 
 	/**
-	 * Birtir skjáinn fyrir skref 1 eða 3 og uppfærir breytur sem halda utan um staðsetningu tímans 
-	 * sem var valinn í Spinnar viðmótshlut og kallar á aðferð sem að uppfærir auðkenni starfsmanns
-	 * ef enginn sérstakur starfsmaður var valinn
+	 * Birtir skjáinn fyrir skref 1, birtir dagatal þar sem hægt er að velja dagsetningu
+	 * eða kallar á aðferð sem uppfærir breytur sem halda utan um staðsetningu tímans 
+	 * sem var valinn í Spinnar viðmótshlut og uppfærir auðkenni starfsmanns
+	 * ef enginn sérstakur starfsmaður var valinn.
 	 */
 	@Override
 	public void onClick(View view) {
@@ -120,80 +132,83 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	    switch (view.getId()) {
 	    case R.id.buttonDagur:
 	    	Intent i = new Intent(getActivity(), CalendarActivity.class);
-	        startActivityForResult(i, 1);
+	        startActivityForResult(i, 1); // Birta dagatal
 	        return;
         case R.id.tilbaka:
         	fragment = new Skref1();
             break;
         case R.id.afram2:
-        	if(MainActivity.date==null) {
-        		Toast toast = Toast.makeText(getActivity(), 
-        				"Vinsamlegast veldu dag", Toast.LENGTH_LONG);
-        		toast.setGravity(Gravity.CENTER, 0, 0);
-        		toast.show();
-        		return;
-        	} 
-        	
-        	else {
-        		
-        		getDateInfo();
-        		if(MainActivity.staff_id.equals("000")) {
-        			getStaffId();
-        		}
-        		MainActivity.timiSelection = timiSpinner.getSelectedItemPosition();
-	        	fragment = new Skref3();
-	        	break;
-	        }
-        	default:
+        	bokun();
+	        break;
+        default:
             break;
         }
 	    
 	    MainActivity.updateFragment(fragment);
 	 }
+
+	/**
+	 * Uppfærir breytur sem halda utan um staðsetningu tímans 
+	 * sem var valinn í Spinnar viðmótshlut. Kallar á aðferð sem að uppfærir auðkenni starfsmanns
+	 * ef enginn sérstakur starfsmaður var valinn.
+	 */
+	private void bokun() {
+		Fragment fragment = null;
+		// Engin dagsetning valin
+    	if(MainActivity.getDate()==null) {
+    		Toast toast = Toast.makeText(getActivity(), 
+    				"Vinsamlegast veldu dag", Toast.LENGTH_LONG);
+    		toast.setGravity(Gravity.CENTER, 0, 0);
+    		toast.show();
+    		return;
+    	} 
+    	
+    	else {
+    		setDateInfo();
+    		// Notandanum er sama um hver starfsmaðurinn er
+    		if(MainActivity.getStaffId().equals("000")) {
+    			setStaffId(); // Sækja auðkenni starfsmannsins sem var úthlutað
+    			              // tímanum sem var valinn
+    			fragment = new Skref3();
+    			MainActivity.updateFragment(fragment);
+    		}
+    	}
+	}
+    		
 	
 	/**
-	 * Gefur breytum sem halda utan um þann tíma sem notandinn valdi
-	 * rétt gildi
-	 */
-	public void getDateInfo() {
+     * Viðmótshlut fyrir dagsetningu er gefið það gildi sem síðast
+     * var valið og kallað er á aðferð sem sækir bókaða tíma fyrir dagsetninguna
+     */
+	private void updateVidmotshlutir() {
 		
-		MainActivity.time = timiSpinner.getSelectedItem().toString();
-		MainActivity.startDate = MainActivity.dagur + " " + MainActivity.time;
+		String date = MainActivity.getStringDate();
 		
-		int x = Integer.parseInt(MainActivity.lengd);
-		String endTime ="";
-		for(int j = 0; j<lausirTimarHeild.length; j++) {
-			if(lausirTimarHeild[j].timi==MainActivity.time) {
-				endTime = lausirTimarHeild[j+x].timi;
-			}
+		// Dagsetning hefur áður verið valin
+		if(date!=null) {
+			buttonDagur.setText(date);
+			
+			// Sæki bókaða tíma fyrir dagsetninguna
+			new BokadirTimar().execute();
 		}
-		
-		MainActivity.endDate = MainActivity.dagur + " " + endTime;
 	}
 	
 	/**
-	 * Gefur auðkenni starfsmanns rétt gildi ef enginn sérstakur starfsmaður var valinn,
-	 * það er að segja auðkenni starfsmannsins sem á tímann sem var valinn
-	 */	
-	public void getStaffId() {
+	 * Sýnir valinn dag og kallar á aðferð sem sækir bókaða tíma fyrir hann
+	 */
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		buttonDagur.setText(MainActivity.getStringDate());
+		new BokadirTimar().execute();
 		
-		for(int i = 0; i<lausirTimarHeild.length; i++) {
-			if(lausirTimarHeild[i].timi!=null){
-				if(lausirTimarHeild[i].timi.equals(MainActivity.time)) {
-					MainActivity.staff_id = lausirTimarHeild[i].id;
-					MainActivity.starfsmadur = getStarfsmadur(MainActivity.staff_id);
-					}
-				}
-			}
-	 }
-
-	  /**
+	}
+	
+	 /**
      * @author: Magnea Rún Vignisdóttir
      * @since: 15.10.2014
      * Klasinn sem sér um að sækja alla bókaða tíma á völdum degi úr
      * gagnagrunni
      */
-	public static class BokadirTimar extends AsyncTask<String, String, String> {
+	private static class BokadirTimar extends AsyncTask<String, String, String> {
 
 		@Override
 		/**
@@ -203,41 +218,11 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		protected void onPreExecute() {
 			super.onPreExecute();
 			
-			bokadirStarfsmenn = new ThrenndArray[7];
-			for (int i = 0; i<7; i++) {
-				bokadirStarfsmenn[i] = new ThrenndArray(new Thrennd[18],new Timar[18]);
-			}
 			
-			String[] starfsmenn = {"BOB","PIP","ODO","MRV","EDK","BIP","DOR"};
-			
-			for (int j = 0; j<7; j++) {
-				bokadirStarfsmenn[j].laust[0] = new Timar("09:00",true,starfsmenn[j]);
-				bokadirStarfsmenn[j].laust[1] = new Timar("09:30", true,starfsmenn[j]);
-				int b = 9;
-						
-				for(int i = 2; i<bokadirStarfsmenn[j].laust.length-1; i = i+2) {
-					b = b+1;
-					String s = b + ":00";
-					bokadirStarfsmenn[j].laust[i] = new Timar(s, true,starfsmenn[j]);
-					s = b + ":30";
-					bokadirStarfsmenn[j].laust[i+1]  = new Timar(s,true,starfsmenn[j]);
-				}
-				
-			}
+			setTimar();
 			lausirNum = 0;
 			
-			lausirString = new String[18];
-			lausirTimarHeild = new Timar[18];
-
-			
-			
-			for (int i = 0; i<lausirTimarHeild.length; i++) {
-				
-				lausirTimarHeild[i]  = new Timar(null,true,null);
-			}
-			
-			
-			
+			// Búa til sameiginlega aðferð fyrir þetta? MISSING
 			pDialog = new ProgressDialog(context);
 			pDialog.setMessage("Sæki lausa tíma..");
 			pDialog.setIndeterminate(false);
@@ -245,19 +230,63 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			pDialog.show();
 		}
 		
+		/**
+		 * Upphafsstillir breytur sem halda utan um lausa og bókaða tíma
+		 * starfsmanna
+		 */
+		private void setTimar() {
+
+			// Hér þarf að sækja frekar lengdina á því sem heldur utan um alla
+			// starfsmenn, MISSING
+			bokadirStarfsmenn = new BokadirLausir[7];
+			for (int i = 0; i<7; i++) {
+				bokadirStarfsmenn[i] = new BokadirLausir(new Bokadir[18],new Lausir[18]);
+			}
+			
+			
+			// Hvert sæti í bokadirStarfsmenn (eitt fyrir hvern starfsmann) er 
+			// fyllt af Bokadir hlut sem heldur utan um auðkenni tiltekins starfsmanns
+			// og tímasetningu frá 9:00 - 17:30. Allir tímar eru upphafsstilltir sem lausir
+			for (int j = 0; j<7; j++) {
+				bokadirStarfsmenn[j].laust[0] = new Lausir("09:00",true,starfsmenn[j]);
+				bokadirStarfsmenn[j].laust[1] = new Lausir("09:30", true,starfsmenn[j]);
+				int b = 9;
+						
+				for(int i = 2; i<bokadirStarfsmenn[j].laust.length-1; i = i+2) {
+					b = b+1;
+					String s = b + ":00";
+					bokadirStarfsmenn[j].laust[i] = new Lausir(s, true,starfsmenn[j]);
+					s = b + ":30";
+					bokadirStarfsmenn[j].laust[i+1]  = new Lausir(s,true,starfsmenn[j]);
+				}
+				
+			}
+			
+			lausirString = new String[18];
+			lausirTimarHeild = new Lausir[18];
+			
+			// Höfum ekki enn fundið neina lausa tíma svo öll sætin í lausirTimarHeild
+			// eru fyllt af Lausir hlut sem inniheldur null í öllum tilviksbreytum
+			for (int i = 0; i<lausirTimarHeild.length; i++) {	
+				lausirTimarHeild[i]  = new Lausir(null,true,null);
+			}
+		}
+		
 		@Override
 		/**
-		 * Sækir allar bókaða tíma á valinni dagsetningu úr gagnagrunni
-		 * og setur þá í fylki bókaðra tíma
+		 * Kallar á aðferðir sem sækja allar bókaða tíma á valinni dagsetningu 
+		 * úr gagnagrunni og setur þá í fylki bókaðra tíma
 		 */
 		protected String doInBackground(String... args) {
 
-			String newDagur = MainActivity.dagur;
+			String dagur = MainActivity.getDate();
+			String staff_id = MainActivity.getStaffId();
 			
 			int success;
+			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("dagur", newDagur));
-			params.add(new BasicNameValuePair("staff_id", MainActivity.staff_id));
+			params.add(new BasicNameValuePair("dagur", dagur));
+			params.add(new BasicNameValuePair("staff_id", staff_id));
 			
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_saekja_lausa_tima, "GET", params);
@@ -268,15 +297,14 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 					JSONArray t = json.getJSONArray("pantanir");
 					JSONArray bokadir = t.getJSONArray(0);
 					
-					if(MainActivity.staff_id!="000"){
-						getBokadirTimar(MainActivity.staff_id,bokadir,-1);
-					}
-					
-					
-					else {
-						String[] starfsmenn = {"BOB","PIP","ODO","MRV","EDK","BIP","DOR"};
+					// Ákveðinn starfsmaður var valinn
+					if(staff_id!="000"){
+						getBokadirTimar(staff_id,bokadir,-1);
+					} else {
+						
+						// Notendanum er sama um hver starfsmaðurinn er, sækjum bókaða
+						// tíma fyrir alla starfsmenn
 						for(int i = 0; i<7; i++) {
-							
 							getBokadirTimar(starfsmenn[i],bokadir,i);
 						}
 					}
@@ -288,61 +316,115 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			return null;
 		}
 		
-		public void getBokadirTimar(String id, JSONArray bokadir, int num) throws JSONException {
+		/**
+		 * Sækir allar bókaða tíma á valinni dagsetningu úr gagnagrunni
+		 * og setur þá í fylki bókaðra tíma
+		 * @param id
+		 * @param bokadir
+		 * @param num
+		 * @throws JSONException
+		 */
+		private void getBokadirTimar(String id, JSONArray bokadir, int num) throws JSONException {
 			
-			
+			// Ákveðinn starfsmaður var valinn, sæki bókaða tíma hans
+			// úr gagnagrunni. Auðkenni hans er í breytunni MainActivity.staff_id
 			if(num==-1){
-			for(int i = 0; i < bokadir.length(); i++){
-				JSONObject timi = bokadir.getJSONObject(i);
-				//Log.d("KKKKKKKKKKKKKKKKKKKK", timi.toString());
-				bokadirStarfsmenn[0].bokad[i] = new Thrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));	
-				
+				for(int i = 0; i < bokadir.length(); i++){
+					JSONObject timi = bokadir.getJSONObject(i);
+					bokadirStarfsmenn[0].bokad[i] = 
+							new Bokadir(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));	
 				}
-			
 			}
-			
 			
 			else {
 				for(int i = 0; i < bokadir.length(); i++){
 					JSONObject timi = bokadir.getJSONObject(i);
+					// Sæki bókaða tíma úr gagnagrunni fyrir þann starfsmann sem
+					// sem á auðkennið sem kallaði á aðerðina
 					if (timi.getString("staff_id").equals(id)){
-						
-					bokadirStarfsmenn[num].bokad[i] = new Thrennd(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));
-			
-						Log.d("ÞEtta",id + "   "+ num);
-					
+						bokadirStarfsmenn[num].bokad[i] = 
+								new Bokadir(timi.getString("time"), timi.getInt("lengd"),timi.getString("staff_id"));
 					}
-					
 				}
-				}
-			
-
-			
+			}
 		}
 			
 		
 		
 		/**
-		 * After completing background task Dismiss the progress dialog
-		 * **/
+		 * Proses dialog lokað og kallað á aðferðir sem að finna lausa tíma
+		 * út frá bókuðum tímum
+		 */
 		protected void onPostExecute(String file_url) {
+			
+			// Ákveðinn starfsmaður var valinn
 			if(MainActivity.staff_id!="000"){
+				// Finn lausa tíma starfsmannsins út frá bókuðum tímum hans
 				lausirTimar(bokadirStarfsmenn[0].bokad,bokadirStarfsmenn[0].laust);
+				// Birti lausa tíma svo notandinn geti valið úr þeim
 				setLausirTimar(bokadirStarfsmenn[0].laust);
 			}
 			
 			else {
+				// Notandanum er sama um hver stafsmaðurinn er
+				// Finn lausa tíma allra stafsmanna út frá bókuðum tímum þeirra
 				for (int i = 0; i< 7; i++) {
 					lausirTimar(bokadirStarfsmenn[i].bokad,bokadirStarfsmenn[i].laust);
-					setLausirTimar(bokadirStarfsmenn[i].laust);
-					
+					setLausirTimar(bokadirStarfsmenn[i].laust);	
 				}
 			}
-			getTimeSpinner();
+			setTimeSpinner();
 			pDialog.dismiss();
 		}
 	}
+	
+	/**
+	 * Gefur breytum sem halda utan um þann tíma sem notandinn valdi
+	 * rétt gildi
+	 */
+	private void setDateInfo() {
 		
+		String time = timiSpinner.getSelectedItem().toString();
+		String date = MainActivity.getDate();
+		String lengd = MainActivity.getLengd();
+
+		MainActivity.setTime(time);
+		
+		int timaLengd = Integer.parseInt(lengd);
+		String endTime ="";
+		
+		// Reikna klukkan hvað tíminn endar miðað við valda aðgerð
+		for(int j = 0; j<lausirTimarHeild.length; j++) {
+			// Fann tímann
+			if(lausirTimarHeild[j].getTimi()==time) {
+				// Bæti tímalengdina við tímann og fæ endatíma
+				endTime = lausirTimarHeild[j+timaLengd].getTimi();
+			}
+		}
+		
+		MainActivity.setStartEndDate(date + " " + time, date + " " +  endTime);
+
+	 }
+	
+	/**
+	 * Gefur auðkenni starfsmanns rétt gildi ef enginn sérstakur starfsmaður var valinn,
+	 * það er að segja auðkenni starfsmannsins sem á tímann sem var valinn
+	 */	
+	private void setStaffId() {
+		
+		for(int i = 0; i<lausirTimarHeild.length; i++) {
+			if(lausirTimarHeild[i].getTimi()!=null){
+				
+				// Fann tímann
+				if(lausirTimarHeild[i].getTimi().equals(MainActivity.getTime())) {
+					
+					// Uppfæri hvaða starfsmanni var úthlutaður tíminn
+					MainActivity.setStaffId(lausirTimarHeild[i].getId());
+					MainActivity.setStarfsmadur(MainActivity.getStarfsmadur(MainActivity.getStaffId()));
+					}
+				}
+			}
+		}
 	
 	
 	
@@ -352,119 +434,70 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * @param a
 	 * @param b
 	 */
-	private static  void lausirTimar(Thrennd[] a, Timar[] b) {
+	private static void lausirTimar(Bokadir[] a, Lausir[] b) {
 
 		for(int i = 0; i<a.length; i++) {
 			for(int j = 0; j<b.length; j++) {
 				if(a[i]!=null){
-					b[i].id = a[i].id;
-					if(a[i].timi.equals(b[j].timi)) {
-						for(int k = 0; k<a[i].lengd; k++) {
-							//Log.d("MAgneaaaaaaaa", "afjalsfjslkfjsaklfj");
-							b[j+k].laus = false;
+					// Tíminn er bókaður
+					if(a[i].getTimi().equals(b[j].getTimi())) {
+						// Skrái samliggjandi tíma sem bókaða miðað
+						// við tímalengd aðgerðar
+						for(int k = 0; k<a[i].getLengd(); k++) {
+							b[j+k].setLaus(false);
 							}
 						}
 					}
 				}
-			
-			
 			}
-	}
-	
+		}
 	
 	
 	/**
 	 * Setur lausa tíma sem valmöguleika í Spinner viðmótshlut
+	 * @param lausirTimar
 	 */
-	public static void setLausirTimar(Timar[] lausirTimar) {
+	private static void setLausirTimar(Lausir[] lausirTimar) {
 		
-	
-		int timaLengd = Integer.parseInt(MainActivity.lengd);
+		int timaLengd = Integer.parseInt(MainActivity.getLengd());
+		
 		for(int i = 0; i<lausirTimar.length; i++) {
-			Log.d("null",(lausirTimarHeild[i].timi==null)+"");
-			if(lausirTimar[i].laus==true && lausirTimarHeild[i].timi==null) {
+			
+			// Tíminn er laus og hefur ekki áður verið skráður laus hjá öðrum
+			// starfsmanni
+			if(lausirTimar[i].isLaus()==true && lausirTimarHeild[i].getTimi()==null) {
 				boolean laust = true;
 				int j = 0;
+				// Athuga hvort að fjöldi samliggjandi lausra tíma sé nógu mikill
+				// fyrir tímalengd aðgerðar
 				while(j<timaLengd && (j+i) < lausirTimar.length) {
-					if (lausirTimar[j+i].laus==false) {
+					if (lausirTimar[j+i].isLaus()==false) {
 						laust = false;
 						break;
 					}
 					j++;
 				}
+				
+				// Fjöldi samliggjandi lausra tíma var nógu mikill fyrir
+				// tímalengd aðgerðar og uppfæri fjölda lausra tíma
 				if (laust==true) {
 					
-				lausirTimarHeild[i].timi = lausirTimar[i].timi;
-				lausirTimarHeild[i].id=lausirTimar[i].id;
-				lausirString[lausirNum] =lausirTimar[i].timi;
+					// Skrái tímann sem lausan ásamt auðkenni starfsmannsins
+					lausirTimarHeild[i].setTimi(lausirTimar[i].getTimi());
+					lausirTimarHeild[i].setId(lausirTimar[i].getId());
+					lausirString[lausirNum] = lausirTimar[i].getTimi();	
+					lausirNum++;
 				
-				lausirNum++;
-				
-				Log.d("lausirNum",lausirNum+"");
 				}
 			}
-		}
-		
-	}
-	
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		buttonDagur.setText(MainActivity.date);
-			new BokadirTimar().execute();
-		
-	}
-	
-	
-	
-	public void update() {
-		if(MainActivity.date!=null) {
-			buttonDagur.setText(MainActivity.date);
-			new BokadirTimar().execute();
-			//timi.setSelection(MainActivity.timiSelection);
 		}
 	}
 	
 	/**
-	 * Sækir nafn á starfsmanni pöntunar eftir staffanúmeri
+	 * Býr til Spinner viðmótshlut sem inniheldur alla lausa tíma fyrir tiltekna
+	 * dagsetningu
 	 */
-	public static String getStarfsmadur(String s) {
-		String starfsmadur;
-		switch(s) {
-    	
-			case "BOB": 
-				starfsmadur = "Bambi";
-				break;
-			
-			case "PIP" : 
-				starfsmadur = "Perla";
-				break;
-			
-			case "ODO" : 
-				starfsmadur = "Oddur";
-				break;
-			
-			case "MRV" : 
-				starfsmadur= "Magnea";
-				break;
-			
-			case "EDK" :
-				starfsmadur = "Eva";
-				break;
-			
-			case "BIP" : 
-				starfsmadur = "Birkir";
-				break;
-			
-			case "DOR" : 
-				starfsmadur = "Dagný";
-				break;
-			
-			default: starfsmadur = "Error";
-			
-		}
-		return starfsmadur;
-	}
-	
-	public static void getTimeSpinner() {
+	private static void setTimeSpinner() {
 		
 		String [] spinnerTimar = new String[lausirNum];
 		for (int i = 0; i<spinnerTimar.length; i++) {
@@ -473,11 +506,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		
 		java.util.Arrays.sort(spinnerTimar);
 		
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerTimar); 
+		ArrayAdapter<String> spinnerArrayAdapter =
+				new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerTimar); 
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		timiSpinner.setAdapter(spinnerArrayAdapter);
+		timiSpinner.setAdapter(spinnerArrayAdapter);	
 		
-		
-	}	
-	
+	}		
 }

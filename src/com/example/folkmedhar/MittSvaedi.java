@@ -135,7 +135,7 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 		protected String doInBackground(String... args) {
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", MainActivity.email));
+			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
 			params.add(new BasicNameValuePair("sidastaPontun", "ff"));
 			
 			JSONObject json = jsonParser.makeHttpRequest(
@@ -148,7 +148,7 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 					JSONArray pantanir = json.getJSONArray("pantanir");
 					JSONObject pontun = pantanir.getJSONObject(0);
 					t = pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
-					+ "Starfsmadur: " + AllarPantanir.starfsmadurPontunar("BOB") +"\n"
+					+ "Starfsmadur: " + MainActivity.getStarfsmadur(("BOB")) +"\n"
 					+ "Klukkan: "+ pontun.getString("time");
 					
 					// dagatals breytur fá gildi

@@ -1,6 +1,10 @@
 
-package com.example.folkmedhar;
+package com.example.folkmedhar.pantanir.bokun;
 
+
+/**
+ * Eftir að refactor-a þetta og skrifa haus. Finna á hverju þetta er byggt
+ */
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +21,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +30,9 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.folkmedhar.MainActivity;
+import com.example.folkmedhar.R;
 
 @SuppressLint("SimpleDateFormat") @TargetApi(3)
 public class CalendarActivity extends Activity implements OnClickListener {
@@ -134,8 +140,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		private final List<String> list;
 		private static final int DAY_OFFSET = 1;
-		private final String[] weekdays = new String[] { "Sun", "Mon", "Tue",
-				"Wed", "Thu", "Fri", "Sat" };
+		//private final String[] weekdays = new String[] { "Sun", "Mon", "Tue",
+				//"Wed", "Thu", "Fri", "Sat" };
 		private final String[] months = { "January", "February", "March",
 				"April", "May", "June", "July", "August", "September",
 				"October", "November", "December" };
@@ -174,9 +180,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return months[i];
 		}
 
+		/* Ekki að nota þetta? MISSING
 		private String getWeekDayAsString(int i) {
 			return weekdays[i];
 		}
+		*/
 
 		private int getNumberOfDaysOfMonth(int i) {
 			return daysOfMonth[i];
@@ -207,7 +215,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			int nextYear = 0;
 
 			int currentMonth = mm - 1;
-			String currentMonthName = getMonthAsString(currentMonth);
 			daysInMonth = getNumberOfDaysOfMonth(currentMonth);
 
 			
@@ -402,12 +409,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			if((cal.get(Calendar.DATE)<=day && month==cal.get(Calendar.MONTH)) || (month>cal.get(Calendar.MONTH) ||
 					year>cal.get(Calendar.YEAR)))
 			{
-			MainActivity.date = day + "-" + (month+1) + "-" + year;
-			MainActivity.dagur = year + "-" + (month+1) + "-" + day;
+			MainActivity.setStringDate(day + "-" + (month+1) + "-" + year);
+			MainActivity.setDate(year + "-" + (month+1) + "-" + day);
 			
 			
 			finish();
-			Log.d("lafk�slkf�l",cal.get(Calendar.DATE)+"");
 			}
 			
 		}
