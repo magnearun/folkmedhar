@@ -103,135 +103,135 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			return rootView;
 		}
 		
-		/**
-		 * Upphafsstillir tilviksbreytur fyrir viðmótshluti og OnClickListener er
-		 * tengdur við takka sem notaðir eru til að fara aftur í skref 2 eða bóka
-		 * pöntun
-		 */
-		private void setVidmotshlutir() {
-			
-			buttonTilbaka = (Button) rootView.findViewById(R.id.til_Baka);
-			buttonPanta = (Button) rootView.findViewById(R.id.panta);
-	        
-			buttonTilbaka.setOnClickListener(this);
-			buttonPanta.setOnClickListener(this);
-		}
+	/**
+	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti og OnClickListener er
+	 * tengdur við takka sem notaðir eru til að fara aftur í skref 2 eða bóka
+	 * pöntun
+	 */
+	private void setVidmotshlutir() {
+		
+		buttonTilbaka = (Button) rootView.findViewById(R.id.til_Baka);
+		buttonPanta = (Button) rootView.findViewById(R.id.panta);
+        
+		buttonTilbaka.setOnClickListener(this);
+		buttonPanta.setOnClickListener(this);
+	}
 	
     
-    /**
+	/**
 	 * Birtir skjáinn fyrir skref 2 eða
 	 * Kallar á aðferð sem sér um að færa upplýsingar um bókun
-     * yfir í gagnagrunn og birtir skjá með yfirliti bókunar
+	 * yfir í gagnagrunn og birtir skjá með yfirliti bókunar
 	 */
+	@Override
+	public void onClick(View view) {
+		Fragment fragment = null;
+	    switch (view.getId()) {
+	        case R.id.til_Baka:
+	        	fragment = new Skref2();
+	            break;
+	        case R.id.panta:
+	        	bokaPontun();
+	        	fragment = new Upphafsskjar();
+	            break;
+	        default:
+	            break;
+	    }
+	    MainActivity.updateFragment(fragment);
+	}
+	
+	/**
+	 * Kallar á aðferð sem bókar pöntun í gagnagrunn og birtir upplýsingar um
+	 * að pöntun hafi verið bókuð
+	 */
+	@SuppressWarnings("deprecation")
+	private void bokaPontun() {
+		new Stadfesta().execute();
+    	AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+		alertDialog.setMessage("Pöntunin þín hefur verið bókuð");
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		   public void onClick(final DialogInterface dialog, final int which) {
+		   }
+		});
+		alertDialog.show();
+		MainActivity.setBokudPontun(true);
+	}
+		
+
+	/**
+	 * Birtir upplýsingar um bókun í TextView
+	 * Sækir upplýsingar um nafn og síma notanda sem eru 
+	 */
+	public void showBokun(){
+
+		bokunTexView = new TextView(getActivity());
+		Resources res = getResources();
+
+		// Sækir þá viðmótshluti sem hafa Id sem geymt er í heiti fylkinu
+		for(int i=0;i<heiti.length;i++){
+			int id = res.getIdentifier(heiti[i], "id", getActivity().getBaseContext().getPackageName());
+			bokunTexView=(TextView)rootView.findViewById(id);
+			bokunTexView.setText(heitistreng[i]);
+		}
+	}	
+	
+	/**
+	 * Færir bókun notandans yfir í gagnagrunn. Við útfærslu klasanns var stuðst við tutorial um 
+	 * hvernig skal nota JSON til að ná í upplýsingar ýr MySQL gagnagrunni
+	 * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
+	 */
+	class Stadfesta extends AsyncTask<String, String, String> {
+
+		private  String TAG_SUCCESS = null;
+
 		@Override
-		public void onClick(View view) {
-			Fragment fragment = null;
-		    switch (view.getId()) {
-		        case R.id.til_Baka:
-		        	fragment = new Skref2();
-		            break;
-		        case R.id.panta:
-		        	bokaPontun();
-		        	fragment = new Upphafsskjar();
-		            break;
-		        default:
-		            break;
-		    }
-		    MainActivity.updateFragment(fragment);
+		/**
+		 * Birtir skilaboð sem gefa notandanum til kynna að verið sé að ferla
+		 * pöntun hans
+		 * */
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pDialog = new ProgressDialog(context);
+			pDialog.setMessage("Bóka tíma..");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(true);
+			pDialog.show();
+		}
+		
+		@Override
+		/**
+		 * Færir upplýsingar um bókun notandans yfir í gagnagrunn
+		 */
+		protected String doInBackground(String... args) {
+
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			for(int i=0;i<heiti1.length;i++){
+				params.add(new BasicNameValuePair(heiti1[i], heitistreng1[i]));
+				Log.d("ælsfkædslfksæf",params+"");
+			}
+			
+			JSONObject json = jsonParser.makeHttpRequest(url_panta_tima,
+					"POST", params);
+			
+			Log.d("Create Response", json.toString());
+			try {
+				int success = json.getInt(TAG_SUCCESS);
+
+				if (success == 1) {
+					getActivity().finish();
+				} else {
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 		
 		/**
-		 * Kallar á aðferð sem bókar pöntun í gagnagrunn og birtir upplýsingar um
-		 * að pöntun hafi verið bókuð
-		 */
-		@SuppressWarnings("deprecation")
-		private void bokaPontun() {
-			new Stadfesta().execute();
-        	AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-    		alertDialog.setMessage("Pöntunin þín hefur verið bókuð");
-    		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-    		   public void onClick(final DialogInterface dialog, final int which) {
-    		   }
-    		});
-    		alertDialog.show();
-    		MainActivity.setBokudPontun(true);
-		}
-		
-
-		/**
-		 * Birtir upplýsingar um bókun í TextView
-		 * Sækir upplýsingar um nafn og síma notanda sem eru 
-		 */
-		public void showBokun(){
-
-			bokunTexView = new TextView(getActivity());
-			Resources res = getResources();
-
-			// Sækir þá viðmótshluti sem hafa Id sem geymt er í heiti fylkinu
-			for(int i=0;i<heiti.length;i++){
-				int id = res.getIdentifier(heiti[i], "id", getActivity().getBaseContext().getPackageName());
-				bokunTexView=(TextView)rootView.findViewById(id);
-				bokunTexView.setText(heitistreng[i]);
-			}
-		}	
-		
-		/**
-		 * Færir bókun notandans yfir í gagnagrunn. Við útfærslu klasanns var stuðst við tutorial um 
-		 * hvernig skal nota JSON til að ná í upplýsingar ýr MySQL gagnagrunni
-		 * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
-		 */
-		class Stadfesta extends AsyncTask<String, String, String> {
-
-			private  String TAG_SUCCESS = null;
-
-			@Override
-			/**
-			 * Birtir skilaboð sem gefa notandanum til kynna að verið sé að ferla
-			 * pöntun hans
-			 * */
-			protected void onPreExecute() {
-				super.onPreExecute();
-				pDialog = new ProgressDialog(context);
-				pDialog.setMessage("Bóka tíma..");
-				pDialog.setIndeterminate(false);
-				pDialog.setCancelable(true);
-				pDialog.show();
-			}
-			
-			@Override
-			/**
-			 * Færir upplýsingar um bókun notandans yfir í gagnagrunn
-			 */
-			protected String doInBackground(String... args) {
-
-				List<NameValuePair> params = new ArrayList<NameValuePair>();
-				for(int i=0;i<heiti1.length;i++){
-					params.add(new BasicNameValuePair(heiti1[i], heitistreng1[i]));
-					Log.d("ælsfkædslfksæf",params+"");
-				}
-				
-				JSONObject json = jsonParser.makeHttpRequest(url_panta_tima,
-						"POST", params);
-				
-				Log.d("Create Response", json.toString());
-				try {
-					int success = json.getInt(TAG_SUCCESS);
-
-					if (success == 1) {
-						getActivity().finish();
-					} else {
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				return null;
-			}
-			
-			/**
-			 * Lokar „progress dialog"
-			 * **/
-			protected void onPostExecute(String file_url) {
-				pDialog.dismiss();
-			}
+		 * Lokar „progress dialog"
+		 * **/
+		protected void onPostExecute(String file_url) {
+			pDialog.dismiss();
 		}
 	}
+}

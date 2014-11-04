@@ -39,9 +39,6 @@ import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 
-/**
- * Byrjuð að refactor-a
- */
 public class Skref2 extends Fragment implements android.view.View.OnClickListener {
 	
 	// Heldur utan um bókaða og lausa tíma fyrir alla
@@ -93,7 +90,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
 		text.setText(R.string.title_activity_skref2);
 		
-		setVidmotsHlutir();
+		setVidmotshlutir();
 		
 		context = getActivity();
         			
@@ -106,7 +103,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti og OnClickListener er
 	 * tengdur við takka sem notaðir eru til að fara aftur í skref 1 eða áfram í skref 3
 	 */
-	private void setVidmotsHlutir() {
+	private void setVidmotshlutir() {
 		
 		timiSpinner = (Spinner) rootView.findViewById(R.id.timi);
 		buttonTilbaka = (Button) rootView.findViewById(R.id.tilbaka);
@@ -357,7 +354,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		protected void onPostExecute(String file_url) {
 			
 			// Ákveðinn starfsmaður var valinn
-			if(MainActivity.staff_id!="000"){
+			if(MainActivity.getStaffId()!="000"){
 				// Finn lausa tíma starfsmannsins út frá bókuðum tímum hans
 				lausirTimar(bokadirStarfsmenn[0].bokad,bokadirStarfsmenn[0].laust);
 				// Birti lausa tíma svo notandinn geti valið úr þeim

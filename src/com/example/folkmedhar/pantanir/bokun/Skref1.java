@@ -56,7 +56,7 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
 		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
 		text.setText(R.string.title_activity_step1);
 		
-		setVidmotsHlutir();
+		setVidmotshlutir();
         
         updateVidmotshlutir();
         
@@ -67,7 +67,7 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
 	/**
 	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti
 	 */
-	private void setVidmotsHlutir() {
+	private void setVidmotshlutir() {
 		
 		starfsmadurSpinner = (Spinner) rootView.findViewById(R.id.starfsmennSpinner);
         adgerdSpinner = (Spinner) rootView.findViewById(R.id.adgerdSpinner);

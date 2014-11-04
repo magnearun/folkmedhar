@@ -69,6 +69,7 @@ public class UserFunctions extends Activity{
         params.add(new BasicNameValuePair("phone", phone));
         params.add(new BasicNameValuePair("password", password));
         JSONObject json = jsonParser.makeHttpRequest(registerURL, "POST", params);
+        Log.e("Params",name);
            
 
            try {

@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
@@ -32,9 +33,7 @@ import com.example.folkmedhar.R;
 public class AllarPantanir extends Fragment  {
 	
 	private ProgressDialog pDialog;
-	String allarPantanir;
-	
-	JSONParser jsonParser = new JSONParser();
+	private JSONParser jsonParser = new JSONParser();
 	
 	private ListView mainListView ;  
 	private ArrayAdapter<String> listAdapter ; 
@@ -49,14 +48,16 @@ public class AllarPantanir extends Fragment  {
 
 	@Override
 	/**
-	 * Birtir skjá sem sýnir upplýsingar um starfsfólk stofunnar
+	 * Birtir layout-ið fyrir yfirlit allra pantana og upphafsstillir
+     * tilviksbreytur
 	 */
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_allar_pantanir,
 				container, false);
 		
-		((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_allar_pantanir);
+		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		text.setText(R.string.title_activity_allar_pantanir);
 		
 		mainListView = (ListView) rootView.findViewById( R.id.mainListView ); 
         ArrayList<String> pantanir = new ArrayList<String>();  
@@ -72,7 +73,8 @@ public class AllarPantanir extends Fragment  {
      * @since: 15.10.2014
      * Klasinn sem sér um að sækja allar pantanir notandans úr gagnagrunni
      * og birta þær í lista. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
-     * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
+     * til að ná í upplýsingar ýr MySQL gagnagrunni 
+     * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
 	class SaekjaAllarPantanir extends AsyncTask<String, String, String> {
 		
@@ -109,12 +111,13 @@ public class AllarPantanir extends Fragment  {
 				if(success == 1){
 					
 					JSONArray pantanir = json.getJSONArray("pantanir");
-					
 					for(int i = 0; i < pantanir.length(); i++){
 						JSONObject pontun = pantanir.getJSONObject(i);
 						String staff_id = pontun.getString("staff_id");
 						String a = MainActivity.getStarfsmadur(staff_id);
-						listAdapter.add(pontun.getString("adgerd") + "\n" + "Starfsmadur: "+a + "\n" + pontun.getString("dagur")+ "   Klukkan: "+ pontun.getString("time")); 
+						listAdapter.add(pontun.getString("adgerd") + "\n" + 
+						"Starfsmadur: "+a + "\n" + pontun.getString("dagur")
+						+ "   Klukkan: "+ pontun.getString("time")); 
 						
 					}
 				}else{
@@ -138,5 +141,4 @@ public class AllarPantanir extends Fragment  {
 
 			}
 		}
-
 }

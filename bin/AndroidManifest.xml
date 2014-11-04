@@ -47,7 +47,7 @@
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name=".MittSvaedi"
+            android:name=".MinarPantanir"
             android:label="@string/title_activity_mitt_svaedi"
             android:parentActivityName=".MainActivity" >
         </activity>
@@ -56,10 +56,7 @@
             android:label="@string/title_activity_um_stofuna"
             android:parentActivityName=".MainActivity" >
         </activity>
-        <activity
-            android:name=".BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
+        
         <activity
             android:name=".Starfsfolk"
             android:label="@string/title_activity_starfsfolk"

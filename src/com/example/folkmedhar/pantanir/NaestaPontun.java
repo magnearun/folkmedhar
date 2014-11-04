@@ -1,5 +1,5 @@
 /**
- * @author: Birkir, Dagný, Eva og Magnea
+ * @author: Magnea Rún Vignisdóttir
  * @since: 15.10.2014
  * Klasinn sem sem sér um að sækja virka pöntun notandans úr
  * gagnagrunni og birta hana á skjánum
@@ -16,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,18 +28,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.folkmedhar.MainActivity;
-import com.example.folkmedhar.MittSvaedi;
+import com.example.folkmedhar.MinarPantanir;
 import com.example.folkmedhar.R;
 
-public class SidastaPontun extends Fragment implements android.view.View.OnClickListener   {
+public class NaestaPontun extends Fragment implements android.view.View.OnClickListener   {
+	
+	// Viðmótshlutir
+	private TextView texti;
+	private TextView dagatalAr;
+	private TextView dagatalManudur;
+	private TextView dagatalDagur;
+	private Button buttonAfpanta;
 	
 	private ProgressDialog pDialog;
-	TextView texti;
-	TextView dagatal_ar;
-	TextView dagatal_manudur;
-	TextView dagatal_dagur;
-	Button afpanta;
-	JSONParser jsonParser = new JSONParser();
+	private JSONParser jsonParser = new JSONParser();
+	private View rootView;
 
 	private final String url_afpanta = "http://prufa2.freeiz.com/afpanta.php";
 
@@ -48,35 +50,45 @@ public class SidastaPontun extends Fragment implements android.view.View.OnClick
 	/**
 	 * Nýtt fragment er búið til fyrir síðustu pöntun notandans
 	 */
-	public SidastaPontun() {
+	public NaestaPontun() {
 	}
 
 	@Override
 	/**
-	 * Birtir skjá sem sýnir upplýsingar um starfsfólk stofunnar
-	 */
+	 * /**
+     * Birtir layout-ið fyrir skjáinn og upphafsstillir tilviksbreytur
+     */
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_sidasta_pontun,
+		rootView = inflater.inflate(R.layout.fragment_sidasta_pontun,
 				container, false);
 		
-		((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_sidasta_pontun);
+		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		text.setText(R.string.title_activity_sidasta_pontun);
 		
-		texti = (TextView) rootView.findViewById(R.id.texti);
-		dagatal_ar = (TextView) rootView.findViewById(R.id.ar);
-		dagatal_manudur = (TextView) rootView.findViewById(R.id.manudur);
-		dagatal_dagur = (TextView) rootView.findViewById(R.id.dagur);
-		afpanta = (Button) rootView.findViewById(R.id.afpanta);
-        afpanta.setOnClickListener(this);
+		setVidmotshlutir();
         
-        setText(MittSvaedi.t, MittSvaedi.ar, MittSvaedi.manudur, MittSvaedi.dagur);
+        setText(MinarPantanir.getPontun(), MinarPantanir.getAr(), MinarPantanir.getManudur(),
+        		MinarPantanir.getDagur());
 		
 		return rootView;
 	}
 	
 	/**
-	 * Breyturnar fyrir hárlengd, aðgerð og starfsmann
-	 * fá valin gildi og skjárinn fyrir skref 2 er birtur
+	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti
+	 */
+	private void setVidmotshlutir() {
+		texti = (TextView) rootView.findViewById(R.id.texti);
+		dagatalAr = (TextView) rootView.findViewById(R.id.ar);
+		dagatalManudur = (TextView) rootView.findViewById(R.id.manudur);
+		dagatalDagur = (TextView) rootView.findViewById(R.id.dagur);
+		buttonAfpanta = (Button) rootView.findViewById(R.id.afpanta);
+	    buttonAfpanta.setOnClickListener(this);		
+	}
+	
+	
+	/**
+	 * Kallar á aðferð sem að eyðir pöntun
 	 */
 	@Override
 	public void onClick(View view) {
@@ -117,7 +129,7 @@ public class SidastaPontun extends Fragment implements android.view.View.OnClick
             try {
                
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("id",MittSvaedi.pontunar_ID));
+                params.add(new BasicNameValuePair("id",MinarPantanir.getID()));
  
                 JSONObject json = jsonParser.makeHttpRequest(
                         url_afpanta, "POST", params);
@@ -137,24 +149,28 @@ public class SidastaPontun extends Fragment implements android.view.View.OnClick
         protected void onPostExecute(String file_url) {
             pDialog.dismiss();
             if (success == 1) {
-            	Toast toast = Toast.makeText(getActivity(),"Tíminn þinn hefur verið afpantaður!", Toast.LENGTH_LONG);
+            	Toast toast = Toast.makeText(getActivity(),
+            			"Tíminn þinn hefur verið afpantaður!", Toast.LENGTH_LONG);
             	toast.setGravity(Gravity.CENTER, 0, 0);
             	toast.show();
             }
-            Fragment fragment = new MittSvaedi();
-		    FragmentManager fragmentManager = getFragmentManager();
-		   
-		    fragmentManager.beginTransaction()
-	        .replace(R.id.content_frame, fragment)
-	        .addToBackStack("fragment")
-	        .commit();
+            Fragment fragment = new MinarPantanir();
+		    MainActivity.updateFragment(fragment);
         }
     }
 
-	public void setText(String pontun, String ar, String manudur, String dagur){
+    /**
+     * Gefur viðmótshlutum sem sjá um að pirta síðustu pöntun notandans 
+     * gildi
+     * @param pontun
+     * @param ar
+     * @param manudur
+     * @param dagur
+     */
+	private void setText(String pontun, String ar, String manudur, String dagur){
 		texti.setText(pontun);
-		dagatal_ar.setText(ar);
-		dagatal_manudur.setText(manudur);
-		dagatal_dagur.setText(dagur);
+		dagatalAr.setText(ar);
+		dagatalManudur.setText(manudur);
+		dagatalDagur.setText(dagur);
 	}	
 }

@@ -1,14 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myapp2.MainActivity" >
+    tools:context="com.example.folkmedhar.MainActivity" >
      
      <item 
          android:id="@+id/settings"
          android:title="@string/stillingar"
          android:showAsAction="ifRoom|withText" 
-         android:icon="@drawable/settings2"
-         />
-     
+         android:icon="@drawable/settings2"/>
 
 </menu>

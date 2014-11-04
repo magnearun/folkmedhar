@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dddddd"
-    tools:context="com.example.folkmedhar.pantanir.SidastaPontun" >
+    tools:context="com.example.folkmedhar.pantanir.NaestaPontun" >
     
    <TextView
    		android:id="@+id/headline"   
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:gravity="center"
         android:text="@string/sidasta_pontun_fyrirsogn"
         android:layout_marginBottom="20dp"

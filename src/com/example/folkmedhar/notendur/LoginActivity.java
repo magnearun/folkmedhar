@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,12 +19,14 @@ import android.widget.TextView;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
-public class LoginActivity extends Activity {
-    Button buttonLogin;
-    Button buttonRegisterScreen;
-    EditText inputEmail;
-    EditText inputPassword;
-    TextView loginErrorMsg;
+public class LoginActivity extends Activity implements OnClickListener {
+    
+	// Viðmótshutir
+	private Button buttonLogin;
+    private Button buttonRegisterScreen;
+    private EditText inputEmail;
+    private EditText inputPassword;
+    private TextView loginErrorMsg;
 
     @Override
 	/**
@@ -34,46 +37,65 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
- 
-        // Textasvæði og hnappar á skjá
+        
+        setVidmotshlutir();
+    }
+    
+    /**
+	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti
+	 */
+	private void setVidmotshlutir() {
+		
         inputEmail = (EditText) findViewById(R.id.loginEmail);
         inputPassword = (EditText) findViewById(R.id.loginPassword);
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
         buttonRegisterScreen = (Button) findViewById(R.id.buttonRegisterScreen);
         loginErrorMsg = (TextView) findViewById(R.id.loginError);
-
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-            /**
-             * Athugar hvort að tekist hafi að skrá notanda inn og
-             * birtir MainActivity skjá ef svo er
-             */
-                String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
-                UserFunctions userFunction = new UserFunctions();
-                boolean isUser = userFunction.loginUser(getApplicationContext(), email, password);
-                if (isUser) {
-                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(mainActivity);
-                    // Loka skjánum fyrir innskráningu
-                    finish();
-                } else {
-                    loginErrorMsg.setText("Rangt notendanafn eða lykilorð");
-           
-                }
-            }
-        });      
         
-        buttonRegisterScreen.setOnClickListener(new View.OnClickListener() {
-        	/**
-        	 * Birtir skjá fyrir nýskráningu
-        	 */
-            public void onClick(View view) {
-                Intent register = new Intent(getApplicationContext(),
-                        RegisterActivity.class);
-                startActivity(register);
-                finish();
-            }
-        });
-    }
+        buttonLogin.setOnClickListener(this);
+        buttonRegisterScreen.setOnClickListener(this);
+	}
+        
+    /**
+	 * Kallar á aðferð sem sér um innskráningu eða birtir skjá fyrir 
+	 * nýskráningu
+	 */
+    public void onClick(View view) {
+	    switch (view.getId()) {
+	    case R.id.buttonLogin:
+	    	login();
+	        break;
+        case R.id.buttonRegisterScreen:
+        	// Birtir skjá fyrir nýskráningu
+        	Intent register = new Intent(getApplicationContext(),
+                    RegisterActivity.class);
+            startActivity(register);
+            finish(); // Loka innskráningar skjánum
+            break;
+        default:
+            break;
+        }
+	}
+    
+    /**
+     * Athugar hvort að tekist hafi að skrá notanda inn og
+     * birtir MainActivity skjá ef svo er annars villuskilaboð
+     */
+    private void login() {
+    	String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
+        
+        UserFunctions userFunction = new UserFunctions();
+        boolean isUser = userFunction.loginUser(getApplicationContext(), email, password);
+        if (isUser) {
+        	// Notandinn fannst í gagnagrunni
+            Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainActivity);
+            finish(); // Loka innskráningar skjánum
+        } else {
+        	// Notandinn fannst ekki
+            loginErrorMsg.setText("Rangt notendanafn eða lykilorð");
+   
+        }
+    } 
 }

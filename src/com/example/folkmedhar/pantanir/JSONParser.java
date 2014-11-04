@@ -2,8 +2,9 @@
  * @author: Magnea Rún Vignisdóttir
  * @since: 15.10.2014
  * Klasinn sem JSON parser klasi sem sækir JSON hlut frá vefslóð. Klasinn styður tvær 
- * “http requeste” aðferðir, POST og GET json frá vefslóð. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
- * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
+ * “http requeste” aðferðir, POST og GET json frá vefslóð. Við útfærslu klasanns var stuðst við tutorial 
+ * um hvernig skal nota JSON til að ná í upplýsingar ýr MySQL gagnagrunni 
+ * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
  */
 
 package com.example.folkmedhar.pantanir;
@@ -33,15 +34,14 @@ import android.util.Log;
 
 public class JSONParser {
 
-	static InputStream is = null;
-	static JSONObject jObj = null;
-	static String json = "";
+	private static InputStream is = null;
+	private static JSONObject jObj = null;
+	private static String json = "";
 
 	public JSONParser() {
 
 	}
 
-	
 	/** 
 	 * Sækir json frá vefslóð með því að útfæra http POST og GET aðferðir
 	 * @param url
@@ -110,6 +110,5 @@ public class JSONParser {
 		}
 
 		return jObj;
-
 	}
 }

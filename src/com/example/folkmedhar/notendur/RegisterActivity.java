@@ -10,6 +10,7 @@ package com.example.folkmedhar.notendur;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +53,7 @@ public class RegisterActivity extends Activity {
                 String email = inputEmail.getText().toString();
                 String phone = inputPhone.getText().toString();
                 String password = inputPassword.getText().toString();
+                
                 UserFunctions userFunction = new UserFunctions();
                 boolean isUser = userFunction.registerUser(getApplicationContext(), name, email, phone, password);
                 if (isUser && userFunction.loginUser(getApplicationContext(), email, password)) {
@@ -63,6 +65,7 @@ public class RegisterActivity extends Activity {
                 else 
                     registerErrorMsg.setText("Villa kom upp við skráningu, reyndu aftur");
                 }
+            
             });
         
  

@@ -14,7 +14,7 @@
         android:background="@drawable/calendar_button_selector"
         android:minHeight="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFFFFF" >
+        android:textColor="@color/calanderText" >
 
     </Button>
 

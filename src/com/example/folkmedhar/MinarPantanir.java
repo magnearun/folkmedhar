@@ -1,8 +1,8 @@
 /**
- * @author: Eva Dögg Steingrímsdóttir
+ * @author: MAgnea Rún Vignisdóttir
  * @since: 15.10.2014
  * Klasinn sem sér um að birta skjá þar sem hægt er að velja um að fá
- * yfirlit yfir allar pantanir eða síðustu pöntun
+ * yfirlit yfir allar pantanir eða næstu pöntun
  */
 
 package com.example.folkmedhar;
@@ -17,10 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,83 +31,83 @@ import android.widget.Toast;
 
 import com.example.folkmedhar.pantanir.AllarPantanir;
 import com.example.folkmedhar.pantanir.JSONParser;
-import com.example.folkmedhar.pantanir.SidastaPontun;
+import com.example.folkmedhar.pantanir.NaestaPontun;
 
 
-public class MittSvaedi extends Fragment implements  android.view.View.OnClickListener  {
+public class MinarPantanir extends Fragment implements  android.view.View.OnClickListener  {
 	
 	private ProgressDialog pDialog;
-	JSONParser jsonParser = new JSONParser();
-	TextView texti;
-	TextView dagatal_ar;
-	TextView dagatal_manudur;
-	TextView dagatal_dagur;
-	Button afpanta;
+	private JSONParser jsonParser = new JSONParser();
 	
-	public static String pontunar_ID;
-	public static String t = "";
-	public static String manudur, dagur, ar;
+	private static String pontunarId; // Auðkenni pöntunar
+	private static String pontunText = ""; // Upplýsingar um pöntun
+	private static String manudur, dagur, ar; // Dagsetning pöntunar
 	
 	private final String url_pantanir = "http://prufa2.freeiz.com/allarPantanir.php";
+	private View rootView; 
 	/**
 	 * Nýtt fragment er búið til fyrir „Mínar pantanir"
 	 */
-	public MittSvaedi() {
+	public MinarPantanir() {
 	}
 
 	@Override
 	/**
 	 * Birtir layout-ið fyrir „Mínar pantanir" og tengir onClickListener við takka sem notaðir eru
-     * til að fá yfirlit yfir allar pantanir eða síðustu pöntun
+     * til að fá yfirlit yfir allar pantanir eða næstu pöntun pöntun
 	 */
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_mitt_svaedi,
+		rootView = inflater.inflate(R.layout.fragment_minar_pantanir,
 				container, false);
 		
-		((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_mitt_svaedi);
+		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		text.setText(R.string.title_activity_mitt_svaedi);
 		
-		Button buttonSidastaPontun  = (Button) rootView.findViewById(R.id.sidasta_pontun);
-		Button buttonAllarPantanir  = (Button) rootView.findViewById(R.id.allar_pantanir);
-		
-		buttonSidastaPontun.setOnClickListener(this);
-		buttonAllarPantanir.setOnClickListener(this);
-
+		setVidmotshlutir();
 		
 		return rootView;
 	}
+	
+	/**
+	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti
+	 */
+	private void setVidmotshlutir() {
+		
+		Button buttonNaestaPontun  = (Button) rootView.findViewById(R.id.sidasta_pontun);
+		Button buttonAllarPantanir  = (Button) rootView.findViewById(R.id.allar_pantanir);
+		
+		buttonNaestaPontun.setOnClickListener(this);
+		buttonAllarPantanir.setOnClickListener(this);
+	}
 
 	/**
-	 * Birtir skjá með yfirliti yfir síðustu pöntun notandans eða
+	 * Birtir skjá með yfirliti yfir næstu pöntun notandans eða
 	 * Birtir skjá með yfirliti yfir allar pantanir notandans
 	 */
 	@Override
 	public void onClick(View view) {
-		Fragment fragment = new MittSvaedi();
-	    FragmentManager fragmentManager = getFragmentManager();
+		Fragment fragment = new MinarPantanir();
 	    switch (view.getId()) {
 	        case R.id.sidasta_pontun:
 	        	new ErTilPontun().execute();
-	        	//fragment = new SidastaPontun(); // SíðastaPontun
 	            break;
 	        case R.id.allar_pantanir:
-	        	fragment = new AllarPantanir();// AllarPantanir
+	        	fragment = new AllarPantanir();
 	            break;
 	        default:
 	            break;
 	    }
-	    fragmentManager.beginTransaction()
-        .replace(R.id.content_frame, fragment)
-        .addToBackStack("fragment")
-        .commit();
+	    MainActivity.updateFragment(fragment);
 	}
 	
 	/**
      * @author: Magnea Rún Vignisdóttir
      * @since: 15.10.2014
-     * Klasinn sem sér um að sækja allar pantanir notandans úr gagnagrunni
-     * og birta þær í textasvæði. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
-     * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
+     * Klasinn sem sér um að sækja næstu pöntun notandans úr gagnagrunni
+     * og birta hana í textasvæði. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
+     * til að ná í upplýsingar ýr MySQL gagnagrunni 
+     * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
 	private class ErTilPontun extends AsyncTask<String, String, String> {
 	
@@ -116,7 +116,7 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 		@Override
 		/**
 		 * Birtir skilaboð sem gefa notandanum til kynna að verið ég að 
-		 * sækja pantanir hans
+		 * sækja pöntun hans
 		 * */
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -129,14 +129,15 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 		
 		@Override
 		/**
-		 * Athuga hvort að það sé til pöntun
-		 * 
+		 * Sækir nýjustu pöntun notandans úr
+		 * gagnagrunni (ef það er einhver til)
 		 */
 		protected String doInBackground(String... args) {
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
-			params.add(new BasicNameValuePair("sidastaPontun", "ff"));
+			Log.e("lskfjslkdfhslkfhsdkfhlsdkfhdl",MainActivity.getEmail());
+			params.add(new BasicNameValuePair("sidastaPontun", "ff")); 
 			
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_pantanir, "GET", params);
@@ -144,21 +145,18 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 			try{
 				success = json.getInt("success");
 				if(success == 1){
-					
 					JSONArray pantanir = json.getJSONArray("pantanir");
 					JSONObject pontun = pantanir.getJSONObject(0);
-					t = pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
-					+ "Starfsmadur: " + MainActivity.getStarfsmadur(("BOB")) +"\n"
+					pontunText = pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
+					+ "Starfsmadur: " + MainActivity.getStarfsmadur(pontun.getString("staff_id")) +"\n"
 					+ "Klukkan: "+ pontun.getString("time");
+					Log.e("kakakakakakakakakaka",pontun.toString());
 					
-					// dagatals breytur fá gildi
+					// Upplýsingar um pöntun notandans
 					ar = pontun.getString("startDate").substring(0,4);
-					manudur = saekja_manud(pontun.getString("startDate").substring(5,7));
+					manudur = getManudur(pontun.getString("startDate").substring(5,7));
 					dagur = pontun.getString("startDate").substring(8,10);
-					
-					pontunar_ID = pontun.getString("ID");
-					
-				
+					pontunarId = pontun.getString("ID");
 					
 				}
 			}
@@ -171,21 +169,16 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 		}
 		
 		/**
-		 * Lokar „progress dialog" og kallar á aðferð sem að birtir 
-		 * allar pantanir á skjánum
+		 * Lokar „progress dialog" og kallar á aðferð sem að birtir næstu pöntun
+		 * á skjánum eða tilkynningu um að engin pöntun hafi fundist
 		 * **/
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
 			if(success==1){
-				Fragment fragment = new MittSvaedi();
-			    FragmentManager fragmentManager = getFragmentManager();
-				fragment = new SidastaPontun(); // SíðastaPontun
-				fragmentManager.beginTransaction()
-			    .replace(R.id.content_frame, fragment)
-			    .addToBackStack("fragment")
-			    .commit();
-				}
-			else{
+				Fragment fragment = new NaestaPontun(); 
+				MainActivity.updateFragment(fragment);
+			}
+			else {
 				Toast toast = Toast.makeText(getActivity(),"Engin pöntun fannst", Toast.LENGTH_LONG);
             	toast.setGravity(Gravity.CENTER, 0, 0);
             	toast.show();
@@ -193,7 +186,12 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 		}
 	}
 	
-	public static String saekja_manud(String s){
+	/**
+	 * Skilar mánuði á forminu "Jan" fyrir steng á forminu "01"
+	 * @param s
+	 * @return
+	 */
+	public static String getManudur(String s){
 		String manudur;
 		switch(s) {
     	
@@ -250,5 +248,45 @@ public class MittSvaedi extends Fragment implements  android.view.View.OnClickLi
 		}
 		return manudur;
 		
+	}
+	
+	/**
+	 * Skilar upplýsingum um pöntun notandans
+	 * @return
+	 */
+	public static String getPontun() {
+		return pontunText;
+	}
+	
+	/**
+	 * Skilar árinu sem pöntunin var bókuð á
+	 * @return
+	 */
+	public static String getAr() {
+		return ar;
+	}
+	
+	/**
+	 * Skilar mánuðinum sem pöntunin var bókuð á
+	 * @return
+	 */
+	public static String getManudur() {
+		return manudur;
+	}
+	
+	/**
+	 * Skilar deginum sem pöntunin var bókuð á
+	 * @return
+	 */
+	public static String getDagur() {
+		return dagur;
+	}
+	
+	/**
+	 * Skilar auðkenni pöntunar
+	 * @return
+	 */
+	public static String getID() {
+		return pontunarId;
 	}
 }
