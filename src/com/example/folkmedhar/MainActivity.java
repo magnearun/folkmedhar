@@ -145,6 +145,14 @@ public class MainActivity extends Activity {
 
                         lastTranslate = moveFactor;
                     }
+                    
+                    if(drawerView!=null){
+                        super.onDrawerSlide(drawerView, 0);
+                    }
+                }
+            	
+            	public void onDrawerOpened(View drawerView) {
+            		super.onDrawerSlide(drawerView, 0);
                 }
             };
             drawerLayout.setDrawerListener(drawerToggle);
@@ -186,6 +194,8 @@ public class MainActivity extends Activity {
 	        inflater.inflate(R.menu.main, menu); 
 	        return super.onCreateOptionsMenu(menu);
 	    }
+	 
+	
 
 
     @Override
@@ -593,6 +603,8 @@ public class MainActivity extends Activity {
 		}
 		return starfsmadur;
 	}
+	
+	 
 	
 }
 
