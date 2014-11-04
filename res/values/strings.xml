@@ -16,6 +16,7 @@
         <item>Mitt svæði</item>
         <item>Um stofuna</item>
         <item>Tilboð</item>
+        <item>Verðlisti</item>
         <item>Skrá mig út</item>
     </string-array>
 
@@ -141,5 +142,9 @@
     <string name="buttonUpdateUser">Vista</string>
     
     <string name="afpanta">Afpanta</string>
+    <string name="title_fragment_verdlisti">Verðlisti</string>
+    
+    <string name="passwordRepeat">Staðfesta lykilorð</string>
+    <string name="userPasswordRepeat">Staðfesta nýtt lykilorð: </string>
 
 </resources>

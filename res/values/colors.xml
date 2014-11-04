@@ -2,9 +2,9 @@
 <resources>   
     <color name="titlebackgroundcolor">#496CC6</color>
     <color name="titletextcolor">#FFF</color>
-    <color name="background">#87bb9c</color>
+    <color name="background">#0088cc</color>
     <color name="buttoncolor">#dddddd</color>
-    <color name="buttonFontColor">#87bb9c</color>
+    <color name="buttonFontColor">#0088cc</color>
     <color name="infobackground">#dddddd</color>
     
     

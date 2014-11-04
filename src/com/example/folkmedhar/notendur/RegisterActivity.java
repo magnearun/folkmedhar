@@ -26,6 +26,7 @@ public class RegisterActivity extends Activity {
     EditText inputEmail;
     EditText inputPassword;
     EditText inputPhone;
+    EditText inputPasswordRepeat;
     TextView registerErrorMsg;
      
  
@@ -38,6 +39,7 @@ public class RegisterActivity extends Activity {
         inputEmail = (EditText) findViewById(R.id.registerEmail);
         inputPassword = (EditText) findViewById(R.id.registerPassword);
         inputPhone = (EditText) findViewById(R.id.registerPhone);
+        inputPasswordRepeat = (EditText) findViewById(R.id.registerPasswordRepeat);
         
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         buttonLoginScreen = (Button) findViewById(R.id.buttonLoginScreen);
@@ -53,19 +55,23 @@ public class RegisterActivity extends Activity {
                 String email = inputEmail.getText().toString();
                 String phone = inputPhone.getText().toString();
                 String password = inputPassword.getText().toString();
-                
-                UserFunctions userFunction = new UserFunctions();
-                boolean isUser = userFunction.registerUser(getApplicationContext(), name, email, phone, password);
-                if (isUser && userFunction.loginUser(getApplicationContext(), email, password)) {
-                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(mainActivity);
-                    // loka skjánum fyrir nýskráningu
-                    finish();
+                String passwordRepeat = inputPasswordRepeat.getText().toString();
+
+                if (password.equals(passwordRepeat)) {
+                	UserFunctions userFunction = new UserFunctions();
+	                boolean isUser = userFunction.registerUser(getApplicationContext(), name, email, phone, password);
+	                if (isUser && userFunction.loginUser(getApplicationContext(), email, password)) {
+	                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+	                    startActivity(mainActivity);
+	                    // loka skjánum fyrir nýskráningu
+	                    finish();
+	                    }
+	                else 
+	                	registerErrorMsg.setText("Villa kom upp við skráningu, reyndu aftur");
+	                }
+                else
+                	registerErrorMsg.setText("Rangt lykilorð slegið inn, reyndu aftur");
                 }
-                else 
-                    registerErrorMsg.setText("Villa kom upp við skráningu, reyndu aftur");
-                }
-            
             });
         
  

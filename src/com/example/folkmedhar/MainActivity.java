@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,9 +79,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
-        getActionBar().setCustomView(R.layout.actionbar);
-        
  
      	nafn = UserFunctions.userName(this.getBaseContext());
      	simi = UserFunctions.userPhone(this.getBaseContext());
@@ -100,6 +98,8 @@ public class MainActivity extends Activity {
         if(userFunction.isUserLoggedIn(getApplicationContext())) {
         	setContentView(R.layout.activity_main);
         	
+        	ActionBar actionbar = getActionBar();
+        	
             menuTitles = getResources().getStringArray(R.array.menu_titles);
             drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -110,19 +110,24 @@ public class MainActivity extends Activity {
             drawerList.setAdapter(new ArrayAdapter<String>(this,
                     R.layout.drawer_list_item, menuTitles));
             drawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setHomeButtonEnabled(true);
+            
+            actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+	        actionbar.setCustomView(R.layout.actionbar);
+	        getActionBar().setDisplayHomeAsUpEnabled(true);
+	        getActionBar().setHomeButtonEnabled(true);
 
           
             drawerToggle = new ActionBarDrawerToggle(
                     this,                 
                     drawerLayout,       
-                    R.drawable.ic_burger,  
+                    R.drawable.ic_burger_white,  
                     R.string.adgerd_prompt,  //Veit ekki hvað þetta er
                     R.string.allar_pantanir  // Veit ekki hvað þetta er
                     ) {
             	@SuppressLint("NewApi")
+            	/**
+            	 * MUNAAAAAA Eva
+            	 */
                 public void onDrawerSlide(View drawerView, float slideOffset)
                 {
                     float moveFactor = (drawerList.getWidth() * slideOffset);
@@ -143,6 +148,7 @@ public class MainActivity extends Activity {
                 }
             };
             drawerLayout.setDrawerListener(drawerToggle);
+            drawerLayout.setDrawerShadow(R.drawable.navbar_shadow, Gravity.LEFT);
 
             if (savedInstanceState == null) {
             	Fragment fragment = new Upphafsskjar();
@@ -177,7 +183,7 @@ public class MainActivity extends Activity {
 	  */
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	        MenuInflater inflater = getMenuInflater();
-	        inflater.inflate(R.menu.main, menu);
+	        inflater.inflate(R.menu.main, menu); 
 	        return super.onCreateOptionsMenu(menu);
 	    }
 
@@ -235,7 +241,10 @@ public class MainActivity extends Activity {
     	        case 4: 
     	        	fragment = new Tilbod();
     	        	break;
-    	        case 5: logout();
+    	        case 5:
+    	        	fragment = new Verdlisti();
+    	        	break;
+    	        case 6: logout();
     	        	return;
     	        default: break;
     	    }

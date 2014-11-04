@@ -24,8 +24,8 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
     EditText inputOldPassword;
     EditText inputPassword;
     EditText inputPhone;
+    EditText inputPasswordRepeat;
     TextView updateErrorMsg;
-
     
 	View rootView;
 	static Context c;
@@ -41,13 +41,13 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 					container, false);
 			
 			((MainActivity) getActivity()).setActionBarTitle(R.string.title_activity_update_user);
-			// **ATH
 			
 	        inputName = (EditText) rootView.findViewById(R.id.userName);
 	        inputEmail = (EditText) rootView.findViewById(R.id.userEmail);
 	        inputPhone = (EditText) rootView.findViewById(R.id.userPhone);
 	        inputOldPassword = (EditText) rootView.findViewById(R.id.userOldPassword);
 	        inputPassword = (EditText) rootView.findViewById(R.id.userPassword);
+	        inputPasswordRepeat = (EditText) rootView.findViewById(R.id.userPasswordRepeat);
 	        
 	        buttonUpdateUser = (Button) rootView.findViewById(R.id.buttonUpdateUser);
 	        updateErrorMsg = (TextView) rootView.findViewById(R.id.updateError);
@@ -72,38 +72,35 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 
                 String oldPassword	= inputOldPassword.getText().toString();
                 String password = inputPassword.getText().toString();
-                if (password == "") {
+                String passwordRepeat = inputPasswordRepeat.getText().toString();
+                
+                if (password.equals("")) {
                 	password = oldPassword;
+                	passwordRepeat = oldPassword;
                 }
                 
-                UserFunctions userFunction = new UserFunctions();
-                String oldEmail = userFunction.userEmail(c);
-                
-                Log.d("Gamla email notanda", oldEmail);
-                Log.d("Gamla lykilorð notanda", oldPassword);
-                
-                //*******vandamálið hér********
-                boolean isUpdated = userFunction.updateUser(c, oldEmail, oldPassword, name, email, phone, password);
-                Log.d("isUpdated", "boolean"+isUpdated);
-                
-                if (isUpdated) {
-                	String userSaved = "Notendaupplýsingar þínar hafa verið uppfærðar!";
-                	Toast toast = Toast.makeText(c, userSaved,Toast.LENGTH_LONG);
-                	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                	toast.show();
-                	userFunction.logoutUser(c);
-                	Intent intent = new Intent(getActivity(), LoginActivity.class);
-                	startActivity(intent);
-                	//logout***** ATH sækja úr MainActivity
-                	//logout();
-                }
+                if (password.equals(passwordRepeat)) {
+	                
+	                UserFunctions userFunction = new UserFunctions();
+	                String oldEmail = userFunction.userEmail(c);
+	
+	                boolean isUpdated = userFunction.updateUser(c, oldEmail, oldPassword, name, email, phone, password);
+	                
+	                if (isUpdated) {
+	                	String userSaved = "Notendaupplýsingar þínar hafa verið uppfærðar!";
+	                	Toast toast = Toast.makeText(c, userSaved,Toast.LENGTH_LONG);
+	                	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+	                	toast.show();
+	                	userFunction.logoutUser(c);
+	                	Intent intent = new Intent(getActivity(), LoginActivity.class);
+	                	startActivity(intent);
+	                	}
+	                else 
+	                    updateErrorMsg.setText("Villa kom upp við uppfærslu á notendaupplýsingum, reyndu aftur.");
+	                }
                 else 
-                    updateErrorMsg.setText("Villa kom upp við uppfærslu á notendaupplýsingum, reyndu aftur.");
-                }
+                	updateErrorMsg.setText("Rangt lykilorð slegið inn, reyndu aftur.");
+                	     
+			}
 				
 }
-		
-		
-
-
-

@@ -4,5 +4,7 @@
         <item name="android:windowBackground">@color/background</item>
         <item name="android:windowTitleBackgroundStyle">@style/titlebackgroundcolor</item>
         <item name="android:windowTitleSize">50dip</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
+    
 </resources>
