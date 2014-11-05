@@ -39,7 +39,9 @@
         android:onClick="showDatePickerDialog"
         android:text="@string/pick_date"
         android:width="200dp"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        style="@style/buttonStyle"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/skref2_info"

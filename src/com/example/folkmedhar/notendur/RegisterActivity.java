@@ -7,9 +7,11 @@
 
 package com.example.folkmedhar.notendur;
  
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +38,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         
+        setActionBarTitle();
         setVidmotshlutir();
 
     }
@@ -90,7 +93,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	
 	/**
 	 * Athugar hvort tekist hafi að nýskrá notanda og skrá hann inn
-     * og birtir MainActivity skjá ef svo er. Annars eru birt villuskilaboð
+     * og birtir MainActivity skjá ef svo er
 	 */
 	private void register() {
 		 String name = inputName.getText().toString();
@@ -121,5 +124,14 @@ public class RegisterActivity extends Activity implements OnClickListener {
         	 registerErrorMsg.setText("Rangt lykilorð slegið inn, reyndu aftur");
          }
 	}
+	
+	/**
+	 * Upphafsstillit ActionBar
+	 */
+	private void setActionBarTitle() {
+    	ActionBar actionbar = getActionBar();
+        actionbar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.title_activity_register) + "</font>"));
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_CUSTOM);
+    }
 }
 

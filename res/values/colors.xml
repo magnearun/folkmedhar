@@ -11,9 +11,9 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="lightgray">#e7e7e7</color>
-    <color name="lightgray02">#bfbfbf</color>
-    <color name="orrange">#e33d1b</color>
-    <color name="darkgray">#6D7072</color>
+    <color name="lightgray02">#e7e7e7</color>
+    <color name="orrange">#000</color>
+    <color name="darkgray">#fff</color>
     <color name="calanderText">#fff</color>
     <color name="gray">#f2f2f2</color>
     

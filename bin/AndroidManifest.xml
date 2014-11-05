@@ -15,7 +15,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_greida5"
         android:label="@string/app_name"
-        android:logo="@drawable/ic_greida4"
+        android:logo="@drawable/ic_greida5"
         android:theme="@style/customTheme" >
         <activity
             android:name=".MainActivity"

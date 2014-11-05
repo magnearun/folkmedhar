@@ -7,9 +7,11 @@
 
 package com.example.folkmedhar.notendur;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +32,7 @@ public class LoginActivity extends Activity implements OnClickListener {
     private EditText inputEmail;
     private EditText inputPassword;
     private TextView loginErrorMsg;
+    
 
     @Override
 	/**
@@ -41,7 +44,14 @@ public class LoginActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         
+        setActionBarTitle();
         setVidmotshlutir();
+    }
+    
+    private void setActionBarTitle() {
+    	ActionBar actionbar = getActionBar();
+        actionbar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.login) + "</font>"));
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_CUSTOM);
     }
     
     /**

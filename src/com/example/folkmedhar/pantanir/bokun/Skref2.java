@@ -9,7 +9,6 @@
 
 package com.example.folkmedhar.pantanir.bokun;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -167,9 +166,9 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private void bokun() {
 		Fragment fragment = null;
 		// Engin dagsetning valin
-    	if(MainActivity.getDate()==null) {
+    	if(MainActivity.getDate()==null || timiSpinner.getSelectedItem().toString().equals("Tími")) {
     		Toast toast = Toast.makeText(getActivity(), 
-    				"Vinsamlegast veldu dag", Toast.LENGTH_LONG);
+    				"Vinsamlegast veldu dag og tíma", Toast.LENGTH_LONG);
     		toast.setGravity(Gravity.CENTER, 0, 0);
     		toast.show();
     		return;
@@ -210,8 +209,8 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * Sýnir valinn dag og kallar á aðferð sem sækir bókaða tíma fyrir hann
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		buttonDagur.setText(MainActivity.getStringDate());
 		new BokadirTimar().execute();
+		buttonDagur.setText(MainActivity.getStringDate());
 		
 	}
 	
@@ -526,17 +525,27 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 */
 	private static void setTimeSpinner() {
 		
-		String [] spinnerTimar = new String[lausirNum];
-		for (int i = 0; i<spinnerTimar.length; i++) {
-			spinnerTimar[i] = lausirString[i];
+		String[] spinnerTimar;
+		
+		//Einhverjir lausir tímar fundust á valinni dagsetningu
+		if(lausirNum!=0) {
+			spinnerTimar = new String[lausirNum];
+			for (int i = 0; i<spinnerTimar.length; i++) {
+				spinnerTimar[i] = lausirString[i];
+			}
+			
+			java.util.Arrays.sort(spinnerTimar);
+			
 		}
-		
-		java.util.Arrays.sort(spinnerTimar);
-		
+		else {
+			spinnerTimar = new String[1];
+			spinnerTimar[0] = "Tími";
+			showToast("Engir lausir tímar fundust á þessum degi",context);
+		}
 		ArrayAdapter<String> spinnerArrayAdapter =
 				new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerTimar); 
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		timiSpinner.setAdapter(spinnerArrayAdapter);	
+		timiSpinner.setAdapter(spinnerArrayAdapter);
 		
 	}
 	
@@ -576,6 +585,17 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			
 		}
 		return false;	
+	}
+	
+	/**
+	 * Birtir skilaboðin text á skjánum
+	 * @param text
+	 */
+	private static void showToast(String text, Context c) {
+		Toast toast = Toast.makeText(c, 
+				text, Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
 	}
 	
 }

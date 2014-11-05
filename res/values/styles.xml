@@ -34,8 +34,5 @@
     <style name="MyActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name = "android:background">@drawable/actionbar_background</item>
-        
-       
-        
     </style>
 </resources>

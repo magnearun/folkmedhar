@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="320dp"
-    android:background="@drawable/border"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:layout_gravity="center" >
+    android:layout_gravity="center"
+    android:background="@color/background" >
 
     <LinearLayout
         android:id="@+id/buttonlayout"
         android:layout_width="fill_parent"
         android:layout_height="40sp"
-        
+        android:background="@drawable/topbar"
         android:gravity="center"
         android:height="60sp"
         android:orientation="horizontal" >
@@ -31,7 +31,7 @@
             android:layout_weight="0.6"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/black" >
+            android:textColor="@color/white" >
         </TextView>
 
         <ImageView
@@ -54,15 +54,18 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/calendar_days" >
+            android:src="@drawable/calendar_days_islenskir" >
         </ImageView>
     </LinearLayout>
 
     <GridView
         android:id="@+id/calendar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:gravity="center"
+        android:background="@color/background"
         android:numColumns="7" >
+
     </GridView>
 
 </LinearLayout>
