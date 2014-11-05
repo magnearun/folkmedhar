@@ -1,10 +1,13 @@
-
+/**
+ * @author: http://www.androidhub4you.com/2012/10/custom-calendar-in-android.html
+ * @since: 15.10.2014
+ * Klasinn sér um að birta dagatal fyrir val á dagsetningu bókunar. Klasinn er 
+ * að miklu leiti byggður á tutorial af netinu en breytingar voru gerðar á honum
+ * og aðferðum og breytum bætt við
+ */
 package com.example.folkmedhar.pantanir.bokun;
 
 
-/**
- * Eftir að refactor-a þetta og skrifa haus. Finna á hverju þetta er byggt
- */
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,9 +17,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -34,8 +37,8 @@ import android.widget.TextView;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
-@SuppressLint("SimpleDateFormat") @TargetApi(3)
-public class CalendarActivity extends Activity implements OnClickListener {
+
+@SuppressLint("SimpleDateFormat") public class CalendarActivity extends Activity implements OnClickListener {
 
 	private TextView currentMonth;
 	private ImageView prevMonth;
@@ -56,7 +59,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calendar);
 
-		calendar = Calendar.getInstance(Locale.getDefault());
+		Locale locale = new Locale("IS");
+		calendar = Calendar.getInstance(locale);
 		month = calendar.get(Calendar.MONTH) + 1;
 		year = calendar.get(Calendar.YEAR);
 		
@@ -156,6 +160,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private final HashMap<String, Integer> eventsPerMonthMap;
 		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
 				"dd-MMM-yyyy");
+		
 
 		// Days in Current Month
 		public GridCellAdapter(Context context, int textViewResourceId,
@@ -165,6 +170,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			this.list = new ArrayList<String>();
 	
 			Calendar calendar = Calendar.getInstance();
+			TimeZone tz = TimeZone.getTimeZone("GMT");
+		    calendar.setTimeZone(tz);
 			setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
 			setCurrentMonth(calendar.get(Calendar.MONTH));
 			setCurrentWeekDay(calendar.get(Calendar.DAY_OF_WEEK));
@@ -374,13 +381,16 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			default: manudur = 0;
 			}
 			Calendar c = Calendar.getInstance();
+			TimeZone tz = TimeZone.getTimeZone("GMT");
+		    c.setTimeZone(tz);
 			c.set(Integer.parseInt(theyear), manudur, Integer.parseInt(theday));
 			fyrri = c.getTimeInMillis();
 			c = Calendar.getInstance();
+		    c.setTimeZone(tz);
 			seinni = c.getTimeInMillis();
 		
 			if(fyrri-seinni<0) {
-				gridcell.setTextColor(getResources().getColor(R.color.lightgray));
+				//gridcell.setTextColor(getResources().getColor(R.color.lightgray));
 				
 			}
 			return row;
@@ -404,16 +414,21 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			int month = cal.get(Calendar.MONTH);
 			int year = cal.get(Calendar.YEAR);
 			int day = cal.get(Calendar.DATE);
+			String dagur = String.valueOf(day);
 			cal = Calendar.getInstance();
+			
+			if(day<10) {
+				dagur = "0"+day;
+			}
 			
 			if((cal.get(Calendar.DATE)<=day && month==cal.get(Calendar.MONTH)) || (month>cal.get(Calendar.MONTH) ||
 					year>cal.get(Calendar.YEAR)))
 			{
-			MainActivity.setStringDate(day + "-" + (month+1) + "-" + year);
-			MainActivity.setDate(year + "-" + (month+1) + "-" + day);
-			
-			
-			finish();
+				MainActivity.setStringDate(dagur + "-" + (month+1) + "-" + year);
+				MainActivity.setDate(year + "-" + (month+1) + "-" + dagur);
+				
+				
+				finish();
 			}
 			
 		}

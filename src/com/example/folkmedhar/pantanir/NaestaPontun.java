@@ -60,8 +60,9 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
      */
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_sidasta_pontun,
+		rootView = inflater.inflate(R.layout.fragment_naesta_pontun,
 				container, false);
+        
 		
 		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
 		text.setText(R.string.title_activity_sidasta_pontun);

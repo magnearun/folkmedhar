@@ -24,9 +24,18 @@
         <item name="android:textSize">8sp</item>
     </style>
     
-
-    <style name="MyActionBar"
-           parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <!-- the theme applied to the application or activity -->
+    <style name="CustomActionBarTheme"
+           parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
-    
+
+    <!-- ActionBar styles -->
+    <style name="MyActionBar"
+           parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name = "android:background">@drawable/actionbar_background</item>
+        
+       
+        
+    </style>
 </resources>

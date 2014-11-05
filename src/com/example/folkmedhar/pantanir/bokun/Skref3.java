@@ -26,12 +26,15 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import com.example.folkmedhar.Upphafsskjar;
@@ -45,6 +48,8 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	private Button buttonTilbaka;
 	private Button buttonPanta;
 	private TextView bokunTexView;
+	
+	int success; // er true ef tókst að færa pöntun í gagnagrunn
 	
 	
 	// Id þeirra viðmótshluta sem sýna bókun notandans
@@ -121,7 +126,8 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	/**
 	 * Birtir skjáinn fyrir skref 2 eða
 	 * Kallar á aðferð sem sér um að færa upplýsingar um bókun
-	 * yfir í gagnagrunn og birtir skjá með yfirliti bókunar
+	 * yfir í gagnagrunn og birtir skjá með yfirliti bókunar ef notandinn er nettengdur.
+	 * Ananrs eru birt villuskilaboð
 	 */
 	@Override
 	public void onClick(View view) {
@@ -131,8 +137,17 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	        	fragment = new Skref2();
 	            break;
 	        case R.id.panta:
-	        	bokaPontun();
-	        	fragment = new Upphafsskjar();
+	        	if (Connection.isOnline(getActivity())) {
+		        	new Stadfesta().execute();
+		        	fragment = new Upphafsskjar();
+	        	}
+	        	else {
+	    			Toast toast = Toast.makeText(getActivity(), 
+	        				"Engin nettenging!", Toast.LENGTH_LONG);
+	        		toast.setGravity(Gravity.CENTER, 0, 0);
+	        		toast.show();
+	        		return;
+	    		}
 	            break;
 	        default:
 	            break;
@@ -146,7 +161,6 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 */
 	@SuppressWarnings("deprecation")
 	private void bokaPontun() {
-		new Stadfesta().execute();
     	AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 		alertDialog.setMessage("Pöntunin þín hefur verið bókuð");
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -198,9 +212,11 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			pDialog.show();
 		}
 		
+		@SuppressWarnings("deprecation")
 		@Override
 		/**
-		 * Færir upplýsingar um bókun notandans yfir í gagnagrunn
+		 * Færir upplýsingar um bókun notandans yfir í gagnagrunn ef engar villur fundust.
+		 * Annars eru birt villuskilaboð
 		 */
 		protected String doInBackground(String... args) {
 
@@ -215,11 +231,18 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			
 			Log.d("Create Response", json.toString());
 			try {
-				int success = json.getInt(TAG_SUCCESS);
+				success = json.getInt(TAG_SUCCESS);
 
 				if (success == 1) {
 					getActivity().finish();
 				} else {
+					AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+					alertDialog.setMessage("Ekki tókst að bóka pöntun. Vinsamlegast reyndu aftur");
+					alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+					   public void onClick(final DialogInterface dialog, final int which) {
+					   }
+					});
+					alertDialog.show();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -232,6 +255,9 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		 * **/
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
+			if (success==1) {
+				bokaPontun();
+			}
 		}
 	}
 }

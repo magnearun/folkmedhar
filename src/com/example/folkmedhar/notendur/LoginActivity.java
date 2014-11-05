@@ -10,12 +10,15 @@ package com.example.folkmedhar.notendur;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
@@ -58,23 +61,31 @@ public class LoginActivity extends Activity implements OnClickListener {
         
     /**
 	 * Kallar á aðferð sem sér um innskráningu eða birtir skjá fyrir 
-	 * nýskráningu
+	 * nýskráningu ef notandinne er nettengdur, ananrs eru birt villuskilaboð
 	 */
     public void onClick(View view) {
-	    switch (view.getId()) {
-	    case R.id.buttonLogin:
-	    	login();
-	        break;
-        case R.id.buttonRegisterScreen:
-        	// Birtir skjá fyrir nýskráningu
-        	Intent register = new Intent(getApplicationContext(),
-                    RegisterActivity.class);
-            startActivity(register);
-            finish(); // Loka innskráningar skjánum
-            break;
-        default:
-            break;
-        }
+    	if (Connection.isOnline(this)) {
+		    switch (view.getId()) {
+		    case R.id.buttonLogin:
+		    	login();
+		        break;
+	        case R.id.buttonRegisterScreen:
+	        	// Birtir skjá fyrir nýskráningu
+	        	Intent register = new Intent(getApplicationContext(),
+	                    RegisterActivity.class);
+	            startActivity(register);
+	            finish(); // Loka innskráningar skjánum
+	            break;
+	        default:
+	            break;
+	        }
+    	} 
+    	else {
+			Toast toast = Toast.makeText(this, 
+    				"Engin nettenging!", Toast.LENGTH_LONG);
+    		toast.setGravity(Gravity.CENTER, 0, 0);
+    		toast.show();
+		}
 	}
     
     /**

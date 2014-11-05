@@ -74,29 +74,18 @@
         <item>Alveg sama</item>
     </string-array>
 
-
-    <string name="title_activity_sidasta_pontun">Síðasta pöntun</string>
+    <string name="title_activity_sidasta_pontun">Næsta pöntun</string>
     <string name="sidasta_pontun_fyrirsogn">Næsta pöntun</string>
-
-
     <string name="title_activity_mitt_svaedi">Mínar pantanir</string>
-
-
     <string name="title_activity_allar_pantanir">Allar pantanir</string>
-
-
     <string name="title_activity_um_stofuna">Um Stofuna</string>
     <string name="stadsetning">Fólk með hár er staðsettt á
         Brávallagötu 14, 101 Reykjavík</string>
     <string name="opnunartimi">Opið alla virka daga frá 9 til 18 </string>
     <string name="staff">Starfsfólk</string>
     <string name="title_activity_starfsfolk">Starfsfólk</string>
-
-
     <string name="allar_pantanir">Allar pantanir</string>
-    <string name="sidasta_pontun">Síðasta pöntun</string>
-
-
+    <string name="sidasta_pontun">Næsta pöntun</string>
     <string name="title_activity_skref3">Skref 3 af 3</string>
     <string name="textview_Skref3_nafn">Nafn:</string>
     <string name="textview_Skref3_simi">Símanúmer:</string>
@@ -107,32 +96,22 @@
     <string name="textview_Skref3_timi">Tími:</string>
     <string name="button_Skref3_tilBaka">Til baka</string>
     <string name="button_Skref3_stadfesta">Staðfesta</string>
-
     <string name="title_activity_bokun">Pöntun móttekin</string>
-
-
-
     <string name="title_activity_tilbod">Tilboð</string>
     <string name="tilbod1">Tilboð 1: 2 fyrir 1 í klippingu</string>
     <string name="tilbod2">Tilboð 2: Ókeypis rakstur með klippingu</string>
-
-
     <string name="email">Netfang</string>
     <string name="password">Lykilorð</string>
     <string name="login">Innskráning</string>
     <string name="register">Ný/r á Fólk með hár? Smelltu hér til að nýskrá þig!</string>
-
     <string name="nyskraning">Nýskráning</string>
     <string name="fullname">Fullt nafn</string>
     <string name="phone">Símanúmer</string>
-
     <string name="logout">Skrá mig út</string>
     <string name="title_activity_drasl">Drasl</string>
     <string name="title_activity_skref1">Skref1</string>
     <string name="title_activity_upphafsskjar">Fólk með hár</string>
     <string name="title_activity_update_user">Uppfæra notanda</string>
-    
-    
     <string name="textUpdateInfo">Hér að neðan geturðu uppfært notendaupplýsingar þínar</string>
     <string name="userName">Nafn: </string>
     <string name="userEmail">Netfang: </string>
@@ -140,11 +119,11 @@
     <string name="userOldPassword">Lykilorð: </string>
     <string name="userPassword">Nýtt lykilorð: </string>
     <string name="buttonUpdateUser">Vista</string>
-    
     <string name="afpanta">Afpanta</string>
     <string name="title_fragment_verdlisti">Verðlisti</string>
-    
     <string name="passwordRepeat">Staðfesta lykilorð</string>
     <string name="userPasswordRepeat">Staðfesta nýtt lykilorð: </string>
+    <string name="title_activity_connection">Connection</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

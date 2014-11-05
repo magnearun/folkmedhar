@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dddddd"
-    tools:context="com.example.folkmedhar.pantanir.NaestaPontun" >
+    tools:context="com.example.folkmedhar.pantanir.NaestaPontun"
+    android:paddingTop="70dp" >
     
    <TextView
    		android:id="@+id/headline"   
@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="@string/sidasta_pontun_fyrirsogn"
         android:layout_marginBottom="20dp"
-        android:background="#87bb9c"
+        android:background="@color/background"
         android:padding="15dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
@@ -25,7 +25,7 @@
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:layout_below="@+id/headline"
-       android:background="#f2f2f2"
+       android:background="@color/gray"
        android:columnCount="2"
        android:orientation="horizontal"
        android:padding="15dp"
@@ -36,7 +36,7 @@
         	android:id="@+id/texti"   
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:background="#f2f2f2" 
+        	android:background="@color/gray" 
         	android:textSize="16sp"
         	android:lineSpacingExtra="10dp"
         	android:layout_gravity="left|top"/>
@@ -53,7 +53,7 @@
 		        android:layout_height="wrap_content"
 		        android:gravity="center"
 		        android:textSize="12sp"
-		        android:background="#a1c7b0" />
+		        android:background="@color/background" />
 	        
 	       <TextView
 		        android:id="@+id/dagur"   
@@ -78,14 +78,14 @@
    </GridLayout>
 
    <Button
-	    android:id="@+id/afpanta"
-	    android:layout_width="80dp"
-	    android:layout_height="40dp"
-	    android:layout_alignRight="@+id/grid"
-	    android:layout_below="@+id/grid"
-	    android:layout_marginTop="20dp"
-	    android:text="@string/afpanta"
-	    android:textSize="12sp"
-	    android:background="#87bb9c"/>
+       android:id="@+id/afpanta"
+       android:layout_width="80dp"
+       android:layout_height="40dp"
+       android:layout_alignRight="@+id/grid"
+       android:layout_below="@+id/grid"
+       android:layout_marginTop="95dp"
+       android:background="@color/infobackground"
+       android:text="@string/afpanta"
+       android:textSize="12sp" />
  
 </RelativeLayout>

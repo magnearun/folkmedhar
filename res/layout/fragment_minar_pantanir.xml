@@ -6,31 +6,28 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+   	android:paddingTop="20dp"
     tools:context="com.example.folkmedhar.MinarPantanir" >
 
     <Button
         android:id="@+id/sidasta_pontun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="119dp"
-        android:minWidth="150dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:text="@string/sidasta_pontun"
         style="@style/buttonStyle" />
 
     <Button
         android:id="@+id/allar_pantanir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sidasta_pontun"
         android:layout_below="@+id/sidasta_pontun"
         android:layout_marginTop="58dp"
         android:gravity="center"
-        android:minWidth="100dip"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:text="@string/allar_pantanir"
-        android:width="150dp"
         style="@style/buttonStyle" />
 
 </RelativeLayout>

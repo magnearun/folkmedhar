@@ -9,11 +9,13 @@ package com.example.folkmedhar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 
@@ -68,23 +70,31 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 	}
 
 	/**
-	 * Birtir fyrsta skjáinn í pöntunarferlinu eða kallar 
-	 * Kallar á aðferð sem að birtir aðgerðslá fyrir „Mínar pantanir"
+	 * Ef að notandinn er nettengdur er fyrsti skjárinn í pöntunarferlinu 
+	 * birtur eða skjárinn fyrir „Mínar pantanir“. Annars eru birt villuskilaboð.
 	 */
 	@Override
 	public void onClick(View view) {
-		Fragment fragment = null;
-	    switch (view.getId()) {
-	        case R.id.mittSvaedi:
-	        	fragment = new MinarPantanir();
-	            break;
-	        case R.id.panta:
-	        	fragment = new Skref1();
-	            break;
-	        default:
-	            break;
-	    }
-	    MainActivity.updateFragment(fragment);
+		if (Connection.isOnline(getActivity())) {
+			Fragment fragment = null;
+		    switch (view.getId()) {
+		        case R.id.mittSvaedi:
+		        	fragment = new MinarPantanir();
+		            break;
+		        case R.id.panta:
+		        	fragment = new Skref1();
+		            break;
+		        default:
+		            break;
+		    }
+		    MainActivity.updateFragment(fragment);
+		}
+		else {
+			Toast toast = Toast.makeText(getActivity(), 
+    				"Engin nettenging!", Toast.LENGTH_LONG);
+    		toast.setGravity(Gravity.CENTER, 0, 0);
+    		toast.show();
+		}
 	}
 	
 	/**

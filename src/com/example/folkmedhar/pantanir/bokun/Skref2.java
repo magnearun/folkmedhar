@@ -9,8 +9,12 @@
 
 package com.example.folkmedhar.pantanir.bokun;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +39,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.JSONParser;
@@ -117,30 +123,39 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 
 
 	/**
-	 * Birtir skjáinn fyrir skref 1, birtir dagatal þar sem hægt er að velja dagsetningu
-	 * eða kallar á aðferð sem uppfærir breytur sem halda utan um staðsetningu tímans 
+	 * Ef notandinn er ntettengdur: Birtir skjáinn fyrir skref 1, birtir dagatal þar sem hægt er að 
+	 * velja dagsetningu eða kallar á aðferð sem uppfærir breytur sem halda utan um staðsetningu tímans 
 	 * sem var valinn í Spinnar viðmótshlut og uppfærir auðkenni starfsmanns
-	 * ef enginn sérstakur starfsmaður var valinn.
+	 * ef enginn sérstakur starfsmaður var valinn. Ef hann er ekki nettengdur eru birt
+	 * villuskilaboð
 	 */
 	@Override
 	public void onClick(View view) {
-		Fragment fragment = null;
-		
-	    switch (view.getId()) {
-	    case R.id.buttonDagur:
-	    	Intent i = new Intent(getActivity(), CalendarActivity.class);
-	        startActivityForResult(i, 1); // Birta dagatal
-	        return;
-        case R.id.tilbaka:
-        	fragment = new Skref1();
-        	MainActivity.updateFragment(fragment);
-            break;
-        case R.id.afram2:
-        	bokun();
-	        break;
-        default:
-            break;
-        }
+		if (Connection.isOnline(getActivity())) {
+			Fragment fragment = null;
+			
+		    switch (view.getId()) {
+		    case R.id.buttonDagur:
+		    	Intent i = new Intent(getActivity(), CalendarActivity.class);
+		        startActivityForResult(i, 1); // Birta dagatal
+		        return;
+	        case R.id.tilbaka:
+	        	fragment = new Skref1();
+	        	MainActivity.updateFragment(fragment);
+	            break;
+	        case R.id.afram2:
+	        	bokun();
+		        break;
+	        default:
+	            break;
+	        }
+		}
+		else {
+			Toast toast = Toast.makeText(getActivity(), 
+    				"Engin nettenging!", Toast.LENGTH_LONG);
+    		toast.setGravity(Gravity.CENTER, 0, 0);
+    		toast.show();
+		}
 	 }
 
 	/**
@@ -165,6 +180,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
     		if(MainActivity.getStaffId().equals("000")) {
     			setStaffId(); // Sækja auðkenni starfsmannsins sem var úthlutað
     			              // tímanum sem var valinn
+    			Log.e("Ssss", "ýtti");
     			fragment = new Skref3();
     			MainActivity.updateFragment(fragment);
     		}
@@ -308,6 +324,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 				
 				} catch (JSONException e) {
 				e.printStackTrace();
+				
 			}
 			return null;
 		}
@@ -394,7 +411,12 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			// Fann tímann
 			if(lausirTimarHeild[j].getTimi()==time) {
 				// Bæti tímalengdina við tímann og fæ endatíma
-				endTime = lausirTimarHeild[j+timaLengd].getTimi();
+				if(j+timaLengd >= 17) {
+					endTime = "18:00";
+				}
+				else {
+					endTime = lausirTimarHeild[j+timaLengd].getTimi();
+				}
 			}
 		}
 		
@@ -454,18 +476,22 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * @param lausirTimar
 	 */
 	private static void setLausirTimar(Lausir[] lausirTimar) {
-		
 		int timaLengd = Integer.parseInt(MainActivity.getLengd());
 		
+
 		for(int i = 0; i<lausirTimar.length; i++) {
 			
 			// Tíminn er laus og hefur ekki áður verið skráður laus hjá öðrum
 			// starfsmanni
-			if(lausirTimar[i].isLaus()==true && lausirTimarHeild[i].getTimi()==null) {
+			if(lausirTimar[i].isLaus()==true && lausirTimarHeild[i].getTimi()==null &&
+					!timiLidinn(lausirTimar[i].getTimi())) {
 				boolean laust = true;
 				int j = 0;
 				// Athuga hvort að fjöldi samliggjandi lausra tíma sé nógu mikill
 				// fyrir tímalengd aðgerðar
+				if( (i+timaLengd) > lausirTimar.length) {
+					break;
+				}
 				while(j<timaLengd && (j+i) < lausirTimar.length) {
 					if (lausirTimar[j+i].isLaus()==false) {
 						laust = false;
@@ -507,5 +533,36 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		timiSpinner.setAdapter(spinnerArrayAdapter);	
 		
-	}		
+	}
+	
+	/**
+	 * Skilar true ef að tíminn timi er liðinn miðað við daginn
+	 * í dag
+	 * @param timi
+	 * @return
+	 */
+	private static boolean timiLidinn(String timi) {
+		
+		Locale locale = new Locale("IS");
+		
+		SimpleDateFormat format = new SimpleDateFormat("HHmm",locale);
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
+		String timiNuna = format.format(Calendar.getInstance().getTime());
+		
+		String timiSpinner = timi.substring(0,2) + timi.substring(3);
+		format = new SimpleDateFormat("yyyMMdd",locale);
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
+		String dagurNuna = format.format(Calendar.getInstance().getTime());
+		
+		String dagurSpinner = MainActivity.getDate();
+		dagurSpinner = dagurSpinner.substring(0,4) + dagurSpinner.substring(5,7) +
+				dagurSpinner.substring(8);
+		
+		if(dagurSpinner.equals(dagurNuna)) {
+			// Gefa starfsmönnum að minnsta kosti hálftíma fyrirvara
+			return ((Integer.parseInt(timiSpinner) - 30) - Integer.parseInt(timiNuna) <0);
+		}
+		return false;	
+	}
+	
 }

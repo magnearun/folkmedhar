@@ -5,6 +5,7 @@ package com.example.folkmedhar.pantanir.bokun;
  * @since: 15.10.2014
  * Klasinn sem býr til hlut sem heldur utan um bókaða og lausa tíma
  */
+
 public class BokadirLausir
 {
 	public Bokadir[] bokad;  // Heldur utan um bókaða tíma

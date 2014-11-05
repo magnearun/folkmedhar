@@ -11,6 +11,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -19,15 +20,18 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UpdateUser;
@@ -56,13 +60,16 @@ public class MainActivity extends Activity {
 		
 	private Intent intent;
 	
-	// Navigation Drawer
+	// Navigation Drawer og Action Bar
 	private DrawerLayout drawerLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private String[] menuTitles; 
     private FrameLayout frame;
     private float lastTranslate = 0.0f;
+    private ViewGroup decor;
+    public static ActionBar actionbar;
+    
     
     /**
      * Eyða þessu?
@@ -74,12 +81,12 @@ public class MainActivity extends Activity {
     @Override
     /**
      * Birtir upphafsskjáinn og tengir onClickListener við takka sem notaðir eru
-     * til að panta tíma eða fara á „Mitt svæði"
+     * til að panta tíma eða fara á „Mínar pantanir"
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
- 
+        // Uppfæra upplýsingar um notanda
      	nafn = UserFunctions.userName(this.getBaseContext());
      	simi = UserFunctions.userPhone(this.getBaseContext());
      	email = UserFunctions.userEmail(this.getBaseContext());
@@ -98,23 +105,43 @@ public class MainActivity extends Activity {
         if(userFunction.isUserLoggedIn(getApplicationContext())) {
         	setContentView(R.layout.activity_main);
         	
-        	ActionBar actionbar = getActionBar();
+        	// Inflate the "decor.xml"
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            actionbar = getActionBar();
+            actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+	        actionbar.setCustomView(R.layout.actionbar);
+	        getActionBar().setDisplayHomeAsUpEnabled(true);
+	        getActionBar().setHomeButtonEnabled(true);
+            drawerLayout = (DrawerLayout) inflater.inflate(R.layout.decor,null); // "null" is important.
+            
+            
+
+            // HACK: "steal" the first child of decor view
+            decor = (ViewGroup) getWindow().getDecorView();
+            View child = decor.getChildAt(0);
+            decor.removeView(child);
+            frame = (FrameLayout) drawerLayout.findViewById(R.id.content_frame);
+            
+            frame.addView(child);
+
+            // Make the drawer replace the first child
+            decor.addView(drawerLayout);
+        	
+     
         	
             menuTitles = getResources().getStringArray(R.array.menu_titles);
-            drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawerList = (ListView) findViewById(R.id.left_drawer);
             
-            frame = (FrameLayout) findViewById(R.id.content_frame);
+      
             
             drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
             drawerList.setAdapter(new ArrayAdapter<String>(this,
                     R.layout.drawer_list_item, menuTitles));
             drawerList.setOnItemClickListener(new DrawerItemClickListener());
+            drawerList.setPadding(0, getStatusBarHeight(),0, 0);// This is the container we defined just now.
             
-            actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
-	        actionbar.setCustomView(R.layout.actionbar);
-	        getActionBar().setDisplayHomeAsUpEnabled(true);
-	        getActionBar().setHomeButtonEnabled(true);
+            
+            
 
           
             drawerToggle = new ActionBarDrawerToggle(
@@ -153,10 +180,12 @@ public class MainActivity extends Activity {
             	
             	public void onDrawerOpened(View drawerView) {
             		super.onDrawerSlide(drawerView, 0);
+            		
                 }
             };
             drawerLayout.setDrawerListener(drawerToggle);
             drawerLayout.setDrawerShadow(R.drawable.navbar_shadow, Gravity.LEFT);
+            
 
             if (savedInstanceState == null) {
             	Fragment fragment = new Upphafsskjar();
@@ -240,10 +269,29 @@ public class MainActivity extends Activity {
     	            fragment = new Upphafsskjar();
     	            break;
     	        case 1:
-    	            fragment = new Skref1();
+    	        	if (Connection.isOnline(this))
+    	        	{
+    	        		fragment = new Skref1();
+    	        	}
+    	        	else {
+    	        		Toast toast = Toast.makeText(this, 
+    	        				"Engin nettenging!", Toast.LENGTH_LONG);
+    	        		toast.setGravity(Gravity.CENTER, 0, 0);
+    	        		toast.show();
+    	        		return;
+    	        	}
     	            break;
     	        case 2:
-    	            fragment = new MinarPantanir();
+    	        	if (Connection.isOnline(this)) {
+    	        		fragment = new MinarPantanir();
+    	        	}
+    	        	else {
+    	        		Toast toast = Toast.makeText(this, 
+    	        				"Engin nettenging!", Toast.LENGTH_LONG);
+    	        		toast.setGravity(Gravity.CENTER, 0, 0);
+    	        		toast.show();
+    	        		return;
+    	        	}
     	            break;
     	        case 3:
     	        	fragment = new UmStofuna();
@@ -604,7 +652,15 @@ public class MainActivity extends Activity {
 		return starfsmadur;
 	}
 	
-	 
+	public int getStatusBarHeight() {
+	      int result = 0;
+	      int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+	      if (resourceId > 0) {
+	          result = getResources().getDimensionPixelSize(resourceId);
+	      }
+	      return result;
+	}
+	
 	
 }
 
