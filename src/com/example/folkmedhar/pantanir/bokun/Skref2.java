@@ -486,36 +486,34 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			// Tíminn er laus og hefur ekki áður verið skráður laus hjá öðrum
 			// starfsmanni
 			if(lausirTimar[i].isLaus()==true && lausirTimarHeild[i].getTimi()==null) {
-				if((i-2) > 0) {
-					// tíminn er ekki liðinn og að minnsta kosti 30 mínútur
-					// eru í hann
-					if(!timiLidinn(lausirTimar[i-2].getTimi())) {
-						boolean laust = true;
-						int j = 0;
-						// Athuga hvort að fjöldi samliggjandi lausra tíma sé nógu mikill
-						// fyrir tímalengd aðgerðar
-						if( (i+timaLengd) > n) {
+				// tíminn er ekki liðinn og að minnsta kosti 30 mínútur
+				// eru í hann
+				if(!timiLidinn(lausirTimar[i].getTimi())) {
+					boolean laust = true;
+					int j = 0;
+					// Athuga hvort að fjöldi samliggjandi lausra tíma sé nógu mikill
+					// fyrir tímalengd aðgerðar
+					if( (i+timaLengd) > n) {
+						break;
+					}
+					while(j<timaLengd && (j+i) < n) {
+						if (lausirTimar[j+i].isLaus()==false) {
+							laust = false;
 							break;
 						}
-						while(j<timaLengd && (j+i) < n) {
-							if (lausirTimar[j+i].isLaus()==false) {
-								laust = false;
-								break;
-							}
-							j++;
-						}
+						j++;
+					}
+					
+					// Fjöldi samliggjandi lausra tíma var nógu mikill fyrir
+					// tímalengd aðgerðar og uppfæri fjölda lausra tíma
+					if (laust==true) {
 						
-						// Fjöldi samliggjandi lausra tíma var nógu mikill fyrir
-						// tímalengd aðgerðar og uppfæri fjölda lausra tíma
-						if (laust==true) {
-							
-							// Skrái tímann sem lausan ásamt auðkenni starfsmannsins
-							lausirTimarHeild[i].setTimi(lausirTimar[i].getTimi());
-							lausirTimarHeild[i].setId(lausirTimar[i].getId());
-							lausirString[lausirNum] = lausirTimar[i].getTimi();	
-							lausirNum++;
-						
-						}
+						// Skrái tímann sem lausan ásamt auðkenni starfsmannsins
+						lausirTimarHeild[i].setTimi(lausirTimar[i].getTimi());
+						lausirTimarHeild[i].setId(lausirTimar[i].getId());
+						lausirString[lausirNum] = lausirTimar[i].getTimi();	
+						lausirNum++;
+					
 					}
 				}
 			}
@@ -557,7 +555,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		String timiNuna = format.format(Calendar.getInstance().getTime());
 		
 		// Gefa starfsmönnum að minnsta kosti hálftíma fyrirvara
-		String timeSpinner = addedTime(timi);
+		String timeSpinner = timi.substring(0,2) + timi.substring(3);
 		
 
 		format = new SimpleDateFormat("yyyMMdd",locale);
@@ -570,27 +568,14 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 
 		if(dagurSpinner.equals(dagurNuna)) {
 			// Skilað false ef tíminn er liðinn eða ef fyrirvarinn er ekki nógu langur
-			int timeTo = Integer.parseInt(timeSpinner) - Integer.parseInt(timiNuna);
-				return (timeTo < 0);
+			int timeTo = Integer.parseInt(timeSpinner)- Integer.parseInt(timiNuna);
+			if(timeTo < 0 || timeTo < 30) {
+				return true;
+			}
+			
 		}
 		return false;	
 	}
 	
-	/**
-	 * Skilar tíma á forminu "0900" sem er 30 mínútum seinni en
-	 * time
-	 * @param time
-	 * @return
-	 */
-	private static String addedTime(String time){
-		
-		for(int i = 0; i+1<18; i++) {
-			if(time.equals(bokadirStarfsmenn[0].laust[i].getTimi())) {
-				return bokadirStarfsmenn[0].laust[i+1].getTimi().substring(0,2) + 
-						bokadirStarfsmenn[0].laust[i+1].getTimi().substring(3);
-			}
-		}
-		return time.substring(0,2) + time.substring(3);
-	}
 }
 
