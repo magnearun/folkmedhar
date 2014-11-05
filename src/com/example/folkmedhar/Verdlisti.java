@@ -18,16 +18,12 @@ import org.json.JSONObject;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.folkmedhar.MainActivity;
-import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 public class Verdlisti extends Fragment  {
@@ -58,12 +54,10 @@ public class Verdlisti extends Fragment  {
 		
 		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
 		//text.setText(R.string.title_fragment_verdlisti);
-	
-		
+
 		verdlistiListView = (ListView) rootView.findViewById( R.id.verdlistiListView ); 
         ArrayList<String> verdlisti = new ArrayList<String>();  
         listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, verdlisti); 
-        
         
         new SaekjaVerdlista().execute();
 		
@@ -79,9 +73,7 @@ public class Verdlisti extends Fragment  {
      * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
 	class SaekjaVerdlista extends AsyncTask<String, String, String> {
-		
 	
-		
 		@Override
 		/**
 		 * Sækir verðlista úr gagnagrunni og setur í lista
