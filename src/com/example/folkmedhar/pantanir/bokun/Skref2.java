@@ -569,7 +569,8 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		if(dagurSpinner.equals(dagurNuna)) {
 			// Skilað false ef tíminn er liðinn eða ef fyrirvarinn er ekki nógu langur
 			int timeTo = Integer.parseInt(timeSpinner)- Integer.parseInt(timiNuna);
-			if(timeTo < 0 || timeTo < 30) {
+			if(timeTo < 0 || timeTo < 60) {
+				Log.e("timeSpinner", timeSpinner + " " + timiNuna + " " + timeTo+"");
 				return true;
 			}
 			
