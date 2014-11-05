@@ -33,8 +33,8 @@ public class Tilbod extends Fragment  {
 		View rootView = inflater.inflate(R.layout.fragment_tilbod,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_tilbod);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_tilbod);
 
 		return rootView;
 	}

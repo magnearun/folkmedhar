@@ -56,8 +56,8 @@ public class AllarPantanir extends Fragment  {
 		View rootView = inflater.inflate(R.layout.fragment_allar_pantanir,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_allar_pantanir);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_allar_pantanir);
 		
 		mainListView = (ListView) rootView.findViewById( R.id.mainListView ); 
         ArrayList<String> pantanir = new ArrayList<String>();  

@@ -35,8 +35,8 @@ public class UmStofuna extends Fragment implements android.view.View.OnClickList
 		View rootView = inflater.inflate(R.layout.fragment_um_stofuna,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_um_stofuna);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_um_stofuna);
 		
 		Button buttonStarfsfolk = (Button) rootView.findViewById(R.id.staff_text);
 		

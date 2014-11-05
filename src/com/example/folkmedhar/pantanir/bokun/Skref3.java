@@ -97,8 +97,8 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			rootView = inflater.inflate(R.layout.fragment_skref3,
 					container, false);
 			
-			TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-			text.setText(R.string.title_activity_skref3);
+			//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+			//text.setText(R.string.title_activity_skref3);
 			
 			setVidmotshlutir();
 			showBokun(); // Birta upplýsingar um bókun

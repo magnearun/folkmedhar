@@ -33,8 +33,8 @@ public class Starfsfolk extends Fragment  {
 		View rootView = inflater.inflate(R.layout.fragment_starfsfolk,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_starfsfolk);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_starfsfolk);
 		
 		return rootView;
 	}

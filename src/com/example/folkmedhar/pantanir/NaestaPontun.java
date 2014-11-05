@@ -64,8 +64,8 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 				container, false);
         
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_sidasta_pontun);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_sidasta_pontun);
 		
 		setVidmotshlutir();
         

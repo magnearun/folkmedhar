@@ -93,8 +93,8 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		rootView = inflater.inflate(R.layout.fragment_skref2,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_skref2);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_skref2);
 		
 		setVidmotshlutir();
 		

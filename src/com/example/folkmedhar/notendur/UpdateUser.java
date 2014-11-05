@@ -47,8 +47,8 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 		rootView = inflater.inflate(R.layout.fragment_update_user,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_update_user);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_update_user);
 		
 	    setVidmotshlutir();
 	    

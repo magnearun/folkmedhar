@@ -56,8 +56,8 @@ public class Verdlisti extends Fragment  {
 		View rootView = inflater.inflate(R.layout.fragment_verdlisti,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_fragment_verdlisti);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_fragment_verdlisti);
 	
 		
 		verdlistiListView = (ListView) rootView.findViewById( R.id.verdlistiListView ); 

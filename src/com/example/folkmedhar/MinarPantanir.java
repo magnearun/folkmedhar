@@ -61,8 +61,8 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 		rootView = inflater.inflate(R.layout.fragment_minar_pantanir,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_mitt_svaedi);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_mitt_svaedi);
 		
 		setVidmotshlutir();
 		
