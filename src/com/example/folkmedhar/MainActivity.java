@@ -273,6 +273,7 @@ public class MainActivity extends Activity {
     	        	if (Connection.isOnline(this))
     	        	{
     	        		fragment = new Skref1();
+    	        		 break;
     	        	}
     	        	else {
     	        		Toast toast = Toast.makeText(this, 
@@ -281,10 +282,10 @@ public class MainActivity extends Activity {
     	        		toast.show();
     	        		return;
     	        	}
-    	            break;
     	        case 2:
     	        	if (Connection.isOnline(this)) {
     	        		fragment = new MinarPantanir();
+    	        		break;
     	        	}
     	        	else {
     	        		Toast toast = Toast.makeText(this, 
@@ -293,7 +294,6 @@ public class MainActivity extends Activity {
     	        		toast.show();
     	        		return;
     	        	}
-    	            break;
     	        case 3:
     	        	fragment = new UmStofuna();
     	        	break;
@@ -301,8 +301,17 @@ public class MainActivity extends Activity {
     	        	fragment = new Tilbod();
     	        	break;
     	        case 5:
-    	        	fragment = new Verdlisti();
-    	        	break;
+    	        	if (Connection.isOnline(this)) {
+	    	        	fragment = new Verdlisti();
+	    	        	break;
+    	        	}
+    	        	else {
+    	        		Toast toast = Toast.makeText(this, 
+    	        				"Engin nettenging!", Toast.LENGTH_LONG);
+    	        		toast.setGravity(Gravity.CENTER, 0, 0);
+    	        		toast.show();
+    	        		return;
+    	        	}
     	        case 6: logout();
     	        	return;
     	        default: break;
@@ -336,11 +345,7 @@ public class MainActivity extends Activity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-		
-		
-	public void setActionBarTitle(int titleActivitySkref2) {
-	    getActionBar().setTitle(titleActivitySkref2);
-	}	
+
 	
 	public static void updateFragment(Fragment fragment) {
 		MainActivity.fragmentManager.beginTransaction()

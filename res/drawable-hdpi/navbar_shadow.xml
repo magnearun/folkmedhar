@@ -7,6 +7,6 @@
     </gradient>
     <size
         android:height="@dimen/activity_vertical_margin"
-        android:width="5dp">
+        android:width="1dp">
     </size>
 </shape>

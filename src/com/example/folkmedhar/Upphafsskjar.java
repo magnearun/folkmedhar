@@ -49,8 +49,8 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 		rootView = inflater.inflate(R.layout.fragment_upphafsskjar,
 				container, false);
 		
-		TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		text.setText(R.string.title_activity_upphafsskjar);
+		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
+		//text.setText(R.string.title_activity_upphafsskjar);
 		
 		setVidmotshlutir();
 		
