@@ -9,6 +9,7 @@
 
 package com.example.folkmedhar.pantanir.bokun;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -478,38 +479,44 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private static void setLausirTimar(Lausir[] lausirTimar) {
 		int timaLengd = Integer.parseInt(MainActivity.getLengd());
 		
+		int n = lausirTimar.length;
 
-		for(int i = 0; i<lausirTimar.length; i++) {
+		for(int i = 0; i<n; i++) {
 			
 			// Tíminn er laus og hefur ekki áður verið skráður laus hjá öðrum
 			// starfsmanni
-			if(lausirTimar[i].isLaus()==true && lausirTimarHeild[i].getTimi()==null &&
-					!timiLidinn(lausirTimar[i].getTimi())) {
-				boolean laust = true;
-				int j = 0;
-				// Athuga hvort að fjöldi samliggjandi lausra tíma sé nógu mikill
-				// fyrir tímalengd aðgerðar
-				if( (i+timaLengd) > lausirTimar.length) {
-					break;
-				}
-				while(j<timaLengd && (j+i) < lausirTimar.length) {
-					if (lausirTimar[j+i].isLaus()==false) {
-						laust = false;
-						break;
+			if(lausirTimar[i].isLaus()==true && lausirTimarHeild[i].getTimi()==null) {
+				if((i-2) > 0) {
+					// tíminn er ekki liðinn og að minnsta kosti 30 mínútur
+					// eru í hann
+					if(!timiLidinn(lausirTimar[i-2].getTimi())) {
+						boolean laust = true;
+						int j = 0;
+						// Athuga hvort að fjöldi samliggjandi lausra tíma sé nógu mikill
+						// fyrir tímalengd aðgerðar
+						if( (i+timaLengd) > n) {
+							break;
+						}
+						while(j<timaLengd && (j+i) < n) {
+							if (lausirTimar[j+i].isLaus()==false) {
+								laust = false;
+								break;
+							}
+							j++;
+						}
+						
+						// Fjöldi samliggjandi lausra tíma var nógu mikill fyrir
+						// tímalengd aðgerðar og uppfæri fjölda lausra tíma
+						if (laust==true) {
+							
+							// Skrái tímann sem lausan ásamt auðkenni starfsmannsins
+							lausirTimarHeild[i].setTimi(lausirTimar[i].getTimi());
+							lausirTimarHeild[i].setId(lausirTimar[i].getId());
+							lausirString[lausirNum] = lausirTimar[i].getTimi();	
+							lausirNum++;
+						
+						}
 					}
-					j++;
-				}
-				
-				// Fjöldi samliggjandi lausra tíma var nógu mikill fyrir
-				// tímalengd aðgerðar og uppfæri fjölda lausra tíma
-				if (laust==true) {
-					
-					// Skrái tímann sem lausan ásamt auðkenni starfsmannsins
-					lausirTimarHeild[i].setTimi(lausirTimar[i].getTimi());
-					lausirTimarHeild[i].setId(lausirTimar[i].getId());
-					lausirString[lausirNum] = lausirTimar[i].getTimi();	
-					lausirNum++;
-				
 				}
 			}
 		}
@@ -549,7 +556,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String timiNuna = format.format(Calendar.getInstance().getTime());
 		
-		String timiSpinner = timi.substring(0,2) + timi.substring(3);
+		// Gefa starfsmönnum að minnsta kosti hálftíma fyrirvara
+		String timeSpinner = addedTime(timi);
+		
+
 		format = new SimpleDateFormat("yyyMMdd",locale);
 		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String dagurNuna = format.format(Calendar.getInstance().getTime());
@@ -557,12 +567,30 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		String dagurSpinner = MainActivity.getDate();
 		dagurSpinner = dagurSpinner.substring(0,4) + dagurSpinner.substring(5,7) +
 				dagurSpinner.substring(8);
-		
+
 		if(dagurSpinner.equals(dagurNuna)) {
-			// Gefa starfsmönnum að minnsta kosti hálftíma fyrirvara
-			return ((Integer.parseInt(timiSpinner) - 30) - Integer.parseInt(timiNuna) <0);
+			// Skilað false ef tíminn er liðinn eða ef fyrirvarinn er ekki nógu langur
+			int timeTo = Integer.parseInt(timeSpinner) - Integer.parseInt(timiNuna);
+				return (timeTo < 0);
 		}
 		return false;	
 	}
 	
+	/**
+	 * Skilar tíma á forminu "0900" sem er 30 mínútum seinni en
+	 * time
+	 * @param time
+	 * @return
+	 */
+	private static String addedTime(String time){
+		
+		for(int i = 0; i+1<18; i++) {
+			if(time.equals(bokadirStarfsmenn[0].laust[i].getTimi())) {
+				return bokadirStarfsmenn[0].laust[i+1].getTimi().substring(0,2) + 
+						bokadirStarfsmenn[0].laust[i+1].getTimi().substring(3);
+			}
+		}
+		return time.substring(0,2) + time.substring(3);
+	}
 }
+
