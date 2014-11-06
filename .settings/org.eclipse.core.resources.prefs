@@ -1,6 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/com/example/folkmedhar/MainActivity.java=UTF-8
-encoding//src/com/example/folkmedhar/MinarPantanir.java=UTF-8
 encoding//src/com/example/folkmedhar/Starfsfolk.java=UTF-8
 encoding//src/com/example/folkmedhar/Tilbod.java=UTF-8
 encoding//src/com/example/folkmedhar/UmStofuna.java=UTF-8
@@ -11,6 +10,7 @@ encoding//src/com/example/folkmedhar/notendur/UpdateUser.java=UTF-8
 encoding//src/com/example/folkmedhar/notendur/UserFunctions.java=UTF-8
 encoding//src/com/example/folkmedhar/pantanir/AllarPantanir.java=UTF-8
 encoding//src/com/example/folkmedhar/pantanir/JSONParser.java=UTF-8
+encoding//src/com/example/folkmedhar/pantanir/MinarPantanir.java=UTF-8
 encoding//src/com/example/folkmedhar/pantanir/NaestaPontun.java=UTF-8
 encoding//src/com/example/folkmedhar/pantanir/bokun/Bokadir.java=UTF-8
 encoding//src/com/example/folkmedhar/pantanir/bokun/BokadirLausir.java=UTF-8

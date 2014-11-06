@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.folkmedhar.MainActivity;
-import com.example.folkmedhar.MinarPantanir;
 import com.example.folkmedhar.R;
 
 public class NaestaPontun extends Fragment implements android.view.View.OnClickListener   {

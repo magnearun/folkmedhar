@@ -28,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,7 +131,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	public void onClick(View view) {
 		if (Connection.isOnline(getActivity())) {
 			Fragment fragment = null;
-			
 		    switch (view.getId()) {
 		    case R.id.buttonDagur:
 		    	Intent i = new Intent(getActivity(), CalendarActivity.class);
@@ -165,7 +163,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private void bokun() {
 		Fragment fragment = null;
 		// Engin dagsetning valin
-    	if(MainActivity.getDate()==null || timiSpinner.getSelectedItem().toString().equals("Tími")) {
+    	if(MainActivity.getDate()==null || MainActivity.getTime().equals("Timi")) {
     		Toast toast = Toast.makeText(getActivity(), 
     				"Vinsamlegast veldu dag og tíma", Toast.LENGTH_LONG);
     		toast.setGravity(Gravity.CENTER, 0, 0);
@@ -179,10 +177,9 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
     		if(MainActivity.getStaffId().equals("000")) {
     			setStaffId(); // Sækja auðkenni starfsmannsins sem var úthlutað
     			              // tímanum sem var valinn
-    			Log.e("Ssss", "ýtti");
-    			fragment = new Skref3();
-    			MainActivity.updateFragment(fragment);
     		}
+    		fragment = new Skref3();
+			MainActivity.updateFragment(fragment);
     	}
 	}
     		
@@ -208,8 +205,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * Sýnir valinn dag og kallar á aðferð sem sækir bókaða tíma fyrir hann
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		new BokadirTimar().execute();
-		buttonDagur.setText(MainActivity.getStringDate());
+		if(!(MainActivity.getStringDate()==null)) {
+			new BokadirTimar().execute();
+			buttonDagur.setText(MainActivity.getStringDate());
+		}
 		
 	}
 	
@@ -578,7 +577,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			// Skilað false ef tíminn er liðinn eða ef fyrirvarinn er ekki nógu langur
 			int timeTo = Integer.parseInt(timeSpinner)- Integer.parseInt(timiNuna);
 			if(timeTo < 0 || timeTo < 60) {
-				Log.e("timeSpinner", timeSpinner + " " + timiNuna + " " + timeTo+"");
 				return true;
 			}
 			

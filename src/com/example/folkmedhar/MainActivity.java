@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UpdateUser;
 import com.example.folkmedhar.notendur.UserFunctions;
+import com.example.folkmedhar.pantanir.MinarPantanir;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 
 @SuppressLint("InflateParams") public class MainActivity extends Activity {
@@ -90,19 +91,21 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         fragmentManager = getFragmentManager();
         
         
+        
         bokudPontun = false;
+        time = "";
         
         // Notanndinn er skráður inn
         if(userFunction.isUserLoggedIn(getApplicationContext())) {
         	setContentView(R.layout.activity_main);
         	
-        	setActionBar();
         	setNavigationDrawer();
+        	setActionBar();
             
         	// Birta upphafsskjá ef appið er opnað í fyrsta skiptið
             if (savedInstanceState == null) {
             	Fragment fragment = new Upphafsskjar();
-            	MainActivity.fragmentManager.beginTransaction()
+            	fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment) // Ekki bæta við backstack
                 .commit();
             }
@@ -122,7 +125,6 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
         actionbar.setCustomView(R.layout.actionbar);
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeButtonEnabled(true);
     }
     
     /**

@@ -223,7 +223,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			for(int i=0;i<heiti1.length;i++){
 				params.add(new BasicNameValuePair(heiti1[i], heitistreng1[i]));
-				Log.d("ælsfkædslfksæf",params+"");
+				Log.d("params",params+"");
 			}
 			
 			JSONObject json = jsonParser.makeHttpRequest(url_panta_tima,

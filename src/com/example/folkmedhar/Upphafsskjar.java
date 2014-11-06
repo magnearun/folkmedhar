@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.folkmedhar.pantanir.MinarPantanir;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 
 

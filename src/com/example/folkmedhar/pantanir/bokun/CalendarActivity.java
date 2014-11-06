@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -420,14 +421,13 @@ import com.example.folkmedhar.R;
 			if(day<10) {
 				dagur = "0"+day;
 			}
-			
+			String buttonDagur = dagur+month+year;
+			if( !buttonDagur.equals(""))
 			if((cal.get(Calendar.DATE)<=day && month==cal.get(Calendar.MONTH)) || (month>cal.get(Calendar.MONTH) ||
 					year>cal.get(Calendar.YEAR)))
 			{
 				MainActivity.setStringDate(dagur + "-" + (month+1) + "-" + year);
 				MainActivity.setDate(year + "-" + (month+1) + "-" + dagur);
-				
-				
 				finish();
 			}
 			

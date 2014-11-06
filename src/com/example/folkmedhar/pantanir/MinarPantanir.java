@@ -5,7 +5,7 @@
  * yfirlit yfir allar pantanir eða næstu pöntun
  */
 
-package com.example.folkmedhar;
+package com.example.folkmedhar.pantanir;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,6 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +27,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.folkmedhar.pantanir.AllarPantanir;
-import com.example.folkmedhar.pantanir.JSONParser;
-import com.example.folkmedhar.pantanir.NaestaPontun;
+import com.example.folkmedhar.MainActivity;
+import com.example.folkmedhar.R;
 
 
 public class MinarPantanir extends Fragment implements  android.view.View.OnClickListener  {
@@ -135,7 +133,6 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
-			Log.e("lskfjslkdfhslkfhsdkfhlsdkfhdl",MainActivity.getEmail());
 			params.add(new BasicNameValuePair("sidastaPontun", "ff")); 
 			
 			JSONObject json = jsonParser.makeHttpRequest(
@@ -149,7 +146,6 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 					pontunText = pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
 					+ "Starfsmadur: " + MainActivity.getStarfsmadur(pontun.getString("staff_id")) +"\n"
 					+ "Klukkan: "+ pontun.getString("time");
-					Log.e("kakakakakakakakakaka",pontun.toString());
 					
 					// Upplýsingar um pöntun notandans
 					ar = pontun.getString("startDate").substring(0,4);

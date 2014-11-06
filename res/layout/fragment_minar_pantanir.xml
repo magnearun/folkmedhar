@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
    	android:paddingTop="20dp"
-    tools:context="com.example.folkmedhar.MinarPantanir" >
+    tools:context="com.example.folkmedhar.pantanir.MinarPantanir" >
 
     <Button
         android:id="@+id/sidasta_pontun"
