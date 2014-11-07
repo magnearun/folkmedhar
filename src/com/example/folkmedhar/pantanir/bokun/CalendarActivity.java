@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -24,7 +23,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -54,7 +52,9 @@ import com.example.folkmedhar.R;
 
 	private static final String dateTemplate = "MMMM yyyy";
 
-	/** Called when the activity is first created. */
+	/**
+	 * Nýtt CalanedarActivity búið til og tilviksbreytur upphafsstilltar
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,7 +80,6 @@ import com.example.folkmedhar.R;
 		forwardMonth = 6;
 		
 
-		// Initialised
 		adapter = new GridCellAdapter(getApplicationContext(),
 				R.id.calendar_day_gridcell, month, year);
 		adapter.notifyDataSetChanged();
@@ -89,9 +88,11 @@ import com.example.folkmedhar.R;
 	}
 
 	/**
-	 * 
-	 * @param month
-	 * @param year
+	 * @author: http://www.androidhub4you.com/2012/10/custom-calendar-in-android.html
+	 * @since: 15.10.2014
+	 * Klasinn sér um að birta dagatal fyrir val á dagsetningu bókunar. Klasinn er 
+	 * að miklu leiti byggður á tutorial af netinu en breytingar voru gerðar á honum
+	 * og aðferðum og breytum bætt við
 	 */
 	private void setGridCellAdapterToDate(int month, int year) {
 		adapter = new GridCellAdapter(getApplicationContext(),
@@ -139,14 +140,15 @@ import com.example.folkmedhar.R;
 		super.onDestroy();
 	}
 
-	// Inner Class
+	/**
+	 * Klasinn 
+	 *
+	 */
 	public class GridCellAdapter extends BaseAdapter implements OnClickListener {
 		private final Context _context;
 
 		private final List<String> list;
 		private static final int DAY_OFFSET = 1;
-		//private final String[] weekdays = new String[] { "Sun", "Mon", "Tue",
-				//"Wed", "Thu", "Fri", "Sat" };
 		private final String[] months = { "January", "February", "March",
 				"April", "May", "June", "July", "August", "September",
 				"October", "November", "December" };
@@ -155,15 +157,11 @@ import com.example.folkmedhar.R;
 		private int daysInMonth;
 		private int currentMonth;
 		private int currentDayOfMonth;
-		private int currentWeekDay;
 		private Button gridcell;
-		private TextView num_events_per_day;
-		private final HashMap<String, Integer> eventsPerMonthMap;
 		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
 				"dd-MMM-yyyy");
 		
 
-		// Days in Current Month
 		public GridCellAdapter(Context context, int textViewResourceId,
 				int month, int year) {
 			super();
@@ -175,41 +173,47 @@ import com.example.folkmedhar.R;
 		    calendar.setTimeZone(tz);
 			setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
 			setCurrentMonth(calendar.get(Calendar.MONTH));
-			setCurrentWeekDay(calendar.get(Calendar.DAY_OF_WEEK));
 
-			// Print Month
 			printMonth(month, year);
 
-			// Find Number of Events
-			eventsPerMonthMap = findNumberOfEventsPerMonth(year, month);
+			
 		}
-
+		
+		/**
+		 * Skilar mánuðinum númer i sem streng
+		 * @param i
+		 * @return
+		 */
 		private String getMonthAsString(int i) {
 			return months[i];
 		}
 
-		/* Ekki að nota þetta? MISSING
-		private String getWeekDayAsString(int i) {
-			return weekdays[i];
-		}
-		*/
-
+		/**
+		 * Skilar fjölda daga í tilteknum mánuði
+		 * @param i
+		 * @return
+		 */
 		private int getNumberOfDaysOfMonth(int i) {
 			return daysOfMonth[i];
 		}
-
+		
+		/**
+		 * Skilar númer dags í mánuðinum
+		 */
 		public String getItem(int position) {
 			return list.get(position);
 		}
 
 		@Override
+		/**
+		 * Skilar fjölda daga í mánuðinum
+		 */
 		public int getCount() {
 			return list.size();
 		}
 
 		/**
-		 * Prints Month
-		 * 
+		 * Býr til dagatal fyrir hvern mánuð með réttum fjölda daga
 		 * @param mm
 		 * @param yy
 		 */
@@ -261,7 +265,6 @@ import com.example.folkmedhar.R;
 				else if (mm == 3)
 					++daysInPrevMonth;
 
-			// Trailing Month days
 			for (int i = 0; i < trailingSpaces; i++) {
 				list.add(String
 						.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET)
@@ -273,7 +276,6 @@ import com.example.folkmedhar.R;
 						+ prevYear);
 			}
 
-			// Current Month Days
 			for (int i = 1; i <= daysInMonth; i++) {
 			
 				if (i == getCurrentDayOfMonth()) {
@@ -285,36 +287,26 @@ import com.example.folkmedhar.R;
 				}
 			}
 
-			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
 				list.add(String.valueOf(i + 1) + "-GREY" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
 		}
 
-		/**
-		 * NOTE: YOU NEED TO IMPLEMENT THIS PART Given the YEAR, MONTH, retrieve
-		 * ALL entries from a SQLite database for that month. Iterate over the
-		 * List of All entries, and get the dateCreated, which is converted into
-		 * day.
-		 * 
-		 * @param year
-		 * @param month
-		 * @return
-		 */
-		private HashMap<String, Integer> findNumberOfEventsPerMonth(int year,
-				int month) {
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
-
-			return map;
-		}
+		
 
 		@Override
+		/**
+		 * Skilar staðsetningu þess atriði sem var valið í dagtalinu
+		 */
 		public long getItemId(int position) {
 			return position;
 		}
 
 		@Override
+		/**
+		 * Býr til layoutið fyrir dagana í dagatalinu og litar þá 
+		 */
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View row = convertView;
 			if (row == null) {
@@ -323,27 +315,16 @@ import com.example.folkmedhar.R;
 				row = inflater.inflate(R.layout.screen_gridcell, parent, false);
 			}
 
-			// Get a reference to the Day gridcell
 			gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
 			gridcell.setOnClickListener(this);
 
-			// ACCOUNT FOR SPACING
 
 			
 			String[] day_color = list.get(position).split("-");
 			String theday = day_color[0];
 			String themonth = day_color[2];
 			String theyear = day_color[3];
-			if ((!eventsPerMonthMap.isEmpty()) && (eventsPerMonthMap != null)) {
-				if (eventsPerMonthMap.containsKey(theday)) {
-					num_events_per_day = (TextView) row
-							.findViewById(R.id.num_events_per_day);
-					Integer numEvents = (Integer) eventsPerMonthMap.get(theday);
-					num_events_per_day.setText(numEvents.toString());
-				}
-			}
 
-			// Set the Day GridCell
 			gridcell.setText(theday);
 			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
 			
@@ -398,6 +379,10 @@ import com.example.folkmedhar.R;
 		}
 
 		@Override
+		/**
+		 * Gefur breytum sem halda utan um hvaða dagur var valinn 
+		 * gildið sem notandinn smellti á ef sá dagur er ekki liðinn
+		 */
 		public void onClick(View view) {
 			
 			String date_month_year = (String) view.getTag();
@@ -433,28 +418,39 @@ import com.example.folkmedhar.R;
 			
 		}
 		
+		/**
+		 * Skilar núverandi mánuði
+		 * @return
+		 */
 		public int getCurrentMonth() {
 			return currentMonth;
 		}
 
+		/**
+		 * Gefur breytu sem heldur utan um núverandi mánuð 
+		 * nýtt gildi
+		 * @param currentMonth
+		 */
 		private void setCurrentMonth(int currentMonth) {
 			this.currentMonth = currentMonth;
 		}
 		
+		/**
+		 * Skilar núverandi degi
+		 * @return
+		 */
 		public int getCurrentDayOfMonth() {
 			return currentDayOfMonth;
 		}
 
+		/**
+		 * Gefur breytu sem heldur utan um núverandi dag nýtt
+		 * gildi
+		 * @param currentDayOfMonth
+		 */
 		private void setCurrentDayOfMonth(int currentDayOfMonth) {
 			this.currentDayOfMonth = currentDayOfMonth;
 		}
-
-		public void setCurrentWeekDay(int currentWeekDay) {
-			this.currentWeekDay = currentWeekDay;
-		}
-
-		public int getCurrentWeekDay() {
-			return currentWeekDay;
-		}
+		
 	}
 }

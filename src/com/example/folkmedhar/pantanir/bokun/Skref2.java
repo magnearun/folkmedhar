@@ -561,7 +561,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String timiNuna = format.format(Calendar.getInstance().getTime());
 		
-		// Gefa starfsmönnum að minnsta kosti hálftíma fyrirvara
+		// Gefa starfsmönnum nógu langan fyrirvara
 		String timeSpinner = timi.substring(0,2) + timi.substring(3);
 		
 
