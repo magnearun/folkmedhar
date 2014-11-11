@@ -6,6 +6,8 @@
     <color name="buttoncolor">#dddddd</color>
     <color name="buttonFontColor">#0088cc</color>
     <color name="infobackground">#dddddd</color>
+    <color name="login_background">#3498DB</color>
+    <color name="login_button_background">#2980B9</color>
     
     
     <color name="white">#FFFFFF</color>
@@ -16,5 +18,6 @@
     <color name="darkgray">#fff</color>
     <color name="calanderText">#fff</color>
     <color name="gray">#f2f2f2</color>
+   
     
 </resources>

@@ -103,7 +103,8 @@
     <string name="email">Netfang</string>
     <string name="password">Lykilorð</string>
     <string name="login">Innskráning</string>
-    <string name="register">Ný/r á Fólk með hár? Smelltu hér til að nýskrá þig!</string>
+    <string name="registerScreen">Ný/r á Fólk með hár? Smelltu hér til að nýskrá þig!</string>
+    <string name="loginScreen">Nú þegar á Fólk með hár? Smelltu hér til að skrá þig inn!</string>
     <string name="nyskraning">Nýskráning</string>
     <string name="fullname">Fullt nafn</string>
     <string name="phone">Símanúmer</string>
@@ -125,5 +126,10 @@
     <string name="userPasswordRepeat">Staðfesta nýtt lykilorð: </string>
     <string name="title_activity_connection">Connection</string>
     <string name="action_settings">Settings</string>
+    <string name="hintPassword">Lykilorð</string>
+    <string name="hintEmail">Netfang</string>
+    <string name="hintName">Fullt nafn</string>
+    <string name="hintPhone">Símanúmer</string>
+    <string name="hintPasswordRepeat">Staðfesta lykilorð</string>
 
 </resources>

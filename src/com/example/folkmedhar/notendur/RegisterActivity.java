@@ -7,11 +7,9 @@
 
 package com.example.folkmedhar.notendur;
  
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +36,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         
-        setActionBarTitle();
+        //setActionBarTitle();
         setVidmotshlutir();
 
     }
@@ -125,13 +123,13 @@ public class RegisterActivity extends Activity implements OnClickListener {
          }
 	}
 	
-	/**
-	 * Upphafsstillit ActionBar
-	 */
-	private void setActionBarTitle() {
-    	ActionBar actionbar = getActionBar();
-        actionbar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.title_activity_register) + "</font>"));
-        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_CUSTOM);
-    }
+//	/**
+//	 * Upphafsstillit ActionBar
+//	 */
+//	private void setActionBarTitle() {
+//    	ActionBar actionbar = getActionBar();
+//        actionbar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.title_activity_register) + "</font>"));
+//        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_CUSTOM);
+//    }
 }
 
