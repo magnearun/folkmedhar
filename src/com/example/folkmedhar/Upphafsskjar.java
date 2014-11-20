@@ -9,12 +9,10 @@ package com.example.folkmedhar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.folkmedhar.pantanir.MinarPantanir;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
@@ -32,10 +30,9 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 	 * Nýtt fragment er búið til fyrir upphafsskjá
 	 */
 	public Upphafsskjar() {
-
-		if(MainActivity.getBokudPontun()==true) {
+		if(MainActivity.getBokudPontun()) {
 			clearBackStack(); // Svo að ekki sé hægt að fara aftur
-							  // til baka í síðasta skref pöntunarferlisins eftir bókun
+							  // til baka í síðasta skref pöntunarferlisins eftir bókun	
 		}
 	}
 
@@ -90,10 +87,7 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 		    MainActivity.updateFragment(fragment);
 		}
 		else {
-			Toast toast = Toast.makeText(getActivity(), 
-    				"Engin nettenging!", Toast.LENGTH_LONG);
-    		toast.setGravity(Gravity.CENTER, 0, 0);
-    		toast.show();
+			MainActivity.showToast("Engin nettenging!", getActivity());
 		}
 	}
 	
@@ -102,7 +96,7 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 	 * í símanum þá er farið út úr appinu
 	 */
 	private void clearBackStack() {
-		MainActivity.fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		MainActivity.getFM().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 		MainActivity.setBokudPontun(false); // Bara hreinsa „backstack" ef síðasta fragmentið er síðasta
 										    // skref bókunarferlisins
 	}

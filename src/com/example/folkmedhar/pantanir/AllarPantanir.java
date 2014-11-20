@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import com.example.folkmedhar.R;
 
 public class AllarPantanir extends Fragment  {
 	
-	private ProgressDialog pDialog;
 	private JSONParser jsonParser = new JSONParser();
 	
 	private ListView mainListView ;  
@@ -84,11 +82,7 @@ public class AllarPantanir extends Fragment  {
 		 * */
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Sæki pantanir..");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
+			MainActivity.showDialog("Sæki pantanir..");
 		}
 		
 		@Override
@@ -135,7 +129,7 @@ public class AllarPantanir extends Fragment  {
 		 * allar pantanir á skjánum
 		 * **/
 		protected void onPostExecute(String file_url) {
-			pDialog.dismiss();
+			MainActivity.hideDialog();
 			mainListView.setAdapter( listAdapter ); 
 
 			}

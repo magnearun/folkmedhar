@@ -7,13 +7,14 @@
 package com.example.folkmedhar;
 
 
-import com.cengalabs.flatui.FlatUI;
+//import com.cengalabs.flatui.FlatUI;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -72,8 +73,9 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
     private float lastTranslate = 0.0f;
     private ViewGroup decor;
 	
-	public static FragmentManager fragmentManager;
-    
+	private static FragmentManager fragmentManager;
+	private static ProgressDialog pDialog;
+	public static int success;
 	
     @Override
     /**
@@ -92,7 +94,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
               
         UserFunctions userFunction = new UserFunctions();
         fragmentManager = getFragmentManager();
-        
+        pDialog = new ProgressDialog(this);
         
         
         bokudPontun = false;
@@ -268,7 +270,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
     	        		break;
     	        	}
     	        	else {
-    	        		setToast("Engin nettenging!");
+    	        		showToast("Engin nettenging!",this);
     	        		return;
     	        	}
     	        case 3:
@@ -283,7 +285,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	    	        	break;
     	        	}
     	        	else {
-    	        		setToast("Engin nettenging!");
+    	        		showToast("Engin nettenging!",this);
     	        		return;
     	        	}
     	        case 6: logout();
@@ -302,9 +304,9 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
      * Birtir upplýsingarnar text á skjánum
      * @param text
      */
-    private void setToast(String text) {
-    	Toast toast = Toast.makeText(this, 
-				"Engin nettenging!", Toast.LENGTH_LONG);
+    public static void showToast(String text, Context c) {
+    	Toast toast = Toast.makeText(c, 
+				text, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
     }
@@ -581,6 +583,14 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	}
 	
 	/**
+	 * Skilar FragmentManager
+	 * @return
+	 */
+	public static FragmentManager getFM() {
+		return fragmentManager;
+	}
+	
+	/**
 	 * Gefur breytu sem heldur utan um hvort nýlega hafi verið bókuð pöntun
 	 * gildi
 	 * @param b
@@ -647,14 +657,32 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	 * Skilar hæðinni á Status bar símans
 	 * @return
 	 */
-	public int getStatusBarHeight() {
+	private int getStatusBarHeight() {
 	      int result = 0;
 	      int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
 	      if (resourceId > 0) {
 	          result = getResources().getDimensionPixelSize(resourceId);
 	      }
 	      return result;
-	}	
+	}
+	
+	/**
+	 * Birtir progress dialog með skilaboðunum text
+	 * @param text
+	 */
+	public static void showDialog(String text) {
+		pDialog.setMessage(text);
+		pDialog.setIndeterminate(false);
+		pDialog.setCancelable(true);
+		pDialog.show();
+	}
+	
+	/**
+	 * Lokar progress dialog
+	 */
+	public static void hideDialog() {
+		pDialog.dismiss();
+	}
 }
 
 

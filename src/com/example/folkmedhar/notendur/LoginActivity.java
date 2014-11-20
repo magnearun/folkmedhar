@@ -10,13 +10,11 @@ package com.example.folkmedhar.notendur;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
@@ -42,15 +40,8 @@ public class LoginActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         
-        //setActionBarTitle();
         setVidmotshlutir();
     }
-    
-//    private void setActionBarTitle() {
-//    	ActionBar actionbar = getActionBar();
-//        actionbar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.login) + "</font>"));
-//        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_CUSTOM);
-//    }
     
     /**
 	 * Upphafsstillir tilviksbreytur fyrir viðmótshluti
@@ -89,10 +80,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	        }
     	} 
     	else {
-			Toast toast = Toast.makeText(this, 
-    				"Engin nettenging!", Toast.LENGTH_LONG);
-    		toast.setGravity(Gravity.CENTER, 0, 0);
-    		toast.show();
+			MainActivity.showToast("Engin nettenging!", this);
 		}
 	}
     

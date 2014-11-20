@@ -10,13 +10,11 @@ package com.example.folkmedhar.notendur;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
@@ -35,8 +33,6 @@ public class RegisterActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        
-        //setActionBarTitle();
         setVidmotshlutir();
 
     }
@@ -82,10 +78,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	        }
     	} 
     	else {
-			Toast toast = Toast.makeText(this, 
-    				"Engin nettenging!", Toast.LENGTH_LONG);
-    		toast.setGravity(Gravity.CENTER, 0, 0);
-    		toast.show();
+			MainActivity.showToast("Engin nettenging!", this);
 		}
 	}
 	
@@ -122,14 +115,5 @@ public class RegisterActivity extends Activity implements OnClickListener {
         	 registerErrorMsg.setText("Rangt lykilorð slegið inn, reyndu aftur");
          }
 	}
-	
-//	/**
-//	 * Upphafsstillit ActionBar
-//	 */
-//	private void setActionBarTitle() {
-//    	ActionBar actionbar = getActionBar();
-//        actionbar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.title_activity_register) + "</font>"));
-//        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_CUSTOM);
-//    }
 }
 

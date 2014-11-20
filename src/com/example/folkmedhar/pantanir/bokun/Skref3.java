@@ -1,27 +1,23 @@
-/**
- * @author: Birkir Pálmason
- * @since: 15.10.2014
- * Klasinn sem sér um að færa pöntun notandans yfir í gagnagrunn
- */
-
-/**
- * Búin að refactor-a
- */
 package com.example.folkmedhar.pantanir.bokun;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,6 +30,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.folkmedhar.AlarmReciever;
 import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
@@ -42,7 +39,9 @@ import com.example.folkmedhar.pantanir.JSONParser;
 
 
 public class Skref3 extends Fragment implements android.view.View.OnClickListener {
-	
+
+	int ar, manudur, dagur;
+	public static String time_reminder;
 	
 	// Viðmótshlutir
 	private Button buttonTilbaka;
@@ -104,7 +103,6 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			showBokun(); // Birta upplýsingar um bókun
 			
 			context = getActivity();
-	
 			return rootView;
 		}
 		
@@ -139,6 +137,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	        case R.id.panta:
 	        	if (Connection.isOnline(getActivity())) {
 		        	new Stadfesta().execute();
+		        	new ErTilPontun().execute();
 		        	fragment = new Upphafsskjar();
 	        	}
 	        	else {
@@ -260,4 +259,120 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			}
 		}
 	}
+	
+private class ErTilPontun extends AsyncTask<String, String, String> {
+		
+		int success;
+		
+		@Override
+		/**
+		 * Birtir skilaboð sem gefa notandanum til kynna að verið ég að 
+		 * sækja pöntun hans
+		 * */
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pDialog = new ProgressDialog(getActivity());
+			pDialog.setMessage("Sæki pöntun..");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(true);
+			pDialog.show();
+		}
+		
+		@Override
+		/**
+		 * Sækir nýjustu pöntun notandans úr
+		 * gagnagrunni (ef það er einhver til)
+		 */
+		protected String doInBackground(String... args) {
+
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
+			params.add(new BasicNameValuePair("sidastaPontun", "ff")); 
+
+			String url_pantanir = "http://prufa2.freeiz.com/allarPantanir.php";
+			JSONObject json = jsonParser.makeHttpRequest(
+					url_pantanir, "GET", params);
+			
+			try{
+				success = json.getInt("success");
+				if(success == 1){
+					JSONArray pantanir = json.getJSONArray("pantanir");
+					JSONObject pontun = pantanir.getJSONObject(0);
+					time_reminder= pontun.getString("time");
+					ar=Integer.parseInt(pontun.getString("startDate").substring(0,4));
+					manudur=Integer.parseInt(pontun.getString("startDate").substring(5,7))-1;
+					dagur =Integer.parseInt(pontun.getString("startDate").substring(8,10));
+					
+				}
+			}
+			catch(JSONException e){
+				e.printStackTrace();
+				
+			}
+          
+			return null;
+		}
+		protected void onPostExecute(String file_url) {
+			pDialog.dismiss();
+	        scheduleAlarm();
+		}
+		
+	}
+	
+	// Notkun: b = leapYear(y);
+	// Fyrir:  y er ártal sem int gildi.
+	// Eftir:  b er satt ef árið er hlaupár, annars false.
+	public static boolean leapYear(int year )
+	{
+	    if( year%400==0 ) return true;
+	    if( year%100==0 ) return false;
+	    if( year%4==0 ) return true;
+	    return false;
+	}
+	public void scheduleAlarm()
+    {
+            // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time, 
+            // we fetch  the current time in milliseconds and added 1 day time
+            // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day 
+            Calendar myAlarmDate = Calendar.getInstance();
+            myAlarmDate.setTimeInMillis(System.currentTimeMillis());
+            if(dagur==01){
+            	if(manudur==01){
+            		ar=ar-1;
+            		manudur=12;
+            	}
+            	if(manudur==4 || manudur==6 || manudur==9 || manudur==11){
+            		dagur=30;
+            	}
+            	else if(manudur==2 && leapYear(ar)){
+            		dagur=29;
+            	}
+            	else if(manudur==2 && !leapYear(ar)){
+            		dagur=28;
+            	}
+            	else{
+            		dagur=31;
+            	}
+            	manudur--;
+            }
+            else{
+            	Log.e("he",""+dagur);
+            	dagur--;
+            }
+            Log.e("piss", "dagur " + dagur+" manudur "+ manudur +" ar "+ ar);
+            myAlarmDate.set(ar, manudur, dagur++, 20, 54, 0);
+            Long time = myAlarmDate.getTimeInMillis();
+            // create an Intent and set the class which will execute when Alarm triggers, here we have
+            // given AlarmReciever in the Intent, the onRecieve() method of this class will execute when
+            // alarm triggers and 
+            //we will write the code to send SMS inside onRecieve() method pf Alarmreciever class
+            Intent intentAlarm = new Intent(getActivity(), AlarmReciever.class);
+       
+            // create the object
+            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+            //set the alarm for particular time
+            alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(getActivity(),1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+            
+    }
 }

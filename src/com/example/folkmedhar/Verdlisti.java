@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.folkmedhar.pantanir.JSONParser;
@@ -31,8 +30,8 @@ public class Verdlisti extends Fragment  {
 	private JSONParser jsonParser = new JSONParser();
 	
 	private ListView verdlistiListView ;  
-	private ArrayAdapter<String> listAdapter ; 
-	
+	String[] adgerdFylki;
+	String[] verdFylki;
 	
 	private final String url_verdlisti = "http://www.folkmedhar.is/magnea/verdlisti.php";
 	
@@ -52,12 +51,9 @@ public class Verdlisti extends Fragment  {
 		View rootView = inflater.inflate(R.layout.fragment_verdlisti,
 				container, false);
 		
-		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		//text.setText(R.string.title_fragment_verdlisti);
 
 		verdlistiListView = (ListView) rootView.findViewById( R.id.verdlistiListView ); 
-        ArrayList<String> verdlisti = new ArrayList<String>();  
-        listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, verdlisti); 
+ 
         
         new SaekjaVerdlista().execute();
 		
@@ -93,13 +89,15 @@ public class Verdlisti extends Fragment  {
 				if(success == 1){
 					
 					JSONArray verdlisti = json.getJSONArray("verdlisti");
+					adgerdFylki = new String[verdlisti.length()];
+					verdFylki = new String[verdlisti.length()];
 					for(int i = 0; i < verdlisti.length(); i++){
 						JSONObject adgerd = verdlisti.getJSONObject(i);
-						listAdapter.add(adgerd.getString("adgerd")+"\n" + adgerd.getString("verd") + " kr"); 
+						adgerdFylki[i] = adgerd.getString("adgerd");
+						verdFylki[i] = adgerd.getString("verd") + "kr"; 
+						 
 						
 					}
-				}else{
-					listAdapter.add("Ooops! Enginn verdlisti fannst");
 				}
 			}
 			catch(JSONException e){
@@ -113,7 +111,10 @@ public class Verdlisti extends Fragment  {
 		 * Bætir adapter við verðlistann
 		 * **/
 		protected void onPostExecute(String file_url) {
-			verdlistiListView.setAdapter( listAdapter ); 
+	
+			 CustomList adapter = new
+				        CustomList(getActivity(), adgerdFylki, verdFylki);
+			 verdlistiListView.setAdapter(adapter);
 
 			}
 		}

@@ -27,9 +27,6 @@ import com.example.folkmedhar.pantanir.JSONParser;
 public class UserFunctions extends Activity{
      
     private JSONParser jsonParser;
-     
-    //private static String loginURL = "http://prufa2.freeiz.com/login/";
-    //private static String registerURL = "http://prufa2.freeiz.com/login/";
     
     private static String loginURL = "http://peoplewithhair.freevar.com/login/";
     private static String registerURL = "http://peoplewithhair.freevar.com/login/"; 

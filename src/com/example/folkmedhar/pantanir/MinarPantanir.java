@@ -17,28 +17,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
 
 public class MinarPantanir extends Fragment implements  android.view.View.OnClickListener  {
-	
-	private ProgressDialog pDialog;
-	private JSONParser jsonParser = new JSONParser();
-	
-	private static String pontunarId; // Auðkenni pöntunar
-	private static String pontunText = ""; // Upplýsingar um pöntun
-	private static String manudur, dagur, ar; // Dagsetning pöntunar
 	
 	private final String url_pantanir = "http://prufa2.freeiz.com/allarPantanir.php";
 	private View rootView; 
@@ -106,7 +96,7 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
      * til að ná í upplýsingar ýr MySQL gagnagrunni 
      * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
-	private class ErTilPontun extends AsyncTask<String, String, String> {
+	public class ErTilPontun extends AsyncTask<String, String, String> {
 	
 		int success;
 		
@@ -117,11 +107,7 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 		 * */
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Sæki pöntun..");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
+			MainActivity.showDialog("Sæki pöntun..");
 		}
 		
 		@Override
@@ -134,7 +120,7 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
 			params.add(new BasicNameValuePair("sidastaPontun", "ff")); 
-			
+			JSONParser jsonParser = new JSONParser();
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_pantanir, "GET", params);
 			
@@ -143,15 +129,15 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 				if(success == 1){
 					JSONArray pantanir = json.getJSONArray("pantanir");
 					JSONObject pontun = pantanir.getJSONObject(0);
-					pontunText = pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
+					FerlaBokun.setPontunText(pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
 					+ "Starfsmadur: " + MainActivity.getStarfsmadur(pontun.getString("staff_id")) +"\n"
-					+ "Klukkan: "+ pontun.getString("time");
+					+ "Klukkan: "+ pontun.getString("time"));
 					
 					// Upplýsingar um pöntun notandans
-					ar = pontun.getString("startDate").substring(0,4);
-					manudur = getManudur(pontun.getString("startDate").substring(5,7));
-					dagur = pontun.getString("startDate").substring(8,10);
-					pontunarId = pontun.getString("ID");
+					FerlaBokun.setAr(pontun.getString("startDate").substring(0,4));
+					FerlaBokun.setManudur(pontun.getString("startDate").substring(5,7));
+					FerlaBokun.setDagur(pontun.getString("startDate").substring(8,10));
+					FerlaBokun.setID(pontun.getString("ID"));
 					
 				}
 			}
@@ -168,120 +154,14 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 		 * á skjánum eða tilkynningu um að engin pöntun hafi fundist
 		 * **/
 		protected void onPostExecute(String file_url) {
-			pDialog.dismiss();
+			MainActivity.hideDialog();
 			if(success==1){
 				Fragment fragment = new NaestaPontun(); 
 				MainActivity.updateFragment(fragment);
 			}
 			else {
-				Toast toast = Toast.makeText(getActivity(),"Engin pöntun fannst", Toast.LENGTH_LONG);
-            	toast.setGravity(Gravity.CENTER, 0, 0);
-            	toast.show();
+				MainActivity.showToast("Engin pöntun fannst", getActivity());
 			}
 		}
-	}
-	
-	/**
-	 * Skilar mánuði á forminu "Jan" fyrir steng á forminu "01"
-	 * @param s
-	 * @return
-	 */
-	public static String getManudur(String s){
-		String manudur;
-		switch(s) {
-    	
-			case "01": 
-				manudur = "JAN";
-				break;
-			
-			case "02" : 
-				manudur = "FEB";
-				break;
-			
-			case "03" : 
-				manudur = "MAR";
-				break;
-			
-			case "04" : 
-				manudur = "APR";
-				break;
-			
-			case "05" :
-				manudur = "MAY";
-				break;
-			
-			case "06" : 
-				manudur = "JUN";
-				break;
-			
-			case "07" : 
-				manudur = "JUL";
-				break;
-				
-			case "08" : 
-				manudur = "AUG";
-				break;
-				
-			case "09" : 
-				manudur = "SEP";
-				break;
-				
-			case "10" : 
-				manudur = "OKT";
-				break;
-				
-			case "11" : 
-				manudur = "NOV";
-				break;
-			
-			case "12" : 
-				manudur = "DES";
-				break;
-				
-			default: manudur = "Error";
-			
-		}
-		return manudur;
-		
-	}
-	
-	/**
-	 * Skilar upplýsingum um pöntun notandans
-	 * @return
-	 */
-	public static String getPontun() {
-		return pontunText;
-	}
-	
-	/**
-	 * Skilar árinu sem pöntunin var bókuð á
-	 * @return
-	 */
-	public static String getAr() {
-		return ar;
-	}
-	
-	/**
-	 * Skilar mánuðinum sem pöntunin var bókuð á
-	 * @return
-	 */
-	public static String getManudur() {
-		return manudur;
-	}
-	
-	/**
-	 * Skilar deginum sem pöntunin var bókuð á
-	 * @return
-	 */
-	public static String getDagur() {
-		return dagur;
-	}
-	
-	/**
-	 * Skilar auðkenni pöntunar
-	 * @return
-	 */
-	public static String getID() {
-		return pontunarId;
 	}
 }

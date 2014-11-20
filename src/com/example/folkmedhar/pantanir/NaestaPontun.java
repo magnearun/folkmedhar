@@ -16,16 +16,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
@@ -38,8 +35,6 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 	private TextView dagatalManudur;
 	private TextView dagatalDagur;
 	private Button buttonAfpanta;
-	
-	private ProgressDialog pDialog;
 	private JSONParser jsonParser = new JSONParser();
 	private View rootView;
 
@@ -68,8 +63,8 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 		
 		setVidmotshlutir();
         
-        setText(MinarPantanir.getPontun(), MinarPantanir.getAr(), MinarPantanir.getManudur(),
-        		MinarPantanir.getDagur());
+        setText(FerlaBokun.getPontun(), FerlaBokun.getAr(), FerlaBokun.getManudur(),
+        		FerlaBokun.getDagur());
 		
 		return rootView;
 	}
@@ -114,11 +109,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Afpanta tíma..");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+            MainActivity.showDialog("Afpanta tíma..");
         }
  
         /**
@@ -129,7 +120,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
             try {
                
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("id",MinarPantanir.getID()));
+                params.add(new BasicNameValuePair("id",FerlaBokun.getID()));
  
                 JSONObject json = jsonParser.makeHttpRequest(
                         url_afpanta, "POST", params);
@@ -147,12 +138,9 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
          * Fer aftur í Mitt svæði þegar pöntun hefur verið eytt
          * **/
         protected void onPostExecute(String file_url) {
-            pDialog.dismiss();
+            MainActivity.hideDialog();
             if (success == 1) {
-            	Toast toast = Toast.makeText(getActivity(),
-            			"Tíminn þinn hefur verið afpantaður!", Toast.LENGTH_LONG);
-            	toast.setGravity(Gravity.CENTER, 0, 0);
-            	toast.show();
+            	MainActivity.showToast("Tíminn þinn hefur verið afpantaður!", getActivity());
             }
             Fragment fragment = new MinarPantanir();
 		    MainActivity.updateFragment(fragment);

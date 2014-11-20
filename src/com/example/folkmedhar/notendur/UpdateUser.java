@@ -10,16 +10,15 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.folkmedhar.Connection;
+import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
 public class UpdateUser extends Fragment implements android.view.View.OnClickListener {
@@ -95,10 +94,7 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 			updateUser();
 		}
 		else {
-			Toast toast = Toast.makeText(getActivity(), 
-    				"Engin nettenging!", Toast.LENGTH_LONG);
-    		toast.setGravity(Gravity.CENTER, 0, 0);
-    		toast.show();
+			MainActivity.showToast("Engin nettenging!", getActivity());
 		}
 	}
 	
@@ -130,10 +126,7 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
             		oldPassword, name, email, phone, password);
             
             if (isUpdated) {
-            	String userSaved = "Notendaupplýsingar þínar hafa verið uppfærðar!";
-            	Toast toast = Toast.makeText(context, userSaved,Toast.LENGTH_LONG);
-            	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            	toast.show();
+            	MainActivity.showToast("Notendaupplýsingar þínar hafa verið uppfærðar!", getActivity());
             	userFunction.logoutUser(context);
             	Intent intent = new Intent(getActivity(), LoginActivity.class);
             	startActivity(intent);

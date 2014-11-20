@@ -21,6 +21,7 @@ import android.widget.Spinner;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
+import com.example.folkmedhar.pantanir.FerlaBokun;
 
 
 
@@ -84,9 +85,9 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
     @Override
 	public void onClick(View view) {
     	
-    	setBokunarUpplysingar();
-    	setStaffId();
-    	setTimaLengd();
+    	FerlaBokun.setBokunarUpplysingar(starfsmadurSpinner,adgerdSpinner,harlengdSpinner);
+    	FerlaBokun.setStaffId();
+    	FerlaBokun.setTimaLengd();
 
     	Fragment fragment = new Skref2();
     	MainActivity.updateFragment(fragment);
@@ -102,113 +103,5 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
     	adgerdSpinner.setSelection(MainActivity.getAdgerdPos());
     	harlengdSpinner.setSelection(MainActivity.getHarlengdPos());
 
-	}
-    
-    /**
-	 * Breyturnar fyrir fyrir hárlengd, aðgerð og starfsmann fá
-	 * valin gildi og breytur sem halda utan um staðsetningu þeirra í
-	 * Spinner viðmótshluti einnig
-	 */
-	private void setBokunarUpplysingar() {
-		
-		// Valinn starfsmaður
-		MainActivity.setStarfsmadur(starfsmadurSpinner.getSelectedItem().toString());
-    	MainActivity.setStarfsmadurPos(starfsmadurSpinner.getSelectedItemPosition());
-    	
-    	// Valin aðgerð
-    	MainActivity.setAdgerd(adgerdSpinner.getSelectedItem().toString());
-		MainActivity.setAdgerdPos(adgerdSpinner.getSelectedItemPosition());
-		
-		// Valin hárlengd
-		MainActivity.setHarlengd(harlengdSpinner.getSelectedItem().toString());
-		MainActivity.setHarlengdPos(harlengdSpinner.getSelectedItemPosition());
-	}
-	
-	/**
-     * Breytan sem heldur utanum auðkenni valins starfsmanns
-     * fær rétt gildi
-     */
-    private void setStaffId() {
-    	
-    	String starfsmadur = MainActivity.getStarfsmadur();
-    	
-    	switch(starfsmadur) {
-    	
-    	case "Hver sem er":
-    		MainActivity.setStaffId("000");
-    		break;
-		case "Bambi": 
-			MainActivity.setStaffId("BOB");
-			break;
-		case "Perla" : 
-			MainActivity.setStaffId("PIP");
-			break;
-		case "Oddur" : 
-			MainActivity.setStaffId("ODO");
-			break;
-		case "Magnea" : 
-			MainActivity.setStaffId("MRV");
-			break;
-		case "Eva" :
-			MainActivity.setStaffId("EDK");
-			break;
-		case "Birkir" : 
-			MainActivity.setStaffId("BIP");
-			break;
-		case "Dagný" : 
-			MainActivity.setStaffId("DOR");
-			break;
-		default: MainActivity.setStaffId("ERR");
-		
-    	}
-    }
-    
-    /**
-     * Breytan sem heldur utan um tímalengd aðgerðar fær rétt gildi
-     * 
-     */
-    private void setTimaLengd() {
-    	
-    	String adgerd = MainActivity.getAdgerd();
-    	
-    	switch(adgerd) {
-    	case "Dömuklipping":
-    		MainActivity.setLengd("2");
-    		break;
-		case "Herraklipping": 
-			MainActivity.setLengd("1");
-			break;
-		case "Barnaklipping" : 
-			MainActivity.setLengd("1");
-			break;
-		case "Heillitun" : 
-			MainActivity.setLengd("2");
-			break;
-		case "Litur í rót" : 
-			MainActivity.setLengd("2");
-			break;
-		case "Strípur" :
-			MainActivity.setLengd("3");
-			break;
-		case "Litun og strípur" : 
-			MainActivity.setLengd("3");
-			break;
-		case "Dömuklipping og litun/strípur" : 
-			MainActivity.setLengd("4");
-			break;
-		case "Herraklipping og litun/strípur" : 
-			MainActivity.setLengd("3");
-			break;
-		case "Greiðsla" : 
-			MainActivity.setLengd("2");
-			break;
-		case "Permanett" : 
-			MainActivity.setLengd("4");
-			break;
-		case "Blástur" : 
-			MainActivity.setLengd("2");
-			break;
-		default: MainActivity.setLengd("ERR");
-		}
-    }   
+	} 
 }
