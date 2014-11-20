@@ -1,3 +1,9 @@
+/**
+ * @author: Birkir Pálmason
+ * @since: 15.10.2014
+ * Klasinn sem sér um að færa pöntun notandans yfir í gagnagrunn
+ */
+
 package com.example.folkmedhar.pantanir.bokun;
 
 import java.util.ArrayList;
@@ -14,23 +20,21 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.folkmedhar.AlarmReciever;
+import com.example.folkmedhar.AlarmReceiver;
 import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
@@ -39,9 +43,7 @@ import com.example.folkmedhar.pantanir.JSONParser;
 
 
 public class Skref3 extends Fragment implements android.view.View.OnClickListener {
-
-	int ar, manudur, dagur;
-	public static String time_reminder;
+	
 	
 	// Viðmótshlutir
 	private Button buttonTilbaka;
@@ -52,30 +54,28 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	
 	
 	// Id þeirra viðmótshluta sem sýna bókun notandans
-	private String[] heiti = { "nafn", "simi", "starfsmadur", "adgerd", 
+	private String[] vidmotsID = { "nafn", "simi", "starfsmadur", "adgerd", 
 				"harlengd","date","time"};
 	
 	// Upplýsingar um bókun sem eru birtar notandanum
-	private String[] heitistreng = { MainActivity.getName(),MainActivity.getSimi(),
+	private String[] bokunArray = { MainActivity.getName(),MainActivity.getSimi(),
 				MainActivity.getStarfsmadur(),MainActivity.getAdgerd(),
 				MainActivity.getHarlengd(),MainActivity.getStringDate(),MainActivity.getTime()};
 	
 	// Heiti dálka fyrir bókun í gagnagrunni
-	private String[] heiti1 = { "nafn", "simi", 
+	private String[] databaseColumns = { "nafn", "simi", 
 				"adgerd", "harlengd","time","staff_id","email","lengd", "dagur",
 				"startDate", "endDate"};
 	
 	// Upplýsingar um bókun sem færðar eru í gagnagrunn
-	private String[] heitistreng1 = { MainActivity.getName(),MainActivity.getSimi(),
+	private String[] databaseBokun = { MainActivity.getName(),MainActivity.getSimi(),
 			MainActivity.getAdgerd(),MainActivity.getHarlengd(),MainActivity.getTime(),
 			MainActivity.getStaffId(),MainActivity.getEmail(),MainActivity.getLengd(),
 			MainActivity.getDate(),MainActivity.getStartDate(), MainActivity.getEndDate()};
 	
-	private ProgressDialog pDialog;	
-	private JSONParser jsonParser = new JSONParser();
-	private String url_panta_tima = "http://prufa2.freeiz.com/pantatima.php";
+	// Breyturnar halda utan um tímasetningu áminningar
+	private int ar, manudur, dagur; 
 
-	private Context context;
 	private View rootView;
 	
 	
@@ -95,14 +95,9 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 				Bundle savedInstanceState) {
 			rootView = inflater.inflate(R.layout.fragment_skref3,
 					container, false);
-			
-			//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-			//text.setText(R.string.title_activity_skref3);
-			
+
 			setVidmotshlutir();
 			showBokun(); // Birta upplýsingar um bókun
-			
-			context = getActivity();
 			return rootView;
 		}
 		
@@ -112,15 +107,12 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 * pöntun
 	 */
 	private void setVidmotshlutir() {
-		
 		buttonTilbaka = (Button) rootView.findViewById(R.id.til_Baka);
-		buttonPanta = (Button) rootView.findViewById(R.id.panta);
-        
+		buttonPanta = (Button) rootView.findViewById(R.id.panta);  
 		buttonTilbaka.setOnClickListener(this);
 		buttonPanta.setOnClickListener(this);
 	}
 	
-    
 	/**
 	 * Birtir skjáinn fyrir skref 2 eða
 	 * Kallar á aðferð sem sér um að færa upplýsingar um bókun
@@ -137,14 +129,10 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	        case R.id.panta:
 	        	if (Connection.isOnline(getActivity())) {
 		        	new Stadfesta().execute();
-		        	new ErTilPontun().execute();
 		        	fragment = new Upphafsskjar();
 	        	}
 	        	else {
-	    			Toast toast = Toast.makeText(getActivity(), 
-	        				"Engin nettenging!", Toast.LENGTH_LONG);
-	        		toast.setGravity(Gravity.CENTER, 0, 0);
-	        		toast.show();
+	    			MainActivity.showToast("Engin nettenging!", getActivity());
 	        		return;
 	    		}
 	            break;
@@ -155,23 +143,6 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	}
 	
 	/**
-	 * Kallar á aðferð sem bókar pöntun í gagnagrunn og birtir upplýsingar um
-	 * að pöntun hafi verið bókuð
-	 */
-	@SuppressWarnings("deprecation")
-	private void bokaPontun() {
-    	AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-		alertDialog.setMessage("Pöntunin þín hefur verið bókuð");
-		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-		   public void onClick(final DialogInterface dialog, final int which) {
-		   }
-		});
-		alertDialog.show();
-		MainActivity.setBokudPontun(true);
-	}
-		
-
-	/**
 	 * Birtir upplýsingar um bókun í TextView
 	 * Sækir upplýsingar um nafn og síma notanda sem eru 
 	 */
@@ -181,10 +152,10 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		Resources res = getResources();
 
 		// Sækir þá viðmótshluti sem hafa Id sem geymt er í heiti fylkinu
-		for(int i=0;i<heiti.length;i++){
-			int id = res.getIdentifier(heiti[i], "id", getActivity().getBaseContext().getPackageName());
+		for(int i=0;i<vidmotsID.length;i++){
+			int id = res.getIdentifier(vidmotsID[i], "id", getActivity().getBaseContext().getPackageName());
 			bokunTexView=(TextView)rootView.findViewById(id);
-			bokunTexView.setText(heitistreng[i]);
+			bokunTexView.setText(bokunArray[i]);
 		}
 	}	
 	
@@ -195,8 +166,6 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 */
 	class Stadfesta extends AsyncTask<String, String, String> {
 
-		private  String TAG_SUCCESS = null;
-
 		@Override
 		/**
 		 * Birtir skilaboð sem gefa notandanum til kynna að verið sé að ferla
@@ -204,44 +173,47 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		 * */
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(context);
-			pDialog.setMessage("Bóka tíma..");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
+			MainActivity.showDialog("Bóka tíma..");
 		}
 		
-		@SuppressWarnings("deprecation")
 		@Override
 		/**
 		 * Færir upplýsingar um bókun notandans yfir í gagnagrunn ef engar villur fundust.
-		 * Annars eru birt villuskilaboð
+		 * Annars eru birt villuskilaboð. Uppfærir breytur sem halda utan um tímasetningu áminningar
 		 */
 		protected String doInBackground(String... args) {
 
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			for(int i=0;i<heiti1.length;i++){
-				params.add(new BasicNameValuePair(heiti1[i], heitistreng1[i]));
-				Log.d("params",params+"");
+			// Færa upplýsingar um bókun í gagnagrunn
+			String url_panta_tima = "http://prufa2.freeiz.com/pantatima.php";
+			List<NameValuePair> params_panta = new ArrayList<NameValuePair>();
+			for(int i=0;i<databaseColumns.length;i++){
+				params_panta.add(new BasicNameValuePair(databaseColumns[i], databaseBokun[i]));
+				Log.d("params",params_panta+"");
 			}
+			JSONParser jsonParser = new JSONParser();
+			JSONObject json_panta = jsonParser.makeHttpRequest(url_panta_tima,
+					"POST", params_panta);
 			
-			JSONObject json = jsonParser.makeHttpRequest(url_panta_tima,
-					"POST", params);
+			// Sækja þá pöntun sem búa á til áminningu fyrir
+			String url_reminder = "http://prufa2.freeiz.com/allarPantanir.php";
+			List<NameValuePair> params_aminning = new ArrayList<NameValuePair>();
+			params_aminning.add(new BasicNameValuePair("email", MainActivity.getEmail()));
+			params_aminning.add(new BasicNameValuePair("sidastaPontun", "ff")); 
 			
-			Log.d("Create Response", json.toString());
+			JSONObject json_aminning = jsonParser.makeHttpRequest(
+					url_reminder, "GET", params_aminning);
+	
+			Log.d("Create Response", json_panta.toString());
 			try {
-				success = json.getInt(TAG_SUCCESS);
-
-				if (success == 1) {
-					getActivity().finish();
-				} else {
-					AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-					alertDialog.setMessage("Ekki tókst að bóka pöntun. Vinsamlegast reyndu aftur");
-					alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-					   public void onClick(final DialogInterface dialog, final int which) {
-					   }
-					});
-					alertDialog.show();
+				success = json_panta.getInt("success");
+				if(success==1) {
+					JSONArray aminning = json_aminning.getJSONArray("pantanir");
+					JSONObject jObject_aminning = aminning.getJSONObject(0);
+					setTimeReminder(jObject_aminning.getString("time"));
+					ar=Integer.parseInt(jObject_aminning.getString("startDate").substring(0,4));
+					manudur=Integer.parseInt(jObject_aminning.getString("startDate").substring(5,7))-1;
+					dagur =Integer.parseInt(jObject_aminning.getString("startDate").substring(8,10));
+					MainActivity.setBokudPontun(true);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -250,78 +222,40 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		}
 		
 		/**
-		 * Lokar „progress dialog"
+		 * Lokar „progress dialog" og bókarpöntun ef
+		 * pöntunin tókst
 		 * **/
 		protected void onPostExecute(String file_url) {
-			pDialog.dismiss();
-			if (success==1) {
-				bokaPontun();
+			MainActivity.hideDialog();
+			if (success == 1) {
+				showMessage("Pöntunin þín hefur verið bókuð");
+				scheduleAlarm();
+			} else {
+				showMessage("Ekki tókst að bóka pöntun. Vinsamlegast reyndu aftur");
 			}
 		}
 	}
 	
-private class ErTilPontun extends AsyncTask<String, String, String> {
-		
-		int success;
-		
-		@Override
-		/**
-		 * Birtir skilaboð sem gefa notandanum til kynna að verið ég að 
-		 * sækja pöntun hans
-		 * */
-		protected void onPreExecute() {
-			super.onPreExecute();
-			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Sæki pöntun..");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
-		}
-		
-		@Override
-		/**
-		 * Sækir nýjustu pöntun notandans úr
-		 * gagnagrunni (ef það er einhver til)
-		 */
-		protected String doInBackground(String... args) {
-
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
-			params.add(new BasicNameValuePair("sidastaPontun", "ff")); 
-
-			String url_pantanir = "http://prufa2.freeiz.com/allarPantanir.php";
-			JSONObject json = jsonParser.makeHttpRequest(
-					url_pantanir, "GET", params);
-			
-			try{
-				success = json.getInt("success");
-				if(success == 1){
-					JSONArray pantanir = json.getJSONArray("pantanir");
-					JSONObject pontun = pantanir.getJSONObject(0);
-					time_reminder= pontun.getString("time");
-					ar=Integer.parseInt(pontun.getString("startDate").substring(0,4));
-					manudur=Integer.parseInt(pontun.getString("startDate").substring(5,7))-1;
-					dagur =Integer.parseInt(pontun.getString("startDate").substring(8,10));
-					
-				}
-			}
-			catch(JSONException e){
-				e.printStackTrace();
-				
-			}
-          
-			return null;
-		}
-		protected void onPostExecute(String file_url) {
-			pDialog.dismiss();
-	        scheduleAlarm();
-		}
-		
+	/**
+	 * Birtir AlertDialog með skilaboðunum message
+	 * @param message
+	 */
+	@SuppressWarnings("deprecation")
+	private void showMessage(String message) {
+		AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+		alertDialog.setMessage(message);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		   public void onClick(final DialogInterface dialog, final int which) {
+		   }
+		});
+		alertDialog.show();
 	}
 	
-	// Notkun: b = leapYear(y);
-	// Fyrir:  y er ártal sem int gildi.
-	// Eftir:  b er satt ef árið er hlaupár, annars false.
+	/**
+	 * 
+	 * @param year
+	 * @return
+	 */
 	public static boolean leapYear(int year )
 	{
 	    if( year%400==0 ) return true;
@@ -329,50 +263,64 @@ private class ErTilPontun extends AsyncTask<String, String, String> {
 	    if( year%4==0 ) return true;
 	    return false;
 	}
+	
+	/**
+	 * 
+	 */
+	public void erFyrstiManadarins(){
+        if(dagur==01){
+        	if(manudur==01){
+        		ar=ar-1;
+        		manudur=12;
+        	}
+        	if(manudur==4 || manudur==6 || manudur==9 || manudur==11){
+        		dagur=30;
+        	}
+        	else if(manudur==2 && leapYear(ar)){
+        		dagur=29;
+        	}
+        	else if(manudur==2 && !leapYear(ar)){
+        		dagur=28;
+        	}
+        	else{
+        		dagur=31;
+        	}
+        	manudur--;
+        }
+        else{
+        	Log.e("he",""+dagur);
+        	dagur--;
+        }
+    }
+	
+	/**
+	 * 
+	 */
 	public void scheduleAlarm()
     {
-            // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time, 
-            // we fetch  the current time in milliseconds and added 1 day time
-            // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day 
+
             Calendar myAlarmDate = Calendar.getInstance();
             myAlarmDate.setTimeInMillis(System.currentTimeMillis());
-            if(dagur==01){
-            	if(manudur==01){
-            		ar=ar-1;
-            		manudur=12;
-            	}
-            	if(manudur==4 || manudur==6 || manudur==9 || manudur==11){
-            		dagur=30;
-            	}
-            	else if(manudur==2 && leapYear(ar)){
-            		dagur=29;
-            	}
-            	else if(manudur==2 && !leapYear(ar)){
-            		dagur=28;
-            	}
-            	else{
-            		dagur=31;
-            	}
-            	manudur--;
-            }
-            else{
-            	Log.e("he",""+dagur);
-            	dagur--;
-            }
+            erFyrstiManadarins();
             Log.e("piss", "dagur " + dagur+" manudur "+ manudur +" ar "+ ar);
-            myAlarmDate.set(ar, manudur, dagur++, 20, 54, 0);
+            myAlarmDate.set(ar, manudur, dagur, 17, 40, 0);
             Long time = myAlarmDate.getTimeInMillis();
-            // create an Intent and set the class which will execute when Alarm triggers, here we have
-            // given AlarmReciever in the Intent, the onRecieve() method of this class will execute when
-            // alarm triggers and 
-            //we will write the code to send SMS inside onRecieve() method pf Alarmreciever class
-            Intent intentAlarm = new Intent(getActivity(), AlarmReciever.class);
-       
-            // create the object
-            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
-            //set the alarm for particular time
-            alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(getActivity(),1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+            Intent intentAlarm = new Intent(getActivity(), AlarmReceiver.class);
+            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(getActivity(),1,  
+            		intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
             
     }
+	
+	/**
+	 * Gefur tímasetningu bókunnar sem hefur áminningu gildið
+	 * time
+	 * @param time
+	 */
+	public void setTimeReminder(String bokunTimi) {
+		SharedPreferences prefs = getActivity().getSharedPreferences("BokunTimi", 0);
+		prefs.edit().putString("bokunTimi", bokunTimi).commit();
+	}
+	
 }

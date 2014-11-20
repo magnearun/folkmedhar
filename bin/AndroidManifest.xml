@@ -19,6 +19,8 @@
         android:label="@string/app_name"
         android:logo="@drawable/ic_greida5"
         android:theme="@style/customTheme" >
+        
+         <receiver  android:process=":remote" android:name="AlarmReceiver"></receiver>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -119,8 +121,11 @@
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED" />
         </intent-filter>
+        
+        
     </receiver>
         
     </application>
+    
 
 </manifest>

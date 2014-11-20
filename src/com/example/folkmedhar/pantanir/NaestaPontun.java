@@ -15,7 +15,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -88,7 +90,21 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 	@Override
 	public void onClick(View view) {
     
-    	new EydaPontun().execute();
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setMessage("Ertu viss um að þú viljir afpanta tímann?")
+		   .setCancelable(false)
+		   .setPositiveButton("Afpanta", new DialogInterface.OnClickListener() {
+		       public void onClick(DialogInterface dialog, int id) {
+		    	   	new EydaPontun().execute();
+		       }
+		   })
+		   .setNegativeButton("Hætta við", new DialogInterface.OnClickListener() {
+		       public void onClick(DialogInterface dialog, int id) {
+		            dialog.cancel();
+		       }
+		   });
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 	
 	
