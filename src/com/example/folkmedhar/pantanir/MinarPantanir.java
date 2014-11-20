@@ -30,7 +30,7 @@ import com.example.folkmedhar.R;
 
 public class MinarPantanir extends Fragment implements  android.view.View.OnClickListener  {
 	
-	private final String url_pantanir = "http://prufa2.freeiz.com/allarPantanir.php";
+    private static String url_pantanir = "http://peoplewithhair.freevar.com/allarPantanir.php";
 	private View rootView; 
 	/**
 	 * Nýtt fragment er búið til fyrir „Mínar pantanir"

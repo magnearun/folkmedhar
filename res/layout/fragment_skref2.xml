@@ -3,99 +3,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="90dp"
+    android:paddingTop="@dimen/fragment_padding_top"
     tools:context="com.example.folkmedhar.pantanir.bokun.Skref2" >
 
-
-    <TextView
-        android:id="@+id/dagur"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_label"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="120dp"
-        android:text="@string/dagur" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/date_label"
+        <TextView
+            android:id="@+id/skref2_info"
+            android:layout_width="299dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_background"
+            android:height="50dp"
+            android:padding="20sp"
+            android:text="@string/skref2_info"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/timi_text"
-        android:layout_marginTop="100dp"
-        android:textAlignment="center" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="160dp" >
 
-    <Button
-        android:id="@+id/buttonDagur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/dagur"
-        android:layout_alignBottom="@+id/dagur"
-        android:layout_marginLeft="72dp"
-        android:layout_toRightOf="@+id/dagur"
-        android:onClick="showDatePickerDialog"
-        android:text="@string/pick_date"
-        android:width="200dp"
-        android:textSize="15sp"
-        style="@style/buttonStyle"
-        android:textColor="@color/black" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/skref2_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonDagur"
-        android:layout_alignLeft="@+id/dagur"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/buttonDagur"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_background"
-        android:height="20dp"
-        android:padding="20sp"
-        android:text="@string/skref2_info"
-        android:textSize="15sp" />
+            <TextView
+                android:id="@+id/dagur"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/dagur"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:width="120dp" />
+
+            <Button
+                android:id="@+id/buttonDagur"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/calendar64"
+                android:gravity="left|center_vertical"
+                android:onClick="showDatePickerDialog"
+                android:text="@string/pick_date"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/timi_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="@string/timi_text"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/timi"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/timi_array"
+                android:prompt="@string/timi_prompt" />
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/afram2"
-        style="@style/buttonStyle"
-        android:layout_width="wrap_content"
+        style="@style/buttonStyleAfram"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tilbaka"
-        android:layout_alignBottom="@+id/tilbaka"
-        android:layout_alignRight="@+id/timi"
-        android:text="@string/afram" />
-
-    <Button
-        android:id="@+id/tilbaka"
-        style="@style/buttonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_label"
         android:layout_alignParentBottom="true"
-        android:text="@string/tilbaka" />
-
-    <Spinner
-        android:id="@+id/timi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonDagur"
-        android:layout_below="@+id/buttonDagur"
-        android:layout_marginTop="33dp"
-        android:entries="@array/timi_array"
-        android:paddingLeft="50dp"
-        android:prompt="@string/timi_prompt" />
-
-    <TextView
-        android:id="@+id/timi_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/timi"
-        android:layout_alignLeft="@+id/dagur"
-        android:layout_marginBottom="14dp"
-        android:text="@string/timi_text" />
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="30dp"
+        android:drawableRight="@drawable/next32"
+        android:text="@string/afram" />
 
 </RelativeLayout>

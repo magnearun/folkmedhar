@@ -13,6 +13,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="lightgray">#e7e7e7</color>
+    <color name="lightergray">#fafafa</color>
     <color name="lightgray02">#e7e7e7</color>
     <color name="orrange">#000</color>
     <color name="darkgray">#fff</color>

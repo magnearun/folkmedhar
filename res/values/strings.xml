@@ -24,7 +24,7 @@
     <string name="panta">Panta tíma</string>
     <string name="mittSvaedi">Mínar pantanir</string>
     <string name="starfsmenn_prompt">Veldu starfsmann</string>
-    <string name="skref1_info">Veldu starfsmann og hvað þú láta
+    <string name="skref1_info">Veldu starfsmann og hvað þú vilt láta
         gera við hárið á þér</string>
 
     <string-array name="starfsmenn_array">
@@ -68,10 +68,10 @@
     <string name="timi_prompt">Veldu tíma</string>
     <string name="dagur">Dagur:</string>
     <string name="timi_text">Tími:</string>
-    <string name="skref2_info">Veldu úr lausum tíma starfsmanns</string>
+    <string name="skref2_info">Veldu úr lausum tímum starfsmanns</string>
 
     <string-array name="timi_array">
-        <item>Timi</item>
+        <item>Veldu tíma</item>
     </string-array>
 
     <string name="title_activity_sidasta_pontun">Næsta pöntun</string>
@@ -79,9 +79,10 @@
     <string name="title_activity_mitt_svaedi">Mínar pantanir</string>
     <string name="title_activity_allar_pantanir">Allar pantanir</string>
     <string name="title_activity_um_stofuna">Um Stofuna</string>
-    <string name="stadsetning">Fólk með hár er staðsettt á
-        Brávallagötu 14, 101 Reykjavík</string>
-    <string name="opnunartimi">Opið alla virka daga frá 9 til 18 </string>
+    <string name="stadsetning">Hárgreiðslustofan Fólk með hár er staðsett á
+        Brávallagötu 14, 101 Reykjavík.\n\nStofan er opin alla virka daga frá klukkan 9 til 18.</string>
+    <string name="hafa_samband">Endilega hafið samband.\n\nSími: 565-5566
+        \nNetfang: folkmedhar@gmail.com</string>
     <string name="staff">Starfsfólk</string>
     <string name="title_activity_starfsfolk">Starfsfólk</string>
     <string name="allar_pantanir">Allar pantanir</string>
@@ -94,6 +95,7 @@
     <string name="textview_Skref3_harlengd">Hárlengd:</string>
     <string name="textview_Skref3_dagsetning">Dagsetning:</string>
     <string name="textview_Skref3_timi">Tími:</string>
+    <string name="textview_stadfestingBokunar">Staðfesting bókunar</string>
     <string name="button_Skref3_tilBaka">Til baka</string>
     <string name="button_Skref3_stadfesta">Staðfesta</string>
     <string name="title_activity_bokun">Pöntun móttekin</string>
@@ -131,5 +133,7 @@
     <string name="hintName">Fullt nafn</string>
     <string name="hintPhone">Símanúmer</string>
     <string name="hintPasswordRepeat">Staðfesta lykilorð</string>
-
+    <string name="hintUpdatePassword">Nýtt lykilorð</string>
+    <string name="hintUpdatePasswordRepeat">Staðfesta nýtt lykilorð</string>
+    
 </resources>

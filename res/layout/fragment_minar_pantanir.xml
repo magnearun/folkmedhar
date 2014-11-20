@@ -6,28 +6,36 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-   	android:paddingTop="20dp"
+    android:paddingTop="@dimen/fragment_padding_top"
     tools:context="com.example.folkmedhar.pantanir.MinarPantanir" >
 
     <Button
-        android:id="@+id/sidasta_pontun"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="119dp"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="@string/sidasta_pontun"
-        style="@style/buttonStyle" />
-
-    <Button
         android:id="@+id/allar_pantanir"
+        style="@style/buttonStyle"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
         android:layout_alignLeft="@+id/sidasta_pontun"
         android:layout_below="@+id/sidasta_pontun"
-        android:layout_marginTop="58dp"
-        android:gravity="center"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="@string/allar_pantanir"
-        style="@style/buttonStyle" />
+        android:layout_marginTop="20dp"
+        android:text="@string/allar_pantanir" />
+
+    <ImageView
+        android:id="@+id/imageMinarPantanir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/minarpantanir" />
+
+    <Button
+        android:id="@+id/sidasta_pontun"
+        style="@style/buttonStyle"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/imageMinarPantanir"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sidasta_pontun" />
 
 </RelativeLayout>

@@ -12,12 +12,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 /*
  * Það á eftir að klára að útfæra þennan klasa
  */
-public class UmStofuna extends Fragment implements android.view.View.OnClickListener {
+public class UmStofuna extends Fragment {
 
 	/**
 	 * Nýtt fragment er búið til fyrir upplýsingar um stofuna
@@ -37,21 +36,7 @@ public class UmStofuna extends Fragment implements android.view.View.OnClickList
 		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
 		//text.setText(R.string.title_activity_um_stofuna);
 		
-		Button buttonStarfsfolk = (Button) rootView.findViewById(R.id.staff_text);
-		
-		buttonStarfsfolk.setOnClickListener(this);
 		return rootView;
 	}
-	
-	/**
-	 * Kallað á aðferð sem birtir skjá með upplýsingum um starfsfólk
-	 * stofunnar
-	 */
-    @Override
-	public void onClick(View view) {
-    	Fragment fragment = new Starfsfolk();
-	    MainActivity.updateFragment(fragment);
-	}
-	
 }
 

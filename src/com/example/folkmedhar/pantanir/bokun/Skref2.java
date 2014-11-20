@@ -42,10 +42,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private View rootView;
 	private static Context context;
 	
-	private static String url_saekja_lausa_tima = "http://prufa2.freeiz.com/saekja_bokada_tima.php";
+    private static String url_saekja_lausa_tima = "http://peoplewithhair.freevar.com/saekja_bokada_tima.php";
 
 	// Viðmótshlutir
-	private Button buttonTilbaka, buttonAfram, buttonDagur;
+	private Button buttonAfram, buttonDagur;
 	private static Spinner timiSpinner;
 	
 
@@ -79,10 +79,8 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private void setVidmotshlutir() {
 		
 		timiSpinner = (Spinner) rootView.findViewById(R.id.timi);
-		buttonTilbaka = (Button) rootView.findViewById(R.id.tilbaka);
 		buttonAfram = (Button) rootView.findViewById(R.id.afram2);
 		buttonDagur = (Button) rootView.findViewById(R.id.buttonDagur);
-		buttonTilbaka.setOnClickListener(this);
 		buttonAfram.setOnClickListener(this);
 		buttonDagur.setOnClickListener(this);
 	}
@@ -104,10 +102,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			    	Intent i = new Intent(getActivity(), CalendarActivity.class);
 			        startActivityForResult(i, 1); // Birta dagatal
 			        return;
-		        case R.id.tilbaka:
-		        	fragment = new Skref1();
-		        	MainActivity.updateFragment(fragment);
-		            break;
 		        case R.id.afram2:
 		        	bokun();
 			        break;
@@ -180,7 +174,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 			super.onPreExecute();
 			FerlaBokun.setTimar();
 			FerlaBokun.setLausirNum(0);
-			MainActivity.showDialog("Sæki lausa tíma..");
+			MainActivity.showDialog("Sæki lausa tíma...");
 		}
 		
 		
