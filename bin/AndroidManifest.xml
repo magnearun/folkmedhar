@@ -18,7 +18,7 @@
         android:icon="@drawable/ic_greida5"
         android:label="@string/app_name"
         android:logo="@drawable/ic_greida5"
-        android:theme="@style/customTheme" >
+        android:theme="@style/updateUserCustomTheme" >
         
          <receiver  android:process=":remote" android:name="AlarmReceiver"></receiver>
         <activity
@@ -62,11 +62,6 @@
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name=".Starfsfolk"
-            android:label="@string/title_activity_starfsfolk"
-            android:parentActivityName=".MainActivity" >
-        </activity>
-        <activity
             android:name=".pantanir.bokun.Skref3"
             android:label="@string/title_activity_skref3"
             android:parentActivityName=".MainActivity" >
@@ -95,10 +90,6 @@
             android:name=".notendur.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/noActionBarCustomTheme" >
-        </activity>
-        <activity
-            android:name=".Drasl"
-            android:label="@string/title_activity_drasl" >
         </activity>
         <activity
             android:name=".Upphafsskjar"

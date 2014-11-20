@@ -1,101 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/prufa"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/fragment_padding_top"
     tools:context="com.example.folkmedhar.Skref1" >
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/skref1_info"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_background"
+            android:height="50dp"
+            android:padding="20sp"
+            android:text="@string/skref1_info"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="160dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/staff_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="@string/textview_Skref3_starfsmadur"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:width="120dp" />
+
+            <Spinner
+                android:id="@+id/starfsmennSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/starfsmenn_array"
+                android:prompt="@string/starfsmenn_prompt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/adgerd_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="@string/textview_Skref3_adgerd"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/adgerdSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/adgerd_array"
+                android:prompt="@string/adgerd_prompt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/harlengd_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="@string/textview_Skref3_harlengd"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/harlengdSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/harlengd_array"
+                android:prompt="@string/harlengd_prompt" />
+        </LinearLayout>
+    </LinearLayout>
+
     <Button
         android:id="@+id/next"
-        android:layout_width="wrap_content"
+        style="@style/buttonStyleAfram"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginRight="18dp"
-        android:text="@string/afram"
-        style="@style/buttonStyle" />
-
-    <Spinner
-        android:id="@+id/adgerdSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/starfsmennSpinner"
-        android:layout_marginTop="14dp"
-        android:layout_toRightOf="@+id/staff_text"
-        android:entries="@array/adgerd_array"
-        android:prompt="@string/adgerd_prompt" />
-
-    <TextView
-        android:id="@+id/skref1_info"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="15sp"
-        android:height="50dp"
-        android:text="@string/skref1_info"
-        android:background="@drawable/button_background"
-        android:padding="20sp" />
-
-    <TextView
-        android:id="@+id/staff_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/starfsmennSpinner"
-        android:text="@string/textview_Skref3_starfsmadur"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:width="120dp" 
-        android:layout_marginLeft="10dp"/>
-
-    <Spinner
-        android:id="@+id/starfsmennSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/adgerdSpinner"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/skref1_info"
-        android:layout_marginTop="16dp"
-        android:entries="@array/starfsmenn_array"
-        android:prompt="@string/starfsmenn_prompt" />
-
-    <Spinner
-        android:id="@+id/harlengdSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/adgerdSpinner"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/adgerdSpinner"
-        android:layout_marginTop="24dp"
-        android:entries="@array/harlengd_array"
-        android:prompt="@string/harlengd_prompt" />
-
-    <TextView
-        android:id="@+id/harlengd_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/harlengdSpinner"
-        android:text="@string/textview_Skref3_harlengd"
-        android:textAppearance="?android:attr/textAppearanceMedium" 
-        android:layout_marginLeft="10dp"/>
-
-    <TextView
-        android:id="@+id/adgerd_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/adgerdSpinner"
-        android:text="@string/textview_Skref3_adgerd"
-        android:textAppearance="?android:attr/textAppearanceMedium" 
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="30dp"
+        android:drawableRight="@drawable/next32"
+        android:text="@string/afram" />
 
 </RelativeLayout>

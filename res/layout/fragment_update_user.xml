@@ -2,144 +2,117 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingTop="@dimen/fragment_padding_top" >
- 
-    <LinearLayout
+    android:paddingTop="90dp"
+    >
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="454dp"
+    android:orientation="vertical"
+    android:paddingBottom="30dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp" >
+
+    <TextView
+        android:id="@+id/updateUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_background"
+        android:padding="20sp"
+        android:text="@string/textUpdateInfo"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/user91"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="@string/hintName"
+        android:paddingLeft="15dp" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/userEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/mail59"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="@string/hintEmail"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="15dp" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/userPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/call5"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="@string/hintPhone"
+        android:inputType="phone"
+        android:maxLength="7"
+        android:paddingLeft="15dp" />
+
+    <EditText
+        android:id="@+id/userOldPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dip" >
+        android:drawableLeft="@drawable/key162"
+        android:drawablePadding="15dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp" />
 
-        
-        <TextView
-        android:id="@+id/updateUserInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="15sp"
-        android:height="30dp"
-        android:text="@string/textUpdateInfo"
-        android:background="@drawable/button_background"
-        android:padding="20sp" />
-        
+    <EditText
+        android:id="@+id/userPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/key162"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="@string/hintUpdatePassword"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:text="@string/userName"
-            android:labelFor="@+id/userName" />
-        
+    <EditText
+        android:id="@+id/userPasswordRepeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/key162"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="@string/hintUpdatePasswordRepeat"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp" />
 
-        <EditText
-            android:id="@+id/userName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
-         
+    <TextView
+        android:id="@+id/updateError"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dip"
+        android:textColor="#e30000"
+        android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:text="@string/userEmail"
-            android:labelFor="@+id/userEmail" />
-   
-        
-        <EditText
-            android:id="@+id/userEmail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-        
+    <Button
+        android:id="@+id/buttonUpdateUser"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/login_button_background"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/buttonUpdateUser"
+        android:textColor="@color/white"
+        android:typeface="normal" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:text="@string/userPhone"
-            android:labelFor="@+id/userPhone" />
-        
+</LinearLayout>
 
-        <EditText
-            android:id="@+id/userPhone"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone" />        
-         
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:text="@string/userOldPassword"
-            android:labelFor="@+id/userOldPassword" />     
-        
-
-        <EditText
-            android:id="@+id/userOldPassword"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-        
-        
-         
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:text="@string/userPassword"
-            android:labelFor="@+id/userPassword" />
-
-
-        <EditText
-            android:id="@+id/userPassword"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-
-       <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:text="@string/userPasswordRepeat"
-            android:labelFor="@+id/userPasswordRepeat" />
-
-
-        <EditText
-            android:id="@+id/userPasswordRepeat"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-        
-        
-        
-        <TextView 
-            android:id="@+id/updateError"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#e30000"
-            android:padding="5dip"
-            android:textStyle="bold"/>
-
-       <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/buttonUpdateUser"
-                style="@style/buttonStyle"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="@string/buttonUpdateUser" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
- 
 </ScrollView>

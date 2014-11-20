@@ -46,7 +46,6 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	
 	
 	// Viðmótshlutir
-	private Button buttonTilbaka;
 	private Button buttonPanta;
 	private TextView bokunTexView;
 	
@@ -107,9 +106,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 * pöntun
 	 */
 	private void setVidmotshlutir() {
-		buttonTilbaka = (Button) rootView.findViewById(R.id.til_Baka);
 		buttonPanta = (Button) rootView.findViewById(R.id.panta);  
-		buttonTilbaka.setOnClickListener(this);
 		buttonPanta.setOnClickListener(this);
 	}
 	
@@ -123,9 +120,6 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	public void onClick(View view) {
 		Fragment fragment = null;
 	    switch (view.getId()) {
-	        case R.id.til_Baka:
-	        	fragment = new Skref2();
-	            break;
 	        case R.id.panta:
 	        	if (Connection.isOnline(getActivity())) {
 		        	new Stadfesta().execute();
@@ -173,7 +167,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		 * */
 		protected void onPreExecute() {
 			super.onPreExecute();
-			MainActivity.showDialog("Bóka tíma..");
+			MainActivity.showDialog("Bóka tíma...");
 		}
 		
 		@Override
@@ -184,7 +178,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 		protected String doInBackground(String... args) {
 
 			// Færa upplýsingar um bókun í gagnagrunn
-			String url_panta_tima = "http://prufa2.freeiz.com/pantatima.php";
+		    String url_panta_tima = "http://peoplewithhair.freevar.com/pantatima.php";
 			List<NameValuePair> params_panta = new ArrayList<NameValuePair>();
 			for(int i=0;i<databaseColumns.length;i++){
 				params_panta.add(new BasicNameValuePair(databaseColumns[i], databaseBokun[i]));
@@ -195,7 +189,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 					"POST", params_panta);
 			
 			// Sækja þá pöntun sem búa á til áminningu fyrir
-			String url_reminder = "http://prufa2.freeiz.com/allarPantanir.php";
+			String url_reminder = "http://peoplewithhair.freevar.com/allarPantanir.php";
 			List<NameValuePair> params_aminning = new ArrayList<NameValuePair>();
 			params_aminning.add(new BasicNameValuePair("email", MainActivity.getEmail()));
 			params_aminning.add(new BasicNameValuePair("sidastaPontun", "ff")); 

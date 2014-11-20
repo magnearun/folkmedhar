@@ -4,44 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.folkmedhar.pantanir.NaestaPontun"
-    android:paddingTop="70dp" >
+    android:paddingTop="120dp" >
     
    <TextView
-   		android:id="@+id/headline"   
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:text="@string/sidasta_pontun_fyrirsogn"
-        android:layout_marginBottom="20dp"
-        android:background="@color/background"
-        android:padding="15dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        />
+       android:id="@+id/headline"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="20dp"
+       android:layout_marginLeft="30dp"
+       android:layout_marginRight="30dp"
+       android:background="@drawable/button_background"
+       android:gravity="center"
+       android:padding="15dp"
+       android:paddingBottom="20dp"
+       android:paddingTop="20dp"
+       android:text="@string/sidasta_pontun_fyrirsogn"
+       android:textColor="@color/black"
+       android:textSize="22sp" />
 
    <GridLayout
-       android:id="@+id/grid" 
+       android:id="@+id/grid"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:layout_below="@+id/headline"
-       android:background="@color/gray"
+       android:layout_marginLeft="30dp"
+       android:layout_marginRight="30dp"
+       android:background="@drawable/button_background"
        android:columnCount="2"
        android:orientation="horizontal"
        android:padding="15dp"
-       android:layout_margin="10dp"
-       android:rowCount="1"
-       
-        >
+       android:rowCount="1" >
 	   
        <TextView
-        	android:id="@+id/texti"   
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:background="@color/gray" 
-        	android:textSize="16sp"
-        	android:lineSpacingExtra="10dp"
-        	android:layout_gravity="left|top"/>
+           android:id="@+id/texti"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="left|top"
+       	   android:background="@drawable/button_background"
+           android:lineSpacingExtra="10dp"
+           android:textColor="@color/black"
+           android:textSize="16sp" />
        
        <LinearLayout
 	        android:layout_width="wrap_content"
@@ -50,30 +52,33 @@
 	        android:orientation="vertical" >
        
 	       <TextView
-		        android:id="@+id/manudur"   
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:gravity="center"
-		        android:textSize="12sp"
-		        android:background="@color/background" />
+	           android:id="@+id/manudur"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:background="@color/background"
+	           android:gravity="center"
+	           android:textColor="@color/black"
+	           android:textSize="12sp" />
 	        
 	       <TextView
-		        android:id="@+id/dagur"   
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:gravity="center"
-		        android:textSize="22sp"
-		        android:background="#dddddd" />
+	           android:id="@+id/dagur"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:background="@color/buttoncolor"
+	           android:gravity="center"
+	           android:textColor="@color/black"
+	           android:textSize="22sp" />
 	        
 	       <TextView
-		        android:id="@+id/ar"   
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:gravity="center"
-		        android:paddingLeft="15dp"
-		        android:paddingRight="15dp"
-		        android:textSize="12sp"
-		        android:background="#dddddd" />
+	           android:id="@+id/ar"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:background="@color/buttoncolor"
+	           android:gravity="center"
+	           android:paddingLeft="15dp"
+	           android:paddingRight="15dp"
+	           android:textColor="@color/black"
+	           android:textSize="12sp" />
         
       	</LinearLayout>
 
@@ -81,13 +86,15 @@
 
    <Button
        android:id="@+id/afpanta"
-       android:layout_width="80dp"
-       android:layout_height="40dp"
+       android:layout_width="180dp"
+       android:layout_height="45dp"
+       android:layout_alignLeft="@+id/grid"
        android:layout_alignRight="@+id/grid"
        android:layout_below="@+id/grid"
-       android:layout_marginTop="95dp"
-       android:background="@color/infobackground"
+       android:layout_marginTop="40dp"
+       android:background="@color/login_button_background"
        android:text="@string/afpanta"
-       android:textSize="12sp" />
+       android:textColor="@color/white"
+       android:textSize="18sp" />
  
 </RelativeLayout>

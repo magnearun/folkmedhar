@@ -40,7 +40,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 	private JSONParser jsonParser = new JSONParser();
 	private View rootView;
 
-	private final String url_afpanta = "http://prufa2.freeiz.com/afpanta.php";
+    private static String url_afpanta = "http://peoplewithhair.freevar.com/afpanta.php";
 
 
 	/**
@@ -125,7 +125,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            MainActivity.showDialog("Afpanta tíma..");
+            MainActivity.showDialog("Afpanta tíma...");
         }
  
         /**

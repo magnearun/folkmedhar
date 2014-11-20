@@ -35,8 +35,8 @@ public class AllarPantanir extends Fragment  {
 	private ListView mainListView ;  
 	private ArrayAdapter<String> listAdapter ; 
 	
-	private final String url_pantanir = "http://prufa2.freeiz.com/allarPantanir.php";
-	
+    private static String url_pantanir = "http://peoplewithhair.freevar.com/allarPantanir.php";
+
 	/**
 	 * Nýtt fragment er búið til fyrir allar pantanir notandans
 	 */
@@ -82,7 +82,7 @@ public class AllarPantanir extends Fragment  {
 		 * */
 		protected void onPreExecute() {
 			super.onPreExecute();
-			MainActivity.showDialog("Sæki pantanir..");
+			MainActivity.showDialog("Sæki pantanir...");
 		}
 		
 		@Override
