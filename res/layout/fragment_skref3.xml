@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="84dp"
+    android:layout_above="@+id/next" >
+    
+  
+
+<RelativeLayout 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingTop="@dimen/fragment_padding_top">
+    android:layout_height="wrap_content"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingBottom="60dp">
 
     <TextView
-        android:id="@+id/telephone"
-        style="@style/textviewStyle"
-        android:layout_width="150dp"
-        android:layout_height="38dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/name"
-        android:layout_marginTop="10dp"
-        android:labelFor="@+id/simi"
-        android:text="@string/textview_Skref3_simi"
-        android:textColor="@color/black" />
-
-    <EditText
         android:id="@+id/simi"
         android:layout_width="200dp"
         android:layout_height="38dp"
         android:layout_below="@+id/nafn"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/telephone"
-        android:inputType="textPersonName"
-        android:textColor="@color/black" >
+        android:textColor="@color/black"
+        android:textSize="16sp" >
 
-    </EditText>
+    </TextView>
 
     <TextView
         android:id="@+id/employee"
@@ -142,23 +143,23 @@
         android:layout_width="150dp"
         android:layout_height="38dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="110dp"
         android:layout_toLeftOf="@+id/simi"
         android:labelFor="@+id/nafn"
         android:text="@string/textview_Skref3_nafn"
         android:textColor="@color/black" />
 
-    <EditText
+    <TextView
         android:id="@+id/nafn"
         android:layout_width="200dp"
         android:layout_height="38dp"
         android:layout_above="@+id/telephone"
         android:layout_alignLeft="@+id/simi"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/black" >
+        android:textColor="@color/black"
+        android:textSize="16sp" >
 
-    </EditText>
+    </TextView>
 
     <TextView
         android:id="@+id/stadfestingBokunar"
@@ -170,8 +171,7 @@
         android:gravity="center"
         android:padding="15dp"
         android:paddingBottom="30dp"
-        android:paddingTop="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="40dp"       
         android:text="@string/textview_stadfestingBokunar"
         android:textColor="@color/black"
@@ -187,8 +187,21 @@
         android:layout_below="@+id/time_label"
         android:background="@color/login_button_background"
         android:onClick="stadfesta"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/button_Skref3_stadfesta"
         android:textColor="@color/white" />
 
+    <TextView
+        android:id="@+id/telephone"
+        style="@style/textviewStyle"
+        android:layout_width="150dp"
+        android:layout_height="38dp"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/starfsmadur"
+        android:labelFor="@+id/simi"
+        android:text="@string/textview_Skref3_simi"
+        android:textColor="@color/black" />
+
 </RelativeLayout>
+</ScrollView>

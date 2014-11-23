@@ -7,31 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/fragment_padding_top"
+    android:paddingTop="160dp"
     tools:context="com.example.folkmedhar.pantanir.bokun.Skref2" >
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/skref2_info"
-            android:layout_width="fill_parent"
-            android:layout_height="80dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/button_background"
-            android:height="50dp"
-            android:padding="20sp"
-            android:text="@string/skref2_info"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -40,9 +17,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="160dp" >
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -62,8 +38,9 @@
 
             <Button
                 android:id="@+id/buttonDagur"
+                style="@style/buttonStyle"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:drawableRight="@drawable/calendar64"
                 android:gravity="left|center_vertical"
                 android:onClick="showDatePickerDialog"
@@ -91,9 +68,12 @@
             <Spinner
                 android:id="@+id/timi"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/test_button_background"
                 android:entries="@array/timi_array"
-                android:prompt="@string/timi_prompt" />
+                android:prompt="@string/timi_prompt"
+                android:spinnerMode="dialog" />
+
         </LinearLayout>
     </LinearLayout>
 

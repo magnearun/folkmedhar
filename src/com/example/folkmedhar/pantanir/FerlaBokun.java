@@ -73,6 +73,7 @@ public class FerlaBokun {
 		dagurSpinner = dagurSpinner.substring(0,4) + dagurSpinner.substring(5,7) +
 				dagurSpinner.substring(8);
 
+		Log.e("Hér", timiNuna);
 		if(dagurSpinner.equals(dagurNuna)) {
 			// Skilað false ef tíminn er liðinn eða ef fyrirvarinn er ekki nógu langur
 			int timeTo = Integer.parseInt(timeSpinner)- Integer.parseInt(timiNuna);
@@ -81,6 +82,7 @@ public class FerlaBokun {
 			}
 			
 		}
+
 		return false;	
 	}
 	

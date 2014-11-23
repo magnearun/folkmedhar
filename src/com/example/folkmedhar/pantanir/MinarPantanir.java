@@ -9,6 +9,8 @@ package com.example.folkmedhar.pantanir;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.support.v4.app.Fragment;
+
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -16,7 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Fragment;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;

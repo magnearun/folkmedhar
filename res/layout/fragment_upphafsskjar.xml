@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.folkmedhar.MainActivity" 
+    android:layout_marginTop="84dp">
+
+
+<RelativeLayout 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/fragment_padding_top"
-    tools:context="com.example.folkmedhar.MainActivity" >
+>
 
     <Button
         android:id="@+id/mittSvaedi"
@@ -35,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/welcome_logo" />
 
 </RelativeLayout>
+</ScrollView>

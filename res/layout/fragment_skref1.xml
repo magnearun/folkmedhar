@@ -1,58 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollview"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/next" >
 
 
 <RelativeLayout 
-    android:id="@+id/prufa"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="30dp"
-    android:paddingTop="@dimen/fragment_padding_top"
-    tools:context="com.example.folkmedhar.Skref1" >
+    android:layout_height="fill_parent"
+    tools:context="com.example.folkmedhar.Skref1"
+    android:paddingTop="160dp" >
+    
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/skref1_info"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/button_background"
-            android:height="50dp"
-            android:padding="20sp"
-            android:text="@string/skref1_info"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="160dp" >
+       android:id="@+id/linearLayout1"
+       android:gravity="center"
+       android:orientation="vertical"        
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="20dp"
+       android:layout_marginLeft="40dp"
+       android:layout_marginRight="40dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp" >
 
             <TextView
                 android:id="@+id/staff_text"
@@ -68,15 +41,19 @@
             <Spinner
                 android:id="@+id/starfsmennSpinner"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/test_button_background"
                 android:entries="@array/starfsmenn_array"
-                android:prompt="@string/starfsmenn_prompt" />
+                android:prompt="@string/starfsmenn_prompt"
+                android:spinnerMode="dialog" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/adgerd_text"
@@ -91,16 +68,19 @@
             <Spinner
                 android:id="@+id/adgerdSpinner"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/test_button_background"
                 android:entries="@array/adgerd_array"
-                android:prompt="@string/adgerd_prompt" />
+                android:prompt="@string/adgerd_prompt"
+                android:spinnerMode="dialog" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="60dp" >
+            android:orientation="vertical" 
+            android:layout_marginBottom="50dp">
 
             <TextView
                 android:id="@+id/harlengd_text"
@@ -115,13 +95,15 @@
             <Spinner
                 android:id="@+id/harlengdSpinner"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/test_button_background"
                 android:entries="@array/harlengd_array"
-                android:prompt="@string/harlengd_prompt" />
+                android:prompt="@string/harlengd_prompt"
+                android:spinnerMode="dialog" />
+
         </LinearLayout>
     </LinearLayout>
 
-    
     <Button
         android:id="@+id/next"
         style="@style/buttonStyleAfram"
@@ -129,11 +111,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        
+        android:layout_marginBottom="40dp"
         android:layout_marginRight="30dp"
         android:drawableRight="@drawable/next32"
         android:text="@string/afram" />
-  
-    </RelativeLayout>
-    </ScrollView>
+
+</RelativeLayout>

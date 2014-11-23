@@ -6,7 +6,6 @@
      <item 
          android:id="@+id/settings"
          android:title="@string/stillingar"
-         android:showAsAction="ifRoom|withText" 
+         app:showAsAction="ifRoom" 
          android:icon="@drawable/settings2"/>
-
 </menu>

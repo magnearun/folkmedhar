@@ -2,10 +2,7 @@
     <style name="titlebackgroundcolor">
         <item name="android:background">@color/titlebackgroundcolor</item>
     </style>
- 
-    <style name="CustomTheme" parent="android:Theme">
-        <item name="android:windowTitleSize">35dip</item>
-    </style>
+
     
     <style name="buttonStyle">
         <item name="android:background">@drawable/button_background</item>
@@ -29,26 +26,11 @@
         <item name="android:textColor">@color/white</item>
     </style>
     
-    <style name="calendar_event_style" parent="@android:style/TextAppearance.Small">
+    <style name="calendar_event_style" 
+        parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">#FF6600</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">8sp</item>
     </style>
     
-    <!-- the theme applied to the application or activity -->
-    <style name="CustomActionBarTheme"
-           parent="@android:style/Theme.Holo.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
-    </style>
-
-    <!-- ActionBar styles -->
-    <style name="MyActionBar"
-           parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name = "android:background">@drawable/actionbar_background</item>
-    </style>
-    
-     <style name="MyActionBarUpdateUser"
-           parent="@android:style/Widget.ActionBar">
-        <item name = "android:background">@drawable/actionbar_background</item>
-    </style>
 </resources>

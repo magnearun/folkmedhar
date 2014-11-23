@@ -11,14 +11,15 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_greida5"
         android:label="@string/app_name"
         android:logo="@drawable/ic_greida5"
-        android:theme="@style/updateUserCustomTheme" >
+        android:theme="@style/CustomActionBarTheme" >
+
         
          <receiver  android:process=":remote" android:name="AlarmReceiver"></receiver>
         <activity
@@ -97,7 +98,8 @@
         </activity>
         <activity
             android:name=".pantanir.bokun.CalendarActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            
         </activity>
         <activity
             android:name=".notendur.UpdateUser"

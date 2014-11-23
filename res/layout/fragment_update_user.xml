@@ -2,23 +2,22 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingTop="90dp"
-    >
+    android:layout_marginTop="84dp">
 
 <LinearLayout
     android:layout_width="fill_parent"
-    android:layout_height="454dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="30dp"
-    android:paddingLeft="50dp"
-    android:paddingRight="50dp" >
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp" >
 
     <TextView
         android:id="@+id/updateUserInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/button_background"
         android:padding="20sp"
         android:text="@string/textUpdateInfo"
@@ -28,12 +27,14 @@
     <EditText
         android:id="@+id/userName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/test_button_background"
         android:drawableLeft="@drawable/user91"
         android:drawablePadding="15dp"
         android:ems="10"
         android:hint="@string/hintName"
         android:paddingLeft="15dp" >
+
     </EditText>
 
     <EditText
