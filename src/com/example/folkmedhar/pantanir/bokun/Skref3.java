@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -203,6 +203,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 				if(success==1) {
 					JSONArray aminning = json_aminning.getJSONArray("pantanir");
 					JSONObject jObject_aminning = aminning.getJSONObject(0);
+					Log.d("timereminder", ""+jObject_aminning);
 					setTimeReminder(jObject_aminning.getString("time"));
 					ar=Integer.parseInt(jObject_aminning.getString("startDate").substring(0,4));
 					manudur=Integer.parseInt(jObject_aminning.getString("startDate").substring(5,7))-1;
@@ -314,6 +315,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 */
 	public void setTimeReminder(String bokunTimi) {
 		SharedPreferences prefs = getActivity().getSharedPreferences("BokunTimi", 0);
+		Log.d("timereminder", ""+prefs);
 		prefs.edit().putString("bokunTimi", bokunTimi).commit();
 	}
 	

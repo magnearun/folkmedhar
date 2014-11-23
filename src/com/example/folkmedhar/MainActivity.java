@@ -8,12 +8,18 @@ package com.example.folkmedhar;
 
 
 //import com.cengalabs.flatui.FlatUI;
-
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.app.*;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.appcompat.*;
+import android.support.v7.widget.Toolbar;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+//import android.app.Fragment;
+//import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +27,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+//import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,7 +49,7 @@ import com.example.folkmedhar.notendur.UserFunctions;
 import com.example.folkmedhar.pantanir.MinarPantanir;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 
-@SuppressLint("InflateParams") public class MainActivity extends Activity {
+@SuppressLint("InflateParams") public class MainActivity extends ActionBarActivity {
 	
 	// Upplýsingar um bókun
 	private static String nafn, simi, adgerd, harlengd, email;
@@ -94,19 +100,19 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         intent = new Intent(this, LoginActivity.class);
               
         UserFunctions userFunction = new UserFunctions();
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         pDialog = new ProgressDialog(this);
         
         
         bokudPontun = false;
         time = "";
         
-        // Notanndinn er skráður inn
+        // Notandinn er skráður inn
         if(userFunction.isUserLoggedIn(getApplicationContext())) {
         	setContentView(R.layout.activity_main);
         	
         	setNavigationDrawer();
-        	setActionBar();
+            setActionBar();
             
         	// Birta upphafsskjá ef appið er opnað í fyrsta skiptið
             if (savedInstanceState == null) {
@@ -127,10 +133,11 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
      * Býr til nýjan „custom“ ActionBar 
      */
     private void setActionBar() {
-    	ActionBar actionbar = getActionBar();
+    	ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
         actionbar.setCustomView(R.layout.actionbar);
         actionbar.setDisplayHomeAsUpEnabled(true);
+        
     }
     
     /**
@@ -161,7 +168,6 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         drawerToggle = new ActionBarDrawerToggle(
                 this,                 
                 drawerLayout,       
-                R.drawable.ic_burger_white,  
                 R.string.app_name,  
                 R.string.app_name 
                 ) {
@@ -197,6 +203,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         		
             }
         };
+        drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
     }
    
@@ -340,6 +347,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         .replace(R.id.content_frame, fragment)
         .addToBackStack("fragment")
         .commit();
+		
 	}
 	
 	/**
