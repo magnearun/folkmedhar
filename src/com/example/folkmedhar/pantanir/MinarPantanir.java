@@ -9,8 +9,6 @@ package com.example.folkmedhar.pantanir;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.support.v4.app.Fragment;
-
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -18,9 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +30,6 @@ import com.example.folkmedhar.R;
 
 public class MinarPantanir extends Fragment implements  android.view.View.OnClickListener  {
 	
-    private static String url_pantanir = "http://peoplewithhair.freevar.com/allarPantanir.php";
 	private View rootView; 
 	/**
 	 * Nýtt fragment er búið til fyrir „Mínar pantanir"
@@ -49,10 +46,7 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_minar_pantanir,
 				container, false);
-		
-		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		//text.setText(R.string.title_activity_mitt_svaedi);
-		
+
 		setVidmotshlutir();
 		
 		return rootView;
@@ -98,7 +92,7 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
      * til að ná í upplýsingar ýr MySQL gagnagrunni 
      * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
-	public class ErTilPontun extends AsyncTask<String, String, String> {
+	private class ErTilPontun extends AsyncTask<String, String, String> {
 	
 		int success;
 		
@@ -120,9 +114,10 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 		protected String doInBackground(String... args) {
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
+			params.add(new BasicNameValuePair("email", FerlaBokun.getEmail()));
 			params.add(new BasicNameValuePair("sidastaPontun", "ff")); 
 			JSONParser jsonParser = new JSONParser();
+			String url_pantanir = "http://peoplewithhair.freevar.com/allarPantanir.php";
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_pantanir, "GET", params);
 			
@@ -131,14 +126,14 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 				if(success == 1){
 					JSONArray pantanir = json.getJSONArray("pantanir");
 					JSONObject pontun = pantanir.getJSONObject(0);
-					FerlaBokun.setPontunText(pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
-					+ "Starfsmadur: " + MainActivity.getStarfsmadur(pontun.getString("staff_id")) +"\n"
+					FerlaBokun.setPontun(pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
+					+ "Starfsmadur: " + FerlaBokun.getStarfsmadur(pontun.getString("staff_id")) +"\n"
 					+ "Klukkan: "+ pontun.getString("time"));
 					
 					// Upplýsingar um pöntun notandans
 					FerlaBokun.setAr(pontun.getString("startDate").substring(0,4));
 					FerlaBokun.setManudur(pontun.getString("startDate").substring(5,7));
-					FerlaBokun.setDagur(pontun.getString("startDate").substring(8,10));
+					FerlaBokun.setStringDate(pontun.getString("startDate").substring(8,10));
 					FerlaBokun.setID(pontun.getString("ID"));
 					
 				}

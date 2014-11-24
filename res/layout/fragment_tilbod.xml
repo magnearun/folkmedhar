@@ -5,9 +5,12 @@
     android:orientation="vertical"
     android:layout_marginTop="84dp" >
     
-  <ListView android:layout_width="fill_parent"   
-      android:layout_height="fill_parent"   
-      android:id="@+id/tilbodListView">  
+  <ListView
+      android:id="@+id/tilbodListView"
+      style="@style/textviewStyle"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent" >
+  
   </ListView>  
   
 </LinearLayout>

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    tools:context="com.example.folkmedhar.Skref1"
-    android:paddingTop="160dp" >
-    
+    android:paddingLeft="5dp"
+    android:paddingTop="120dp"
+    tools:context="folkmedhar.Skref1" >
 
     <LinearLayout
        android:id="@+id/linearLayout1"
@@ -29,9 +25,11 @@
 
             <TextView
                 android:id="@+id/staff_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
+                android:gravity="center"
                 android:text="@string/textview_Skref3_starfsmadur"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black"
@@ -42,8 +40,10 @@
                 android:id="@+id/starfsmennSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/test_button_background"
                 android:entries="@array/starfsmenn_array"
+                android:paddingLeft="5dp"
                 android:prompt="@string/starfsmenn_prompt"
                 android:spinnerMode="dialog" />
 
@@ -57,9 +57,11 @@
 
             <TextView
                 android:id="@+id/adgerd_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
+                android:gravity="center"
                 android:text="@string/textview_Skref3_adgerd"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black"
@@ -69,6 +71,7 @@
                 android:id="@+id/adgerdSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/test_button_background"
                 android:entries="@array/adgerd_array"
                 android:prompt="@string/adgerd_prompt"
@@ -84,9 +87,11 @@
 
             <TextView
                 android:id="@+id/harlengd_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
+                android:gravity="center"
                 android:text="@string/textview_Skref3_harlengd"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black"
@@ -96,24 +101,35 @@
                 android:id="@+id/harlengdSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/test_button_background"
                 android:entries="@array/harlengd_array"
+                android:paddingLeft="5dp"
                 android:prompt="@string/harlengd_prompt"
                 android:spinnerMode="dialog" />
 
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/skref1_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1"
+        android:ems="10"
+        android:gravity="center"
+        android:text="@string/title_activity_step1"
+        android:textColor="@color/info_gray" />
+
     <Button
         android:id="@+id/next"
         style="@style/buttonStyleAfram"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="30dp"
-        android:drawableRight="@drawable/next32"
-        android:text="@string/afram" />
+        android:layout_above="@+id/skref1_text"
+        android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/afram" />
 
 </RelativeLayout>

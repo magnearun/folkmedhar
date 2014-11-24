@@ -6,6 +6,7 @@
 
 package com.example.folkmedhar;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,31 +16,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.folkmedhar.pantanir.FerlaBokun;
 import com.example.folkmedhar.pantanir.JSONParser;
 
-/*
- * Það á eftir að klára að útfæra þennan klasa
- */
+
 public class Tilbod extends Fragment  {
 
 	private JSONParser jsonParser = new JSONParser();
 	
 	private ListView tilbodListView ;
-	String[] nafn;
-	String[] lysing;
-
 	
+	// Fylki sem halda utan um heiti og lýsingu 
+	// allra tilboða
+	private String[] nafn; 
+	private String[] lysing; 
 
-	
-	private final String url_tilbod = "http://www.folkmedhar.is/magnea/tilbod.php";
 	/**
 	 * Nýtt fragment er búið til fyrir lista tilboða
 	 */
@@ -54,18 +53,8 @@ public class Tilbod extends Fragment  {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_tilbod,
 				container, false);
-		
-
-
-		
-		 
-		 
-		 
 		tilbodListView = (ListView) rootView.findViewById( R.id.tilbodListView );
- 
-        
         new SaekjaTilbod().execute();
-		
 		return rootView;
 	}
 	/**
@@ -76,7 +65,7 @@ public class Tilbod extends Fragment  {
      * til að ná í upplýsingar ýr MySQL gagnagrunni 
      * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
-	class SaekjaTilbod extends AsyncTask<String, String, String> {
+	private class SaekjaTilbod extends AsyncTask<String, String, String> {
 	
 		@Override
 		/**
@@ -85,9 +74,9 @@ public class Tilbod extends Fragment  {
 		protected String doInBackground(String... args) {
 
 			int success;
-			
+			String url_tilbod = "http://www.folkmedhar.is/magnea/tilbod.php";
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
+			params.add(new BasicNameValuePair("email", FerlaBokun.getEmail()));
 			
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_tilbod, "GET", params);
@@ -95,7 +84,6 @@ public class Tilbod extends Fragment  {
 			try{
 				success = json.getInt("success");
 				if(success == 1){
-					
 					JSONArray tilbod = json.getJSONArray("tilbod");
 					nafn = new String[tilbod.length()];
 					lysing = new String[tilbod.length()];
@@ -124,5 +112,4 @@ public class Tilbod extends Fragment  {
 
 			}
 		}
-	
 }

@@ -115,7 +115,7 @@
     <string name="title_activity_skref1">Skref1</string>
     <string name="title_activity_upphafsskjar">Fólk með hár</string>
     <string name="title_activity_update_user">Uppfæra notanda</string>
-    <string name="textUpdateInfo">Hér að neðan geturðu uppfært notendaupplýsingar þínar</string>
+    <string name="textUpdateInfo">Notandaupplýsingar</string>
     <string name="userName">Nafn: </string>
     <string name="userEmail">Netfang: </string>
     <string name="userPhone">Símanúmer: </string>
@@ -135,5 +135,6 @@
     <string name="hintPasswordRepeat">Staðfesta lykilorð</string>
     <string name="hintUpdatePassword">Nýtt lykilorð</string>
     <string name="hintUpdatePasswordRepeat">Staðfesta nýtt lykilorð</string>
-    
+    <string name="title_activity_calendar">CalendarActivity</string>
+
 </resources>

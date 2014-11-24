@@ -6,6 +6,7 @@
 
 package com.example.folkmedhar;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,23 +16,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.folkmedhar.pantanir.FerlaBokun;
 import com.example.folkmedhar.pantanir.JSONParser;
 
 public class Verdlisti extends Fragment  {
 	
-	private JSONParser jsonParser = new JSONParser();
-	
 	private ListView verdlistiListView ;  
-	String[] adgerdFylki;
-	String[] verdFylki;
+	// Fylki sem halda utan um heiti allra aðgerða sem
+	// sem stofan býður uppá og verð þeirra
+	private String[] adgerdFylki;
+	private String[] verdFylki;
 	
 	private final String url_verdlisti = "http://www.folkmedhar.is/magnea/verdlisti.php";
 	
@@ -53,10 +55,7 @@ public class Verdlisti extends Fragment  {
 		
 
 		verdlistiListView = (ListView) rootView.findViewById( R.id.verdlistiListView ); 
- 
-        
         new SaekjaVerdlista().execute();
-		
 		return rootView;
 	}
 	
@@ -68,7 +67,7 @@ public class Verdlisti extends Fragment  {
      * til að ná í upplýsingar ýr MySQL gagnagrunni 
      * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
-	class SaekjaVerdlista extends AsyncTask<String, String, String> {
+	private class SaekjaVerdlista extends AsyncTask<String, String, String> {
 	
 		@Override
 		/**
@@ -79,24 +78,22 @@ public class Verdlisti extends Fragment  {
 			int success;
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
-			
+			params.add(new BasicNameValuePair("email", FerlaBokun.getEmail()));
+			JSONParser jsonParser = new JSONParser();
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_verdlisti, "GET", params);
 			
 			try{
 				success = json.getInt("success");
 				if(success == 1){
-					
 					JSONArray verdlisti = json.getJSONArray("verdlisti");
 					adgerdFylki = new String[verdlisti.length()];
 					verdFylki = new String[verdlisti.length()];
+					
 					for(int i = 0; i < verdlisti.length(); i++){
 						JSONObject adgerd = verdlisti.getJSONObject(i);
 						adgerdFylki[i] = adgerd.getString("adgerd");
-						verdFylki[i] = adgerd.getString("verd") + "kr"; 
-						 
-						
+						verdFylki[i] = adgerd.getString("verd") + "kr"; 	
 					}
 				}
 			}

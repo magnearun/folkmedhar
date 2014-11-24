@@ -276,17 +276,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int buttonBarStyle=0x7f01002e;
-        /** <p>Must be one or more (separated by '|') of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>top</code></td><td>0x30</td><td> Push object to the top of its container, not changing its size. </td></tr>
-<tr><td><code>bottom</code></td><td>0x50</td><td> Push object to the bottom of its container, not changing its size. </td></tr>
-</table>
-         */
-        public static final int buttonGravity=0x7f010093;
         /**  Close button icon 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -297,10 +286,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int closeItemLayout=0x7f01006d;
-        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /**  Text to set as the content description for the collapse button. 
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int collapseContentDescription=0x7f010094;
+        /**  Icon drawable to use for the collapse button. 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int collapseIcon=0x7f010094;
+        public static final int collapseIcon=0x7f010093;
         /**  The drawing color for the bars 
          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
@@ -1384,19 +1383,19 @@ containing a value of this type.
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f060003;
     }
     public static final class color {
-        public static final int abc_background_cache_hint_selector_material_dark=0x7f070042;
-        public static final int abc_background_cache_hint_selector_material_light=0x7f070043;
+        public static final int abc_background_cache_hint_selector_material_dark=0x7f070044;
+        public static final int abc_background_cache_hint_selector_material_light=0x7f070045;
         public static final int abc_input_method_navigation_guard=0x7f070003;
-        public static final int abc_primary_text_disable_only_material_dark=0x7f070044;
-        public static final int abc_primary_text_disable_only_material_light=0x7f070045;
-        public static final int abc_primary_text_material_dark=0x7f070046;
-        public static final int abc_primary_text_material_light=0x7f070047;
-        public static final int abc_search_url_text=0x7f070048;
+        public static final int abc_primary_text_disable_only_material_dark=0x7f070046;
+        public static final int abc_primary_text_disable_only_material_light=0x7f070047;
+        public static final int abc_primary_text_material_dark=0x7f070048;
+        public static final int abc_primary_text_material_light=0x7f070049;
+        public static final int abc_search_url_text=0x7f07004a;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
-        public static final int abc_secondary_text_material_dark=0x7f070049;
-        public static final int abc_secondary_text_material_light=0x7f07004a;
+        public static final int abc_secondary_text_material_dark=0x7f07004b;
+        public static final int abc_secondary_text_material_light=0x7f07004c;
         public static final int accent_material_dark=0x7f07000f;
         public static final int accent_material_light=0x7f07000e;
         public static final int background=0x7f070033;
@@ -1404,6 +1403,7 @@ containing a value of this type.
         public static final int background_floating_material_light=0x7f070007;
         public static final int background_material_dark=0x7f070004;
         public static final int background_material_light=0x7f070005;
+        public static final int backgroundcolor=0x7f070031;
         public static final int black=0x7f07003a;
         /**  White 50% 
          */
@@ -1420,6 +1420,7 @@ containing a value of this type.
         public static final int button_material_light=0x7f070011;
         public static final int buttoncolor=0x7f070034;
         public static final int calanderText=0x7f070040;
+        public static final int calendar_month=0x7f070043;
         public static final int darkgray=0x7f07003f;
         public static final int dim_foreground_disabled_material_dark=0x7f07001c;
         public static final int dim_foreground_disabled_material_light=0x7f07001d;
@@ -1434,6 +1435,7 @@ containing a value of this type.
         public static final int highlighted_text_material_light=0x7f070021;
         public static final int hint_foreground_material_dark=0x7f07001e;
         public static final int hint_foreground_material_light=0x7f07001f;
+        public static final int info_gray=0x7f070042;
         public static final int infobackground=0x7f070036;
         public static final int lightergray=0x7f07003c;
         public static final int lightgray=0x7f07003b;
@@ -1468,7 +1470,6 @@ containing a value of this type.
         public static final int secondary_text_disabled_material_light=0x7f070029;
         public static final int switch_thumb_normal_material_dark=0x7f070012;
         public static final int switch_thumb_normal_material_light=0x7f070013;
-        public static final int titlebackgroundcolor=0x7f070031;
         public static final int titletextcolor=0x7f070032;
         public static final int white=0x7f070039;
     }
@@ -1666,191 +1667,199 @@ containing a value of this type.
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
         public static final int actionbar_background=0x7f020033;
-        public static final int blue_background=0x7f020034;
-        public static final int border=0x7f020035;
-        public static final int button_background=0x7f020036;
-        public static final int cal_left_arrow_off=0x7f020037;
-        public static final int cal_left_arrow_on=0x7f020038;
-        public static final int cal_right_arrow_off=0x7f020039;
-        public static final int cal_right_arrow_on=0x7f02003a;
-        public static final int calendar64=0x7f02003b;
-        public static final int calendar_bg_orange=0x7f02003c;
-        public static final int calendar_button_selector=0x7f02003d;
-        public static final int calendar_days_islenskir=0x7f02003e;
-        public static final int calendar_left_arrow_selector=0x7f02003f;
-        public static final int calendar_right_arrow_selector=0x7f020040;
-        public static final int calendar_tile_small=0x7f020041;
-        public static final int call5=0x7f020042;
-        public static final int color_icon=0x7f020058;
-        public static final int drawer_shadow=0x7f020043;
-        public static final int folk=0x7f020044;
-        public static final int ic_burger_white=0x7f020045;
-        public static final int ic_drawer=0x7f020046;
-        public static final int ic_greida4=0x7f020047;
-        public static final int ic_greida5=0x7f020048;
-        public static final int ic_launcher=0x7f020049;
-        public static final int key162=0x7f02004a;
-        public static final int mail59=0x7f02004b;
-        public static final int minarpantanir=0x7f02004c;
-        public static final int navbar_shadow=0x7f02004d;
-        public static final int next=0x7f02004e;
-        public static final int next32=0x7f02004f;
-        public static final int settings=0x7f020050;
-        public static final int settings2=0x7f020051;
-        public static final int spinner_arrow24=0x7f020052;
-        public static final int spinner_arrow32=0x7f020053;
-        public static final int test_button_background=0x7f020054;
-        public static final int topbar=0x7f020055;
-        public static final int user91=0x7f020056;
-        public static final int welcome_logo=0x7f020057;
+        public static final int activated_background=0x7f020034;
+        public static final int afram=0x7f020035;
+        public static final int blue_background=0x7f020036;
+        public static final int border=0x7f020037;
+        public static final int button_background=0x7f020038;
+        public static final int cal_hringur=0x7f020039;
+        public static final int cal_left_arrow_off=0x7f02003a;
+        public static final int cal_left_arrow_on=0x7f02003b;
+        public static final int cal_right_arrow_off=0x7f02003c;
+        public static final int cal_right_arrow_on=0x7f02003d;
+        public static final int calendar64=0x7f02003e;
+        public static final int calendar_bg_orange=0x7f02003f;
+        public static final int calendar_button_selector=0x7f020040;
+        public static final int calendar_days_islenskir=0x7f020041;
+        public static final int calendar_left_arrow_selector=0x7f020042;
+        public static final int calendar_right_arrow_selector=0x7f020043;
+        public static final int calendar_tile_small=0x7f020044;
+        public static final int call5=0x7f020045;
+        public static final int color_icon=0x7f020061;
+        public static final int drawer_shadow=0x7f020046;
+        public static final int folk=0x7f020047;
+        public static final int folk_haus=0x7f020048;
+        public static final int ic_burger_white=0x7f020049;
+        public static final int ic_drawer=0x7f02004a;
+        public static final int ic_greida4=0x7f02004b;
+        public static final int ic_greida5=0x7f02004c;
+        public static final int ic_launcher=0x7f02004d;
+        public static final int input=0x7f02004e;
+        public static final int key162=0x7f02004f;
+        public static final int mail59=0x7f020050;
+        public static final int minar_pantanir_gratt=0x7f020051;
+        public static final int minarpantanir=0x7f020052;
+        public static final int navbar_shadow=0x7f020053;
+        public static final int next=0x7f020054;
+        public static final int next32=0x7f020055;
+        public static final int panta_tima=0x7f020056;
+        public static final int settings=0x7f020057;
+        public static final int settings2=0x7f020058;
+        public static final int spinner_arrow24=0x7f020059;
+        public static final int spinner_arrow32=0x7f02005a;
+        public static final int stadfesta=0x7f02005b;
+        public static final int test_button_background=0x7f02005c;
+        public static final int test_button_background_fill=0x7f02005d;
+        public static final int topbar=0x7f02005e;
+        public static final int user91=0x7f02005f;
+        public static final int welcome_logo=0x7f020060;
     }
     public static final class id {
-        public static final int action_bar=0x7f0a0033;
+        public static final int action_bar=0x7f0a0031;
         public static final int action_bar_activity_content=0x7f0a0003;
-        public static final int action_bar_container=0x7f0a0032;
-        public static final int action_bar_root=0x7f0a002e;
+        public static final int action_bar_container=0x7f0a0030;
+        public static final int action_bar_root=0x7f0a002c;
         public static final int action_bar_spinner=0x7f0a0002;
-        public static final int action_bar_subtitle=0x7f0a0021;
-        public static final int action_bar_title=0x7f0a0020;
-        public static final int action_context_bar=0x7f0a0034;
+        public static final int action_bar_subtitle=0x7f0a001f;
+        public static final int action_bar_title=0x7f0a001e;
+        public static final int action_context_bar=0x7f0a0032;
         public static final int action_menu_divider=0x7f0a0005;
         public static final int action_menu_presenter=0x7f0a0006;
-        public static final int action_mode_bar=0x7f0a0030;
-        public static final int action_mode_bar_stub=0x7f0a002f;
-        public static final int action_mode_close_button=0x7f0a0022;
-        public static final int actionbar=0x7f0a0041;
-        public static final int activity_chooser_view_content=0x7f0a0023;
-        public static final int adgerd=0x7f0a0077;
-        public static final int adgerdSpinner=0x7f0a0069;
-        public static final int adgerd_text=0x7f0a0068;
-        public static final int afpanta=0x7f0a0064;
-        public static final int afram2=0x7f0a0070;
-        public static final int allar_pantanir=0x7f0a005b;
+        public static final int action_mode_bar=0x7f0a002e;
+        public static final int action_mode_bar_stub=0x7f0a002d;
+        public static final int action_mode_close_button=0x7f0a0020;
+        public static final int actionbar=0x7f0a003f;
+        public static final int activity_chooser_view_content=0x7f0a0021;
+        public static final int adgerd=0x7f0a0076;
+        public static final int adgerdSpinner=0x7f0a0068;
+        public static final int adgerd_text=0x7f0a0067;
+        public static final int afpanta=0x7f0a0063;
+        public static final int afram2=0x7f0a006f;
+        public static final int allar_pantanir=0x7f0a005a;
         public static final int always=0x7f0a0014;
-        public static final int ar=0x7f0a0063;
+        public static final int ar=0x7f0a0062;
         public static final int beginning=0x7f0a001b;
-        public static final int bottom=0x7f0a001e;
         public static final int buttonDagur=0x7f0a006d;
-        public static final int buttonLogin=0x7f0a004d;
-        public static final int buttonLoginScreen=0x7f0a0056;
-        public static final int buttonRegister=0x7f0a0055;
-        public static final int buttonRegisterScreen=0x7f0a004e;
-        public static final int buttonUpdateUser=0x7f0a008c;
-        public static final int buttonlayout=0x7f0a0042;
-        public static final int calendar=0x7f0a0047;
-        public static final int calendar_day_gridcell=0x7f0a0091;
-        public static final int calendarheader=0x7f0a0046;
-        public static final int checkbox=0x7f0a002b;
+        public static final int buttonLogin=0x7f0a004c;
+        public static final int buttonLoginScreen=0x7f0a0055;
+        public static final int buttonRegister=0x7f0a0054;
+        public static final int buttonRegisterScreen=0x7f0a004d;
+        public static final int buttonUpdateUser=0x7f0a008b;
+        public static final int buttonlayout=0x7f0a0041;
+        public static final int calendar=0x7f0a0046;
+        public static final int calendar_day_gridcell=0x7f0a0090;
+        public static final int calendarheader=0x7f0a0045;
+        public static final int checkbox=0x7f0a0029;
         public static final int collapseActionView=0x7f0a0015;
-        public static final int content_frame=0x7f0a0058;
-        public static final int currentMonth=0x7f0a0044;
-        public static final int dagur=0x7f0a0062;
-        public static final int date=0x7f0a007b;
-        public static final int date_label=0x7f0a007a;
-        public static final int decor_content_parent=0x7f0a0031;
-        public static final int default_activity_button=0x7f0a0026;
+        public static final int content_frame=0x7f0a0057;
+        public static final int currentMonth=0x7f0a0043;
+        public static final int dagur=0x7f0a0061;
+        public static final int date=0x7f0a007a;
+        public static final int date_label=0x7f0a0079;
+        public static final int decor_content_parent=0x7f0a002f;
+        public static final int default_activity_button=0x7f0a0024;
         public static final int dialog=0x7f0a0019;
         public static final int disableHome=0x7f0a000d;
-        public static final int drawer_layout=0x7f0a0057;
+        public static final int drawer_layout=0x7f0a0056;
         public static final int dropdown=0x7f0a001a;
-        public static final int edit_query=0x7f0a0035;
-        public static final int employee=0x7f0a0074;
+        public static final int edit_query=0x7f0a0033;
+        public static final int employee=0x7f0a0073;
         public static final int end=0x7f0a001c;
-        public static final int expand_activities_button=0x7f0a0024;
-        public static final int expanded_menu=0x7f0a002a;
-        public static final int grid=0x7f0a005f;
-        public static final int hafa_samband=0x7f0a0083;
-        public static final int harlengd=0x7f0a0079;
-        public static final int harlengdSpinner=0x7f0a006b;
-        public static final int harlengd_text=0x7f0a006a;
-        public static final int headline=0x7f0a005e;
-        public static final int height=0x7f0a0078;
+        public static final int expand_activities_button=0x7f0a0022;
+        public static final int expanded_menu=0x7f0a0028;
+        public static final int grid=0x7f0a005e;
+        public static final int hafa_samband=0x7f0a0082;
+        public static final int harlengd=0x7f0a0078;
+        public static final int harlengdSpinner=0x7f0a006a;
+        public static final int harlengd_text=0x7f0a0069;
+        public static final int headline=0x7f0a005d;
+        public static final int height=0x7f0a0077;
         public static final int home=0x7f0a0000;
         public static final int homeAsUp=0x7f0a000e;
-        public static final int icon=0x7f0a0028;
+        public static final int icon=0x7f0a0026;
         public static final int ifRoom=0x7f0a0016;
-        public static final int image=0x7f0a0025;
-        public static final int imageMinarPantanir=0x7f0a005d;
-        public static final int imageView1=0x7f0a0049;
-        public static final int left_drawer=0x7f0a0059;
-        public static final int linearLayout1=0x7f0a0065;
+        public static final int image=0x7f0a0023;
+        public static final int imageMinarPantanir=0x7f0a005c;
+        public static final int imageView1=0x7f0a0048;
+        public static final int left_drawer=0x7f0a0058;
+        public static final int linearLayout1=0x7f0a0064;
         public static final int listMode=0x7f0a000a;
-        public static final int list_item=0x7f0a0027;
-        public static final int loginEmail=0x7f0a004a;
-        public static final int loginError=0x7f0a004c;
-        public static final int loginPassword=0x7f0a004b;
-        public static final int mainListView=0x7f0a005a;
-        public static final int manudur=0x7f0a0061;
+        public static final int list_item=0x7f0a0025;
+        public static final int loginEmail=0x7f0a0049;
+        public static final int loginError=0x7f0a004b;
+        public static final int loginPassword=0x7f0a004a;
+        public static final int mainListView=0x7f0a0059;
+        public static final int manudur=0x7f0a0060;
         public static final int middle=0x7f0a001d;
-        public static final int mittSvaedi=0x7f0a008d;
-        public static final int nafn=0x7f0a0072;
-        public static final int name=0x7f0a007e;
+        public static final int mittSvaedi=0x7f0a008c;
+        public static final int nafn=0x7f0a0071;
+        public static final int name=0x7f0a007d;
         public static final int never=0x7f0a0017;
         public static final int next=0x7f0a006c;
-        public static final int nextMonth=0x7f0a0045;
+        public static final int nextMonth=0x7f0a0044;
         public static final int none=0x7f0a000f;
         public static final int normal=0x7f0a000b;
-        public static final int num_events_per_day=0x7f0a0092;
-        public static final int panta=0x7f0a0080;
-        public static final int prevMonth=0x7f0a0043;
+        public static final int num_events_per_day=0x7f0a0091;
+        public static final int panta=0x7f0a007f;
+        public static final int prevMonth=0x7f0a0042;
         public static final int progress_circular=0x7f0a0007;
         public static final int progress_horizontal=0x7f0a0008;
-        public static final int radio=0x7f0a002d;
-        public static final int registerEmail=0x7f0a0050;
-        public static final int registerError=0x7f0a0054;
-        public static final int registerName=0x7f0a004f;
-        public static final int registerPassword=0x7f0a0052;
-        public static final int registerPasswordRepeat=0x7f0a0053;
-        public static final int registerPhone=0x7f0a0051;
-        public static final int rowTextView=0x7f0a0090;
-        public static final int scrollview=0x7f0a0048;
-        public static final int search_badge=0x7f0a0037;
-        public static final int search_bar=0x7f0a0036;
-        public static final int search_button=0x7f0a0038;
-        public static final int search_close_btn=0x7f0a003d;
-        public static final int search_edit_frame=0x7f0a0039;
-        public static final int search_go_btn=0x7f0a003f;
-        public static final int search_mag_icon=0x7f0a003a;
-        public static final int search_plate=0x7f0a003b;
-        public static final int search_src_text=0x7f0a003c;
-        public static final int search_voice_btn=0x7f0a0040;
-        public static final int settings=0x7f0a0093;
-        public static final int shortcut=0x7f0a002c;
+        public static final int radio=0x7f0a002b;
+        public static final int registerEmail=0x7f0a004f;
+        public static final int registerError=0x7f0a0053;
+        public static final int registerName=0x7f0a004e;
+        public static final int registerPassword=0x7f0a0051;
+        public static final int registerPasswordRepeat=0x7f0a0052;
+        public static final int registerPhone=0x7f0a0050;
+        public static final int rowTextView=0x7f0a008f;
+        public static final int scrollview=0x7f0a0047;
+        public static final int search_badge=0x7f0a0035;
+        public static final int search_bar=0x7f0a0034;
+        public static final int search_button=0x7f0a0036;
+        public static final int search_close_btn=0x7f0a003b;
+        public static final int search_edit_frame=0x7f0a0037;
+        public static final int search_go_btn=0x7f0a003d;
+        public static final int search_mag_icon=0x7f0a0038;
+        public static final int search_plate=0x7f0a0039;
+        public static final int search_src_text=0x7f0a003a;
+        public static final int search_voice_btn=0x7f0a003e;
+        public static final int settings=0x7f0a0092;
+        public static final int shortcut=0x7f0a002a;
         public static final int showCustom=0x7f0a0010;
         public static final int showHome=0x7f0a0011;
         public static final int showTitle=0x7f0a0012;
-        public static final int sidasta_pontun=0x7f0a005c;
-        public static final int simi=0x7f0a0071;
+        public static final int sidasta_pontun=0x7f0a005b;
+        public static final int simi=0x7f0a0070;
+        public static final int skref1_text=0x7f0a006b;
         public static final int split_action_bar=0x7f0a0004;
-        public static final int stadfestingBokunar=0x7f0a007f;
-        public static final int stadsetning=0x7f0a0082;
-        public static final int staff_text=0x7f0a0066;
-        public static final int starfsmadur=0x7f0a0075;
-        public static final int starfsmennSpinner=0x7f0a0067;
-        public static final int submit_area=0x7f0a003e;
+        public static final int stadfestingBokunar=0x7f0a007e;
+        public static final int stadsetning=0x7f0a0081;
+        public static final int staff_text=0x7f0a0065;
+        public static final int starfsmadur=0x7f0a0074;
+        public static final int starfsmennSpinner=0x7f0a0066;
+        public static final int submit_area=0x7f0a003c;
         public static final int tabMode=0x7f0a000c;
-        public static final int telephone=0x7f0a0073;
-        public static final int texti=0x7f0a0060;
-        public static final int tilbodListView=0x7f0a0081;
-        public static final int time=0x7f0a007d;
-        public static final int time_label=0x7f0a007c;
-        public static final int timi=0x7f0a006f;
-        public static final int timi_text=0x7f0a006e;
-        public static final int title=0x7f0a0029;
-        public static final int top=0x7f0a001f;
-        public static final int txt=0x7f0a008f;
-        public static final int type=0x7f0a0076;
+        public static final int telephone=0x7f0a0072;
+        public static final int textView1=0x7f0a0040;
+        public static final int texti=0x7f0a005f;
+        public static final int tilbodListView=0x7f0a0080;
+        public static final int time=0x7f0a007c;
+        public static final int time_label=0x7f0a007b;
+        public static final int timi=0x7f0a006e;
+        public static final int title=0x7f0a0027;
+        public static final int txt=0x7f0a008e;
+        public static final int type=0x7f0a0075;
         public static final int up=0x7f0a0001;
-        public static final int updateError=0x7f0a008b;
-        public static final int updateUserInfo=0x7f0a0084;
+        public static final int updateError=0x7f0a008a;
+        public static final int updateUserInfo=0x7f0a0083;
         public static final int useLogo=0x7f0a0013;
-        public static final int userEmail=0x7f0a0086;
-        public static final int userName=0x7f0a0085;
-        public static final int userOldPassword=0x7f0a0088;
-        public static final int userPassword=0x7f0a0089;
-        public static final int userPasswordRepeat=0x7f0a008a;
-        public static final int userPhone=0x7f0a0087;
-        public static final int verdlistiListView=0x7f0a008e;
+        public static final int userEmail=0x7f0a0085;
+        public static final int userName=0x7f0a0084;
+        public static final int userOldPassword=0x7f0a0087;
+        public static final int userPassword=0x7f0a0088;
+        public static final int userPasswordRepeat=0x7f0a0089;
+        public static final int userPhone=0x7f0a0086;
+        public static final int verdlistiListView=0x7f0a008d;
         public static final int withText=0x7f0a0018;
         public static final int wrap_content=0x7f0a0009;
     }
@@ -1942,13 +1951,13 @@ containing a value of this type.
          %1$s is the title. %2$s is the description of what tapping/clicking the whole
          thing is going to do. 
          */
-        public static final int abc_action_bar_home_description_format=0x7f0b0004;
+        public static final int abc_action_bar_home_description_format=0x7f0b0005;
         /**  Just like action_bar_home_description_format, but this one will be used
          if the window is also providing subtitle text.
          %1$s is the title. %2$s is the subtitle. %3$s is the description of what
          tapping/clicking the whole thing is going to do. 
          */
-        public static final int abc_action_bar_home_subtitle_description_format=0x7f0b0005;
+        public static final int abc_action_bar_home_subtitle_description_format=0x7f0b0006;
         /**  Content description for the action bar "up" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_up_description=0x7f0b0002;
@@ -1960,112 +1969,116 @@ containing a value of this type.
         public static final int abc_action_mode_done=0x7f0b0000;
         /**  Title for a button to expand the list of activities in ActivityChooserView [CHAR LIMIT=25] 
          */
-        public static final int abc_activity_chooser_view_see_all=0x7f0b000c;
+        public static final int abc_activity_chooser_view_see_all=0x7f0b000d;
         /**  ActivityChooserView - accessibility support 
  Description of the shwoing of a popup window with activities to choose from. [CHAR LIMIT=NONE] 
          */
-        public static final int abc_activitychooserview_choose_application=0x7f0b000b;
+        public static final int abc_activitychooserview_choose_application=0x7f0b000c;
         /**  SearchView accessibility description for clear button [CHAR LIMIT=NONE] 
          */
-        public static final int abc_searchview_description_clear=0x7f0b0008;
+        public static final int abc_searchview_description_clear=0x7f0b0009;
         /**  SearchView accessibility description for search text field [CHAR LIMIT=NONE] 
          */
-        public static final int abc_searchview_description_query=0x7f0b0007;
+        public static final int abc_searchview_description_query=0x7f0b0008;
         /**  SearchView accessibility description for search button [CHAR LIMIT=NONE] 
          */
-        public static final int abc_searchview_description_search=0x7f0b0006;
+        public static final int abc_searchview_description_search=0x7f0b0007;
         /**  SearchView accessibility description for submit button [CHAR LIMIT=NONE] 
          */
-        public static final int abc_searchview_description_submit=0x7f0b0009;
+        public static final int abc_searchview_description_submit=0x7f0b000a;
         /**  SearchView accessibility description for voice button [CHAR LIMIT=NONE] 
          */
-        public static final int abc_searchview_description_voice=0x7f0b000a;
+        public static final int abc_searchview_description_voice=0x7f0b000b;
         /**  Description of the choose target button in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
-        public static final int abc_shareactionprovider_share_with=0x7f0b000e;
+        public static final int abc_shareactionprovider_share_with=0x7f0b000f;
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
-        public static final int abc_shareactionprovider_share_with_application=0x7f0b000d;
-        public static final int action_settings=0x7f0b0057;
-        public static final int adgerd_prompt=0x7f0b001c;
-        public static final int afpanta=0x7f0b0052;
-        public static final int afram=0x7f0b0013;
-        public static final int allar_pantanir=0x7f0b002d;
-        public static final int app_name=0x7f0b000f;
-        public static final int buttonUpdateUser=0x7f0b0051;
-        public static final int button_Skref3_stadfesta=0x7f0b0039;
-        public static final int button_Skref3_tilBaka=0x7f0b0038;
-        public static final int dagur=0x7f0b0021;
-        public static final int email=0x7f0b003e;
-        public static final int folkmedhar=0x7f0b0010;
-        public static final int fullname=0x7f0b0044;
-        public static final int hafa_samband=0x7f0b002a;
-        public static final int harlengd_prompt=0x7f0b001d;
-        public static final int hello_world=0x7f0b0011;
-        public static final int hintEmail=0x7f0b0059;
-        public static final int hintName=0x7f0b005a;
-        public static final int hintPassword=0x7f0b0058;
-        public static final int hintPasswordRepeat=0x7f0b005c;
-        public static final int hintPhone=0x7f0b005b;
-        public static final int hintUpdatePassword=0x7f0b005d;
-        public static final int hintUpdatePasswordRepeat=0x7f0b005e;
-        public static final int login=0x7f0b0040;
-        public static final int loginScreen=0x7f0b0042;
-        public static final int logout=0x7f0b0046;
-        public static final int mittSvaedi=0x7f0b0019;
-        public static final int nyskraning=0x7f0b0043;
-        public static final int panta=0x7f0b0018;
-        public static final int password=0x7f0b003f;
-        public static final int passwordRepeat=0x7f0b0054;
-        public static final int phone=0x7f0b0045;
-        public static final int pick_date=0x7f0b001f;
-        public static final int registerScreen=0x7f0b0041;
-        public static final int sidasta_pontun=0x7f0b002e;
-        public static final int sidasta_pontun_fyrirsogn=0x7f0b0025;
-        public static final int skref1_info=0x7f0b001b;
-        public static final int skref2_info=0x7f0b0023;
-        public static final int stadsetning=0x7f0b0029;
-        public static final int staff=0x7f0b002b;
-        public static final int starfsmenn_prompt=0x7f0b001a;
-        public static final int stillingar=0x7f0b0016;
-        public static final int textUpdateInfo=0x7f0b004b;
-        public static final int textview_Skref3_adgerd=0x7f0b0033;
-        public static final int textview_Skref3_dagsetning=0x7f0b0035;
-        public static final int textview_Skref3_harlengd=0x7f0b0034;
-        public static final int textview_Skref3_nafn=0x7f0b0030;
-        public static final int textview_Skref3_simi=0x7f0b0031;
-        public static final int textview_Skref3_starfsmadur=0x7f0b0032;
-        public static final int textview_Skref3_timi=0x7f0b0036;
-        public static final int textview_stadfestingBokunar=0x7f0b0037;
-        public static final int tilbaka=0x7f0b0012;
-        public static final int tilbod1=0x7f0b003c;
-        public static final int tilbod2=0x7f0b003d;
-        public static final int timi_prompt=0x7f0b0020;
-        public static final int timi_text=0x7f0b0022;
-        public static final int title_activity_allar_pantanir=0x7f0b0027;
-        public static final int title_activity_bokun=0x7f0b003a;
-        public static final int title_activity_connection=0x7f0b0056;
-        public static final int title_activity_drasl=0x7f0b0047;
-        public static final int title_activity_login=0x7f0b0014;
-        public static final int title_activity_mitt_svaedi=0x7f0b0026;
-        public static final int title_activity_register=0x7f0b0015;
-        public static final int title_activity_sidasta_pontun=0x7f0b0024;
-        public static final int title_activity_skref1=0x7f0b0048;
-        public static final int title_activity_skref2=0x7f0b001e;
-        public static final int title_activity_skref3=0x7f0b002f;
-        public static final int title_activity_starfsfolk=0x7f0b002c;
-        public static final int title_activity_step1=0x7f0b0017;
-        public static final int title_activity_tilbod=0x7f0b003b;
-        public static final int title_activity_um_stofuna=0x7f0b0028;
-        public static final int title_activity_update_user=0x7f0b004a;
-        public static final int title_activity_upphafsskjar=0x7f0b0049;
-        public static final int title_fragment_verdlisti=0x7f0b0053;
-        public static final int userEmail=0x7f0b004d;
-        public static final int userName=0x7f0b004c;
-        public static final int userOldPassword=0x7f0b004f;
-        public static final int userPassword=0x7f0b0050;
-        public static final int userPasswordRepeat=0x7f0b0055;
-        public static final int userPhone=0x7f0b004e;
+        public static final int abc_shareactionprovider_share_with_application=0x7f0b000e;
+        /**  Content description for the Toolbar icon used to collapse an expanded action mode. [CHAR LIMIT=NONE] 
+         */
+        public static final int abc_toolbar_collapse_description=0x7f0b0004;
+        public static final int action_settings=0x7f0b0058;
+        public static final int adgerd_prompt=0x7f0b001d;
+        public static final int afpanta=0x7f0b0053;
+        public static final int afram=0x7f0b0014;
+        public static final int allar_pantanir=0x7f0b002e;
+        public static final int app_name=0x7f0b0010;
+        public static final int buttonUpdateUser=0x7f0b0052;
+        public static final int button_Skref3_stadfesta=0x7f0b003a;
+        public static final int button_Skref3_tilBaka=0x7f0b0039;
+        public static final int dagur=0x7f0b0022;
+        public static final int email=0x7f0b003f;
+        public static final int folkmedhar=0x7f0b0011;
+        public static final int fullname=0x7f0b0045;
+        public static final int hafa_samband=0x7f0b002b;
+        public static final int harlengd_prompt=0x7f0b001e;
+        public static final int hello_world=0x7f0b0012;
+        public static final int hintEmail=0x7f0b005a;
+        public static final int hintName=0x7f0b005b;
+        public static final int hintPassword=0x7f0b0059;
+        public static final int hintPasswordRepeat=0x7f0b005d;
+        public static final int hintPhone=0x7f0b005c;
+        public static final int hintUpdatePassword=0x7f0b005e;
+        public static final int hintUpdatePasswordRepeat=0x7f0b005f;
+        public static final int login=0x7f0b0041;
+        public static final int loginScreen=0x7f0b0043;
+        public static final int logout=0x7f0b0047;
+        public static final int mittSvaedi=0x7f0b001a;
+        public static final int nyskraning=0x7f0b0044;
+        public static final int panta=0x7f0b0019;
+        public static final int password=0x7f0b0040;
+        public static final int passwordRepeat=0x7f0b0055;
+        public static final int phone=0x7f0b0046;
+        public static final int pick_date=0x7f0b0020;
+        public static final int registerScreen=0x7f0b0042;
+        public static final int sidasta_pontun=0x7f0b002f;
+        public static final int sidasta_pontun_fyrirsogn=0x7f0b0026;
+        public static final int skref1_info=0x7f0b001c;
+        public static final int skref2_info=0x7f0b0024;
+        public static final int stadsetning=0x7f0b002a;
+        public static final int staff=0x7f0b002c;
+        public static final int starfsmenn_prompt=0x7f0b001b;
+        public static final int stillingar=0x7f0b0017;
+        public static final int textUpdateInfo=0x7f0b004c;
+        public static final int textview_Skref3_adgerd=0x7f0b0034;
+        public static final int textview_Skref3_dagsetning=0x7f0b0036;
+        public static final int textview_Skref3_harlengd=0x7f0b0035;
+        public static final int textview_Skref3_nafn=0x7f0b0031;
+        public static final int textview_Skref3_simi=0x7f0b0032;
+        public static final int textview_Skref3_starfsmadur=0x7f0b0033;
+        public static final int textview_Skref3_timi=0x7f0b0037;
+        public static final int textview_stadfestingBokunar=0x7f0b0038;
+        public static final int tilbaka=0x7f0b0013;
+        public static final int tilbod1=0x7f0b003d;
+        public static final int tilbod2=0x7f0b003e;
+        public static final int timi_prompt=0x7f0b0021;
+        public static final int timi_text=0x7f0b0023;
+        public static final int title_activity_allar_pantanir=0x7f0b0028;
+        public static final int title_activity_bokun=0x7f0b003b;
+        public static final int title_activity_calendar=0x7f0b0060;
+        public static final int title_activity_connection=0x7f0b0057;
+        public static final int title_activity_drasl=0x7f0b0048;
+        public static final int title_activity_login=0x7f0b0015;
+        public static final int title_activity_mitt_svaedi=0x7f0b0027;
+        public static final int title_activity_register=0x7f0b0016;
+        public static final int title_activity_sidasta_pontun=0x7f0b0025;
+        public static final int title_activity_skref1=0x7f0b0049;
+        public static final int title_activity_skref2=0x7f0b001f;
+        public static final int title_activity_skref3=0x7f0b0030;
+        public static final int title_activity_starfsfolk=0x7f0b002d;
+        public static final int title_activity_step1=0x7f0b0018;
+        public static final int title_activity_tilbod=0x7f0b003c;
+        public static final int title_activity_um_stofuna=0x7f0b0029;
+        public static final int title_activity_update_user=0x7f0b004b;
+        public static final int title_activity_upphafsskjar=0x7f0b004a;
+        public static final int title_fragment_verdlisti=0x7f0b0054;
+        public static final int userEmail=0x7f0b004e;
+        public static final int userName=0x7f0b004d;
+        public static final int userOldPassword=0x7f0b0050;
+        public static final int userPassword=0x7f0b0051;
+        public static final int userPasswordRepeat=0x7f0b0056;
+        public static final int userPhone=0x7f0b004f;
     }
     public static final class style {
         public static final int Base_TextAppearance_AppCompat=0x7f0c0098;
@@ -5959,8 +5972,8 @@ containing a value of this type.
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #Toolbar_android_gravity android:gravity}</code></td><td></td></tr>
            <tr><td><code>{@link #Toolbar_android_minHeight android:minHeight}</code></td><td> Allows us to read in the minHeight attr pre-v16 </td></tr>
-           <tr><td><code>{@link #Toolbar_buttonGravity com.example.folkmedhar:buttonGravity}</code></td><td></td></tr>
-           <tr><td><code>{@link #Toolbar_collapseIcon com.example.folkmedhar:collapseIcon}</code></td><td></td></tr>
+           <tr><td><code>{@link #Toolbar_collapseContentDescription com.example.folkmedhar:collapseContentDescription}</code></td><td> Text to set as the content description for the collapse button.</td></tr>
+           <tr><td><code>{@link #Toolbar_collapseIcon com.example.folkmedhar:collapseIcon}</code></td><td> Icon drawable to use for the collapse button.</td></tr>
            <tr><td><code>{@link #Toolbar_contentInsetEnd com.example.folkmedhar:contentInsetEnd}</code></td><td> Minimum inset for content views within a bar.</td></tr>
            <tr><td><code>{@link #Toolbar_contentInsetLeft com.example.folkmedhar:contentInsetLeft}</code></td><td> Minimum inset for content views within a bar.</td></tr>
            <tr><td><code>{@link #Toolbar_contentInsetRight com.example.folkmedhar:contentInsetRight}</code></td><td> Minimum inset for content views within a bar.</td></tr>
@@ -5985,7 +5998,7 @@ containing a value of this type.
            </table>
            @see #Toolbar_android_gravity
            @see #Toolbar_android_minHeight
-           @see #Toolbar_buttonGravity
+           @see #Toolbar_collapseContentDescription
            @see #Toolbar_collapseIcon
            @see #Toolbar_contentInsetEnd
            @see #Toolbar_contentInsetLeft
@@ -6030,32 +6043,33 @@ containing a value of this type.
         */
         public static final int Toolbar_android_minHeight = 1;
         /**
-          <p>This symbol is the offset where the {@link com.example.folkmedhar.R.attr#buttonGravity}
-          attribute's value can be found in the {@link #Toolbar} array.
+          <p>
+          @attr description
+           Text to set as the content description for the collapse button. 
 
 
-          <p>Must be one or more (separated by '|') of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>top</code></td><td>0x30</td><td> Push object to the top of its container, not changing its size. </td></tr>
-<tr><td><code>bottom</code></td><td>0x50</td><td> Push object to the bottom of its container, not changing its size. </td></tr>
-</table>
-          @attr name com.example.folkmedhar:buttonGravity
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.example.folkmedhar:collapseContentDescription
         */
-        public static final int Toolbar_buttonGravity = 18;
+        public static final int Toolbar_collapseContentDescription = 19;
         /**
-          <p>This symbol is the offset where the {@link com.example.folkmedhar.R.attr#collapseIcon}
-          attribute's value can be found in the {@link #Toolbar} array.
+          <p>
+          @attr description
+           Icon drawable to use for the collapse button. 
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
           @attr name com.example.folkmedhar:collapseIcon
         */
-        public static final int Toolbar_collapseIcon = 19;
+        public static final int Toolbar_collapseIcon = 18;
         /**
           <p>
           @attr description

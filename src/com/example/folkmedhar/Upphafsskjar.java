@@ -6,15 +6,15 @@
 
 package com.example.folkmedhar;
 
-import android.support.v4.app.Fragment;
-
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.folkmedhar.pantanir.FerlaBokun;
 import com.example.folkmedhar.pantanir.MinarPantanir;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 
@@ -22,8 +22,8 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 public class Upphafsskjar extends Fragment implements  android.view.View.OnClickListener {
 	
 	// Viðmótshlutir
-	Button buttonPantaTima;
-	Button buttonMittSvaedi;
+	private Button buttonPantaTima;
+	private Button buttonMittSvaedi;
 	
 	private View rootView;
 	
@@ -31,7 +31,7 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 	 * Nýtt fragment er búið til fyrir upphafsskjá
 	 */
 	public Upphafsskjar() {
-		if(MainActivity.getBokudPontun()) {
+		if(FerlaBokun.getBokudPontun()) {
 			clearBackStack(); // Svo að ekki sé hægt að fara aftur
 							  // til baka í síðasta skref pöntunarferlisins eftir bókun	
 		}
@@ -46,9 +46,6 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_upphafsskjar,
 				container, false);
-		
-		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		//text.setText(R.string.title_activity_upphafsskjar);
 		
 		setVidmotshlutir();
 		
@@ -98,7 +95,7 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 	 */
 	private void clearBackStack() {
 		MainActivity.getFM().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		MainActivity.setBokudPontun(false); // Bara hreinsa „backstack" ef síðasta fragmentið er síðasta
+		FerlaBokun.setBokudPontun(false); // Bara hreinsa „backstack" ef síðasta fragmentið er síðasta
 										    // skref bókunarferlisins
 	}
 }

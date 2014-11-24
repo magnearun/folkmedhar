@@ -18,11 +18,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +42,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private View rootView;
 	private static Context context;
 	
-    private static String url_saekja_lausa_tima = "http://peoplewithhair.freevar.com/saekja_bokada_tima.php";
 
 	// Viðmótshlutir
 	private Button buttonAfram, buttonDagur;
@@ -96,7 +95,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	@Override
 	public void onClick(View view) {
 		if (Connection.isOnline(getActivity())) {
-			Fragment fragment = null;
 		    switch (view.getId()) {
 			    case R.id.buttonDagur:
 			    	Intent i = new Intent(getActivity(), CalendarActivity.class);
@@ -137,7 +135,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
      */
 	private void updateVidmotshlutir() {
 		
-		String date = MainActivity.getStringDate();
+		String date = FerlaBokun.getStringDate();
 		// Dagsetning hefur áður verið valin
 		if(date!=null) {
 			buttonDagur.setText(date);
@@ -151,9 +149,9 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * Sýnir valinn dag á takka og kallar á aðferð sem sækir bókaða tíma fyrir hann
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(!(MainActivity.getStringDate()==null)) {
+		if(!(FerlaBokun.getStringDate()==null)) {
 			new BokadirTimar().execute();
-			buttonDagur.setText(MainActivity.getStringDate());
+			buttonDagur.setText(FerlaBokun.getStringDate());
 		}	
 	}
 	
@@ -185,8 +183,9 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		 */
 		protected String doInBackground(String... args) {
 
-			String dagur = MainActivity.getDate();
-			String staff_id = MainActivity.getStaffId();
+			String url_saekja_lausa_tima = "http://peoplewithhair.freevar.com/saekja_bokada_tima.php";
+			String dagur = FerlaBokun.getDate();
+			String staff_id = FerlaBokun.getStaffId();
 			
 			int success;
 			

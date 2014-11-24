@@ -7,28 +7,19 @@
 package com.example.folkmedhar;
 
 
-//import com.cengalabs.flatui.FlatUI;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.app.*;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.appcompat.*;
-import android.support.v7.widget.Toolbar;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-//import android.app.Fragment;
-//import android.app.FragmentManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-//import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,28 +37,11 @@ import android.widget.Toast;
 import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UpdateUser;
 import com.example.folkmedhar.notendur.UserFunctions;
+import com.example.folkmedhar.pantanir.FerlaBokun;
 import com.example.folkmedhar.pantanir.MinarPantanir;
 import com.example.folkmedhar.pantanir.bokun.Skref1;
 
 @SuppressLint("InflateParams") public class MainActivity extends ActionBarActivity {
-	
-	// Upplýsingar um bókun
-	private static String nafn, simi, adgerd, harlengd, email;
-		
-	// Tímasetning pöntunar
-	// dagur er á forminu "26-11-2014", date á forminu "2014-11-26" og
-	// startDate og endDate á forminu "2014-11-26 09:00"
-	private static  String time, dagur, lengd, date, startDate, endDate;
-	
-	// Upplýsingar um starfsmann
-	private static String staff_id, starfsmadur;
-	
-	// Staðsetning vals í Spinner viðmótshlut
-	private static int starfsmadurPos, adgerdPos, harlengdPos;
-	
-	// Breytan er notuð til að halda utan hvort pöntun hafi verið
-    // bókuð rétt áður en ýtt er á "back" takkann
-	private static boolean bokudPontun;
 		
 	private Intent intent;
 	
@@ -82,7 +56,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	
 	private static FragmentManager fragmentManager;
 	private static ProgressDialog pDialog;
-	public static int success;
+	private static Context baseContext;
 	
     @Override
     /**
@@ -91,22 +65,14 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // Uppfæra upplýsingar um notanda
-     	nafn = UserFunctions.userName(this.getBaseContext());
-     	simi = UserFunctions.userPhone(this.getBaseContext());
-     	email = UserFunctions.userEmail(this.getBaseContext());
 
-        intent = new Intent(this, LoginActivity.class);
-              
-        UserFunctions userFunction = new UserFunctions();
         fragmentManager = getSupportFragmentManager();
         pDialog = new ProgressDialog(this);
+        baseContext = this.getBaseContext();
+        intent = new Intent(this, LoginActivity.class);
+        new FerlaBokun();
         
-        
-        bokudPontun = false;
-        time = "";
-        
+        UserFunctions userFunction = new UserFunctions();
         // Notandinn er skráður inn
         if(userFunction.isUserLoggedIn(getApplicationContext())) {
         	setContentView(R.layout.activity_main);
@@ -124,20 +90,21 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         
         // Notandinn er ekki innskráður
         }else {
-        	 startActivity(intent); // Birta skjá fyrir innskráningu
-             finish();
+        	startActivity(intent); // Birta skjá fyrir innskráningu
+            finish();
              }
         }
 
     /**
      * Býr til nýjan „custom“ ActionBar 
      */
-    private void setActionBar() {
+    public void setActionBar() {
     	ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
         actionbar.setCustomView(R.layout.actionbar);
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        
+        actionbar.setDisplayShowCustomEnabled(true);
+        actionbar.setDisplayUseLogoEnabled(true);
+        actionbar.setDisplayShowHomeEnabled(true);
+        actionbar.setDisplayHomeAsUpEnabled(true);  
     }
     
     /**
@@ -146,7 +113,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
      */
     private void setNavigationDrawer() {
     	
-    	// „Hack“ til að fá ActionBar til að færast með conteninu til hliðar
+    	// „Hack“ til að fá ActionBar til að færast með contentinu til hliðar
     	LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         drawerLayout = (DrawerLayout) inflater.inflate(R.layout.decor,null);
         decor = (ViewGroup) getWindow().getDecorView();
@@ -167,7 +134,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
        
         drawerToggle = new ActionBarDrawerToggle(
                 this,                 
-                drawerLayout,       
+                drawerLayout,  
                 R.string.app_name,  
                 R.string.app_name 
                 ) {
@@ -211,7 +178,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
     /**
 	  * Notandi hefur verið skráður út og login síða birt 
 	  */
-	 public void logout() {
+	 private void logout() {
 		 UserFunctions userFunction = new UserFunctions();
 		 userFunction.logoutUser(getApplicationContext());
 		 startActivity(intent);
@@ -269,7 +236,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
     	        		 break;
     	        	}
     	        	else {
-    	        		
+    	        		showToast("Engin nettenging!",this);
     	        		return;
     	        	}
     	        case 2:
@@ -351,247 +318,6 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	}
 	
 	/**
-	 * Skilar nafni notandans
-	 * @return String
-	 */
-	public static String getName() {
-		return nafn;
-	}
-	/**
-	 * Skilar síma notandans
-	 * @return String
-	 */
-	public static String getSimi() {
-		return simi;
-	}
-	/**
-	 * Skilar netfangi notandans
-	 * @return String
-	 */
-	public static String getEmail() {
-		return email;
-	}
-	
-	/**
-	 * Gefur breytunni sem heldur utan um tíma bókunar gildi
-	 * @param t
-	 */
-	public static void setTime(String t) {
-		time = t;
-	}
-	
-	/**
-	 * Skilar gildi breytu sem heldur utan um tíma bókunar gildi
-	 * @return String
-	 */
-	public static String getTime() {
-		return time;
-	}
-	
-	/**
-	 * Gefur breytunum sem halda utan um dagsetningu bókunar
-	 * gildi
-	 * @param b
-	 * @param e
-	 */
-	public static void setStartEndDate(String b, String e) {
-		startDate = b;
-		endDate = e;
-	}
-	
-	/**
-	 * Skilar dagsetningu bókunar á forminu "2014-11-17"
-	 * @return
-	 */
-	public static String getDate() {
-		return date;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um dagsetningu bókunar á
-	 * forminu "2014-11-17" gildi
-	 * @param d
-	 */
-	public static void setDate(String d) {
-		date = d;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um dagsetningu bókunar á
-	 * forminu "17-11-2014" gildi
-	 * @param d
-	 */
-	public static void setStringDate(String d) {
-		dagur = d;
-	}
-	
-	/**
-	 * Skilar dagsetningu bókunar á forminu "17-11-2014"
-	 * @return String
-	 */
-	public static String getStringDate() {
-		return dagur;
-	}
-	
-	/**
-	 * Skilar byrjunar dagsetningu bókunar á forminu "2014-11-17 09:00"
-	 * @return String
-	 */
-	public static String getStartDate() {
-		return startDate;
-	}
-	
-	/**
-	 * Skilar enda dagsetningu bókunar á forminu "2014-11-17 09:00"
-	 * @return String
-	 */
-	public static String getEndDate() {
-		return endDate;
-	}
-	
-	/**
-	 * Skilar tímalengd aðgerðarinnar sem var valin
-	 * @return String
-	 */
-	public static String getLengd() {
-		return lengd;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um tímalengd 
-	 * aðgerðar gildi
-	 * @param l
-	 */
-	public static void setLengd(String l) {
-		lengd = l;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um hvaða starfsmaður 
-	 * var valinn gildi
-	 * @param s
-	 */
-	public static void setStarfsmadur(String s) {
-		starfsmadur = s;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um auðkenni valins stafsmanns
-	 * @param id
-	 */
-	public static void setStaffId(String id) {
-		staff_id = id;
-	}
-	
-	/**
-	 * Skilar gildi breytu sem heldur utan um auðkenni valins stafsmanns
-	 * @return String
-	 */
-	public static String getStaffId() {
-		return staff_id;
-	}
-	
-	/**
-	 * Skilar gildi breytu sem heldur utan um hvaða starfsmaður 
-	 * var valinn gildi
-	 * @return String
-	 */
-	public static String getStarfsmadur() {
-		return starfsmadur;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um hvaða aðgerð 
-	 * var valinn gildi
-	 * @param a
-	 */
-	public static void setAdgerd(String a) {
-		adgerd = a;
-	}
-	
-	/**
-	 * Skilar gildi breytu sem heldur utan um hvaða aðgerð
-	 * var valinn gildi
-	 * @return String
-	 */
-	public static String getAdgerd() {
-		return adgerd;
-	}
-		
-	/**
-	 * Skilar gildi breytu sem heldur utan um hvaða hárlengd
-	 * var valinn gildi
-	 * @return String
-	 */
-	public static String getHarlengd() {
-		return harlengd;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um hvaða hárlengd 
-	 * var valinn gildi
-	 * @param l
-	 */
-	public static void setHarlengd(String l) {
-		harlengd = l;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um staðsetningu valins 
-	 * stafsmanns í Spinner viðmótshlut
-	 * @param i
-	 */
-	public static void setStarfsmadurPos(int i) {
-		starfsmadurPos = i;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um staðsetningu valinnar 
-	 * aðgerðar í Spinner viðmótshlut
-	 * @param i
-	 */
-	public static void setAdgerdPos(int i) {
-		adgerdPos = i;
-	}
-	
-	/**
-	 * Gefur breytu sem heldur utan um staðsetningu valinnar 
-	 * hárlengdar í Spinner viðmótshlut
-	 * @param i
-	 */
-	public static void setHarlengdPos(int i) {
-		harlengdPos = i;
-	}
-	
-	
-	/**
-	 * Skilar gildi breytu sem heldur utan um staðsetningu valins 
-	 * stafsmanns í Spinner viðmótshlut
-	 * @return int
-	 */
-	public static int getStarfsmadurPos() {
-		return starfsmadurPos;
-	}
-	
-	/**
-	 * Skilar gildi breytu sem heldur utan um staðsetningu valinnar 
-	 * aðgerðar í Spinner viðmótshlut
-	 * @return int
-	 */
-	public static int getAdgerdPos() {
-		return adgerdPos;
-	}
-	
-	/**
-	 * Skilar gildi breytu sem heldur utan um staðsetningu valinnar 
-	 * hárlengdar í Spinner viðmótshlut
-	 * @return int
-	 */
-	public static int getHarlengdPos() {
-		return harlengdPos;
-	}
-	
-	/**
 	 * Skilar FragmentManager
 	 * @return
 	 */
@@ -599,68 +325,6 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 		return fragmentManager;
 	}
 	
-	/**
-	 * Gefur breytu sem heldur utan um hvort nýlega hafi verið bókuð pöntun
-	 * gildi
-	 * @param b
-	 */
-	public static void setBokudPontun(boolean b) {
-		bokudPontun = b;
-	}
-	
-	/**
-	 * /**
-	 * Skilar gildi breytu sem heldur utan um hvort nýlega hafi verið bókuð pöntun
-	 * @return boolean
-	 */
-	public static boolean getBokudPontun() {
-		return bokudPontun;
-	}
-	
-	
-	/**
-	 * Skilar nafni þess starfsmanns sem á auðkennið s
-	 * @param s
-	 * @return String
-	 */
-	public static String getStarfsmadur(String s) {
-		
-		String starfsmadur;
-		
-		switch(s) {
-			case "BOB": 
-				starfsmadur = "Bambi";
-				break;
-			
-			case "PIP" : 
-				starfsmadur = "Perla";
-				break;
-			
-			case "ODO" : 
-				starfsmadur = "Oddur";
-				break;
-			
-			case "MRV" : 
-				starfsmadur= "Magnea";
-				break;
-			
-			case "EDK" :
-				starfsmadur = "Eva";
-				break;
-			
-			case "BIP" : 
-				starfsmadur = "Birkir";
-				break;
-			
-			case "DOR" : 
-				starfsmadur = "Dagný";
-				break;
-			
-			default: starfsmadur = "Error";
-			
-		}
-		return starfsmadur;
-	}
 	
 	/**
 	 * Skilar hæðinni á Status bar símans
@@ -691,6 +355,14 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	 */
 	public static void hideDialog() {
 		pDialog.dismiss();
+	}
+	
+	/**
+	 * Skilar BaseContext
+	 * @return
+	 */
+	public static Context getContext() {
+		return baseContext;
 	}
 }
 

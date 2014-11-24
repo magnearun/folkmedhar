@@ -11,9 +11,9 @@
  */
 package com.example.folkmedhar.pantanir.bokun;
 
-import android.support.v4.app.Fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +23,8 @@ import android.widget.Spinner;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.FerlaBokun;
+
+
 
 
 
@@ -54,13 +56,8 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
 		rootView = inflater.inflate(R.layout.fragment_skref1,
 				container, false);
 
-		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		//text.setText(R.string.title_activity_step1);
-		
 		setVidmotshlutir();
-        
         updateVidmotshlutir();
-        
 		return rootView;
 	}
 	
@@ -100,9 +97,9 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
      */
     private void updateVidmotshlutir() {
     	
-    	starfsmadurSpinner.setSelection(MainActivity.getStarfsmadurPos());
-    	adgerdSpinner.setSelection(MainActivity.getAdgerdPos());
-    	harlengdSpinner.setSelection(MainActivity.getHarlengdPos());
+    	starfsmadurSpinner.setSelection(FerlaBokun.getStarfsmadurPos());
+    	adgerdSpinner.setSelection(FerlaBokun.getAdgerdPos());
+    	harlengdSpinner.setSelection(FerlaBokun.getHarlengdPos());
 
 	} 
 }

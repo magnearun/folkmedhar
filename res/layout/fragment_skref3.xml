@@ -21,12 +21,12 @@
 
     <TextView
         android:id="@+id/simi"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="38dp"
         android:layout_below="@+id/nafn"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/telephone"
-        android:textColor="@color/black"
+        android:textColor="@color/backgroundcolor"
         android:textSize="16sp" >
 
     </TextView>
@@ -34,7 +34,7 @@
     <TextView
         android:id="@+id/employee"
         style="@style/textviewStyle"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/telephone"
@@ -45,17 +45,17 @@
     <TextView
         android:id="@+id/starfsmadur"
         style="@style/textviewStyle"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="38dp"
         android:layout_below="@id/simi"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/employee"
-        android:textColor="@color/black" />
+        android:textColor="@color/backgroundcolor" />
 
     <TextView
         android:id="@+id/type"
         style="@style/textviewStyle"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/employee"
@@ -66,17 +66,17 @@
     <TextView
         android:id="@+id/adgerd"
         style="@style/textviewStyle"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="38dp"
         android:layout_below="@id/starfsmadur"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/type"
-        android:textColor="@color/black" />
+        android:textColor="@color/backgroundcolor" />
 
     <TextView
         android:id="@+id/height"
         style="@style/textviewStyle"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/type"
@@ -87,17 +87,17 @@
     <TextView
         android:id="@+id/harlengd"
         style="@style/textviewStyle"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="38dp"
         android:layout_below="@id/adgerd"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/height"
-        android:textColor="@color/black" />
+        android:textColor="@color/backgroundcolor" />
 
     <TextView
         android:id="@+id/date_label"
         style="@style/textviewStyle"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/height"
@@ -108,17 +108,17 @@
     <TextView
         android:id="@+id/date"
         style="@style/textviewStyle"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="38dp"
         android:layout_below="@id/harlengd"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/date_label"
-        android:textColor="@color/black" />
+        android:textColor="@color/backgroundcolor" />
 
     <TextView
         android:id="@+id/time_label"
         style="@style/textviewStyle"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/date_label"
@@ -129,18 +129,18 @@
     <TextView
         android:id="@+id/time"
         style="@style/textviewStyle"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="38dp"
         android:layout_alignBaseline="@+id/time_label"
         android:layout_alignBottom="@+id/time_label"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/time_label"
-        android:textColor="@color/black" />
+        android:textColor="@color/backgroundcolor" />
 
     <TextView
         android:id="@+id/name"
         style="@style/textviewStyle"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="110dp"
@@ -151,12 +151,12 @@
 
     <TextView
         android:id="@+id/nafn"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="38dp"
         android:layout_above="@+id/telephone"
         android:layout_alignLeft="@+id/simi"
         android:ems="10"
-        android:textColor="@color/black"
+        android:textColor="@color/backgroundcolor"
         android:textSize="16sp" >
 
     </TextView>
@@ -185,16 +185,16 @@
         android:layout_alignLeft="@+id/time_label"
         android:layout_alignRight="@+id/time"
         android:layout_below="@+id/time_label"
-        android:background="@color/login_button_background"
-        android:onClick="stadfesta"
         android:layout_marginTop="10dp"
+        android:background="@color/backgroundcolor"
+        android:onClick="stadfesta"
         android:text="@string/button_Skref3_stadfesta"
         android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/telephone"
         style="@style/textviewStyle"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_below="@+id/name"
         android:layout_marginTop="10dp"

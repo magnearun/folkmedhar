@@ -2,14 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
-    android:background="@color/background" >
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/folk_haus" />
 
     <LinearLayout
         android:id="@+id/buttonlayout"
         android:layout_width="fill_parent"
         android:layout_height="40sp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/topbar"
         android:gravity="center"
         android:height="60sp"
@@ -18,7 +26,7 @@
         <ImageView
             android:id="@+id/prevMonth"
             android:layout_width="20sp"
-            android:layout_height="fill_parent"
+            android:layout_height="15dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10sp"
             android:src="@drawable/calendar_left_arrow_selector" >
@@ -31,13 +39,13 @@
             android:layout_weight="0.6"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" >
+            android:textColor="@color/black" >
         </TextView>
 
         <ImageView
             android:id="@+id/nextMonth"
             android:layout_width="20sp"
-            android:layout_height="fill_parent"
+            android:layout_height="15dp"
             android:layout_gravity="center"
             android:layout_marginRight="10sp"
             android:src="@drawable/calendar_right_arrow_selector" >
@@ -62,8 +70,8 @@
         android:id="@+id/calendar"
         android:layout_width="fill_parent"
         android:layout_height="300dp"
+        android:background="@color/white"
         android:gravity="center"
-        android:background="@color/background"
         android:numColumns="7" >
 
     </GridView>

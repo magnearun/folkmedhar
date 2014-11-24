@@ -16,9 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +29,9 @@ import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
 public class AllarPantanir extends Fragment  {
-	
-	private JSONParser jsonParser = new JSONParser();
-	
+
 	private ListView mainListView ;  
 	private ArrayAdapter<String> listAdapter ; 
-	
-    private static String url_pantanir = "http://peoplewithhair.freevar.com/allarPantanir.php";
 
 	/**
 	 * Nýtt fragment er búið til fyrir allar pantanir notandans
@@ -52,16 +48,11 @@ public class AllarPantanir extends Fragment  {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_allar_pantanir,
 				container, false);
-		
-		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		//text.setText(R.string.title_activity_allar_pantanir);
-		
 		mainListView = (ListView) rootView.findViewById( R.id.mainListView ); 
         ArrayList<String> pantanir = new ArrayList<String>();  
         listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, pantanir);  
         
         new SaekjaAllarPantanir().execute();
-		
 		return rootView;
 	}
 	
@@ -73,7 +64,7 @@ public class AllarPantanir extends Fragment  {
      * til að ná í upplýsingar ýr MySQL gagnagrunni 
      * (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
-	class SaekjaAllarPantanir extends AsyncTask<String, String, String> {
+	private class SaekjaAllarPantanir extends AsyncTask<String, String, String> {
 		
 		@Override
 		/**
@@ -92,10 +83,10 @@ public class AllarPantanir extends Fragment  {
 		protected String doInBackground(String... args) {
 
 			int success;
-			
+			String url_pantanir = "http://peoplewithhair.freevar.com/allarPantanir.php";
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", MainActivity.getEmail()));
-			
+			params.add(new BasicNameValuePair("email", FerlaBokun.getEmail()));
+			JSONParser jsonParser = new JSONParser();
 			JSONObject json = jsonParser.makeHttpRequest(
 					url_pantanir, "GET", params);
 			
@@ -107,7 +98,7 @@ public class AllarPantanir extends Fragment  {
 					for(int i = 0; i < pantanir.length(); i++){
 						JSONObject pontun = pantanir.getJSONObject(i);
 						String staff_id = pontun.getString("staff_id");
-						String a = MainActivity.getStarfsmadur(staff_id);
+						String a = FerlaBokun.getStarfsmadur(staff_id);
 						listAdapter.add(pontun.getString("adgerd") + "\n" + 
 						"Starfsmadur: "+a + "\n" + pontun.getString("dagur")
 						+ "   Klukkan: "+ pontun.getString("time")); 

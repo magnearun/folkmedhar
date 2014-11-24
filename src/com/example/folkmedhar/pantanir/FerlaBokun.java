@@ -8,6 +8,7 @@ package com.example.folkmedhar.pantanir;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -15,17 +16,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import android.widget.Spinner;
 
 import com.example.folkmedhar.MainActivity;
+import com.example.folkmedhar.notendur.UserFunctions;
 import com.example.folkmedhar.pantanir.bokun.Bokadir;
 import com.example.folkmedhar.pantanir.bokun.BokadirLausir;
 import com.example.folkmedhar.pantanir.bokun.Lausir;
 import com.example.folkmedhar.pantanir.bokun.Skref2;
 
+
+
 public class FerlaBokun {
 	
+	// Upplýsingar um bókun
+	private static String nafn, simi, adgerd, harlengd, email;
+		
+	// Tímasetning pöntunar
+	// dagur er á forminu "26-11-2014", date á forminu "2014-11-26" og
+	// startDate og endDate á forminu "2014-11-26 09:00"
+	private static  String time, dagur, lengd, date, startDate, endDate;
+	
+	// Upplýsingar um starfsmann
+	private static String staff_id, starfsmadur;
+	
+	// Staðsetning vals í Spinner viðmótshlut
+	private static int starfsmadurPos, adgerdPos, harlengdPos;
+	
+	// Breytan er notuð til að halda utan hvort pöntun hafi verið
+    // bókuð rétt áður en ýtt er á "back" takkann
+	private static boolean bokudPontun;
+		
 	// Heldur utan um bókaða og lausa tíma fyrir alla
 	// starfsmenn
 	private static BokadirLausir[] bokadirStarfsmenn;
@@ -45,7 +66,63 @@ public class FerlaBokun {
 	
 	private static String pontunarId; // Auðkenni pöntunar
 	private static String pontunText = ""; // Upplýsingar um pöntun
-	private static String manudur, dagur, ar; // Dagsetning pöntunar
+	private static String manudur, ar; // Dagsetning áminningar
+	
+	// Heldur utan um aðgerð og tímalengd hennar
+	private static HashMap<String, String> mapLengd = new HashMap<String, String>();
+	// Heldur utan um mánuð á forminu "01" og samsvarandi streng á forminu "Jan"
+	private static HashMap<String, String> mapManudur = new HashMap<String, String>();
+	
+	public FerlaBokun () {
+		
+		setLengdMap();
+		setManudurMap();
+		
+		 // Uppfæra upplýsingar um notanda
+     	nafn = UserFunctions.getUserName(MainActivity.getContext());
+     	simi = UserFunctions.getUserPhone(MainActivity.getContext());
+     	email = UserFunctions.getUserEmail(MainActivity.getContext());
+        
+     	bokudPontun = false;
+        time = "";
+	}
+	
+	/**
+	 * Býr til hakkatöflu þar sem hvert hólf heldur utan um tegund aðgerðar
+	 * og tímalengd hennar
+	 */
+	private void setLengdMap() {
+		mapLengd.put("Dömuklipping", "2");
+		mapLengd.put("Herraklipping", "1");
+		mapLengd.put("Barnaklipping", "1");
+		mapLengd.put("Heillitun", "2"); 
+		mapLengd.put("Litur í rót", "2"); 
+		mapLengd.put("Dömuklipping og litun/strípur", "4"); 
+		mapLengd.put("Herraklipping og litun/strípur", "3");
+		mapLengd.put("Greiðsla", "2");
+		mapLengd.put("Permanett", "4");
+		mapLengd.put("Blástur", "2");
+	}
+	
+	/**
+	 * Býr til hakkatöflu þar sem hvert hólf heldur utan um mánuð á forminu
+	 * "01" og samsvarandi streng á forminu "Jan"
+	 */
+	private void setManudurMap() {
+		
+		mapManudur .put("01", "JAN");
+		mapManudur .put("02", "FEB");
+		mapManudur .put("03", "MAR");
+		mapManudur .put("04", "APR"); 
+		mapManudur .put("05", "MAY"); 
+		mapManudur .put("06", "JUN"); 
+		mapManudur .put("07", "JUL");
+		mapManudur .put("08", "AUG");
+		mapManudur .put("09", "SEP");
+		mapManudur .put("10","OKT");
+		mapManudur .put("11","NOV");
+		mapManudur .put("12","DES");
+	}
 	
 	/**
 	 * Skilar true ef að tíminn timi er liðinn miðað við daginn
@@ -53,7 +130,7 @@ public class FerlaBokun {
 	 * @param timi
 	 * @return
 	 */
-	public static boolean timiLidinn(String timi) {
+	private static boolean timiLidinn(String timi) {
 		
 		Locale locale = new Locale("IS");
 		
@@ -69,11 +146,10 @@ public class FerlaBokun {
 		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String dagurNuna = format.format(Calendar.getInstance().getTime());
 		
-		String dagurSpinner = MainActivity.getDate();
+		String dagurSpinner = getDate();
 		dagurSpinner = dagurSpinner.substring(0,4) + dagurSpinner.substring(5,7) +
 				dagurSpinner.substring(8);
 
-		Log.e("Hér", timiNuna);
 		if(dagurSpinner.equals(dagurNuna)) {
 			// Skilað false ef tíminn er liðinn eða ef fyrirvarinn er ekki nógu langur
 			int timeTo = Integer.parseInt(timeSpinner)- Integer.parseInt(timiNuna);
@@ -138,7 +214,6 @@ public class FerlaBokun {
 	 */
 	public static void getBokadirTimar(String id, JSONArray bokadir, int num) throws JSONException {
 		
-		Log.e("Bókaðir", bokadir.length()+"");
 		
 		// Ákveðinn starfsmaður var valinn, sæki bókaða tíma hans
 		// úr gagnagrunni. Auðkenni hans er í breytunni MainActivity.staff_id
@@ -172,7 +247,7 @@ public class FerlaBokun {
 	 * @param a
 	 * @param b
 	 */
-	public static void lausirTimar(Bokadir[] a, Lausir[] b) {
+	private static void lausirTimar(Bokadir[] a, Lausir[] b) {
 
 		for(int i = 0; i<a.length; i++) {
 			for(int j = 0; j<b.length; j++) {
@@ -194,8 +269,8 @@ public class FerlaBokun {
 	 * Setur lausa tíma sem valmöguleika í Spinner viðmótshlut
 	 * @param lausirTimar
 	 */
-	public static void setLausirTimar(Lausir[] lausirTimar) {
-		int timaLengd = Integer.parseInt(MainActivity.getLengd());
+	private static void setLausirTimar(Lausir[] lausirTimar) {
+		int timaLengd = Integer.parseInt(getLengd());
 		
 		int n = lausirTimar.length;
 
@@ -245,14 +320,14 @@ public class FerlaBokun {
 	 */
 	public static boolean bokun() {
 		// Engin dagsetning valin
-    	if(MainActivity.getDate()==null || MainActivity.getTime().equals("Timi")) {
+    	if(getDate()==null || getTime().equals("Timi")) {
     		return false;
     	} 
     	
     	else {
     		setDateInfo();
     		// Notandanum er sama um hver starfsmaðurinn er
-    		if(MainActivity.getStaffId().equals("000")) {
+    		if(getStaffId().equals("000")) {
     			staffId(); // Sækja auðkenni starfsmannsins sem var úthlutað
     			              // tímanum sem var valinn
     		}
@@ -268,10 +343,10 @@ public class FerlaBokun {
 		Lausir[] lausirTimarHeild = FerlaBokun.getLausirTimarHeild();
 		Spinner timiSpinner = Skref2.getTimiSpinner();
 		String time = timiSpinner.getSelectedItem().toString();
-		String date = MainActivity.getDate();
-		String lengd = MainActivity.getLengd();
+		String date = getDate();
+		String lengd = getLengd();
 
-		MainActivity.setTime(time);
+		setTime(time);
 		
 		int timaLengd = Integer.parseInt(lengd);
 		String endTime ="";
@@ -290,7 +365,7 @@ public class FerlaBokun {
 			}
 		}
 		
-		MainActivity.setStartEndDate(date + " " + time, date + " " +  endTime);
+		setStartEndDate(date + " " + time, date + " " +  endTime);
 
 	}
 	
@@ -305,11 +380,11 @@ public class FerlaBokun {
 			if(lausirTimarHeild[i].getTimi()!=null){
 				
 				// Fann tímann
-				if(lausirTimarHeild[i].getTimi().equals(MainActivity.getTime())) {
+				if(lausirTimarHeild[i].getTimi().equals(getTime())) {
 					
 					// Uppfæri hvaða starfsmanni var úthlutaður tíminn
-					MainActivity.setStaffId(lausirTimarHeild[i].getId());
-					MainActivity.setStarfsmadur(MainActivity.getStarfsmadur(MainActivity.getStaffId()));
+					setStaffId(lausirTimarHeild[i].getId());
+					setStarfsmadur(getStarfsmadur(getStaffId()));
 					}
 				}
 			}
@@ -321,7 +396,7 @@ public class FerlaBokun {
 	 */
 	public static void finnaAllaLausaTima() {
 		// Ákveðinn starfsmaður var valinn
-		if(!MainActivity.getStaffId().equals("000")){
+		if(!getStaffId().equals("000")){
 			// Finn lausa tíma starfsmannsins út frá bókuðum tímum hans
 			lausirTimar(bokadirStarfsmenn[0].bokad,bokadirStarfsmenn[0].laust);
 			// Birti lausa tíma svo notandinn geti valið úr þeim
@@ -362,24 +437,7 @@ public class FerlaBokun {
 	public static String getStarfsmenn(int i) {
 		return starfsmenn[i];
 	}
-	
-	/**
-	 * Skilar bókuðum tímum starfsmanns i
-	 * @param i
-	 * @return
-	 */
-	public static Bokadir[] getBokadirStarfsmenn(int i ) {
-		return bokadirStarfsmenn[i].bokad;
-	}
-	
-	/**
-	 * Skilar lausa tímum starfsmanns i
-	 * @param i
-	 * @return
-	 */
-	public static Lausir[] getLausirStarfsmenn(int i) {
-		return bokadirStarfsmenn[i].laust;
-	}
+
 	
 	/**
 	 * Breyta sem heldur utan um fjölda lausra tíma
@@ -399,20 +457,11 @@ public class FerlaBokun {
 	}
 	
 	/**
-	 * Skilar tímasetningu lausa tímans i
-	 * @param i
-	 * @return
-	 */
-	public static String getLausirString(int i) {
-		return lausirString[i];
-	}
-	
-	/**
 	 * Skilar fylki sem heldur utan um hvaða tímar eru lausir 
 	 * og hjá hvaða starfsmanni
 	 * @return
 	 */
-	public static Lausir[] getLausirTimarHeild() {
+	private static Lausir[] getLausirTimarHeild() {
 		return lausirTimarHeild;
 	}
 	
@@ -422,35 +471,35 @@ public class FerlaBokun {
      */
     public static void setStaffId() {
     	
-    	String starfsmadur = MainActivity.getStarfsmadur();
+    	String starfsmadur = getStarfsmadur();
     	
     	switch(starfsmadur) {
     	
     	case "Hver sem er":
-    		MainActivity.setStaffId("000");
+    		setStaffId("000");
     		break;
 		case "Bambi": 
-			MainActivity.setStaffId("BOB");
+			setStaffId("BOB");
 			break;
 		case "Perla" : 
-			MainActivity.setStaffId("PIP");
+			setStaffId("PIP");
 			break;
 		case "Oddur" : 
-			MainActivity.setStaffId("ODO");
+			setStaffId("ODO");
 			break;
 		case "Magnea" : 
-			MainActivity.setStaffId("MRV");
+			setStaffId("MRV");
 			break;
 		case "Eva" :
-			MainActivity.setStaffId("EDK");
+			setStaffId("EDK");
 			break;
 		case "Birkir" : 
-			MainActivity.setStaffId("BIP");
+			setStaffId("BIP");
 			break;
 		case "Dagný" : 
-			MainActivity.setStaffId("DOR");
+			setStaffId("DOR");
 			break;
-		default: MainActivity.setStaffId("ERR");
+		default: setStaffId("ERR");
 		
     	}
     }
@@ -461,47 +510,8 @@ public class FerlaBokun {
      */
     public static void setTimaLengd() {
     	
-    	String adgerd = MainActivity.getAdgerd();
-    	
-    	switch(adgerd) {
-    	case "Dömuklipping":
-    		MainActivity.setLengd("2");
-    		break;
-		case "Herraklipping": 
-			MainActivity.setLengd("1");
-			break;
-		case "Barnaklipping" : 
-			MainActivity.setLengd("1");
-			break;
-		case "Heillitun" : 
-			MainActivity.setLengd("2");
-			break;
-		case "Litur í rót" : 
-			MainActivity.setLengd("2");
-			break;
-		case "Strípur" :
-			MainActivity.setLengd("3");
-			break;
-		case "Litun og strípur" : 
-			MainActivity.setLengd("3");
-			break;
-		case "Dömuklipping og litun/strípur" : 
-			MainActivity.setLengd("4");
-			break;
-		case "Herraklipping og litun/strípur" : 
-			MainActivity.setLengd("3");
-			break;
-		case "Greiðsla" : 
-			MainActivity.setLengd("2");
-			break;
-		case "Permanett" : 
-			MainActivity.setLengd("4");
-			break;
-		case "Blástur" : 
-			MainActivity.setLengd("2");
-			break;
-		default: MainActivity.setLengd("ERR");
-		}
+    	String adgerd = getAdgerd();
+    	setLengd(mapLengd.get(adgerd));
     }
     
     /**
@@ -512,16 +522,16 @@ public class FerlaBokun {
 	public static void setBokunarUpplysingar(Spinner sSpinner, Spinner aSpinner, Spinner hSpinner ) {
 		
 		// Valinn starfsmaður
-		MainActivity.setStarfsmadur(sSpinner.getSelectedItem().toString());
-    	MainActivity.setStarfsmadurPos(sSpinner.getSelectedItemPosition());
+		setStarfsmadur(sSpinner.getSelectedItem().toString());
+    	setStarfsmadurPos(sSpinner.getSelectedItemPosition());
     	
     	// Valin aðgerð
-    	MainActivity.setAdgerd(aSpinner.getSelectedItem().toString());
-		MainActivity.setAdgerdPos(aSpinner.getSelectedItemPosition());
+    	setAdgerd(aSpinner.getSelectedItem().toString());
+		setAdgerdPos(aSpinner.getSelectedItemPosition());
 		
 		// Valin hárlengd
-		MainActivity.setHarlengd(hSpinner.getSelectedItem().toString());
-		MainActivity.setHarlengdPos(hSpinner.getSelectedItemPosition());
+		setHarlengd(hSpinner.getSelectedItem().toString());
+		setHarlengdPos(hSpinner.getSelectedItemPosition());
 	} 
 	
 	/**
@@ -529,63 +539,8 @@ public class FerlaBokun {
 	 * @param s
 	 * @return
 	 */
-	public static String parseManudur(String s){
-		String manudur;
-		switch(s) {
-    	
-			case "01": 
-				manudur = "JAN";
-				break;
-			
-			case "02" : 
-				manudur = "FEB";
-				break;
-			
-			case "03" : 
-				manudur = "MAR";
-				break;
-			
-			case "04" : 
-				manudur = "APR";
-				break;
-			
-			case "05" :
-				manudur = "MAY";
-				break;
-			
-			case "06" : 
-				manudur = "JUN";
-				break;
-			
-			case "07" : 
-				manudur = "JUL";
-				break;
-				
-			case "08" : 
-				manudur = "AUG";
-				break;
-				
-			case "09" : 
-				manudur = "SEP";
-				break;
-				
-			case "10" : 
-				manudur = "OKT";
-				break;
-				
-			case "11" : 
-				manudur = "NOV";
-				break;
-			
-			case "12" : 
-				manudur = "DES";
-				break;
-				
-			default: manudur = "Error";
-			
-		}
-		return manudur;
-		
+	private static String parseManudur(String s){
+		return mapManudur.get(s);
 	}
 	
 	/**
@@ -612,13 +567,6 @@ public class FerlaBokun {
 		return manudur;
 	}
 	
-	/**
-	 * Skilar deginum sem pöntunin var bókuð á
-	 * @return
-	 */
-	public static String getDagur() {
-		return dagur;
-	}
 	
 	/**
 	 * Skilar auðkenni pöntunar
@@ -655,14 +603,6 @@ public class FerlaBokun {
 		manudur = parseManudur(m);
 	}
 	
-	/**
-	 * Gefur breytu sem heldur utan um daginn sem pöntunin var bókuð á
-	 * gildið d
-	 * @param d
-	 */
-	public static void setDagur(String d) {
-		dagur = d;
-	}
 	
 	/**
 	 * Gefur breytu sem heldur utan um auðkenni pöntunar
@@ -672,8 +612,308 @@ public class FerlaBokun {
 	public static void setID(String id) {
 		pontunarId = id;
 	}
+
+	/**
+	 * Gefur breytu sem heldur utan um hvort nýlega hafi verið bókuð pöntun
+	 * gildi
+	 * @param b
+	 */
+	public static void setBokudPontun(boolean b) {
+		bokudPontun = b;
+	}
 	
-	public static void setPontunText(String text) {
-		pontunText = text;
+	/**
+	 * /**
+	 * Skilar gildi breytu sem heldur utan um hvort nýlega hafi verið bókuð pöntun
+	 * @return boolean
+	 */
+	public static boolean getBokudPontun() {
+		return bokudPontun;
+	}
+	
+	
+	/**
+	 * Skilar nafni þess starfsmanns sem á auðkennið s
+	 * @param s
+	 * @return String
+	 */
+	public static String getStarfsmadur(String s) {
+		
+		String starfsmadur;
+		
+		switch(s) {
+			case "BOB": 
+				starfsmadur = "Bambi";
+				break;
+			
+			case "PIP" : 
+				starfsmadur = "Perla";
+				break;
+			
+			case "ODO" : 
+				starfsmadur = "Oddur";
+				break;
+			
+			case "MRV" : 
+				starfsmadur= "Magnea";
+				break;
+			
+			case "EDK" :
+				starfsmadur = "Eva";
+				break;
+			
+			case "BIP" : 
+				starfsmadur = "Birkir";
+				break;
+			
+			case "DOR" : 
+				starfsmadur = "Dagný";
+				break;
+			
+			default: starfsmadur = "Error";
+			
+		}
+		return starfsmadur;
+	}
+	
+	/**
+	 * Skilar nafni notandans
+	 * @return String
+	 */
+	public static String getName() {
+		return nafn;
+	}
+	/**
+	 * Skilar síma notandans
+	 * @return String
+	 */
+	public static String getSimi() {
+		return simi;
+	}
+	/**
+	 * Skilar netfangi notandans
+	 * @return String
+	 */
+	public static String getEmail() {
+		return email;
+	}
+	
+	/**
+	 * Gefur breytunni sem heldur utan um tíma bókunar gildi
+	 * @param t
+	 */
+	public static void setTime(String t) {
+		time = t;
+	}
+	
+	/**
+	 * Skilar gildi breytu sem heldur utan um tíma bókunar gildi
+	 * @return String
+	 */
+	public static String getTime() {
+		return time;
+	}
+	
+	/**
+	 * Gefur breytunum sem halda utan um dagsetningu bókunar
+	 * gildi
+	 * @param b
+	 * @param e
+	 */
+	public static void setStartEndDate(String b, String e) {
+		startDate = b;
+		endDate = e;
+	}
+	
+	/**
+	 * Skilar dagsetningu bókunar á forminu "2014-11-17"
+	 * @return
+	 */
+	public static String getDate() {
+		return date;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um dagsetningu bókunar á
+	 * forminu "2014-11-17" gildi
+	 * @param d
+	 */
+	public static void setDate(String d) {
+		date = d;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um dagsetningu bókunar á
+	 * forminu "17-11-2014" gildi
+	 * @param d
+	 */
+	public static void setStringDate(String d) {
+		dagur = d;
+	}
+	
+	/**
+	 * Skilar dagsetningu bókunar á forminu "17-11-2014"
+	 * @return String
+	 */
+	public static String getStringDate() {
+		return dagur;
+	}
+	
+	/**
+	 * Skilar byrjunar dagsetningu bókunar á forminu "2014-11-17 09:00"
+	 * @return String
+	 */
+	public static String getStartDate() {
+		return startDate;
+	}
+	
+	/**
+	 * Skilar enda dagsetningu bókunar á forminu "2014-11-17 09:00"
+	 * @return String
+	 */
+	public static String getEndDate() {
+		return endDate;
+	}
+	
+	/**
+	 * Skilar tímalengd aðgerðarinnar sem var valin
+	 * @return String
+	 */
+	public static String getLengd() {
+		return lengd;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um tímalengd 
+	 * aðgerðar gildi
+	 * @param l
+	 */
+	public static void setLengd(String l) {
+		lengd = l;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um hvaða starfsmaður 
+	 * var valinn gildi
+	 * @param s
+	 */
+	public static void setStarfsmadur(String s) {
+		starfsmadur = s;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um auðkenni valins stafsmanns
+	 * @param id
+	 */
+	public static void setStaffId(String id) {
+		staff_id = id;
+	}
+	
+	/**
+	 * Skilar gildi breytu sem heldur utan um auðkenni valins stafsmanns
+	 * @return String
+	 */
+	public static String getStaffId() {
+		return staff_id;
+	}
+	
+	/**
+	 * Skilar gildi breytu sem heldur utan um hvaða starfsmaður 
+	 * var valinn gildi
+	 * @return String
+	 */
+	public static String getStarfsmadur() {
+		return starfsmadur;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um hvaða aðgerð 
+	 * var valinn gildi
+	 * @param a
+	 */
+	public static void setAdgerd(String a) {
+		adgerd = a;
+	}
+	
+	/**
+	 * Skilar gildi breytu sem heldur utan um hvaða aðgerð
+	 * var valinn gildi
+	 * @return String
+	 */
+	public static String getAdgerd() {
+		return adgerd;
+	}
+		
+	/**
+	 * Skilar gildi breytu sem heldur utan um hvaða hárlengd
+	 * var valinn gildi
+	 * @return String
+	 */
+	public static String getHarlengd() {
+		return harlengd;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um hvaða hárlengd 
+	 * var valinn gildi
+	 * @param l
+	 */
+	public static void setHarlengd(String l) {
+		harlengd = l;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um staðsetningu valins 
+	 * stafsmanns í Spinner viðmótshlut
+	 * @param i
+	 */
+	public static void setStarfsmadurPos(int i) {
+		starfsmadurPos = i;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um staðsetningu valinnar 
+	 * aðgerðar í Spinner viðmótshlut
+	 * @param i
+	 */
+	public static void setAdgerdPos(int i) {
+		adgerdPos = i;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um staðsetningu valinnar 
+	 * hárlengdar í Spinner viðmótshlut
+	 * @param i
+	 */
+	public static void setHarlengdPos(int i) {
+		harlengdPos = i;
+	}
+	
+	
+	/**
+	 * Skilar gildi breytu sem heldur utan um staðsetningu valins 
+	 * stafsmanns í Spinner viðmótshlut
+	 * @return int
+	 */
+	public static int getStarfsmadurPos() {
+		return starfsmadurPos;
+	}
+	
+	/**
+	 * Skilar gildi breytu sem heldur utan um staðsetningu valinnar 
+	 * aðgerðar í Spinner viðmótshlut
+	 * @return int
+	 */
+	public static int getAdgerdPos() {
+		return adgerdPos;
+	}
+	
+	/**
+	 * Skilar gildi breytu sem heldur utan um staðsetningu valinnar 
+	 * hárlengdar í Spinner viðmótshlut
+	 * @return int
+	 */
+	public static int getHarlengdPos() {
+		return harlengdPos;
 	}
 }

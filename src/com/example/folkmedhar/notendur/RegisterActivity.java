@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
+
+
  
 public class RegisterActivity extends Activity implements OnClickListener {
     

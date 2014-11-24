@@ -25,25 +25,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/dagur"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="3dp"
-                android:text="@string/dagur"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:width="120dp" />
-
             <Button
                 android:id="@+id/buttonDagur"
                 style="@style/buttonStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/test_button_background"
                 android:drawableRight="@drawable/calendar64"
                 android:gravity="left|center_vertical"
                 android:onClick="showDatePickerDialog"
+                android:paddingLeft="5dp"
                 android:text="@string/pick_date"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -56,37 +48,40 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/timi_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:text="@string/timi_text"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
             <Spinner
                 android:id="@+id/timi"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/test_button_background"
                 android:entries="@array/timi_array"
+                android:paddingLeft="5dp"
                 android:prompt="@string/timi_prompt"
                 android:spinnerMode="dialog" />
 
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/afram2"
-        style="@style/buttonStyleAfram"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="30dp"
-        android:drawableRight="@drawable/next32"
-        android:text="@string/afram" />
+     <TextView
+         android:id="@+id/skref1_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentRight="true"
+         android:layout_marginBottom="31dp"
+         android:ems="10"
+         android:gravity="center"
+         android:text="@string/title_activity_skref2"
+         android:textColor="@color/info_gray" />
+
+     <Button
+         android:id="@+id/afram2"
+         style="@style/buttonStyleAfram"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/skref1_text"
+         android:layout_alignParentLeft="true"
+         android:layout_marginLeft="100dp"
+         android:drawableRight="@drawable/afram" />
 
 </RelativeLayout>

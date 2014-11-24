@@ -12,7 +12,7 @@
 <RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.folkmedhar.UmStofuna"
+    tools:context="folkmedhar.UmStofuna"
     android:layout_marginLeft="40dp"
     android:layout_marginRight="40dp" 
     android:paddingBottom="100dp">

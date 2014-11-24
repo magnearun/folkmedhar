@@ -1,10 +1,10 @@
-package com.example.folkmedhar.pantanir.bokun;
-
 /**
  * @author: Eva Dögg Steingrímsdóttir
  * @since: 15.10.2014
  * Klasinn sem býr til hlut sem heldur utan um bókaða og lausa tíma
  */
+
+package com.example.folkmedhar.pantanir.bokun;
 
 public class BokadirLausir
 {

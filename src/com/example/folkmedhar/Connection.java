@@ -12,8 +12,6 @@ import android.net.NetworkInfo;
 
 public class Connection extends MainActivity {
 	
-	static final int DIALOG_ERROR_CONNECTION = 1;
-	
 	/**
 	 * Skilar true ef nettengin er til staðar, false annars
 	 * @param c

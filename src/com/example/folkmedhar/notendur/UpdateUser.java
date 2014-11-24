@@ -6,11 +6,10 @@
 
 package com.example.folkmedhar.notendur;
 
-import android.support.v4.app.Fragment;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import android.widget.TextView;
 import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
+
 
 public class UpdateUser extends Fragment implements android.view.View.OnClickListener {
     
@@ -46,16 +46,11 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_update_user,
 				container, false);
-		
-		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		//text.setText(R.string.title_activity_update_user);
-		
+
 	    setVidmotshlutir();
 	    
 	    context = getActivity();
-	    
 	    setUserInfo();
-	
 	    buttonUpdateUser.setOnClickListener(this);
 		return rootView;
 	}
@@ -80,9 +75,9 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 	 * Sækkir upplýsingar um notanda og birtir þær í TextView
 	 */
 	private void setUserInfo() {
-	    inputName.setText(UserFunctions.userName(context), TextView.BufferType.EDITABLE);
-	    inputEmail.setText(UserFunctions.userEmail(context), TextView.BufferType.EDITABLE);
-	    inputPhone.setText(UserFunctions.userPhone(context), TextView.BufferType.EDITABLE);
+	    inputName.setText(UserFunctions.getUserName(context), TextView.BufferType.EDITABLE);
+	    inputEmail.setText(UserFunctions.getUserEmail(context), TextView.BufferType.EDITABLE);
+	    inputPhone.setText(UserFunctions.getUserPhone(context), TextView.BufferType.EDITABLE);
 	}
 	
 	/**
@@ -121,7 +116,7 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
         if (password.equals(passwordRepeat)) {
             
             UserFunctions userFunction = new UserFunctions();
-            String oldEmail = UserFunctions.userEmail(context);
+            String oldEmail = UserFunctions.getUserEmail(context);
 
             boolean isUpdated = userFunction.updateUser(context, oldEmail, 
             		oldPassword, name, email, phone, password);

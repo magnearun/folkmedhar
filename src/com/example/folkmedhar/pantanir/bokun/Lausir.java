@@ -1,10 +1,11 @@
-package com.example.folkmedhar.pantanir.bokun;
-
 /**
  * @author: Eva Dögg Steingrímsdóttir
  * @since: 15.10.2014
  * Klasinn sem býr til hlut sem heldur utan um lausa tíma
  */
+
+
+package com.example.folkmedhar.pantanir.bokun;
 
 public class Lausir
 {
@@ -30,7 +31,6 @@ public class Lausir
 	  * 9:00
 	  * @return
 	  */
-	 
 	 public String getTimi() {
 		 return timi;
 	 }
@@ -40,7 +40,6 @@ public class Lausir
 	  * Gefir breytu sem heldur utan  um tímasetningu á forminu 9:00 gildi
 	  * @return
 	  */
-	 
 	 public void setTimi(String t) {
 		 timi = t;
 	 }

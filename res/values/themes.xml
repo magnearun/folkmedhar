@@ -13,10 +13,12 @@
     
     <!-- the theme applied to the application or activity -->
     <style name="CustomActionBarTheme"
-           parent="@style/Theme.AppCompat.Light">
+           parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:windowBackground">@color/login_background</item>
         <item name="android:windowTitleBackgroundStyle">@style/titlebackgroundcolor</item>
+        <item name="android:fontFamily">sans-serif-condensed"</item>
+        <item name="android:windowContentOverlay">@null</item>
 
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBar</item>
@@ -35,6 +37,10 @@
         <item name="background">@drawable/actionbar_background</item>
         <item name="backgroundStacked">@drawable/actionbar_background</item>
         <item name="backgroundSplit">@drawable/actionbar_background</item>
+        <item name="android:windowActionBarOverlay">true</item>
+
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
     </style>
  
     

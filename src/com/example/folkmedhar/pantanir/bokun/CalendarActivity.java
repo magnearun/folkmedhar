@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +35,7 @@ import android.widget.TextView;
 
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
+import com.example.folkmedhar.pantanir.FerlaBokun;
 
 
 @SuppressLint("SimpleDateFormat") public class CalendarActivity extends Activity implements OnClickListener {
@@ -51,8 +51,6 @@ import com.example.folkmedhar.R;
 	
 	private int backMonth, forwardMonth;
 
-	private static final String dateTemplate = "MMMM yyyy";
-
 	/**
 	 * Nýtt CalanedarActivity búið til og tilviksbreytur upphafsstilltar
 	 */
@@ -60,7 +58,6 @@ import com.example.folkmedhar.R;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calendar);
-
 		Locale locale = new Locale("IS");
 		calendar = Calendar.getInstance(locale);
 		month = calendar.get(Calendar.MONTH) + 1;
@@ -70,8 +67,8 @@ import com.example.folkmedhar.R;
 		prevMonth.setOnClickListener(this);
 
 		currentMonth = (TextView) this.findViewById(R.id.currentMonth);
-		currentMonth.setText(DateFormat.format(dateTemplate,
-				calendar.getTime()));
+		currentMonth.setText(getIcelandicMonth());
+		
 
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
@@ -87,6 +84,43 @@ import com.example.folkmedhar.R;
 		calendarView.setAdapter(adapter);
 		
 	}
+	
+	/**
+	 * Tekur inn heiti mánaðar á ensku og skilar sama mánuði
+	 * á íslensku
+	 * @return
+	 */
+	private String getIcelandicMonth() {
+		String manudur = (String) DateFormat.format("MMMM",
+				calendar.getTime());
+		switch(manudur) {
+			case "January":
+				return "Janúar";
+			case "February":
+				return "Febrúar";
+			case "March":
+				return "Mars";
+			case "April":
+				return "Apríl";
+			case "May":
+				return "Maí";
+			case "June":
+				return "Júní";
+			case "July":
+				return "Júlí";
+			case "August":
+				return "Ágúst";
+			case "September":
+				return "September";
+	    	case "October":
+	    		return "Október";
+			case "November": 
+				return "Nóvember";
+			case "December":
+	    		return "Desember";
+		}
+		return "Err";
+	}
 
 	/**
 	 * @author: http://www.androidhub4you.com/2012/10/custom-calendar-in-android.html
@@ -99,13 +133,15 @@ import com.example.folkmedhar.R;
 		adapter = new GridCellAdapter(getApplicationContext(),
 				R.id.calendar_day_gridcell, month, year);
 		calendar.set(year, month - 1, calendar.get(Calendar.DAY_OF_MONTH));
-		currentMonth.setText(DateFormat.format(dateTemplate,
-				calendar.getTime()));
+		currentMonth.setText(getIcelandicMonth());
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
 	}
 
 	@Override
+	/**
+	 * Birtir dagatal fyrir nýjan mánuð
+	 */
 	public void onClick(View v) {
 		
 		if (v == prevMonth && backMonth >0) {
@@ -332,14 +368,15 @@ import com.example.folkmedhar.R;
 
 			if (day_color[1].equals("GREY")) {
 				gridcell.setTextColor(getResources()
-						.getColor(R.color.lightgray02));
+						.getColor(R.color.white));
 			}
 			if (day_color[1].equals("WHITE")) {
 				gridcell.setTextColor(getResources().getColor(
-						R.color.darkgray));
+						R.color.black));
 			}
 			if (day_color[1].equals("BLUE")) {
-				gridcell.setTextColor(getResources().getColor(R.color.orrange));
+				gridcell.setBackground(getResources().getDrawable(R.drawable.cal_hringur));
+				gridcell.setTextColor(getResources().getColor(R.color.white));
 			}
 			int manudur = 0;
 			switch(themonth) {
@@ -348,6 +385,20 @@ import com.example.folkmedhar.R;
 				break;
 			case "February":
 				manudur = 1;
+			case "March":
+				manudur = 2;
+			case "April":
+				manudur = 3;
+			case "May":
+				manudur = 4;
+			case "June":
+				manudur = 5;
+			case "July":
+				manudur = 6;
+			case "August":
+				manudur = 7;
+			case "September":
+				manudur = 8;
 	    	case "October":
 	    		manudur = 9;
 	    		break;
@@ -357,10 +408,6 @@ import com.example.folkmedhar.R;
 			case "December":
 	    		manudur = 11;
 	    		break;
-			case "September": 
-				manudur = 8;
-				break;
-			
 			default: manudur = 0;
 			}
 			Calendar c = Calendar.getInstance();
@@ -373,7 +420,7 @@ import com.example.folkmedhar.R;
 			seinni = c.getTimeInMillis();
 		
 			if(fyrri-seinni<0) {
-				//gridcell.setTextColor(getResources().getColor(R.color.lightgray));
+				gridcell.setTextColor(getResources().getColor(R.color.lightgray));
 				
 			}
 			return row;
@@ -417,9 +464,8 @@ import com.example.folkmedhar.R;
 						MainActivity.showToast("Það er lokað á sunnudögum",this._context);
 					}
 					else {
-						Log.e("Dagur",dayOfWeek+"");
-						MainActivity.setStringDate(dagur + "-" + (month+1) + "-" + year);
-						MainActivity.setDate(year + "-" + (month+1) + "-" + dagur);
+						FerlaBokun.setStringDate(dagur + "-" + (month+1) + "-" + year);
+						FerlaBokun.setDate(year + "-" + (month+1) + "-" + dagur);
 						finish();
 						
 					}
@@ -432,7 +478,7 @@ import com.example.folkmedhar.R;
 			
 		}
 		
-		/**
+		/**<
 		 * Skilar núverandi mánuði
 		 * @return
 		 */

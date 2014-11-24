@@ -2,57 +2,65 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginTop="84dp">
+    android:layout_marginTop="80dp"
+    android:background="@color/backgroundcolor">
 
 <LinearLayout
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="495dp"
     android:orientation="vertical"
     android:paddingBottom="30dp"
     android:paddingLeft="40dp"
-    android:paddingRight="40dp" >
+    android:paddingRight="40dp"
+    android:background="@color/backgroundcolor" >
 
     <TextView
         android:id="@+id/updateUserInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/button_background"
         android:padding="20sp"
         android:text="@string/textUpdateInfo"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/test_button_background"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
         android:drawableLeft="@drawable/user91"
         android:drawablePadding="15dp"
         android:ems="10"
         android:hint="@string/hintName"
         android:paddingLeft="15dp" >
 
+        <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/userEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
         android:drawableLeft="@drawable/mail59"
         android:drawablePadding="15dp"
         android:ems="10"
         android:hint="@string/hintEmail"
         android:inputType="textEmailAddress"
         android:paddingLeft="15dp" >
+
     </EditText>
 
     <EditText
         android:id="@+id/userPhone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
         android:drawableLeft="@drawable/call5"
         android:drawablePadding="15dp"
         android:ems="10"
@@ -64,7 +72,9 @@
     <EditText
         android:id="@+id/userOldPassword"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
         android:drawableLeft="@drawable/key162"
         android:drawablePadding="15dp"
         android:hint="@string/password"
@@ -74,7 +84,9 @@
     <EditText
         android:id="@+id/userPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
         android:drawableLeft="@drawable/key162"
         android:drawablePadding="15dp"
         android:ems="10"
@@ -85,7 +97,9 @@
     <EditText
         android:id="@+id/userPasswordRepeat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
         android:drawableLeft="@drawable/key162"
         android:drawablePadding="15dp"
         android:ems="10"

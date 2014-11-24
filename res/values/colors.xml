@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>   
-    <color name="titlebackgroundcolor">#496CC6</color>
+    <color name="backgroundcolor">#1abc9c</color>
     <color name="titletextcolor">#FFF</color>
     <color name="background">#0088cc</color>
     <color name="buttoncolor">#dddddd</color>
     <color name="buttonFontColor">#0088cc</color>
     <color name="infobackground">#dddddd</color>
-    <color name="login_background">#3498DB</color>
-    <color name="login_button_background">#2980B9</color>
+    <color name="login_background">#fff</color>
+    <color name="login_button_background">#08967a</color>
     
     
     <color name="white">#FFFFFF</color>
@@ -19,6 +19,8 @@
     <color name="darkgray">#fff</color>
     <color name="calanderText">#fff</color>
     <color name="gray">#f2f2f2</color>
+    <color name="info_gray">#999999</color>
+    <color name="calendar_month">#333333</color>
    
     
 </resources>

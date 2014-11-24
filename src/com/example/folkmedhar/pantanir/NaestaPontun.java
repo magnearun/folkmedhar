@@ -16,10 +16,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +29,8 @@ import android.widget.TextView;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
+
+
 public class NaestaPontun extends Fragment implements android.view.View.OnClickListener   {
 	
 	// Viðmótshlutir
@@ -37,10 +39,9 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 	private TextView dagatalManudur;
 	private TextView dagatalDagur;
 	private Button buttonAfpanta;
-	private JSONParser jsonParser = new JSONParser();
+	
 	private View rootView;
 
-    private static String url_afpanta = "http://peoplewithhair.freevar.com/afpanta.php";
 
 
 	/**
@@ -58,15 +59,10 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_naesta_pontun,
 				container, false);
-        
-		
-		//TextView text = (TextView)getActivity().findViewById(R.id.actionbar);
-		//text.setText(R.string.title_activity_sidasta_pontun);
-		
+
 		setVidmotshlutir();
-        
         setText(FerlaBokun.getPontun(), FerlaBokun.getAr(), FerlaBokun.getManudur(),
-        		FerlaBokun.getDagur());
+        		FerlaBokun.getStringDate());
 		
 		return rootView;
 	}
@@ -114,7 +110,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
      * Klasinn sem sér um að eyða pöntun úr gagnagrunni. Við útfærslu klasanns var stuðst við tutorial um hvernig skal nota JSON 
      * til að ná í upplýsingar ýr MySQL gagnagrunni (http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/).
      */
-    class EydaPontun extends AsyncTask<String, String, String> {
+    private class EydaPontun extends AsyncTask<String, String, String> {
  
     	int success;
     	
@@ -133,11 +129,12 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
          * */
         protected String doInBackground(String... args) {
 
+        	String url_afpanta = "http://peoplewithhair.freevar.com/afpanta.php";
             try {
                
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("id",FerlaBokun.getID()));
- 
+                JSONParser jsonParser = new JSONParser();
                 JSONObject json = jsonParser.makeHttpRequest(
                         url_afpanta, "POST", params);
 

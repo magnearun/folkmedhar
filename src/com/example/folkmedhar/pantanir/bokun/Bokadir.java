@@ -1,10 +1,11 @@
-package com.example.folkmedhar.pantanir.bokun;
-
 /**
  * @author: Eva Dögg Steingrímsdóttir
  * @since: 15.10.2014
  * Klasinn sem býr til hlut sem heldur utan um bókaða tíma
  */
+
+package com.example.folkmedhar.pantanir.bokun;
+
 public class Bokadir
 {
 	private String timi;   // Tímasetning á forminu 9:00

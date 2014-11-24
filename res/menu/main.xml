@@ -7,5 +7,5 @@
          android:id="@+id/settings"
          android:title="@string/stillingar"
          app:showAsAction="ifRoom" 
-         android:icon="@drawable/settings2"/>
+         android:icon="@drawable/settings"/>
 </menu>

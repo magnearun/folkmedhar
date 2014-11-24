@@ -6,8 +6,8 @@
     android:id="@+id/scrollview"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.folkmedhar.MainActivity" 
-    android:layout_marginTop="84dp">
+    tools:context="folkmedhar.MainActivity" 
+    android:layout_marginTop="50dp">
 
 
 <RelativeLayout 
@@ -20,32 +20,26 @@
 
     <Button
         android:id="@+id/mittSvaedi"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_alignLeft="@+id/panta"
         android:layout_below="@+id/panta"
         android:layout_marginTop="20dp"
         android:text="@string/mittSvaedi"
-        style="@style/buttonStyle"/>
+        android:background="@drawable/minar_pantanir_gratt"
+        android:textColor="@color/white"/>
+    	
 
     <Button
         android:id="@+id/panta"
-        style="@style/buttonStyle"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"
-        android:text="@string/panta" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/welcome_logo" />
+        android:layout_marginTop="91dp"
+        android:text="@string/panta"
+        android:background="@drawable/panta_tima"
+        android:textColor="@color/white" />
 
 </RelativeLayout>
 </ScrollView>

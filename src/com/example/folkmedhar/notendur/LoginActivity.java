@@ -7,6 +7,7 @@
 
 package com.example.folkmedhar.notendur;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.folkmedhar.Connection;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
+
 
 public class LoginActivity extends Activity implements OnClickListener {
     

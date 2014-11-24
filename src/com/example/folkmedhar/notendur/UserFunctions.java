@@ -29,7 +29,6 @@ public class UserFunctions extends Activity{
     private JSONParser jsonParser;
     
     private static String loginURL = "http://peoplewithhair.freevar.com/login/";
-    private static String registerURL = "http://peoplewithhair.freevar.com/login/"; 
      
     private static String login_tag = "login";
     private static String register_tag = "register";
@@ -42,11 +41,6 @@ public class UserFunctions extends Activity{
     private static String kPhone = "phone";    
     private static String kCreatedAt = "created_at";
     private static String kUpdatedAt = "updated_at";
-    
-    //*****************************
-    //public static String userName;
-    //public static String userPhone;
-    //public static String userEmail;
     
     public UserFunctions(){
         jsonParser = new JSONParser();
@@ -65,6 +59,7 @@ public class UserFunctions extends Activity{
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("phone", phone));
         params.add(new BasicNameValuePair("password", password));
+        String registerURL = "http://peoplewithhair.freevar.com/login/"; 
         JSONObject json = jsonParser.makeHttpRequest(registerURL, "POST", params);
            
 
@@ -113,12 +108,6 @@ public class UserFunctions extends Activity{
 					.putString(kUID, json_user.getString(kUID))
 					.putString(kCreatedAt, json_user.getString(kCreatedAt))		
 					.commit();
-					
-					
-					//*************************************
-					//userName = json_user.getString(kName);
-					//userPhone = json_user.getString(kPhone);
-					//userEmail = json_user.getString(kEmail);
 					return user;
                 }
             }
@@ -145,15 +134,6 @@ public class UserFunctions extends Activity{
          params.add(new BasicNameValuePair("phone", phone));
          params.add(new BasicNameValuePair("password", password));
          
-         
-         Log.d("oldEmail: ", oldEmail);
-         Log.d("oldPassword: ", oldPassword);
-         Log.d("name: ", name);
-         Log.d("email: ", email);
-         Log.d("phone: ", phone);
-         Log.d("password: ", password);
-         
-         
          JSONObject json = jsonParser.makeHttpRequest(loginURL, "POST", params);
          
          Log.d("POST skipunin um update, json: ", json.toString());
@@ -178,8 +158,6 @@ public class UserFunctions extends Activity{
 					.putString(kCreatedAt, json_user.getString(kCreatedAt))	
 					.putString(kUpdatedAt, json_user.getString(kUpdatedAt))
 					.commit();
-
-                	 //Log.d("Boolean user: ", "user er: "+user);
 					
 					return user;
                  }
@@ -203,14 +181,23 @@ public class UserFunctions extends Activity{
     	return false;
     }
   
-    
-    public static String userEmail(Context context) {
+    /**
+     * Skialr netfangi innskráðs notanda
+     * @param context
+     * @return
+     */
+    public static String getUserEmail(Context context) {
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
     	String oldEmail = prefs.getString(kEmail, "");
     	return oldEmail;
     }
     
-    public static String userName(Context context) {
+    /**
+     * Skilar nafni notandans sem er innskráður
+     * @param context
+     * @return
+     */
+    public static String getUserName(Context context) {
     	Log.d("userName", "entered username" + context);
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
     	Log.d("userName", "prefs: " + prefs);
@@ -219,17 +206,16 @@ public class UserFunctions extends Activity{
     	return oldName;
     }
    
-    public static String userPhone(Context context) {
+    /**
+     * Skilar símanúmeri innskráðs notanda
+     * @param context
+     * @return
+     */
+    public static String getUserPhone(Context context) {
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
     	String oldPhone = prefs.getString(kPhone, "");
     	return oldPhone;
     }
-    
-     
-    //public String[] getUserInfo(Context context) {
-    	
-    //	return;
-    //}
     
     /**
      * Skilar true ef notandinn hefur verið skráður úr kerfinu
