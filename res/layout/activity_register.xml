@@ -56,7 +56,8 @@
         android:ems="10"
         android:hint="@string/hintPhone"
         android:inputType="phone"
-        android:paddingLeft="15dp" />
+        android:paddingLeft="15dp"
+        android:maxLength="7" />
 
     <EditText
         android:id="@+id/registerPassword"

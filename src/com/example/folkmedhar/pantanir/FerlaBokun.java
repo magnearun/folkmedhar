@@ -16,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import android.widget.Spinner;
 
 import com.example.folkmedhar.MainActivity;
@@ -715,7 +714,8 @@ public class FerlaBokun {
 	 * @return String
 	 */
 	public static String getTime() {
-		return Skref2.getTimiSpinner().getSelectedItem().toString();
+		time = Skref2.getTimiSpinner().getSelectedItem().toString();
+		return time;
 	}
 	
 	/**
