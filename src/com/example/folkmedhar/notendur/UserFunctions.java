@@ -20,7 +20,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.folkmedhar.pantanir.JSONParser;
  
@@ -136,8 +135,6 @@ public class UserFunctions extends Activity{
          
          JSONObject json = jsonParser.makeHttpRequest(loginURL, "POST", params);
          
-         Log.d("POST skipunin um update, json: ", json.toString());
-         
          try {
          	// Athuga hvort notandi fannst í gagnagrunni
              if (json.getString(kSuccess) != null) {
@@ -146,9 +143,7 @@ public class UserFunctions extends Activity{
                  	
                  	// User upplýsingar úr gagnagrunni
                  	JSONObject json_user = json.getJSONObject("user");
-                 	
-                 	 Log.d("Upplýsingar úr gagnagrunni, json_user: ", json_user.toString());
-                 	
+
                 	// Vista nýjar upplýsingar úr gagnagrunni á símann
 					SharedPreferences prefs = context.getSharedPreferences("Login", 0);
 					boolean user = prefs.edit().putString(kName, json_user.getString(kName))
@@ -198,11 +193,8 @@ public class UserFunctions extends Activity{
      * @return
      */
     public static String getUserName(Context context) {
-    	Log.d("userName", "entered username" + context);
     	SharedPreferences prefs = context.getSharedPreferences("Login", 0);
-    	Log.d("userName", "prefs: " + prefs);
     	String oldName = prefs.getString(kName, "");
-    	Log.d("userName", oldName);
     	return oldName;
     }
    

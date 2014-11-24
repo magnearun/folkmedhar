@@ -70,7 +70,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 			FerlaBokun.getDate(),FerlaBokun.getStartDate(), FerlaBokun.getEndDate()};
 	
 	// Breyturnar halda utan um tímasetningu áminningar
-	private int ar, manudur, dagur; 
+	private static int ar, manudur, dagur; 
 
 	int success; // er true ef tókst að færa pöntun í gagnagrunn
 	
@@ -259,7 +259,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 * Uppfærir breytur sem halda utan um mánaðardag bókunar sem áminning
 	 * er skráð á ef mánaðardagur bókunar er fyrsti mánaðarins
 	 */
-	private void erFyrstiManadarins(){
+	private static void erFyrstiManadarins(){
         if(dagur==01){
         	if(manudur==01){
         		ar=ar-1;
