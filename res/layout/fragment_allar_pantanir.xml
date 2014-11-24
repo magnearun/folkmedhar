@@ -3,11 +3,14 @@
     android:orientation="vertical" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="84dp" >
+    android:layout_marginTop="80dp" >
     
-  <ListView android:layout_width="fill_parent"   
-      android:layout_height="fill_parent"   
-      android:id="@+id/mainListView">  
+  <ListView
+      android:id="@+id/mainListView"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@color/backgroundcolor" >
+  
   </ListView>  
   
 </LinearLayout>

@@ -47,8 +47,6 @@ public class CustomList extends ArrayAdapter<String>{
 		TextView text = (TextView) rowView.findViewById(R.id.txt);
 		title.setText(titleFylki[position]);
 		text.setText(txtFylki[position]);
-		text.setTextColor(Color.BLACK);
-		title.setTextColor(Color.BLACK);
 		return rowView;
 	}
 }
