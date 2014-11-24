@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import android.widget.Spinner;
 
 import com.example.folkmedhar.MainActivity;
@@ -323,7 +324,7 @@ public class FerlaBokun {
 	 */
 	public static boolean bokun() {
 		// Engin dagsetning valin
-    	if(getDate()==null || getTime().equals("Timi")) {
+    	if(getDate()==null || getTime().equals("Veldu tíma")) {
     		return false;
     	} 
     	
@@ -714,7 +715,7 @@ public class FerlaBokun {
 	 * @return String
 	 */
 	public static String getTime() {
-		return time;
+		return Skref2.getTimiSpinner().getSelectedItem().toString();
 	}
 	
 	/**

@@ -250,7 +250,8 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		}
 		else {
 			spinnerTimar = new String[1];
-			spinnerTimar[0] = "Tími";
+			spinnerTimar[0] = "Veldu tíma";
+			FerlaBokun.setTime("Veldu tíma");
 			MainActivity.showToast("Engir lausir tímar fundust á þessum degi",context);
 		}
 		ArrayAdapter<String> spinnerArrayAdapter =
