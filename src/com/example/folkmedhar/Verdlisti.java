@@ -69,6 +69,14 @@ public class Verdlisti extends Fragment  {
      */
 	private class SaekjaVerdlista extends AsyncTask<String, String, String> {
 	
+		/**
+		 * Birtir dialog sem gefur notandanaum til kynna að verið sé 
+		 * að sækja verðlistann
+		 */
+		protected void onPreExecute() {
+			MainActivity.showDialog("Sæki verðlista...");
+		}
+		
 		@Override
 		/**
 		 * Sækir verðlista úr gagnagrunni og setur í lista
@@ -108,10 +116,10 @@ public class Verdlisti extends Fragment  {
 		 * Bætir adapter við verðlistann
 		 * **/
 		protected void onPostExecute(String file_url) {
-	
 			 CustomList adapter = new
 				        CustomList(getActivity(), adgerdFylki, verdFylki);
 			 verdlistiListView.setAdapter(adapter);
+			 MainActivity.hideDialog();
 
 			}
 		}

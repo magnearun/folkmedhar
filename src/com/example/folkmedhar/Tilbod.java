@@ -67,12 +67,19 @@ public class Tilbod extends Fragment  {
      */
 	private class SaekjaTilbod extends AsyncTask<String, String, String> {
 	
+		/**
+		 * Birtir dialog sem gefur notandanaum til kynna að verið sé 
+		 * að sækja tilboðin
+		 */
+		protected void onPreExecute() {
+			MainActivity.showDialog("Sæki tilboð...");
+		}
+		
 		@Override
 		/**
 		 * Sækir tilboð úr gagnagrunni og setur í lista
 		 */
 		protected String doInBackground(String... args) {
-
 			int success;
 			String url_tilbod = "http://www.folkmedhar.is/magnea/tilbod.php";
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -109,6 +116,7 @@ public class Tilbod extends Fragment  {
 			 CustomList adapter = new
 				        CustomList(getActivity(), nafn, lysing);
 			 tilbodListView.setAdapter(adapter);
+			 MainActivity.hideDialog();
 
 			}
 		}
