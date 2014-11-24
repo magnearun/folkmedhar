@@ -4,7 +4,7 @@
     <style name="noActionBarCustomTheme" parent="android:Theme">
     	<item name="android:windowActionBar">false</item>
     	<item name="android:windowNoTitle">true</item>
-    	<item name="android:windowBackground">@color/login_background</item>
+    	<item name="android:windowBackground">@color/backgroundcolor</item>
 	</style>
 	
 

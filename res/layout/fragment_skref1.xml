@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:paddingLeft="5dp"
-    android:paddingTop="120dp"
+    android:paddingTop="180dp"
     tools:context="folkmedhar.Skref1" >
 
     <LinearLayout
@@ -40,7 +40,7 @@
                 android:id="@+id/starfsmennSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/test_button_background"
                 android:entries="@array/starfsmenn_array"
                 android:paddingLeft="5dp"
@@ -71,7 +71,7 @@
                 android:id="@+id/adgerdSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/test_button_background"
                 android:entries="@array/adgerd_array"
                 android:prompt="@string/adgerd_prompt"
@@ -101,7 +101,7 @@
                 android:id="@+id/harlengdSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/test_button_background"
                 android:entries="@array/harlengd_array"
                 android:paddingLeft="5dp"
@@ -120,6 +120,7 @@
         android:layout_below="@+id/linearLayout1"
         android:ems="10"
         android:gravity="center"
+        android:layout_marginBottom="60dp"
         android:text="@string/title_activity_step1"
         android:textColor="@color/info_gray" />
 

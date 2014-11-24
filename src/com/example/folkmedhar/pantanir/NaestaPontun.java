@@ -62,7 +62,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 
 		setVidmotshlutir();
         setText(FerlaBokun.getPontun(), FerlaBokun.getAr(), FerlaBokun.getManudur(),
-        		FerlaBokun.getStringDate());
+        		FerlaBokun.getNaestaPontunDay());
 		
 		return rootView;
 	}

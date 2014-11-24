@@ -247,7 +247,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 * @param year
 	 * @return
 	 */
-	private static boolean leapYear(int year )
+	public static boolean leapYear(int year )
 	{
 	    if( year%400==0 ) return true;
 	    if( year%100==0 ) return false;
@@ -259,7 +259,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	 * Uppfærir breytur sem halda utan um mánaðardag bókunar sem áminning
 	 * er skráð á ef mánaðardagur bókunar er fyrsti mánaðarins
 	 */
-	private static void erFyrstiManadarins(){
+	public static void erFyrstiManadarins(){
         if(dagur==01){
         	if(manudur==01){
         		ar=ar-1;
@@ -277,6 +277,7 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
         	else{
         		dagur=31;
         	}
+        	if(manudur!=12)
         	manudur--;
         }
         else{
@@ -311,5 +312,56 @@ public class Skref3 extends Fragment implements android.view.View.OnClickListene
 	private void setTimeReminder(String bokunTimi) {
 		SharedPreferences prefs = context.getSharedPreferences("BokunTimi", 0);
 		prefs.edit().putString("bokunTimi", bokunTimi).commit();
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um á hvaða degi pöntun var bókuð
+	 * gildið d
+	 * @param d
+	 */
+	public static void setDagur(int d) {
+		dagur = d;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um í hvaða mánuði pöntun var bókuð
+	 * gildið m
+	 * @param m
+	 */
+	public static void setManudur(int m) {
+		manudur = m;
+	}
+	
+	/**
+	 * Gefur breytu sem heldur utan um á hvaða ári pöntun var bókuð
+	 * gildið a
+	 * @param a
+	 */
+	public static void setAr(int a) {
+		ar = a;
+	}
+	
+	/**
+	 * Skilar þeim degi sem pöntun var bókuð á
+	 * @return
+	 */
+	public static int getDagur() {
+		return dagur;
+	}
+	
+	/**
+	 * Skilar þeim mánuði sem pöntun var bókuð í
+	 * @return
+	 */
+	public static int getManudur() {
+		return manudur;
+	}
+	
+	/**
+	 * Skilar því ári sem pöntun var bókuð á
+	 * @return
+	 */
+	public static int getAr() {
+		return ar;
 	}
 }

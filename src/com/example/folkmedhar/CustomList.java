@@ -6,11 +6,8 @@
  */
 package com.example.folkmedhar;
 
-import com.example.folkmedhar.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

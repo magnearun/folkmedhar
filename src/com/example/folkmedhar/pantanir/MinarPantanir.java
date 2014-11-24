@@ -133,9 +133,8 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 					// Upplýsingar um pöntun notandans
 					FerlaBokun.setAr(pontun.getString("startDate").substring(0,4));
 					FerlaBokun.setManudur(pontun.getString("startDate").substring(5,7));
-					FerlaBokun.setStringDate(pontun.getString("startDate").substring(8,10));
+					FerlaBokun.setNaestaPontunDay(pontun.getString("startDate").substring(8,10));
 					FerlaBokun.setID(pontun.getString("ID"));
-					
 				}
 			}
 			catch(JSONException e){

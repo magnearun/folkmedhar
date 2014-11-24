@@ -37,6 +37,9 @@ public class FerlaBokun {
 	// startDate og endDate á forminu "2014-11-26 09:00"
 	private static  String time, dagur, lengd, date, startDate, endDate;
 	
+	// Dagurinn sem næsta pöntun var pöntuð á
+	private static String naestaPontunDay;
+	
 	// Upplýsingar um starfsmann
 	private static String staff_id, starfsmadur;
 	
@@ -752,11 +755,28 @@ public class FerlaBokun {
 	}
 	
 	/**
+	 * Gefur breytu sem heldur utan um dag næstu pöntunar
+	 * gildið d
+	 * @param d
+	 */
+	public static void setNaestaPontunDay(String d) {
+		naestaPontunDay = d;
+	}
+	
+	/**
 	 * Skilar dagsetningu bókunar á forminu "17-11-2014"
 	 * @return String
 	 */
 	public static String getStringDate() {
 		return dagur;
+	}
+	
+	/**
+	 * Skilar degi næstu pöntunar
+	 * @return String
+	 */
+	public static String getNaestaPontunDay() {
+		return naestaPontunDay;
 	}
 	
 	/**

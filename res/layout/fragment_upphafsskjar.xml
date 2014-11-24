@@ -7,7 +7,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     tools:context="folkmedhar.MainActivity" 
-    android:layout_marginTop="50dp">
+    android:layout_marginTop="80dp">
 
 
 <RelativeLayout 
@@ -28,7 +28,6 @@
         android:text="@string/mittSvaedi"
         android:background="@drawable/minar_pantanir_gratt"
         android:textColor="@color/white"/>
-    	
 
     <Button
         android:id="@+id/panta"
@@ -36,9 +35,9 @@
         android:layout_height="130dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="91dp"
-        android:text="@string/panta"
+        android:layout_marginTop="99dp"
         android:background="@drawable/panta_tima"
+        android:text="@string/panta"
         android:textColor="@color/white" />
 
 </RelativeLayout>

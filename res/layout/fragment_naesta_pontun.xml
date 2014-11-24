@@ -27,7 +27,7 @@
        android:padding="15dp"
        android:text="@string/sidasta_pontun_fyrirsogn"
        android:textColor="@color/black"
-       android:textSize="22sp" />
+       android:textSize="18sp" />
 
    <GridLayout
        android:id="@+id/grid"
@@ -60,7 +60,7 @@
 	           android:id="@+id/manudur"
 	           android:layout_width="fill_parent"
 	           android:layout_height="wrap_content"
-	           android:background="@color/background"
+	           android:background="@color/backgroundcolor"
 	           android:gravity="center"
 	           android:textColor="@color/black"
 	           android:textSize="12sp" />
@@ -97,7 +97,7 @@
        android:layout_alignRight="@+id/grid"
        android:layout_below="@+id/grid"
        android:layout_marginTop="40dp"
-       android:background="@color/login_button_background"
+       android:background="@color/backgroundcolor"
        android:text="@string/afpanta"
        android:textColor="@color/white"
        android:textSize="18sp" />
