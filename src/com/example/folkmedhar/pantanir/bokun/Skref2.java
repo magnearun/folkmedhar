@@ -159,10 +159,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		 * þannig að allir tímar eru lausir fyrir alla starfsmenn
 		 */
 		protected void onPreExecute() {
+			MainActivity.showDialog("Sæki lausa tíma...");
 			super.onPreExecute();
 			FerlaBokun.setTimar();
 			FerlaBokun.setLausirNum(0);
-			MainActivity.showDialog("Sæki lausa tíma...");
 		}
 		
 		
@@ -172,7 +172,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		 * úr gagnagrunni og setur þá í fylki bókaðra tíma
 		 */
 		protected String doInBackground(String... args) {
-			MainActivity.hideDialog();
 			DatabaseHandler.handleTimar();
 			return null;
 		}
@@ -182,6 +181,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		 * út frá bókuðum tímum
 		 */
 		protected void onPostExecute(String file_url) {
+			MainActivity.hideDialog();
 			FerlaBokun.finnaAllaLausaTima();
 			setTimeSpinner();
 		}

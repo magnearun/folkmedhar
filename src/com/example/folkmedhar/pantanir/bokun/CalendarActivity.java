@@ -445,7 +445,7 @@ import com.example.folkmedhar.pantanir.FerlaBokun;
 			}
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(parsedDate);
-			int month = cal.get(Calendar.MONTH);
+			int month = cal.get(Calendar.MONTH)+1;
 			int year = cal.get(Calendar.YEAR);
 			int day = cal.get(Calendar.DATE);
 			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
@@ -458,7 +458,7 @@ import com.example.folkmedhar.pantanir.FerlaBokun;
 			}
 			
 			if(month<10) {
-				manudur = "0"+(month+1);
+				manudur = "0"+month;
 			}
 			String buttonDagur = dagur+""+""+manudur+""+year;
 			if( !buttonDagur.equals("")) {
