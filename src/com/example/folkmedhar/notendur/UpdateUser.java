@@ -1,7 +1,8 @@
 /**
  * @author: Dagný Ósk Ragnarsdóttir
  * @since: 03.11.2014
- * Klasinn sér um að uppfæra notenda upplýsingar þegar þeim er breytt
+ * Klasinn sér um að birta notendaupplýsingar og kalla á aðferðir sem uppfæra notendaupplýsingar 
+ * þegar þeim er breytt
  */
 
 package com.example.folkmedhar.notendur;
@@ -18,23 +19,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.folkmedhar.Connection;
+import com.example.folkmedhar.DatabaseHandler;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
 
 public class UpdateUser extends Fragment implements android.view.View.OnClickListener {
     
-	// Viðmótshlutir
-	private Button buttonUpdateUser;
+	// Viðmótshlutir fyrir uppfærslu á notendaupplýsingum
     private EditText inputName, inputEmail, inputOldPassword, inputPassword,
     inputPhone, inputPasswordRepeat;
-    private TextView updateErrorMsg;
+    
+    private TextView updateErrorMsg; // Birtir villur ef einhverjar eru
     
 	private View rootView;
 	private static Context context;
 
 	/**
-	 * Nýtt fragment er búið til
+	 * Nýtt fragment er búið til fyrir uppfærslu á notendaupplýsingum
 	 */
 	public UpdateUser() {
 		
@@ -51,7 +53,6 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 	    
 	    context = getActivity();
 	    setUserInfo();
-	    buttonUpdateUser.setOnClickListener(this);
 		return rootView;
 	}
 	
@@ -66,9 +67,10 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
 	    inputOldPassword = (EditText) rootView.findViewById(R.id.userOldPassword);
 	    inputPassword = (EditText) rootView.findViewById(R.id.userPassword);
 	    inputPasswordRepeat = (EditText) rootView.findViewById(R.id.userPasswordRepeat);
-	    
-	    buttonUpdateUser = (Button) rootView.findViewById(R.id.buttonUpdateUser);
 	    updateErrorMsg = (TextView) rootView.findViewById(R.id.updateError);
+	    
+	    Button buttonUpdateUser = (Button) rootView.findViewById(R.id.buttonUpdateUser);
+	    buttonUpdateUser.setOnClickListener(this);
 	}
 	
 	/**
@@ -118,7 +120,7 @@ public class UpdateUser extends Fragment implements android.view.View.OnClickLis
             UserFunctions userFunction = new UserFunctions();
             String oldEmail = UserFunctions.getUserEmail(context);
 
-            boolean isUpdated = userFunction.updateUser(context, oldEmail, 
+            boolean isUpdated = DatabaseHandler.updateUser(context, oldEmail, 
             		oldPassword, name, email, phone, password);
             
             if (isUpdated) {

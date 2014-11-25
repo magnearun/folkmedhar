@@ -1,7 +1,9 @@
 /**
  * @author: Birkir, Dagný, Eva og Magnea
- * @since: 15.10.2014
- * Klasinn sem sem sér um að birta upphafsskjá forritsins
+ * @since: 20.11.2014
+ * Klasinn sér um að birta upphafsskjá forritsins og inniheldur aðferðir sem sjá um að birta
+ * ProgressDialog og Toast og aðferð sem sér um að búa til nýtt fragment fyrir aðra skjái. 
+ * Klasinn býr einnig til NavigationDrawer, valmynd fyrir stillingar og „custom“ ActionBar fyrir forritið.
  */
 
 package com.example.folkmedhar;
@@ -34,7 +36,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UpdateUser;
 import com.example.folkmedhar.notendur.UserFunctions;
 import com.example.folkmedhar.pantanir.FerlaBokun;
@@ -43,20 +44,20 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 
 @SuppressLint("InflateParams") public class MainActivity extends ActionBarActivity {
 		
-	private Intent intent;
 	
 	// Navigation Drawer og Action Bar
 	private DrawerLayout drawerLayout;
-    private ListView drawerList;
+    private static ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private String[] menuTitles; 
     private FrameLayout frame;
     private float lastTranslate = 0.0f;
-    private ViewGroup decor;
 	
 	private static FragmentManager fragmentManager;
 	private static ProgressDialog pDialog;
 	private static Context baseContext;
+	private Intent loginIntent;
+	
 	
     @Override
     /**
@@ -69,7 +70,6 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         fragmentManager = getSupportFragmentManager();
         pDialog = new ProgressDialog(this);
         baseContext = this.getBaseContext();
-        intent = new Intent(this, LoginActivity.class);
         new FerlaBokun();
         
         UserFunctions userFunction = new UserFunctions();
@@ -90,7 +90,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         
         // Notandinn er ekki innskráður
         }else {
-        	startActivity(intent); // Birta skjá fyrir innskráningu
+        	startActivity(loginIntent); // Birta skjá fyrir innskráningu
             finish();
              }
         }
@@ -116,7 +116,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
     	// „Hack“ til að fá ActionBar til að færast með contentinu til hliðar
     	LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         drawerLayout = (DrawerLayout) inflater.inflate(R.layout.decor,null);
-        decor = (ViewGroup) getWindow().getDecorView();
+        ViewGroup decor = (ViewGroup) getWindow().getDecorView();
         View child = decor.getChildAt(0);
         decor.removeView(child);
         frame = (FrameLayout) drawerLayout.findViewById(R.id.content_frame);
@@ -181,7 +181,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	 private void logout() {
 		 UserFunctions userFunction = new UserFunctions();
 		 userFunction.logoutUser(getApplicationContext());
-		 startActivity(intent);
+		 startActivity(loginIntent);
 		 finish();
 	 }
 	 
@@ -220,63 +220,51 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
     }
 
     /**
-     * Birtir skjá fyrir það atriði sem var valið í navigation drawer
+     * Birtir skjá fyrir það atriði sem var valið í navigation drawer. Birtir tilkynningu
+     * um að engin nettenging sé til staðar ef atriði sem þarfnast nettengingar er valið í stað
+     * skjásins
      * @param position
      */
     private void selectItem(int position) {
     	 Fragment fragment = null;
-    	    switch(position) {
-    	        case 0:
-    	            fragment = new Upphafsskjar();
-    	            break;
-    	        case 1:
-    	        	if (Connection.isOnline(this))
-    	        	{
-    	        		fragment = new Skref1();
-    	        		 break;
-    	        	}
-    	        	else {
-    	        		showToast("Engin nettenging!",this);
-    	        		return;
-    	        	}
-    	        case 2:
-    	        	if (Connection.isOnline(this)) {
-    	        		fragment = new MinarPantanir();
-    	        		break;
-    	        	}
-    	        	else {
-    	        		showToast("Engin nettenging!",this);
-    	        		return;
-    	        	}
-    	        case 3:
-    	        	fragment = new UmStofuna();
-    	        	break;
-    	        case 4: 
-    	        	fragment = new Tilbod();
-    	        	break;
-    	        case 5:
-    	        	if (Connection.isOnline(this)) {
-	    	        	fragment = new Verdlisti();
-	    	        	break;
-    	        	}
-    	        	else {
-    	        		showToast("Engin nettenging!",this);
-    	        		return;
-    	        	}
-    	        case 6: logout();
-    	        	return;
-    	        default: break;
-    	    }
-    	    
-    	    updateFragment(fragment);
-    	    
-    	    drawerList.setItemChecked(position, true);
-    	    setTitle(menuTitles[position]);
-    	    drawerLayout.closeDrawer(drawerList);
+    	 if(position==1 || position==2 || position==4 || position==5) {
+    		 if(!Connection.isOnline(this)) {
+    			 showToast("Engin nettenging!",this);
+	        		return;
+    		 }
+    	 }
+	    switch(position) {
+	        case 0:
+	            fragment = new Upphafsskjar();
+	            break;
+	        case 1:
+	        	fragment = new Skref1();
+	        	break;
+	        case 2:
+	        	fragment = new MinarPantanir();
+	        	break;
+	        case 3:
+	        	fragment = new UmStofuna();
+	        	break;
+	        case 4:
+	        	fragment = new Tilbod();
+	        	break;
+	        case 5:
+    	        fragment = new Verdlisti();
+    	        break;
+	        case 6: logout();
+	        	return;
+	        default: break;
+	    }
+	    
+	    updateFragment(fragment);
+	    drawerList.setItemChecked(position, true);
+	    setTitle(menuTitles[position]);
+	    drawerLayout.closeDrawer(drawerList);
     }
     
     /**
-     * Birtir upplýsingarnar text á skjánum
+     * Birtir upplýsingarnar text á skjánum með Toast
      * @param text
      */
     public static void showToast(String text, Context c) {
@@ -327,7 +315,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	
 	
 	/**
-	 * Skilar hæðinni á Status bar símans
+	 * Skilar hæðinni á status bar símans
 	 * @return
 	 */
 	private int getStatusBarHeight() {
@@ -363,6 +351,14 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 	 */
 	public static Context getContext() {
 		return baseContext;
+	}
+	
+	/**
+	 * Atriði númer pos er skráð sem valið í NavigationDraweer
+	 * @param pos
+	 */
+	public static void setSelectedDrawer(int pos) {
+		drawerList.setItemChecked(pos, true);
 	}
 }
 

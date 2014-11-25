@@ -1,19 +1,11 @@
 /**
  * @author: Magnea Rún Vignisdóttir
- * @since: 15.10.2014
- * Klasinn sem sem sér um að sækja virka pöntun notandans úr
- * gagnagrunni og birta hana á skjánum
+ * @since: 20.11.2014
+ * Klasinn sér um að kalla á klasa sem sé sér um að sækja virka pöntun notandans úr
+ * gagnagrunni. Klasinn birtir svo pöntunina á skjánum.
  */
 
 package com.example.folkmedhar.pantanir;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -26,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.folkmedhar.DatabaseHandler;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
@@ -33,16 +26,13 @@ import com.example.folkmedhar.R;
 
 public class NaestaPontun extends Fragment implements android.view.View.OnClickListener   {
 	
-	// Viðmótshlutir
+	// Viðmótshlutir sem að birta pöntun notandans
 	private TextView texti;
 	private TextView dagatalAr;
 	private TextView dagatalManudur;
 	private TextView dagatalDagur;
-	private Button buttonAfpanta;
 	
 	private View rootView;
-
-
 
 	/**
 	 * Nýtt fragment er búið til fyrir síðustu pöntun notandans
@@ -61,7 +51,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 				container, false);
 
 		setVidmotshlutir();
-        setText(FerlaBokun.getPontun(), FerlaBokun.getAr(), FerlaBokun.getManudur(),
+        setText(FerlaBokun.getPontun(), FerlaBokun.getNaestaPontunAr(), FerlaBokun.getNaestaPontunManudur(),
         		FerlaBokun.getNaestaPontunDay());
 		
 		return rootView;
@@ -75,7 +65,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
 		dagatalAr = (TextView) rootView.findViewById(R.id.ar);
 		dagatalManudur = (TextView) rootView.findViewById(R.id.manudur);
 		dagatalDagur = (TextView) rootView.findViewById(R.id.dagur);
-		buttonAfpanta = (Button) rootView.findViewById(R.id.afpanta);
+		Button buttonAfpanta = (Button) rootView.findViewById(R.id.afpanta);
 	    buttonAfpanta.setOnClickListener(this);		
 	}
 	
@@ -129,20 +119,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
          * */
         protected String doInBackground(String... args) {
 
-        	String url_afpanta = "http://peoplewithhair.freevar.com/afpanta.php";
-            try {
-               
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("id",FerlaBokun.getID()));
-                JSONParser jsonParser = new JSONParser();
-                JSONObject json = jsonParser.makeHttpRequest(
-                        url_afpanta, "POST", params);
-
-                success = json.getInt("success");
-               
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        	success = DatabaseHandler.handleAfpontun();
  
             return null;
         }
@@ -153,7 +130,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
         protected void onPostExecute(String file_url) {
             MainActivity.hideDialog();
             if (success == 1) {
-            	MainActivity.showToast("Tíminn þinn hefur verið afpantaður!", getActivity());
+            	MainActivity.showToast("Tíminn hefur verið afpantaður", getActivity());
             }
             Fragment fragment = new MinarPantanir();
 		    MainActivity.updateFragment(fragment);

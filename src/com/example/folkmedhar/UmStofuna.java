@@ -31,6 +31,7 @@ public class UmStofuna extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_um_stofuna,
 				container, false);
+		MainActivity.setSelectedDrawer(3);
 		return rootView;
 	}
 }

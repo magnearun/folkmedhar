@@ -1,20 +1,12 @@
 /**
- * @author: MAgnea Rún Vignisdóttir
- * @since: 15.10.2014
- * Klasinn sem sér um að birta skjá þar sem hægt er að velja um að fá
- * yfirlit yfir allar pantanir eða næstu pöntun
+ * @author: Magnea Rún Vignisdóttir
+ * @since: 21.11.2014
+ * Klasinn sér um að kalla á klasa sem sér um að athuga hvort að pöntun sem er ekki liðið sé skráð í gagnagrunni
+ * fyrir tiltekinn notanda og eyða pöntun. Klasinn birtir einnig skjá 
+ * þar sem hægt er að velja um að fá yfirlit yfir allar pantanir eða næstu pöntun
  */
 
 package com.example.folkmedhar.pantanir;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.folkmedhar.DatabaseHandler;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
@@ -48,6 +41,7 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 				container, false);
 
 		setVidmotshlutir();
+		MainActivity.setSelectedDrawer(2);
 		
 		return rootView;
 	}
@@ -113,34 +107,7 @@ public class MinarPantanir extends Fragment implements  android.view.View.OnClic
 		 */
 		protected String doInBackground(String... args) {
 
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", FerlaBokun.getEmail()));
-			params.add(new BasicNameValuePair("sidastaPontun", "ff")); 
-			JSONParser jsonParser = new JSONParser();
-			String url_pantanir = "http://peoplewithhair.freevar.com/allarPantanir.php";
-			JSONObject json = jsonParser.makeHttpRequest(
-					url_pantanir, "GET", params);
-			
-			try{
-				success = json.getInt("success");
-				if(success == 1){
-					JSONArray pantanir = json.getJSONArray("pantanir");
-					JSONObject pontun = pantanir.getJSONObject(0);
-					FerlaBokun.setPontun(pontun.getString("nafn") + "\n" + pontun.getString("adgerd") + "\n"
-					+ "Starfsmadur: " + FerlaBokun.getStarfsmadur(pontun.getString("staff_id")) +"\n"
-					+ "Klukkan: "+ pontun.getString("time"));
-					
-					// Upplýsingar um pöntun notandans
-					FerlaBokun.setAr(pontun.getString("startDate").substring(0,4));
-					FerlaBokun.setManudur(pontun.getString("startDate").substring(5,7));
-					FerlaBokun.setNaestaPontunDay(pontun.getString("startDate").substring(8,10));
-					FerlaBokun.setID(pontun.getString("ID"));
-				}
-			}
-			catch(JSONException e){
-				e.printStackTrace();
-				
-			}
+			success = DatabaseHandler.handleNaestaPontun();
           
 			return null;
 		}

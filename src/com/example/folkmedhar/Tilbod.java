@@ -1,20 +1,12 @@
 /**
  * @author: Eva Dögg Steingrímsdóttir
- * @since: 15.10.2014
- * Klasinn sem birtir upplýsingar um tilboð sem stofan býður upp á
+ * @since: 20.11.2014
+ * Klasinn sér um að kalla á klase sem sér um að sækja upplýsingar um þau tilboð
+ * sem stofan býður upp á úr gagnagrunni. Klasinn birtir svo tilboðin í lista. 
  */
 
 package com.example.folkmedhar;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,20 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.folkmedhar.pantanir.FerlaBokun;
-import com.example.folkmedhar.pantanir.JSONParser;
-
 
 public class Tilbod extends Fragment  {
 
-	private JSONParser jsonParser = new JSONParser();
-	
-	private ListView tilbodListView ;
+	private ListView tilbodListView;
 	
 	// Fylki sem halda utan um heiti og lýsingu 
 	// allra tilboða
-	private String[] nafn; 
-	private String[] lysing; 
+	private static String[] nafn; 
+	private static String[] lysing; 
 
 	/**
 	 * Nýtt fragment er búið til fyrir lista tilboða
@@ -55,6 +42,7 @@ public class Tilbod extends Fragment  {
 				container, false);
 		tilbodListView = (ListView) rootView.findViewById( R.id.tilbodListView );
         new SaekjaTilbod().execute();
+        MainActivity.setSelectedDrawer(4);
 		return rootView;
 	}
 	/**
@@ -80,32 +68,7 @@ public class Tilbod extends Fragment  {
 		 * Sækir tilboð úr gagnagrunni og setur í lista
 		 */
 		protected String doInBackground(String... args) {
-			int success;
-			String url_tilbod = "http://www.folkmedhar.is/magnea/tilbod.php";
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", FerlaBokun.getEmail()));
-			
-			JSONObject json = jsonParser.makeHttpRequest(
-					url_tilbod, "GET", params);
-			
-			try{
-				success = json.getInt("success");
-				if(success == 1){
-					JSONArray tilbod = json.getJSONArray("tilbod");
-					nafn = new String[tilbod.length()];
-					lysing = new String[tilbod.length()];
-					for(int i = 0; i < tilbod.length(); i++){
-						JSONObject staktTilbod = tilbod.getJSONObject(i);
-						nafn[i] = staktTilbod.getString("name");
-						lysing[i] = staktTilbod.getString("description"); 
-						
-					}
-				}
-			}
-			catch(JSONException e){
-				e.printStackTrace();
-			}
-          
+			DatabaseHandler.handleTilbod(nafn,lysing);
 			return null;
 		}
 		
@@ -120,4 +83,22 @@ public class Tilbod extends Fragment  {
 
 			}
 		}
+	
+	/**
+	 * Breyta sem heldur utan um heiti allra tilboða
+	 * fær gildið n
+	 * @param n
+	 */
+	public static void setNafn(String[] n) {
+		nafn = n;
+	}
+	
+	/**
+	 * Breyta sem heldur utan um lýsingu allra tilboða fær 
+	 * gildið l
+	 * @param l
+	 */
+	public static void setLysing(String[] l) {
+		lysing = l;
+	}
 }

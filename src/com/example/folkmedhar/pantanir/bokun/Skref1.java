@@ -1,8 +1,8 @@
 /**
  * @author: Birkir Pálmason, Magnea Rún Vignisdóttir og Eva Dögg Steingrímsdóttir
- * @since: 03.11.2014
- * Klasinn sem heldur utan um hvaða hárgreiðslumann, hárlengd og aðgerð
- * notandinn valdi fyrir seinni skref.
+ * @since: 20.11.2014
+ * Klasinn gefur breytum sem halda utan um hvaða hárgreiðslumann, hárlengd og aðgerð
+ * notandinn valdi fyrir seinni skref. 
  */
 
 
@@ -25,20 +25,16 @@ import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.FerlaBokun;
 
 
-
-
-
 public class Skref1 extends Fragment implements android.view.View.OnClickListener {
 	
-	// Viðmótshlutir
+	// Viðmótshlutir sem að gefa notanda kleift að velja starfsmann,
+	// aðgerð (Dömuklipping, litun...) og hárlengd
 	private Spinner starfsmadurSpinner;
 	private Spinner adgerdSpinner;
 	private Spinner harlengdSpinner;
-	private Button buttonAfram;
 	
 	private View rootView;
 
-	
 	/**
 	 * Nýtt fragment er búið til fyrir skref 1 í bókunarferlinu
 	 */
@@ -58,6 +54,7 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
 
 		setVidmotshlutir();
         updateVidmotshlutir();
+        MainActivity.setSelectedDrawer(1);
 		return rootView;
 	}
 	
@@ -67,11 +64,13 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
 	 */
 	private void setVidmotshlutir() {
 		
+		// Athugasemd: Æskilegra væri að sækja gildi Spinner-a úr
+		//             gagnagrunni
 		starfsmadurSpinner = (Spinner) rootView.findViewById(R.id.starfsmennSpinner);
         adgerdSpinner = (Spinner) rootView.findViewById(R.id.adgerdSpinner);
         harlengdSpinner = (Spinner) rootView.findViewById(R.id.harlengdSpinner);
         
-        buttonAfram = (Button) rootView.findViewById(R.id.next);
+        Button buttonAfram = (Button) rootView.findViewById(R.id.next);
         buttonAfram.setOnClickListener(this);
 	}
 	
@@ -96,7 +95,6 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
      * var valið
      */
     private void updateVidmotshlutir() {
-    	
     	starfsmadurSpinner.setSelection(FerlaBokun.getStarfsmadurPos());
     	adgerdSpinner.setSelection(FerlaBokun.getAdgerdPos());
     	harlengdSpinner.setSelection(FerlaBokun.getHarlengdPos());

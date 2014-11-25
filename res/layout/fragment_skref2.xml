@@ -31,7 +31,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="50dp"
-                android:background="@drawable/test_button_background"
+                android:background="@drawable/input"
                 android:drawableRight="@drawable/calendar64"
                 android:gravity="left|center_vertical"
                 android:onClick="showDatePickerDialog"

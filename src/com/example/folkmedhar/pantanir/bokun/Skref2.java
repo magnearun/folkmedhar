@@ -1,22 +1,13 @@
 /**
  * @author: Eva Dögg Steingrímsóttir og Magnea Rún Vignisdóttir
- * @since: 15.10.2014
- * Klasinn sem sem sér um annað skref bókunarferlisins. Klasinns sér um að kalla á aðferðir sem
+ * @since: 20.11.2014
+ * Klasinn sér um annað skref bókunarferlisins með því að kalla á aðferðir sem
  * gefa breytunum sem halda utan um tímasetningu bókunar gildi. Hann sér 
- * auk þess um að birta lsua tíma á valinni dagsetningu í Spinner viðmótshluti svo 
+ * auk þess um að birta lausa tíma á valinni dagsetningu í Spinner viðmótshluti svo 
  * notandinn geti valið úr lausum tímum.
  */
 
 package com.example.folkmedhar.pantanir.bokun;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,10 +22,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.folkmedhar.Connection;
+import com.example.folkmedhar.DatabaseHandler;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 import com.example.folkmedhar.pantanir.FerlaBokun;
-import com.example.folkmedhar.pantanir.JSONParser;
 
 
 public class Skref2 extends Fragment implements android.view.View.OnClickListener {
@@ -43,11 +34,10 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	private static Context context;
 	
 
-	// Viðmótshlutir
+	// Viðmótshlutir sem að gefa notanda kleift að velja dagsetningu og
+	// tíma bókunar og að komast áfram í skref 3
 	private Button buttonAfram, buttonDagur;
 	private static Spinner timiSpinner;
-	
-
 
 	/**
 	 * Nýtt fragment er búið til fyrir skref 2 í bókunarferlinu
@@ -68,6 +58,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		setVidmotshlutir();
 		context = getActivity();		
 		updateVidmotshlutir();
+		MainActivity.setSelectedDrawer(1);
 		return rootView;
 	}
 	
@@ -76,7 +67,6 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 	 * tengdur við takka sem notaðir eru til að fara aftur í skref 1 eða áfram í skref 3
 	 */
 	private void setVidmotshlutir() {
-		
 		timiSpinner = (Spinner) rootView.findViewById(R.id.timi);
 		buttonAfram = (Button) rootView.findViewById(R.id.afram2);
 		buttonDagur = (Button) rootView.findViewById(R.id.buttonDagur);
@@ -182,44 +172,7 @@ public class Skref2 extends Fragment implements android.view.View.OnClickListene
 		 * úr gagnagrunni og setur þá í fylki bókaðra tíma
 		 */
 		protected String doInBackground(String... args) {
-
-			String url_saekja_lausa_tima = "http://peoplewithhair.freevar.com/saekja_bokada_tima.php";
-			String dagur = FerlaBokun.getDate();
-			String staff_id = FerlaBokun.getStaffId();
-			
-			int success;
-			
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("dagur", dagur));
-			params.add(new BasicNameValuePair("staff_id", staff_id));
-			
-			JSONParser jsonParser = new JSONParser();
-			JSONObject json = jsonParser.makeHttpRequest(
-					url_saekja_lausa_tima, "GET", params);
-			
-			try {
-				success = json.getInt("success");
-				if(success == 1){
-					JSONArray t = json.getJSONArray("pantanir");
-					JSONArray bokadir = t.getJSONArray(0);
-					
-					// Ákveðinn starfsmaður var valinn
-					if(!staff_id.equals("000")){
-						FerlaBokun.getBokadirTimar(staff_id,bokadir,-1);
-					} else {
-						
-						// Notendanum er sama um hver starfsmaðurinn er, sækjum bókaða
-						// tíma fyrir alla starfsmenn
-						for(int i = 0; i<7; i++) {
-							FerlaBokun.getBokadirTimar(FerlaBokun.getStarfsmenn(i),bokadir,i);
-						}
-					}
-				}
-				
-				} catch (JSONException e) {
-				e.printStackTrace();
-				
-			}
+			DatabaseHandler.handleTimar();
 			return null;
 		}
 		

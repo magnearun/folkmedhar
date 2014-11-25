@@ -21,10 +21,6 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
 
 public class Upphafsskjar extends Fragment implements  android.view.View.OnClickListener {
 	
-	// Viðmótshlutir
-	private Button buttonPantaTima;
-	private Button buttonMittSvaedi;
-	
 	private View rootView;
 	
 	/**
@@ -48,7 +44,7 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 				container, false);
 		
 		setVidmotshlutir();
-		
+		MainActivity.setSelectedDrawer(0);
 		return rootView;
 	}
 	
@@ -57,8 +53,8 @@ public class Upphafsskjar extends Fragment implements  android.view.View.OnClick
 	 */
 	private void setVidmotshlutir() {
 		
-		buttonMittSvaedi = (Button) rootView.findViewById(R.id.mittSvaedi);
-		buttonPantaTima = (Button) rootView.findViewById(R.id.panta);
+		Button buttonMittSvaedi = (Button) rootView.findViewById(R.id.mittSvaedi);
+		Button buttonPantaTima = (Button) rootView.findViewById(R.id.panta);
 		
 		buttonPantaTima.setOnClickListener(this);
 		buttonMittSvaedi.setOnClickListener(this);

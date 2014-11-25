@@ -1,8 +1,9 @@
 /**
  * @author: Dagný Ósk Ragnarsdóttir
  * @since: 15.10.2014
- * Klasi sem athugar hvort að inn skráning notanda hafi tekist og birtir MainActivity skjáinn
- * ef svo er. Inniheldur einnig aðferð sem opnar RegisterActivity skjá þegar smellt er á hnapp.
+ * Klasi sér um að kalla á aðferðir sem athugar hvort að innskráning notanda hafi tekist og birtir 
+ * MainActivity skjáinn ef svo er. Klasinn inniheldur einnig aðferð sem opnar skjá fyrir nýskráningu þegar
+ * smellt er á hnapp.
  */
 
 package com.example.folkmedhar.notendur;
@@ -18,15 +19,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.folkmedhar.Connection;
+import com.example.folkmedhar.DatabaseHandler;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
 
 public class LoginActivity extends Activity implements OnClickListener {
     
-	// Viðmótshutir
-	private Button buttonLogin;
-    private Button buttonRegisterScreen;
+	// Viðmótshutir fyrir innskráningu á notendaupplýsingum
     private EditText inputEmail;
     private EditText inputPassword;
     private TextView loginErrorMsg;
@@ -41,7 +41,6 @@ public class LoginActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        
         setVidmotshlutir();
     }
     
@@ -52,8 +51,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		
         inputEmail = (EditText) findViewById(R.id.loginEmail);
         inputPassword = (EditText) findViewById(R.id.loginPassword);
-        buttonLogin = (Button) findViewById(R.id.buttonLogin);
-        buttonRegisterScreen = (Button) findViewById(R.id.buttonRegisterScreen);
+        Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
+        Button buttonRegisterScreen = (Button) findViewById(R.id.buttonRegisterScreen);
         loginErrorMsg = (TextView) findViewById(R.id.loginError);
         
         buttonLogin.setOnClickListener(this);
@@ -94,8 +93,7 @@ public class LoginActivity extends Activity implements OnClickListener {
     	String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
         
-        UserFunctions userFunction = new UserFunctions();
-        boolean isUser = userFunction.loginUser(getApplicationContext(), email, password);
+        boolean isUser = DatabaseHandler.loginUser(getApplicationContext(), email, password);
         if (isUser) {
         	// Notandinn fannst í gagnagrunni
             Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);

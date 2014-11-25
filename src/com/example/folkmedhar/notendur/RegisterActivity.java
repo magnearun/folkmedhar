@@ -1,8 +1,10 @@
 /**
  * @author: Dagný Ósk Ragnarsdóttir
  * @since: 15.10.2014
- * Klasinn sér um að athuga hvort að nýskráning notanda hafi tekist og birtir MainActivity skjáinn
- * ef svo er. Inniheldur einnig aðferð sem opnar LoginActivity skjá þegar smellt er á hnapp.
+ * Klasinn sér um að kalla á aðferðir sem athuga hvort 
+ * að nýskráning notanda hafi tekist. Klasinn birtir MainActivity skjáinn
+ * ef svo er en annars skjáinn fyrir innskráningu. 
+ * Klasinn inniheldur einnig aðferð sem opnar skjá fyrir innskráningu þegar smellt er á hnapp.
  */
 
 package com.example.folkmedhar.notendur;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.folkmedhar.Connection;
+import com.example.folkmedhar.DatabaseHandler;
 import com.example.folkmedhar.MainActivity;
 import com.example.folkmedhar.R;
 
@@ -24,11 +27,11 @@ import com.example.folkmedhar.R;
  
 public class RegisterActivity extends Activity implements OnClickListener {
     
-	// Viðmótshlutir
-	private Button buttonRegister, buttonLoginScreen;
+	// Viðmótshlutir fyrir nýskráningu notanda
     private EditText inputName, inputEmail, inputPassword,inputPhone,
     inputPasswordRepeat;
-    private TextView registerErrorMsg;
+    
+    private TextView registerErrorMsg; // Sýnir villur ef einhverjar eru
      
  
     @Override
@@ -50,8 +53,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
         inputPhone = (EditText) findViewById(R.id.registerPhone);
         inputPasswordRepeat = (EditText) findViewById(R.id.registerPasswordRepeat);
         
-        buttonRegister = (Button) findViewById(R.id.buttonRegister);
-        buttonLoginScreen = (Button) findViewById(R.id.buttonLoginScreen);
+        Button buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        Button buttonLoginScreen = (Button) findViewById(R.id.buttonLoginScreen);
         registerErrorMsg = (TextView) findViewById(R.id.registerError);
         
         buttonRegister.setOnClickListener(this);
@@ -97,10 +100,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
 
          // Athuga hvort að sama lykilorð hafi verið slegið tvisvar inn
          if (password.equals(passwordRepeat)) {
-        	 UserFunctions userFunction = new UserFunctions();
-        	 boolean isUser = userFunction.registerUser(getApplicationContext(), name, email, 
+        	 boolean isUser = DatabaseHandler.registerUser(getApplicationContext(), name, email, 
             		 phone, password);
-             if (isUser && userFunction.loginUser(getApplicationContext(), email, password)) {
+             if (isUser && DatabaseHandler.loginUser(getApplicationContext(), email, password)) {
             	 //Birta upphafsskjá
                  Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                  startActivity(mainActivity);
