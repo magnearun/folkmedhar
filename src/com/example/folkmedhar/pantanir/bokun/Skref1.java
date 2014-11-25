@@ -64,7 +64,7 @@ public class Skref1 extends Fragment implements android.view.View.OnClickListene
 	 */
 	private void setVidmotshlutir() {
 		
-		// Athugasemd: Æskilegra væri að sækja gildi Spinner-a úr
+		// Athugasemd: Æskilegra væri að sækja gildi Spinnera úr
 		//             gagnagrunni
 		starfsmadurSpinner = (Spinner) rootView.findViewById(R.id.starfsmennSpinner);
         adgerdSpinner = (Spinner) rootView.findViewById(R.id.adgerdSpinner);

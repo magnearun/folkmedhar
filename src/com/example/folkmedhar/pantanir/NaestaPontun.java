@@ -118,9 +118,7 @@ public class NaestaPontun extends Fragment implements android.view.View.OnClickL
          * Eyði pöntun
          * */
         protected String doInBackground(String... args) {
-
         	success = DatabaseHandler.handleAfpontun();
- 
             return null;
         }
  

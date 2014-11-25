@@ -450,12 +450,17 @@ import com.example.folkmedhar.pantanir.FerlaBokun;
 			int day = cal.get(Calendar.DATE);
 			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 			String dagur = String.valueOf(day);
+			String manudur = String.valueOf(month);
 			cal = Calendar.getInstance();
 			
 			if(day<10) {
 				dagur = "0"+day;
 			}
-			String buttonDagur = dagur+""+""+month+""+year;
+			
+			if(month<10) {
+				manudur = "0"+(month+1);
+			}
+			String buttonDagur = dagur+""+""+manudur+""+year;
 			if( !buttonDagur.equals("")) {
 				if((cal.get(Calendar.DATE)<=day && month==cal.get(Calendar.MONTH)) || (month>cal.get(Calendar.MONTH) ||
 						year>cal.get(Calendar.YEAR)))
@@ -464,8 +469,8 @@ import com.example.folkmedhar.pantanir.FerlaBokun;
 						MainActivity.showToast("Það er lokað á sunnudögum",this._context);
 					}
 					else {
-						FerlaBokun.setStringDate(dagur + "-" + (month+1) + "-" + year);
-						FerlaBokun.setDate(year + "-" + (month+1) + "-" + dagur);
+						FerlaBokun.setStringDate(dagur + "-" + (manudur) + "-" + year);
+						FerlaBokun.setDate(year + "-" + (manudur) + "-" + dagur);
 						finish();
 						
 					}

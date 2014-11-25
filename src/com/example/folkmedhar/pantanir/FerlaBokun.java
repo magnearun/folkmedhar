@@ -171,7 +171,7 @@ public class FerlaBokun {
 		
 		String timeSpinner = timi.substring(0,2) + timi.substring(3);
 		
-		format = new SimpleDateFormat("yyyMMdd",locale);
+		format = new SimpleDateFormat("yyyyMMdd",locale);
 		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String dagurNuna = format.format(Calendar.getInstance().getTime());
 		
