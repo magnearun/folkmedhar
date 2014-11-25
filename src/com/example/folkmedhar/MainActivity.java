@@ -36,6 +36,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.folkmedhar.notendur.LoginActivity;
 import com.example.folkmedhar.notendur.UpdateUser;
 import com.example.folkmedhar.notendur.UserFunctions;
 import com.example.folkmedhar.pantanir.FerlaBokun;
@@ -70,6 +71,7 @@ import com.example.folkmedhar.pantanir.bokun.Skref1;
         fragmentManager = getSupportFragmentManager();
         pDialog = new ProgressDialog(this);
         baseContext = this.getBaseContext();
+        loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
         new FerlaBokun();
         
         UserFunctions userFunction = new UserFunctions();
